@@ -1,0 +1,383 @@
+from __future__ import annotations
+
+import argparse
+import os
+import shutil
+import sys
+from pathlib import Path
+
+from .dashboard import DEFAULT_SECTIONS
+from .user_config import load_user_config
+
+
+SECTION_LABELS = {
+    "summary": "Player summary",
+    "craft": "Craft flips",
+    "bazaar-spread": "Bazaar spread flips",
+    "bazaar-order": "Bazaar order flips",
+    "bazaar-compression": "Bazaar compression/decompression",
+    "ah-underpriced": "AH BIN underpriced finder",
+    "talisman": "Talisman Helper",
+    "warnings": "Warnings",
+    "rejected": "Rejected",
+}
+
+
+def _parse_sections(value: str) -> list[str]:
+    aliases = {"spread": "bazaar-spread"}
+    return [aliases.get(part.strip(), part.strip()) for part in value.split(",") if part.strip()]
+
+
+def _section_summary(value: str) -> str:
+    parts = _parse_sections(value)
+    if set(parts) == set(DEFAULT_SECTIONS):
+        return "all"
+    return ", ".join(parts) or "none"
+
+
+def _section_name(key: str) -> str:
+    names = {
+        "summary": "Player summary",
+        "warnings": "Warnings",
+        "rejected": "Rejected",
+    }
+    return names.get(key, key)
+
+
+def _section_hint(key: str) -> str:
+    hints = {
+        "summary": "profile, budget, progression",
+        "craft": "manual craft/list candidates",
+        "bazaar-spread": "buy-order to sell-offer spread",
+        "bazaar-order": "simpler Bazaar order flips",
+        "bazaar-compression": "manual compress/decompress flips",
+        "ah-underpriced": "manual BIN checks",
+        "talisman": "missing accessories and Magical Power",
+        "warnings": "API/data issues",
+        "rejected": "filtered candidates",
+    }
+    return hints.get(key, "")
+
+
+def _section_count(data, key: str) -> int | str:
+    counts = {
+        "summary": "-",
+        "craft": len(data.craft),
+        "bazaar-spread": len(data.bazaar_spreads),
+        "bazaar-order": len(data.bazaar_orders),
+        "bazaar-compression": len(data.conversions),
+        "ah-underpriced": len(data.ah_underpriced),
+        "talisman": len(data.talisman_helper.recommendations) if getattr(data, "talisman_helper", None) else 0,
+        "warnings": len(data.warnings),
+        "rejected": len(data.rejected),
+    }
+    return counts.get(key, 0)
+
+
+def _clear_screen() -> None:
+    if os.environ.get("SKYFLIP_NO_CLEAR"):
+        print()
+        return
+    if os.name == "nt":
+        os.system("cls")
+    print("\033[H\033[2J\033[3J", end="", flush=True)
+
+
+def _width() -> int:
+    return max(72, min(120, shutil.get_terminal_size((96, 24)).columns))
+
+
+def _draw_header(title: str, args: argparse.Namespace, state: _MenuState | None) -> None:
+    width = _width()
+    print("=" * width)
+    print(f"skyflip / {title}".ljust(width))
+    print("-" * width)
+    profile = _header_profile_label(args, state)
+    player = _header_player_label(args, state)
+    budget = _coins(args.budget) if args.budget is not None else "not set"
+    refresh = state.last_refresh if state and state.last_refresh else "never"
+    auto = "ON" if state and state.auto_refresh else "OFF"
+    preset = getattr(args, "active_settings_profile", None) or "default / unsaved"
+    print(f"Profile: {profile}")
+    print(f"Player:  {player.ljust(18)} Budget: {budget.ljust(12)} Last refresh: {refresh}  Auto: {auto}")
+    print(f"Preset:  {preset}")
+    if state and state.status_message:
+        print(f"Status:  {state.status_message}")
+    print("=" * width)
+    print()
+
+
+def _header_profile_label(args: argparse.Namespace, state: _MenuState | None) -> str:
+    loaded_profile = getattr(getattr(state, "latest", None), "profile", None)
+    profile_name = getattr(loaded_profile, "profile_name", None)
+    if profile_name:
+        return str(profile_name)
+    if getattr(args, "profile_file", None):
+        return _short_path(args.profile_file)
+    config = load_user_config()
+    if config and config.selected_profile_name:
+        return config.selected_profile_name
+    return "not set"
+
+
+def _header_player_label(args: argparse.Namespace, state: _MenuState | None) -> str:
+    loaded_profile = getattr(getattr(state, "latest", None), "profile", None)
+    player_name = getattr(loaded_profile, "player_name", None)
+    if player_name:
+        return str(player_name)
+    return args.player_name or "not set"
+
+
+def _draw_simple_header(title: str) -> None:
+    width = _width()
+    print("=" * width)
+    print(f"skyflip / {title}")
+    print("=" * width)
+    print()
+
+
+def _draw_counts(data) -> None:
+    if data is None:
+        print("No results loaded. Press 1 to refresh.")
+        print()
+        return
+    rows = [
+        ("Craft", len(data.craft)),
+        ("Spread", len(data.bazaar_spreads)),
+        ("Order", len(data.bazaar_orders)),
+        ("Compression", len(data.conversions)),
+        ("AH", len(data.ah_underpriced)),
+        ("Talisman", len(data.talisman_helper.recommendations) if getattr(data, "talisman_helper", None) else 0),
+        ("Warnings", len(data.warnings)),
+    ]
+    print("Results  " + "  ".join(f"{name}: {_badge(str(count))}" for name, count in rows))
+    print()
+
+
+def _draw_menu(items: list[tuple[str, str, str]]) -> None:
+    for key, label, hint in items:
+        print(f"  {key.rjust(2)}  {label.ljust(26)} {hint}")
+    print()
+
+
+def _draw_settings(items: list[tuple[str, str, str]]) -> None:
+    label_width = max(len(label) for _, label, _ in items)
+    for key, label, value in items:
+        print(f"  {key.rjust(2)}  {label.ljust(label_width)}  {value}")
+    print()
+
+
+def _select_menu(
+    title: str,
+    entries: list[tuple[str, str, str]],
+    *,
+    args: argparse.Namespace | None,
+    state: _MenuState | None,
+    prompt: str,
+    show_counts: bool = False,
+    note: str | None = None,
+) -> str:
+    if not _interactive_menu_enabled():
+        _clear_screen()
+        if args is not None:
+            _draw_header(title, args, state)
+        else:
+            _draw_simple_header(title)
+        if note:
+            print(note)
+            print()
+        if show_counts and state is not None:
+            _draw_counts(state.latest)
+        _draw_menu(entries)
+        return input(f"{prompt}: ").strip().lower()
+
+    selected = 0
+    while True:
+        _clear_screen()
+        if args is not None:
+            _draw_header(title, args, state)
+        else:
+            _draw_simple_header(title)
+        if note:
+            print(note)
+            print()
+        if show_counts and state is not None:
+            _draw_counts(state.latest)
+        _draw_selectable_entries(entries, selected)
+        print()
+        print(_muted("Up/Down move   Enter select   R refresh   Esc back   Q quit/back"))
+        key = _read_key()
+        if key == "up":
+            selected = (selected - 1) % len(entries)
+        elif key == "down":
+            selected = (selected + 1) % len(entries)
+        elif key == "enter":
+            return entries[selected][0].lower()
+        elif key in {"escape", "q"}:
+            return "q" if any(entry[0].lower() == "q" for entry in entries) else "b"
+        elif key == "r":
+            return "r"
+        else:
+            for entry_key, _, _ in entries:
+                if key == entry_key.lower():
+                    return entry_key.lower()
+
+
+def _draw_selectable_entries(entries: list[tuple[str, str, str]], selected: int) -> None:
+    label_width = min(48, max(len(_plain(label)) for _, label, _ in entries))
+    for index, (_, label, hint) in enumerate(entries):
+        cursor = ">" if index == selected else " "
+        line = f" {cursor} {label.ljust(label_width)}  {_muted(hint)}"
+        if index == selected:
+            print(_highlight(line))
+        else:
+            print(line)
+
+
+def _interactive_menu_enabled() -> bool:
+    if os.environ.get("SKYFLIP_SIMPLE_MENU"):
+        return False
+    return sys.stdin.isatty() and sys.stdout.isatty()
+
+
+def _read_key() -> str:
+    if os.name == "nt":
+        import msvcrt
+
+        char = msvcrt.getwch()
+        if char in ("\x00", "\xe0"):
+            code = msvcrt.getwch()
+            return {"H": "up", "P": "down", "K": "left", "M": "right"}.get(code, "")
+        if char in ("\r", "\n"):
+            return "enter"
+        if char == "\x1b":
+            return "escape"
+        return char.lower()
+
+    import termios
+    import tty
+
+    fd = sys.stdin.fileno()
+    old = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        char = sys.stdin.read(1)
+        if char == "\x1b":
+            next_chars = sys.stdin.read(2)
+            if next_chars == "[A":
+                return "up"
+            if next_chars == "[B":
+                return "down"
+            return "escape"
+        if char in ("\r", "\n"):
+            return "enter"
+        return char.lower()
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
+def _highlight(value: str) -> str:
+    return f"\033[7m{value}\033[0m"
+
+
+def _muted(value: str) -> str:
+    return f"\033[90m{value}\033[0m"
+
+
+def _plain(value: str) -> str:
+    return value.replace("\033[7m", "").replace("\033[0m", "").replace("\033[90m", "")
+
+
+def _badge(value: str) -> str:
+    return f"[{value}]"
+
+
+def _short_path(value: str | None) -> str:
+    if not value:
+        return "not set"
+    path = Path(value)
+    if len(str(path)) <= 90:
+        return str(path)
+    return f"...\\{path.name}"
+
+
+def _pause(prompt: str = "Press Enter to go back...") -> None:
+    input(prompt)
+
+
+def _ask_float(label: str, current: float) -> float:
+    raw = input(f"{label} [{current:g}]: ").strip().replace(",", "")
+    if not raw:
+        return current
+    try:
+        return float(raw)
+    except ValueError:
+        print("Invalid number; keeping previous value.")
+        return current
+
+
+def _ask_optional_float(label: str, current: float | None) -> float | None:
+    current_text = "none" if current is None else f"{current:g}"
+    raw = input(f"{label} [{current_text}] (empty keeps, none clears): ").strip().replace(",", "")
+    if not raw:
+        return current
+    if raw.lower() in {"none", "clear", "off", "no"}:
+        return None
+    try:
+        return float(raw)
+    except ValueError:
+        print("Invalid number; keeping previous value.")
+        return current
+
+
+def _ensure_talisman_attrs(args: argparse.Namespace) -> None:
+    defaults = {
+        "max_accessory_price": None,
+        "max_accessory_recommendations": 15,
+        "max_accessory_ah_checks": 60,
+        "include_locked_accessories": False,
+        "include_uncertain_accessories": True,
+        "include_manual_unlocks": True,
+        "include_ah_accessories": True,
+        "include_craftable_accessories": True,
+        "accessory_sort": "score",
+        "accessory_rarity": "",
+        "accessory_view": "recommended",
+        "accessory_search": None,
+        "accessories_file": "data/accessories.json",
+        "show_locked": False,
+    }
+    for key, value in defaults.items():
+        if not hasattr(args, key):
+            setattr(args, key, value)
+
+
+def _ask_int(label: str, current: int) -> int:
+    raw = input(f"{label} [{current}]: ").strip().replace(",", "")
+    if not raw:
+        return current
+    try:
+        return int(raw)
+    except ValueError:
+        print("Invalid integer; keeping previous value.")
+        return current
+
+
+def _coins(value: float | int | None) -> str:
+    if value is None:
+        return "not set"
+    if not isinstance(value, (int, float)):
+        return str(value)
+    return f"{float(value):,.0f}"
+
+
+def _value(value: float | int | None, *, coins: bool = False) -> str:
+    if coins:
+        return _coins(value)
+    if value is None:
+        return "not set"
+    return f"{value:g}"
+
+
+def _optional_coins(value: float | int | None) -> str:
+    return "none" if value is None else _coins(value)

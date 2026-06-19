@@ -1,0 +1,47 @@
+from skyflip.profile_parser import PlayerProfile
+from skyflip.recipes import Ingredient, Recipe, Requirements, check_eligibility
+
+
+def test_eligibility_checks_skills_slayers_and_collections():
+    recipe = Recipe(
+        tag="TEST",
+        name="Test Item",
+        quantity=1,
+        ah_category="accessory",
+        ingredients=[Ingredient("ROTTEN_FLESH", "Rotten Flesh", 1, "bazaar")],
+        requirements=Requirements(skills={"combat": 12}, slayers={"zombie": 3}, collections={"ROTTEN_FLESH": 5}),
+        risk_tags=[],
+    )
+    profile = PlayerProfile(
+        player_name="PalaMC",
+        member_id="uuid",
+        purse=0,
+        bank=0,
+        skills={"combat": 14},
+        slayer_levels={"zombie": 3},
+        collection_tiers={"ROTTEN_FLESH": 6},
+    )
+
+    eligibility = check_eligibility(recipe, profile)
+
+    assert eligibility.eligible
+    assert eligibility.confidence == 1.0
+    assert any("combat" in reason for reason in eligibility.reasons)
+
+
+def test_eligibility_locks_missing_requirement():
+    recipe = Recipe(
+        tag="TEST",
+        name="Test Item",
+        quantity=1,
+        ah_category=None,
+        ingredients=[],
+        requirements=Requirements(slayers={"wolf": 6}),
+        risk_tags=[],
+    )
+    profile = PlayerProfile(player_name="PalaMC", member_id="uuid", purse=0, bank=0, slayer_levels={"wolf": 3})
+
+    eligibility = check_eligibility(recipe, profile)
+
+    assert not eligibility.eligible
+    assert eligibility.missing == ["wolf slayer 3 < 6"]

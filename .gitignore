@@ -1,0 +1,49 @@
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Local configs and secrets
+.env
+.env.*
+config.json
+settings.json
+secrets.json
+*.local.json
+*.key
+*.token
+.skyflip/
+
+# Generated outputs and API caches
+out/
+reports/
+exports/
+cache/
+.cache/
+*.csv
+*.log
+
+# Local profile exports
+*_selected_profile.json
+*_all_profiles.json
+*_summary.json
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

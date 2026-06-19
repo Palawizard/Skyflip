@@ -1,0 +1,7 @@
+{
+  "volatile_prefixes": ["SHARD_"],
+  "volatile_contains": ["KUUDRA", "LOTUS", "GIFT"],
+  "min_risk_by_pattern": {
+    "SHARD_": "Medium"
+  }
+}

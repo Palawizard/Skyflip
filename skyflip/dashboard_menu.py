@@ -1,0 +1,754 @@
+from __future__ import annotations
+
+import argparse
+import sys
+import threading
+from dataclasses import dataclass, field
+from datetime import datetime
+from pathlib import Path
+from typing import Callable
+
+from .dashboard import DEFAULT_SECTIONS, collect_dashboard_data
+from .cache import FileCache
+from .http import HttpClient
+from .onboarding import change_profile, ensure_profile_configuration, refresh_profile_now, reset_profile_configuration_with_confirmation
+from .profile_parser import load_profile
+from .settings_profiles import (
+    delete_settings_profile,
+    get_active_settings_profile,
+    list_settings_profiles,
+    load_active_settings_profile,
+    load_settings_profile,
+    save_settings_profile,
+)
+from .terminal import print_dashboard_section, print_dashboard_status
+from .dashboard_menu_sorting import (
+    _cycle_section_sort,
+    _draw_sort_hint,
+    _section_sort_key,
+    _sorted_section_data,
+    load_sort_preferences,
+    save_sort_preferences,
+)
+from .dashboard_menu_ui import (
+    SECTION_LABELS,
+    _ask_float,
+    _ask_int,
+    _ask_optional_float,
+    _badge,
+    _clear_screen,
+    _coins,
+    _draw_header,
+    _draw_menu,
+    _draw_simple_header,
+    _draw_settings,
+    _ensure_talisman_attrs,
+    _interactive_menu_enabled,
+    _muted,
+    _optional_coins,
+    _parse_sections,
+    _pause,
+    _read_key,
+    _section_count,
+    _section_hint,
+    _section_name,
+    _section_summary,
+    _select_menu,
+    _short_path,
+    _value,
+)
+
+
+
+
+@dataclass
+class _MenuState:
+    latest: object | None = None
+    last_refresh: str | None = None
+    status_message: str | None = None
+    auto_refresh: bool = False
+    stop_event: threading.Event | None = None
+    thread: threading.Thread | None = None
+    lock: threading.Lock = field(default_factory=threading.Lock)
+    section_sorts: dict[str, str] = field(default_factory=dict)
+    persist_sort_preferences: bool = False
+
+
+def run_dashboard_menu(args: argparse.Namespace, *, resolve_uuid: Callable) -> int:
+    _configure_output()
+    _apply_detected_defaults(args)
+    active_profile = load_active_settings_profile(args)
+    if active_profile:
+        setattr(args, "active_settings_profile", active_profile)
+    state = _MenuState(section_sorts=load_sort_preferences(), persist_sort_preferences=True)
+    if active_profile:
+        state.status_message = f"Loaded settings preset: {active_profile}"
+    while True:
+        choice = _main_menu_choice(args, state)
+        if choice in {"1", "r", "refresh"}:
+            if not _ensure_required(args):
+                _pause()
+                continue
+            _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
+            continue
+        if choice in {"2", "s", "sections"}:
+            if state.latest is None:
+                if not _ensure_required(args):
+                    _pause()
+                    continue
+                _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
+            _results_sections_menu(args, state)
+            continue
+        if choice in {"3", "settings"}:
+            _settings_menu(args, state, resolve_uuid)
+            continue
+        if choice in {"4", "profile"}:
+            _profile_menu(args, state, resolve_uuid)
+            state.latest = None
+            state.last_refresh = None
+            continue
+        if choice in {"5", "auto", "automatic"}:
+            if not _ensure_required(args):
+                _pause()
+                continue
+            _toggle_auto_refresh(args, state, resolve_uuid=resolve_uuid)
+            continue
+        if choice in {"6", "talisman", "accessories"}:
+            if state.latest is None:
+                if not _ensure_required(args):
+                    _pause()
+                    continue
+                if "talisman" not in _parse_sections(args.sections):
+                    args.sections = ",".join([*_parse_sections(args.sections), "talisman"])
+                _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=False)
+            _show_result_section(args, state, "talisman")
+            continue
+        if choice in {"q", "quit", "exit"}:
+            _stop_auto_refresh(state)
+            return 0
+        print("Unknown action.")
+
+
+def should_open_dashboard_menu(args: argparse.Namespace) -> bool:
+    return bool(getattr(args, "menu", False)) or args.budget is None
+
+
+def _configure_output() -> None:
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            try:
+                reconfigure(encoding="utf-8", errors="replace")
+            except Exception:
+                pass
+
+
+def _apply_detected_defaults(args: argparse.Namespace) -> None:
+    if not args.sections:
+        args.sections = ",".join(DEFAULT_SECTIONS)
+    if not args.player_name and args.profile_file:
+        args.player_name = _infer_player_name(Path(args.profile_file))
+    if args.budget is None and args.profile_file:
+        try:
+            profile = load_profile(args.profile_file, player_name=args.player_name)
+            args.budget = max(0.0, profile.available_coins)
+            if not args.player_name:
+                args.player_name = profile.player_name
+        except Exception:
+            pass
+
+
+def _main_menu_choice(args: argparse.Namespace, state: _MenuState) -> str:
+    return _select_menu(
+        "Dashboard",
+        [
+            ("1", "Refresh results", "scan markets now and keep results in memory"),
+            ("2", "Sections", "open one result page at a time"),
+            ("3", "Settings", "filters, limits, scanned sections"),
+            ("4", "Profile / budget", "profile JSON, player name, budget"),
+            ("5", f"Automatic Refresh {'ON' if state.auto_refresh else 'OFF'}", "background refresh every 5 minutes"),
+            ("6", "Talisman Helper", "missing accessories, craftability, AH prices"),
+            ("q", "Quit", "leave dashboard"),
+        ],
+        args=args,
+        state=state,
+        show_counts=True,
+        prompt="Choose an action",
+    )
+
+
+def _results_sections_menu(args: argparse.Namespace, state: _MenuState) -> None:
+    keys = ["summary", *DEFAULT_SECTIONS, "warnings", "rejected"]
+    while True:
+        data = state.latest
+        if data is None:
+            print("No results loaded. Refresh results first.")
+            return
+        entries = [
+            (str(index), f"{SECTION_LABELS.get(key, _section_name(key))} {_badge(str(_section_count(data, key)))}", _section_hint(key))
+            for index, key in enumerate(keys, 1)
+        ]
+        entries.extend([("r", "Refresh results", "scan again"), ("b", "Back", "return to dashboard")])
+        choice = _select_menu("Sections", entries, args=args, state=state, prompt="Open section")
+        if choice in {"b", "back", ""}:
+            return
+        if _handle_global_refresh(choice, args, state, None):
+            continue
+        if choice.isdigit() and 1 <= int(choice) <= len(keys):
+            key = keys[int(choice) - 1]
+            _show_result_section(args, state, key)
+            continue
+        print("Unknown section.")
+
+
+def _settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    while True:
+        choice = _select_menu(
+            "Settings",
+            _refreshable_entries([
+                ("1", f"Min profit  {_value(args.min_profit, coins=True)}", "minimum total expected profit"),
+                ("2", f"Min profit percent  {args.min_profit_percent:g}%", "minimum margin"),
+                ("3", f"Max capital per flip  {args.max_capital_percent_per_flip:g}%", "budget cap per candidate"),
+                ("4", f"Min sales per day  {args.min_sales_per_day:g}", "market speed floor"),
+                ("5", f"Max median sell time hours  {args.max_median_sell_time_hours:g}", "sell-time ceiling"),
+                ("6", f"Limit per section  {args.limit_per_section}", "rows shown per section"),
+                ("7", f"Cache TTL  {args.cache_ttl}s", "API cache lifetime"),
+                ("8", f"Show rejected  {'yes' if args.show_rejected else 'no'}", "show rejection details"),
+                ("9", f"Scanned sections  {_section_summary(args.sections)}", "what refresh scans"),
+                ("10", "Craft flips settings", "craft-specific filters"),
+                ("11", "Bazaar spread settings", "advanced spread filters"),
+                ("12", "Settings profiles", "save, load, delete named settings"),
+                ("13", "Talisman Helper settings", "accessory filters and prices"),
+                ("14", "Reset Hypixel profile configuration", "remove saved username, profile, cache, API key"),
+                ("b", "Back", "return to dashboard"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Setting to edit",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            args.min_profit = _ask_float("Min profit", args.min_profit)
+        elif choice == "2":
+            args.min_profit_percent = _ask_float("Min profit percent", args.min_profit_percent)
+        elif choice == "3":
+            args.max_capital_percent_per_flip = _ask_float("Max capital percent per flip", args.max_capital_percent_per_flip)
+        elif choice == "4":
+            args.min_sales_per_day = _ask_float("Min sales per day", args.min_sales_per_day)
+        elif choice == "5":
+            args.max_median_sell_time_hours = _ask_float("Max median sell time hours", args.max_median_sell_time_hours)
+        elif choice == "6":
+            args.limit_per_section = _ask_int("Limit per section", args.limit_per_section)
+        elif choice == "7":
+            args.cache_ttl = _ask_int("Cache TTL seconds", args.cache_ttl)
+        elif choice == "8":
+            args.show_rejected = not args.show_rejected
+        elif choice == "9":
+            _scan_sections_menu(args, state, resolve_uuid)
+        elif choice == "10":
+            _craft_flips_settings_menu(args, state, resolve_uuid)
+        elif choice == "11":
+            _bazaar_spread_settings_menu(args, state, resolve_uuid)
+        elif choice == "12":
+            _settings_profiles_menu(args, state, resolve_uuid)
+        elif choice == "13":
+            _talisman_settings_menu(args, state, resolve_uuid)
+        elif choice == "14":
+            if reset_profile_configuration_with_confirmation():
+                args.profile_file = None
+                args.player_name = None
+                args.budget = None
+        else:
+            print("Unknown setting.")
+
+
+def _craft_flips_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    while True:
+        choice = _select_menu(
+            "Craft flips settings",
+            _refreshable_entries([
+                ("1", f"Max craft cost  {_optional_coins(args.max_craft_cost)}", "reject crafts above this cost"),
+                ("2", f"Use buy order cost  {'yes' if args.use_buy_order_cost else 'no'}", "price ingredients from buy-order side"),
+                ("3", f"Recipes file  {_short_path(args.recipes_file)}", "craft recipe data file"),
+                ("b", "Back", "return to settings"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Setting to edit",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            args.max_craft_cost = _ask_optional_float("Max craft cost", args.max_craft_cost)
+        elif choice == "2":
+            args.use_buy_order_cost = not args.use_buy_order_cost
+        elif choice == "3":
+            value = input(f"Recipes file [{args.recipes_file}]: ").strip()
+            if value:
+                args.recipes_file = value
+
+
+def _bazaar_spread_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    while True:
+        choice = _select_menu(
+            "Bazaar spread settings",
+            _refreshable_entries([
+                ("1", f"Spread limit  {args.spread_limit or args.limit_per_section}", "rows shown for spread flips"),
+                ("2", f"Min spread profit/unit  {_value(args.min_spread_profit_per_unit, coins=True)}", "per-unit spread floor"),
+                ("3", f"Min spread weekly volume  {_value(args.min_spread_volume_week, coins=True)}", "movement floor"),
+                ("4", f"Max spread depth ratio  {args.max_spread_depth_ratio:g}", "wall tolerance"),
+                ("b", "Back", "return to settings"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Setting to edit",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            args.spread_limit = _ask_int("Spread limit", args.spread_limit or args.limit_per_section)
+        elif choice == "2":
+            args.min_spread_profit_per_unit = _ask_float("Min spread profit per unit", args.min_spread_profit_per_unit)
+        elif choice == "3":
+            args.min_spread_volume_week = _ask_float("Min spread weekly volume", args.min_spread_volume_week)
+        elif choice == "4":
+            args.max_spread_depth_ratio = _ask_float("Max spread depth ratio", args.max_spread_depth_ratio)
+
+
+def _talisman_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    _ensure_talisman_attrs(args)
+    while True:
+        choice = _select_menu(
+            "Talisman Helper settings",
+            _refreshable_entries([
+                ("1", f"Max accessory price  {_optional_coins(args.max_accessory_price)}", "hide pricier recommendations"),
+                ("2", f"Max rows  {args.max_accessory_recommendations}", "rows shown in Recommended"),
+                ("3", f"Max AH checks  {args.max_accessory_ah_checks}", "bounded SkyCofl price checks per refresh"),
+                ("4", f"Include locked  {'yes' if args.include_locked_accessories else 'no'}", "show locked/unknown rows"),
+                ("5", f"Include uncertain  {'yes' if args.include_uncertain_accessories else 'no'}", "show entries marked uncertain"),
+                ("6", f"Include manual unlocks  {'yes' if args.include_manual_unlocks else 'no'}", "quest/race/soulbound suggestions"),
+                ("7", f"Include AH items  {'yes' if args.include_ah_accessories else 'no'}", "fetch and show AH availability"),
+                ("8", f"Include craftable items  {'yes' if args.include_craftable_accessories else 'no'}", "show craftable suggestions"),
+                ("9", f"Sort key  {args.accessory_sort}", "score, rarity, price, craft-cost, coin-per-mp, name"),
+                ("10", f"View  {args.accessory_view}", "recommended, craftable, buy-ah, upgrades, locked, owned-covered"),
+                ("11", f"Rarity filter  {args.accessory_rarity or 'all'}", "comma-separated rarities"),
+                ("12", f"Search  {args.accessory_search or 'none'}", "filter by accessory name"),
+                ("13", "Refresh AH prices", "refresh results now"),
+                ("14", f"Accessories file  {_short_path(args.accessories_file)}", "local JSON database"),
+                ("b", "Back", "return to settings"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Setting to edit",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            args.max_accessory_price = _ask_optional_float("Max accessory price", args.max_accessory_price)
+        elif choice == "2":
+            args.max_accessory_recommendations = _ask_int("Max rows", args.max_accessory_recommendations)
+        elif choice == "3":
+            args.max_accessory_ah_checks = _ask_int("Max AH checks", args.max_accessory_ah_checks)
+        elif choice == "4":
+            args.include_locked_accessories = not args.include_locked_accessories
+            args.show_locked = args.include_locked_accessories
+        elif choice == "5":
+            args.include_uncertain_accessories = not args.include_uncertain_accessories
+        elif choice == "6":
+            args.include_manual_unlocks = not args.include_manual_unlocks
+        elif choice == "7":
+            args.include_ah_accessories = not args.include_ah_accessories
+        elif choice == "8":
+            args.include_craftable_accessories = not args.include_craftable_accessories
+        elif choice == "9":
+            value = input(f"Sort key [{args.accessory_sort}]: ").strip()
+            if value:
+                args.accessory_sort = value
+        elif choice == "10":
+            value = input(f"View [{args.accessory_view}]: ").strip()
+            if value:
+                args.accessory_view = value
+        elif choice == "11":
+            args.accessory_rarity = input(f"Rarity filter [{args.accessory_rarity or 'all'}]: ").strip()
+        elif choice == "12":
+            args.accessory_search = input(f"Search [{args.accessory_search or 'none'}] (empty clears): ").strip() or None
+        elif choice == "13":
+            _handle_global_refresh("r", args, state, resolve_uuid)
+        elif choice == "14":
+            value = input(f"Accessories file [{args.accessories_file}]: ").strip()
+            if value:
+                args.accessories_file = value
+
+
+def _settings_profiles_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    while True:
+        profiles = list_settings_profiles()
+        entries = _refreshable_entries([
+            ("s", "Save current settings", "create or overwrite a named profile"),
+            ("l", "Load profile", "apply a saved settings profile"),
+            ("d", "Delete profile", "remove a saved settings profile"),
+            ("b", "Back", "return to settings"),
+        ])
+        note = _settings_profiles_note(profiles)
+        choice = _select_menu(
+            "Settings profiles",
+            entries,
+            args=args,
+            state=state,
+            prompt="Choose profile action",
+            note=note,
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice in {"s", "save"}:
+            _save_settings_profile_menu(args)
+        elif choice in {"l", "load"}:
+            _load_settings_profile_menu(args, state, resolve_uuid)
+        elif choice in {"d", "delete"}:
+            _delete_settings_profile_menu(args, state, resolve_uuid)
+
+
+def _save_settings_profile_menu(args: argparse.Namespace) -> None:
+    _clear_screen()
+    _draw_simple_header("Save settings profile")
+    name = input("Profile name: ").strip()
+    if not name:
+        _pause("No name entered. Press Enter...")
+        return
+    try:
+        save_settings_profile(args, name)
+    except ValueError as exc:
+        _pause(f"{exc}. Press Enter...")
+        return
+    setattr(args, "active_settings_profile", " ".join(name.strip().split()))
+    _pause(f"Saved settings profile '{name}'. Press Enter...")
+
+
+def _load_settings_profile_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    name = _choose_settings_profile("Load settings profile", args, state, resolve_uuid)
+    if not name:
+        return
+    if load_settings_profile(args, name):
+        setattr(args, "active_settings_profile", name)
+        _pause(f"Loaded settings profile '{name}'. Press Enter...")
+    else:
+        _pause("Profile not found. Press Enter...")
+
+
+def _delete_settings_profile_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    name = _choose_settings_profile("Delete settings profile", args, state, resolve_uuid)
+    if not name:
+        return
+    if delete_settings_profile(name):
+        if getattr(args, "active_settings_profile", None) == name:
+            setattr(args, "active_settings_profile", None)
+        _pause(f"Deleted settings profile '{name}'. Press Enter...")
+    else:
+        _pause("Profile not found. Press Enter...")
+
+
+def _choose_settings_profile(title: str, args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> str | None:
+    profiles = list_settings_profiles()
+    if not profiles:
+        _clear_screen()
+        _draw_simple_header(title)
+        _pause("No saved settings profiles. Press Enter...")
+        return None
+    names = sorted(profiles)
+    entries = [(str(index), name, _profile_settings_summary(profiles[name])) for index, name in enumerate(names, 1)]
+    entries = _refreshable_entries([*entries, ("b", "Back", "return")])
+    choice = _select_menu(title, entries, args=args, state=state, prompt="Choose profile")
+    if _handle_global_refresh(choice, args, state, resolve_uuid):
+        return None
+    if choice in {"b", "back", ""}:
+        return None
+    if choice.isdigit() and 1 <= int(choice) <= len(names):
+        return names[int(choice) - 1]
+    return None
+
+
+def _settings_profiles_note(profiles: dict) -> str:
+    if not profiles:
+        return "No saved settings profiles yet."
+    active = get_active_settings_profile()
+    names = ", ".join((f"*{name}" if name == active else name) for name in sorted(profiles)[:6])
+    if len(profiles) > 6:
+        names += f", +{len(profiles) - 6} more"
+    return f"Saved profiles: {names}   (* active)"
+
+
+def _profile_settings_summary(settings: dict) -> str:
+    min_profit = settings.get("min_profit", "?")
+    min_percent = settings.get("min_profit_percent", "?")
+    sections = settings.get("sections", "")
+    section_count = len(_parse_sections(sections)) if isinstance(sections, str) else "?"
+    return f"min {_coins(min_profit)} / {min_percent}% / {section_count} sections"
+
+
+def _scan_sections_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    selected = set(_parse_sections(args.sections))
+    keys = list(DEFAULT_SECTIONS)
+    while True:
+        entries = []
+        for index, key in enumerate(keys, 1):
+            marker = "[x]" if key in selected else "[ ]"
+            entries.append((str(index), f"{marker} {SECTION_LABELS.get(key, key)}", "toggle scan"))
+        entries = _refreshable_entries([*entries, ("a", "Enable all", "scan every section"), ("b", "Back", "save and return")])
+        choice = _select_menu(
+            "Scanned sections",
+            entries,
+            args=args,
+            state=state,
+            prompt="Toggle scanned section",
+            note="These control what the next refresh scans. The Sections page controls what you view.",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            args.sections = ",".join(key for key in keys if key in selected)
+            return
+        if choice in {"a", "all"}:
+            selected = set(keys)
+            continue
+        if choice.isdigit() and 1 <= int(choice) <= len(keys):
+            key = keys[int(choice) - 1]
+            if key in selected:
+                selected.remove(key)
+            else:
+                selected.add(key)
+            continue
+        print("Unknown section choice.")
+
+
+def _profile_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    while True:
+        choice = _select_menu(
+            "Profile / budget",
+            _refreshable_entries([
+                ("1", f"Profile source  {_profile_source_label(args)}", "API by default; local file only when set"),
+                ("2", f"Player name  {args.player_name or 'not set'}", "Minecraft name"),
+                ("3", f"Budget  {_coins(args.budget) if args.budget is not None else 'not set'}", "coins to plan around"),
+                ("4", "Change Hypixel profile", "choose username/profile through Hypixel API"),
+                ("5", "Refresh profile now", "fetch fresh profile data through Hypixel API"),
+                ("6", "Use local profile file", "developer/debug fallback"),
+                ("7", "Reset Hypixel profile configuration", "remove saved profile and API key"),
+                ("b", "Back", "return to dashboard"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Field to edit",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            value = input("Local profile JSON path (empty clears local fallback): ").strip()
+            args.profile_file = value or None
+            if value and not args.player_name:
+                args.player_name = _infer_player_name(Path(value))
+            _apply_detected_defaults(args)
+        elif choice == "2":
+            value = input("Player name: ").strip()
+            if value:
+                args.player_name = value
+        elif choice == "3":
+            args.budget = _ask_float("Budget", args.budget or 0.0)
+        elif choice == "4":
+            change_profile(_profile_http(args))
+            args.profile_file = None
+            args.budget = None
+        elif choice == "5":
+            refresh_profile_now(_profile_http(args))
+            args.profile_file = None
+            args.budget = None
+        elif choice == "6":
+            value = input("Profile JSON path: ").strip()
+            if value:
+                args.profile_file = value
+                if not args.player_name:
+                    args.player_name = _infer_player_name(Path(value))
+                _apply_detected_defaults(args)
+        elif choice == "7":
+            if reset_profile_configuration_with_confirmation():
+                args.profile_file = None
+                args.player_name = None
+                args.budget = None
+        else:
+            print("Unknown field.")
+
+
+def _ensure_required(args: argparse.Namespace) -> bool:
+    _apply_detected_defaults(args)
+    if not args.profile_file:
+        try:
+            ensure_profile_configuration(_profile_http(args), force_setup=bool(getattr(args, "setup", False)))
+        except Exception as exc:  # noqa: BLE001 - keep interactive flow usable
+            print(f"Profile setup failed: {exc}")
+            return False
+    return True
+
+
+def _refresh_results(args: argparse.Namespace, state: _MenuState, *, resolve_uuid: Callable | None, announce: bool) -> bool:
+    if resolve_uuid is None:
+        resolve_uuid = getattr(state, "resolve_uuid", None)
+    if resolve_uuid is None:
+        print("Refresh callback is unavailable.")
+        return False
+    setattr(state, "resolve_uuid", resolve_uuid)
+    if announce:
+        print("Refreshing results...")
+    try:
+        data = collect_dashboard_data(args, resolve_uuid=resolve_uuid)
+    except Exception as exc:  # noqa: BLE001 - interactive menu should survive failed refreshes
+        print(f"Refresh failed: {exc}")
+        state.status_message = f"Refresh failed: {exc}"
+        return False
+    with state.lock:
+        state.latest = data
+        state.last_refresh = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        state.status_message = "Results refreshed."
+    if announce:
+        _clear_screen()
+        print_dashboard_status(data, last_refresh=state.last_refresh, auto_refresh=state.auto_refresh)
+        _pause("Press Enter to return to the menu...")
+    return True
+
+
+def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str) -> None:
+    while True:
+        data = state.latest
+        if data is None:
+            print("No results loaded. Refresh results first.")
+            return
+        sort_key = _section_sort_key(state, key)
+        sorted_data = _sorted_section_data(data, key, sort_key)
+        _clear_screen()
+        _draw_header(SECTION_LABELS.get(key, _section_name(key)), args, state)
+        _draw_sort_hint(key, sort_key)
+        print()
+        print_dashboard_section(sorted_data, key, show_rejected=args.show_rejected)
+        if not _interactive_menu_enabled():
+            choice = input("Press R to refresh, left/right to change sort, or Enter to go back: ").strip().lower()
+            if choice == "left":
+                _cycle_section_sort(state, key, -1)
+                continue
+            if choice == "right":
+                _cycle_section_sort(state, key, 1)
+                continue
+            if choice in {"r", "refresh"}:
+                _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
+                continue
+            return
+        print(_muted("Left/Right change sort   R refresh   Enter/Esc back"))
+        choice = _read_key()
+        if choice == "left":
+            _cycle_section_sort(state, key, -1)
+            continue
+        if choice == "right":
+            _cycle_section_sort(state, key, 1)
+            continue
+        if choice == "r":
+            _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
+            continue
+        if choice in {"enter", "escape", "q", "b"}:
+            return
+
+
+
+
+def _handle_global_refresh(choice: str, args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable | None) -> bool:
+    if choice not in {"r", "refresh"}:
+        return False
+    if not _ensure_required(args):
+        state.status_message = "Refresh skipped; profile setup is incomplete."
+        return True
+    ok = _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=False)
+    if not ok and not state.status_message:
+        state.status_message = "Refresh failed."
+    return True
+
+
+def _refreshable_entries(entries: list[tuple[str, str, str]]) -> list[tuple[str, str, str]]:
+    if any(key.lower() == "r" for key, _, _ in entries):
+        return entries
+    return [("r", "Refresh results", "refresh and stay on this menu"), *entries]
+
+
+def _toggle_auto_refresh(args: argparse.Namespace, state: _MenuState, *, resolve_uuid: Callable) -> None:
+    if state.auto_refresh:
+        _stop_auto_refresh(state)
+        print("Automatic refresh is now OFF.")
+        return
+    interval = max(60, int(args.refresh_interval or 300))
+    state.stop_event = threading.Event()
+    state.auto_refresh = True
+    setattr(state, "resolve_uuid", resolve_uuid)
+    state.thread = threading.Thread(
+        target=_auto_refresh_loop,
+        args=(args, state, resolve_uuid, interval),
+        daemon=True,
+        name="skyflip-auto-refresh",
+    )
+    state.thread.start()
+    state.status_message = f"Automatic refresh ON. Updating every {interval // 60:g} min."
+
+
+def _auto_refresh_loop(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable, interval: int) -> None:
+    while state.stop_event is not None and not state.stop_event.is_set():
+        ok = _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=False)
+        if ok:
+            state.status_message = f"Auto-refreshed at {state.last_refresh}."
+        if state.stop_event.wait(interval):
+            break
+
+
+def _stop_auto_refresh(state: _MenuState) -> None:
+    if state.stop_event is not None:
+        state.stop_event.set()
+    state.auto_refresh = False
+    state.thread = None
+    state.stop_event = None
+    state.status_message = "Automatic refresh OFF."
+
+
+def _detect_profile_file() -> Path | None:
+    candidates = sorted(
+        [*Path.cwd().glob("*_selected_profile.json"), *Path.cwd().glob("*selected*profile*.json")],
+        key=lambda path: path.stat().st_mtime,
+        reverse=True,
+    )
+    return candidates[0] if candidates else None
+
+
+def _profile_http(args: argparse.Namespace) -> HttpClient:
+    ttl = int(getattr(args, "profile_cache_ttl", 600) or 600)
+    return HttpClient(FileCache(ttl_seconds=ttl))
+
+
+def _profile_source_label(args: argparse.Namespace) -> str:
+    if args.profile_file:
+        return f"local file ({_short_path(args.profile_file)})"
+    return "Hypixel API"
+
+
+def _infer_player_name(path: Path) -> str | None:
+    name = path.name
+    if "_" in name:
+        first = name.split("_", 1)[0].strip()
+        if first:
+            return first
+    return None
+
+

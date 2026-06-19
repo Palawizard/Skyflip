@@ -1,0 +1,104 @@
+{
+  "conversions": [
+    {
+      "name": "Rotten Flesh -> Enchanted Rotten Flesh",
+      "input_product_id": "ROTTEN_FLESH",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_ROTTEN_FLESH",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-item craft."
+    },
+    {
+      "name": "Enchanted Rotten Flesh -> Enchanted Rotten Flesh Block",
+      "input_product_id": "ENCHANTED_ROTTEN_FLESH",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_ROTTEN_FLESH_BLOCK",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-block craft."
+    },
+    {
+      "name": "Bone -> Enchanted Bone",
+      "input_product_id": "BONE",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_BONE",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-item craft."
+    },
+    {
+      "name": "Enchanted Bone -> Enchanted Bone Block",
+      "input_product_id": "ENCHANTED_BONE",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_BONE_BLOCK",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-block craft."
+    },
+    {
+      "name": "Lapis Lazuli -> Enchanted Lapis Lazuli",
+      "input_product_id": "INK_SACK:4",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_LAPIS_LAZULI",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Uses Hypixel Bazaar product id for lapis dye."
+    },
+    {
+      "name": "Enchanted Lapis Lazuli -> Enchanted Lapis Block",
+      "input_product_id": "ENCHANTED_LAPIS_LAZULI",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_LAPIS_LAZULI_BLOCK",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-block craft."
+    },
+    {
+      "name": "Sugar Cane -> Enchanted Sugar",
+      "input_product_id": "SUGAR_CANE",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_SUGAR",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-item craft."
+    },
+    {
+      "name": "Enchanted Sugar -> Enchanted Sugar Cane",
+      "input_product_id": "ENCHANTED_SUGAR",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_SUGAR_CANE",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-block craft."
+    },
+    {
+      "name": "Cobblestone -> Enchanted Cobblestone",
+      "input_product_id": "COBBLESTONE",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_COBBLESTONE",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-item craft."
+    },
+    {
+      "name": "Enchanted Cobblestone -> Enchanted Cobblestone Block",
+      "input_product_id": "ENCHANTED_COBBLESTONE",
+      "input_amount": 160,
+      "output_product_id": "ENCHANTED_COBBLESTONE_BLOCK",
+      "output_amount": 1,
+      "conversion_type": "compression",
+      "craftable_manually": true,
+      "notes": "Common 160x enchanted-block craft if Bazaar product exists."
+    }
+  ]
+}

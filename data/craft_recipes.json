@@ -1,0 +1,230 @@
+{
+  "recipes": [
+    {
+      "output": {"tag": "WAND_OF_HEALING", "display_name": "Wand of Healing", "ah_category": "weapon", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 16, "source": "bazaar"},
+        {"item_tag": "STICK", "display_name": "Stick", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 1}
+      ],
+      "requirements": {"min_slayer_levels": {"zombie": 1}, "notes": ["Zombie Slayer recipe"]},
+      "risk_tags": ["slayer_item", "common_accessory"]
+    },
+    {
+      "output": {"tag": "WAND_OF_MENDING", "display_name": "Wand of Mending", "ah_category": "weapon", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "WAND_OF_HEALING", "display_name": "Wand of Healing", "amount": 1, "source": "previous_recipe"},
+        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 32, "source": "bazaar"}
+      ],
+      "requirements": {"min_slayer_levels": {"zombie": 3}, "notes": ["Zombie Slayer recipe"]},
+      "risk_tags": ["slayer_item"]
+    },
+    {
+      "output": {"tag": "ZOMBIE_RING", "display_name": "Zombie Ring", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ZOMBIE_TALISMAN", "display_name": "Zombie Talisman", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 500},
+        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 64, "source": "bazaar"}
+      ],
+      "requirements": {"min_slayer_levels": {"zombie": 2}, "notes": ["Zombie Slayer recipe"]},
+      "risk_tags": ["slayer_item", "common_accessory"]
+    },
+    {
+      "output": {"tag": "ZOMBIE_ARTIFACT", "display_name": "Zombie Artifact", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ZOMBIE_RING", "display_name": "Zombie Ring", "amount": 1, "source": "previous_recipe"},
+        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 128, "source": "bazaar"}
+      ],
+      "requirements": {"min_slayer_levels": {"zombie": 7}, "notes": ["High Zombie Slayer requirement"]},
+      "risk_tags": ["slayer_item", "high_capital", "slow_sale"]
+    },
+    {
+      "output": {"tag": "RED_CLAW_TALISMAN", "display_name": "Red Claw Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 8, "source": "bazaar"},
+        {"item_tag": "GOLDEN_TOOTH", "display_name": "Golden Tooth", "amount": 1, "source": "bazaar"}
+      ],
+      "requirements": {"min_slayer_levels": {"wolf": 1}, "notes": ["Wolf Slayer recipe"]},
+      "risk_tags": ["slayer_item", "low_volume"]
+    },
+    {
+      "output": {"tag": "RADIANT_POWER_ORB", "display_name": "Radiant Power Orb", "ah_category": "misc", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 16, "source": "bazaar"},
+        {"item_tag": "ENCHANTED_STRING", "display_name": "Enchanted String", "amount": 16, "source": "bazaar"}
+      ],
+      "requirements": {"min_slayer_levels": {"wolf": 2}, "notes": ["Wolf Slayer recipe"]},
+      "risk_tags": ["slayer_item", "saturated"]
+    },
+    {
+      "output": {"tag": "MANA_FLUX_POWER_ORB", "display_name": "Mana Flux Power Orb", "ah_category": "misc", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "RADIANT_POWER_ORB", "display_name": "Radiant Power Orb", "amount": 1, "source": "previous_recipe"},
+        {"item_tag": "GOLDEN_TOOTH", "display_name": "Golden Tooth", "amount": 32, "source": "bazaar"},
+        {"item_tag": "ENCHANTED_LAPIS_LAZULI_BLOCK", "display_name": "Enchanted Lapis Block", "amount": 2, "source": "bazaar"}
+      ],
+      "requirements": {"min_slayer_levels": {"wolf": 6}, "notes": ["High Wolf Slayer requirement"]},
+      "risk_tags": ["slayer_item", "high_capital", "slow_sale"]
+    },
+    {
+      "output": {"tag": "VACCINE_TALISMAN", "display_name": "Vaccine Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "POISONOUS_POTATO", "display_name": "Poisonous Potato", "amount": 9, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"POTATO_ITEM": 3}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "VACCINE_RING", "display_name": "Vaccine Ring", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "VACCINE_TALISMAN", "display_name": "Vaccine Talisman", "amount": 1, "source": "previous_recipe"},
+        {"item_tag": "ENCHANTED_POISONOUS_POTATO", "display_name": "Enchanted Poisonous Potato", "amount": 32, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"POTATO_ITEM": 5}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "MAGNETIC_TALISMAN", "display_name": "Magnetic Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ENCHANTED_IRON", "display_name": "Enchanted Iron", "amount": 32, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"IRON_INGOT": 3}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "SPEED_TALISMAN", "display_name": "Speed Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "SUGAR_CANE", "display_name": "Sugar Cane", "amount": 108, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"SUGAR_CANE": 2}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "POTION_AFFINITY_TALISMAN", "display_name": "Potion Affinity Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "NETHER_STALK", "display_name": "Nether Wart", "amount": 9, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"NETHER_STALK": 3}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "POTION_AFFINITY_RING", "display_name": "Potion Affinity Ring", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "POTION_AFFINITY_TALISMAN", "display_name": "Potion Affinity Talisman", "amount": 1, "source": "previous_recipe"},
+        {"item_tag": "ENCHANTED_NETHER_STALK", "display_name": "Enchanted Nether Wart", "amount": 8, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"NETHER_STALK": 5}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "HASTE_RING", "display_name": "Haste Ring", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ENCHANTED_COBBLESTONE", "display_name": "Enchanted Cobblestone", "amount": 256, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"COBBLESTONE": 8}},
+      "risk_tags": ["common_accessory", "high_capital"]
+    },
+    {
+      "output": {"tag": "EXPERIENCE_ARTIFACT", "display_name": "Experience Artifact", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "GRAND_EXP_BOTTLE", "display_name": "Grand Experience Bottle", "amount": 64, "source": "bazaar"},
+        {"item_tag": "ENCHANTED_LAPIS_LAZULI", "display_name": "Enchanted Lapis Lazuli", "amount": 64, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"LAPIS_LAZULI": 9}},
+      "risk_tags": ["common_accessory", "high_capital", "slow_sale"]
+    },
+    {
+      "output": {"tag": "HEALING_TALISMAN", "display_name": "Healing Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "LILY_PAD", "display_name": "Lily Pad", "amount": 144, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"LILY_PAD": 3}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "FIRE_TALISMAN", "display_name": "Fire Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "BLAZE_ROD", "display_name": "Blaze Rod", "amount": 9, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"BLAZE_ROD": 2}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "LAVA_TALISMAN", "display_name": "Lava Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ENCHANTED_MAGMA_CREAM", "display_name": "Enchanted Magma Cream", "amount": 9, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"MAGMA_CREAM": 7}},
+      "risk_tags": ["common_accessory", "slow_sale"]
+    },
+    {
+      "output": {"tag": "FARMING_TALISMAN", "display_name": "Farming Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "HAY_BLOCK", "display_name": "Hay Bale", "amount": 18, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"WHEAT": 4}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "GRAVITY_TALISMAN", "display_name": "Gravity Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ENCHANTED_OBSIDIAN", "display_name": "Enchanted Obsidian", "amount": 32, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"OBSIDIAN": 6}},
+      "risk_tags": ["common_accessory", "slow_sale"]
+    },
+    {
+      "output": {"tag": "NIGHT_VISION_CHARM", "display_name": "Night Vision Charm", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ENCHANTED_RED_MUSHROOM", "display_name": "Enchanted Red Mushroom", "amount": 16, "source": "bazaar"},
+        {"item_tag": "ENCHANTED_BROWN_MUSHROOM", "display_name": "Enchanted Brown Mushroom", "amount": 16, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"MUSHROOM_COLLECTION": 7}},
+      "risk_tags": ["common_accessory", "slow_sale"]
+    },
+    {
+      "output": {"tag": "INTIMIDATION_TALISMAN", "display_name": "Intimidation Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "ADVENTURER_NPC", "display_name": "Adventurer NPC purchase", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 10000}
+      ],
+      "requirements": {"notes": ["NPC-purchased item; no collection craft requirement"]},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "INTIMIDATION_RING", "display_name": "Intimidation Ring", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "INTIMIDATION_TALISMAN", "display_name": "Intimidation Talisman", "amount": 1, "source": "previous_recipe"},
+        {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 32, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"BONE": 5}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "INTIMIDATION_ARTIFACT", "display_name": "Intimidation Artifact", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "INTIMIDATION_RING", "display_name": "Intimidation Ring", "amount": 1, "source": "previous_recipe"},
+        {"item_tag": "ENCHANTED_BONE_BLOCK", "display_name": "Enchanted Bone Block", "amount": 8, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"BONE": 9}},
+      "risk_tags": ["common_accessory", "high_capital", "slow_sale"]
+    },
+    {
+      "output": {"tag": "WOOD_AFFINITY_TALISMAN", "display_name": "Wood Affinity Talisman", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "OAK_WOOD", "display_name": "Oak Wood", "amount": 48, "source": "bazaar"},
+        {"item_tag": "SPRUCE_WOOD", "display_name": "Spruce Wood", "amount": 48, "source": "bazaar"},
+        {"item_tag": "BIRCH_WOOD", "display_name": "Birch Wood", "amount": 48, "source": "bazaar"},
+        {"item_tag": "DARK_OAK_WOOD", "display_name": "Dark Oak Wood", "amount": 48, "source": "bazaar"}
+      ],
+      "requirements": {"min_collection_tiers": {"OAK_WOOD": 3}},
+      "risk_tags": ["common_accessory", "saturated"]
+    },
+    {
+      "output": {"tag": "WOLF_PAW", "display_name": "Wolf Paw", "ah_category": "accessory", "quantity": 1},
+      "ingredients": [
+        {"item_tag": "OLD_WOLF_TOOTH", "display_name": "Old Wolf Tooth", "amount": 16, "source": "bazaar"},
+        {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 16, "source": "bazaar"}
+      ],
+      "requirements": {"min_skill_levels": {"combat": 12}, "notes": ["Requires access to appropriate combat content"]},
+      "risk_tags": ["low_volume", "manipulated_price_possible"]
+    }
+  ]
+}

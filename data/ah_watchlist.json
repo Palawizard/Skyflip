@@ -1,0 +1,27 @@
+{
+  "items": [
+    {"tag": "WISE_DRAGON_HELMET", "name": "Wise Dragon Helmet", "category": "mage armor", "max_budget_percent": 12},
+    {"tag": "WISE_DRAGON_CHESTPLATE", "name": "Wise Dragon Chestplate", "category": "mage armor", "max_budget_percent": 18},
+    {"tag": "WISE_DRAGON_LEGGINGS", "name": "Wise Dragon Leggings", "category": "mage armor", "max_budget_percent": 16},
+    {"tag": "WISE_DRAGON_BOOTS", "name": "Wise Dragon Boots", "category": "mage armor", "max_budget_percent": 10},
+    {"tag": "DARK_GOGGLES", "name": "Dark Goggles", "category": "mage armor", "max_budget_percent": 8},
+    {"tag": "SHADOW_GOGGLES", "name": "Shadow Goggles", "category": "mage armor", "max_budget_percent": 12, "min_catacombs_floor": 2},
+    {"tag": "WITHER_GOGGLES", "name": "Wither Goggles", "category": "mage armor", "max_budget_percent": 35, "min_catacombs_floor": 6, "notes": "Often expensive for early-mid budgets."},
+    {"tag": "BONZO_STAFF", "name": "Bonzo Staff", "category": "mage weapon", "max_budget_percent": 18, "min_catacombs_floor": 1},
+    {"tag": "SPIRIT_SCEPTRE", "name": "Spirit Sceptre", "category": "mage weapon", "max_budget_percent": 35, "min_catacombs_floor": 4},
+    {"tag": "DREADLORD_SWORD", "name": "Dreadlord Sword", "category": "mage weapon", "max_budget_percent": 8},
+    {"tag": "SHEEP;0", "name": "Sheep Pet", "category": "pet", "max_budget_percent": 20},
+    {"tag": "GUARDIAN;0", "name": "Guardian Pet", "category": "pet", "max_budget_percent": 15},
+    {"tag": "ENDERMAN;0", "name": "Enderman Pet", "category": "pet", "max_budget_percent": 10},
+    {"tag": "WAND_OF_HEALING", "name": "Wand of Healing", "category": "slayer utility", "max_budget_percent": 8},
+    {"tag": "WAND_OF_MENDING", "name": "Wand of Mending", "category": "slayer utility", "max_budget_percent": 10},
+    {"tag": "RADIANT_POWER_ORB", "name": "Radiant Power Orb", "category": "slayer utility", "max_budget_percent": 12},
+    {"tag": "MANA_FLUX_POWER_ORB", "name": "Mana Flux Power Orb", "category": "slayer utility", "max_budget_percent": 35},
+    {"tag": "ZOMBIE_RING", "name": "Zombie Ring", "category": "accessory", "max_budget_percent": 8},
+    {"tag": "VACCINE_RING", "name": "Vaccine Ring", "category": "accessory", "max_budget_percent": 8},
+    {"tag": "MAGNETIC_TALISMAN", "name": "Magnetic Talisman", "category": "accessory", "max_budget_percent": 6},
+    {"tag": "SPEED_TALISMAN", "name": "Speed Talisman", "category": "accessory", "max_budget_percent": 5},
+    {"tag": "INTIMIDATION_RING", "name": "Intimidation Ring", "category": "accessory", "max_budget_percent": 8},
+    {"tag": "WOLF_PAW", "name": "Wolf Paw", "category": "accessory", "max_budget_percent": 10}
+  ]
+}
