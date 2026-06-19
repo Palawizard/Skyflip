@@ -11,6 +11,7 @@ from skyflip.profile_fetcher import (
     InvalidApiKeyError,
     ProfileNotFoundError,
     fetch_hypixel_profiles,
+    fetch_selected_profile_payload,
     load_api_profile,
     resolve_minecraft_uuid,
     select_profile_payload,
@@ -151,6 +152,33 @@ def test_budget_source_persists_and_calculates(monkeypatch, tmp_path):
     config = load_user_config()
     assert budget_from_profile(profile, config) == 250.0
     assert budget_source_label(config) == "custom (250 coins)"
+
+
+def test_profile_fetch_preserves_budget_settings(monkeypatch, tmp_path):
+    monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
+    save_user_config(
+        HypixelUserConfig(
+            "PalaMC",
+            "abc123abc123abc123abc123abc123ab",
+            "Apple",
+            "one",
+            BUDGET_SOURCE_CUSTOM,
+            777.0,
+        )
+    )
+    http = FakeHttp({"x": profile_payload()})
+
+    config, _ = fetch_selected_profile_payload(
+        http,
+        username="PalaMC",
+        profile_name="Apple",
+        api_key="SECRET",
+        uuid="abc123abc123abc123abc123abc123ab",
+    )
+
+    assert config.budget_source == BUDGET_SOURCE_CUSTOM
+    assert config.custom_budget == 777.0
+    assert load_user_config().budget_source == BUDGET_SOURCE_CUSTOM
 
 
 def test_old_config_defaults_to_purse_plus_bank(monkeypatch, tmp_path):

@@ -8,6 +8,7 @@ from urllib.parse import quote
 from .http import ApiError, HttpClient
 from .profile_parser import PlayerProfile, parse_profile
 from .user_config import (
+    BUDGET_SOURCE_PURSE_BANK,
     PROFILE_CACHE_TTL_SECONDS,
     HypixelUserConfig,
     cache_profile_payload,
@@ -119,7 +120,15 @@ def fetch_selected_profile_payload(
     profile_id, selected_payload = select_profile_payload(profiles_payload, profile_name, resolved_uuid)
     selected_payload["_skyflip_profile_source"] = "api"
     selected_payload["_skyflip_profile_fetched_at"] = time.time()
-    config = HypixelUserConfig(username, resolved_uuid, profile_name, profile_id or None)
+    current = load_user_config()
+    config = HypixelUserConfig(
+        username,
+        resolved_uuid,
+        profile_name,
+        profile_id or None,
+        current.budget_source if current else BUDGET_SOURCE_PURSE_BANK,
+        current.custom_budget if current else None,
+    )
     save_user_config(config)
     cache_profile_payload(selected_payload, source="api", profile_name=profile_name, uuid=resolved_uuid)
     return config, selected_payload
