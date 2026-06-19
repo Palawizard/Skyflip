@@ -8,6 +8,13 @@ from skyflip.terminal_layout import (
 )
 
 
+def test_terminal_size_flags_supported_ranges():
+    assert TerminalSize(71, 24).too_small
+    assert TerminalSize(72, 17).too_small
+    assert TerminalSize(72, 18).narrow
+    assert not TerminalSize(96, 24).narrow
+
+
 def test_too_small_terminal_returns_resize_message():
     size = TerminalSize(MIN_TERMINAL_WIDTH - 1, MIN_TERMINAL_HEIGHT)
 

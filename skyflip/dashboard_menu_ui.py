@@ -112,8 +112,8 @@ def _draw_header(title: str, args: argparse.Namespace, state: _MenuState | None)
     auto = "ON" if state and state.auto_refresh else "OFF"
     preset = getattr(args, "active_settings_profile", None) or "default / unsaved"
     print(compact_menu_line(f"Profile: {profile}", width))
-    print(compact_menu_line(f"Player: {player}  Budget: {budget}  Last refresh: {refresh}  Auto: {auto}", width))
-    print(compact_menu_line(f"Preset: {preset}", width))
+    print(compact_menu_line(f"Player:  {player}  Budget: {budget}  Last refresh: {refresh}  Auto: {auto}", width))
+    print(compact_menu_line(f"Preset:  {preset}", width))
     if state and state.status_message:
         print(compact_menu_line(f"Status: {state.status_message}", width))
     print("=" * width)
