@@ -12,6 +12,10 @@ APP_NAME = "SkyFlip"
 KEYRING_SERVICE = "skyflip"
 KEYRING_USERNAME = "hypixel_api_key"
 PROFILE_CACHE_TTL_SECONDS = 600
+BUDGET_SOURCE_PURSE = "purse"
+BUDGET_SOURCE_PURSE_BANK = "purse_bank"
+BUDGET_SOURCE_CUSTOM = "custom"
+BUDGET_SOURCES = {BUDGET_SOURCE_PURSE, BUDGET_SOURCE_PURSE_BANK, BUDGET_SOURCE_CUSTOM}
 
 
 @dataclass(frozen=True)
@@ -20,6 +24,46 @@ class HypixelUserConfig:
     uuid: str
     selected_profile_name: str
     last_profile_id: str | None = None
+    budget_source: str = BUDGET_SOURCE_PURSE_BANK
+    custom_budget: float | None = None
+
+
+def normalize_budget_source(value: str | None) -> str:
+    source = str(value or "").strip().lower().replace("-", "_")
+    aliases = {
+        "bank": BUDGET_SOURCE_PURSE_BANK,
+        "total": BUDGET_SOURCE_PURSE_BANK,
+        "available": BUDGET_SOURCE_PURSE_BANK,
+        "purse+bank": BUDGET_SOURCE_PURSE_BANK,
+        "purse_only": BUDGET_SOURCE_PURSE,
+    }
+    source = aliases.get(source, source)
+    return source if source in BUDGET_SOURCES else BUDGET_SOURCE_PURSE_BANK
+
+
+def budget_from_profile(profile: object, config: HypixelUserConfig | None = None) -> float:
+    source = normalize_budget_source(config.budget_source if config else None)
+    if source == BUDGET_SOURCE_CUSTOM:
+        return max(0.0, float(config.custom_budget or 0.0)) if config else 0.0
+    purse = float(getattr(profile, "purse", 0.0) or 0.0)
+    if source == BUDGET_SOURCE_PURSE:
+        return max(0.0, purse)
+    bank = float(getattr(profile, "bank", 0.0) or 0.0)
+    return max(0.0, purse + bank)
+
+
+def budget_source_label(config: HypixelUserConfig | None, profile: object | None = None) -> str:
+    source = normalize_budget_source(config.budget_source if config else None)
+    if source == BUDGET_SOURCE_PURSE:
+        return "purse only"
+    if source == BUDGET_SOURCE_CUSTOM:
+        amount = config.custom_budget if config else None
+        return f"custom ({amount:,.0f} coins)" if amount is not None else "custom"
+    if profile is not None:
+        purse = float(getattr(profile, "purse", 0.0) or 0.0)
+        bank = float(getattr(profile, "bank", 0.0) or 0.0)
+        return f"purse + bank ({purse + bank:,.0f} coins)"
+    return "purse + bank"
 
 
 def user_config_dir() -> Path:
@@ -64,7 +108,9 @@ def load_user_config() -> HypixelUserConfig | None:
     if not username or not uuid or not profile_name:
         return None
     profile_id = raw.get("last_profile_id")
-    return HypixelUserConfig(username, uuid, profile_name, str(profile_id) if profile_id else None)
+    budget_source = normalize_budget_source(raw.get("budget_source"))
+    custom_budget = _float_or_none(raw.get("custom_budget"))
+    return HypixelUserConfig(username, uuid, profile_name, str(profile_id) if profile_id else None, budget_source, custom_budget)
 
 
 def save_user_config(config: HypixelUserConfig) -> None:
@@ -75,6 +121,8 @@ def save_user_config(config: HypixelUserConfig) -> None:
             "uuid": config.uuid,
             "selected_profile_name": config.selected_profile_name,
             "last_profile_id": config.last_profile_id,
+            "budget_source": normalize_budget_source(config.budget_source),
+            "custom_budget": config.custom_budget,
         }
     )
     _write_config_raw(raw)
@@ -188,6 +236,13 @@ def _write_config_raw(raw: dict[str, Any]) -> None:
     path = config_path()
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(raw, indent=2), encoding="utf-8")
+
+
+def _float_or_none(value: Any) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def _keyring_get() -> str | None:

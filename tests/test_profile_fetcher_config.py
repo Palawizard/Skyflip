@@ -5,6 +5,7 @@ import pytest
 
 from skyflip.http import ApiError, ApiResult
 from skyflip.onboarding import reset_profile_configuration_with_confirmation
+from skyflip.profile_parser import PlayerProfile
 from skyflip.profile_fetcher import (
     ApiUnavailableError,
     InvalidApiKeyError,
@@ -15,7 +16,12 @@ from skyflip.profile_fetcher import (
     select_profile_payload,
 )
 from skyflip.user_config import (
+    BUDGET_SOURCE_CUSTOM,
+    BUDGET_SOURCE_PURSE,
+    BUDGET_SOURCE_PURSE_BANK,
     HypixelUserConfig,
+    budget_from_profile,
+    budget_source_label,
     config_path,
     get_api_key,
     load_user_config,
@@ -117,6 +123,55 @@ def test_save_user_config_preserves_plaintext_fallback_key(monkeypatch, tmp_path
 
     assert get_api_key() == "SECRET"
     assert load_user_config().selected_profile_name == "Banana"
+
+
+def test_budget_source_persists_and_calculates(monkeypatch, tmp_path):
+    monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
+    profile = PlayerProfile("PalaMC", "uuid", purse=125.0, bank=875.0)
+
+    save_user_config(HypixelUserConfig("PalaMC", "abc123abc123abc123abc123abc123ab", "Apple", "one", BUDGET_SOURCE_PURSE))
+    config = load_user_config()
+    assert config is not None
+    assert config.budget_source == BUDGET_SOURCE_PURSE
+    assert budget_from_profile(profile, config) == 125.0
+
+    save_user_config(HypixelUserConfig("PalaMC", "abc123abc123abc123abc123abc123ab", "Apple", "one", BUDGET_SOURCE_PURSE_BANK))
+    assert budget_from_profile(profile, load_user_config()) == 1000.0
+
+    save_user_config(
+        HypixelUserConfig(
+            "PalaMC",
+            "abc123abc123abc123abc123abc123ab",
+            "Apple",
+            "one",
+            BUDGET_SOURCE_CUSTOM,
+            250.0,
+        )
+    )
+    config = load_user_config()
+    assert budget_from_profile(profile, config) == 250.0
+    assert budget_source_label(config) == "custom (250 coins)"
+
+
+def test_old_config_defaults_to_purse_plus_bank(monkeypatch, tmp_path):
+    monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
+    config_path().parent.mkdir(parents=True, exist_ok=True)
+    config_path().write_text(
+        json.dumps(
+            {
+                "minecraft_username": "PalaMC",
+                "uuid": "abc123abc123abc123abc123abc123ab",
+                "selected_profile_name": "Apple",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    config = load_user_config()
+
+    assert config is not None
+    assert config.budget_source == BUDGET_SOURCE_PURSE_BANK
+    assert config.custom_budget is None
 
 
 def test_api_failure_uses_stale_profile_cache(monkeypatch, tmp_path):
