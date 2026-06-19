@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import sys
 import threading
+import time
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -41,6 +42,17 @@ from .settings_profiles import (
     save_settings_profile,
 )
 from .terminal import print_dashboard_section, print_dashboard_status
+from .user_config import (
+    BUDGET_SOURCE_CUSTOM,
+    BUDGET_SOURCE_PURSE,
+    BUDGET_SOURCE_PURSE_BANK,
+    HypixelUserConfig,
+    budget_from_profile,
+    budget_source_label,
+    cache_age_seconds,
+    load_user_config,
+    save_user_config,
+)
 from .dashboard_menu_sorting import (
     _cycle_section_sort,
     _draw_sort_hint,
@@ -226,6 +238,7 @@ def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardM
             state=state,
             show_counts=True,
             prompt="Choose an action",
+            note=_restricted_profile_note(_profile_from_state(state), module),
         )
         if choice in {"b", "back", ""}:
             return
@@ -507,7 +520,8 @@ def _load_profile_for_recommendations(
         print(f"Profile recommendation failed: {exc}")
         return None
     if args.budget is None:
-        args.budget = max(0.0, profile.available_coins)
+        config = None if args.profile_file else load_user_config()
+        args.budget = budget_from_profile(profile, config)
     if not args.player_name:
         args.player_name = profile.player_name
     return profile
@@ -1244,21 +1258,25 @@ def _scan_sections_menu(args: argparse.Namespace, state: _MenuState, resolve_uui
 
 def _profile_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
     while True:
+        profile = _profile_from_state(state) or _load_local_profile_for_menu(args)
+        config = load_user_config()
         choice = _select_menu(
             "Profile / budget",
             _refreshable_entries([
                 ("1", f"Profile source  {_profile_source_label(args)}", "API by default; local file only when set"),
                 ("2", f"Player name  {args.player_name or 'not set'}", "Minecraft name"),
-                ("3", f"Budget  {_coins(args.budget) if args.budget is not None else 'not set'}", "coins to plan around"),
+                ("3", f"Budget  {_profile_budget_label(args, config, profile)}", "purse, purse + bank, or custom"),
                 ("4", "Change Hypixel profile", "choose username/profile through Hypixel API"),
                 ("5", "Refresh profile now", "fetch fresh profile data through Hypixel API"),
-                ("6", "Use local profile file", "developer/debug fallback"),
+                ("6", "Advanced: local profile file", "developer/debug fallback"),
                 ("7", "Reset Hypixel profile configuration", "remove saved profile and API key"),
+                ("8", f"Data freshness  {_profile_freshness_label(args, state)}", "fresh, cached, stale, unavailable"),
                 ("b", "Back", "return to dashboard"),
             ]),
             args=args,
             state=state,
             prompt="Field to edit",
+            note=_profile_menu_note(args, state, profile, config),
         )
         if _handle_global_refresh(choice, args, state, resolve_uuid):
             continue
@@ -1275,7 +1293,7 @@ def _profile_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Cal
             if value:
                 args.player_name = value
         elif choice == "3":
-            args.budget = _ask_float("Budget", args.budget or 0.0)
+            _budget_source_menu(args, state)
         elif choice == "4":
             change_profile(_profile_http(args))
             args.profile_file = None
@@ -1296,6 +1314,9 @@ def _profile_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Cal
                 args.profile_file = None
                 args.player_name = None
                 args.budget = None
+        elif choice == "8":
+            print(_profile_menu_note(args, state, profile, config))
+            _pause()
         else:
             print("Unknown field.")
 
@@ -1516,6 +1537,160 @@ def _profile_source_label(args: argparse.Namespace) -> str:
     if args.profile_file:
         return f"local file ({_short_path(args.profile_file)})"
     return "Hypixel API"
+
+
+def _profile_budget_label(args: argparse.Namespace, config: HypixelUserConfig | None, profile: object | None) -> str:
+    if args.budget is not None:
+        return f"{_coins(args.budget)} active"
+    if args.profile_file:
+        return budget_source_label(None, profile)
+    if config is None:
+        return "not configured"
+    return budget_source_label(config, profile)
+
+
+def _budget_source_menu(args: argparse.Namespace, state: _MenuState) -> None:
+    profile = _profile_from_state(state) or _load_local_profile_for_menu(args)
+    config = load_user_config()
+    while True:
+        choice = _select_menu(
+            "Budget source",
+            [
+                ("1", "Purse only", _profile_budget_preview(profile, BUDGET_SOURCE_PURSE, config)),
+                ("2", "Purse + bank", _profile_budget_preview(profile, BUDGET_SOURCE_PURSE_BANK, config)),
+                ("3", "Custom amount", _profile_budget_preview(profile, BUDGET_SOURCE_CUSTOM, config)),
+                ("b", "Back", "return to profile"),
+            ],
+            args=args,
+            state=state,
+            prompt="Budget source",
+            note="The selected source is used when no explicit --budget value is provided.",
+        )
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            _save_budget_source(args, profile, BUDGET_SOURCE_PURSE, None)
+            state.status_message = "Budget source set to purse only."
+            return
+        if choice == "2":
+            _save_budget_source(args, profile, BUDGET_SOURCE_PURSE_BANK, None)
+            state.status_message = "Budget source set to purse + bank."
+            return
+        if choice == "3":
+            default = args.budget or (config.custom_budget if config else None) or getattr(profile, "available_coins", 0.0)
+            amount = _ask_float("Custom budget", default)
+            _save_budget_source(args, profile, BUDGET_SOURCE_CUSTOM, amount)
+            state.status_message = "Budget source set to custom amount."
+            return
+        print("Unknown budget source.")
+
+
+def _save_budget_source(args: argparse.Namespace, profile: object | None, source: str, custom_budget: float | None) -> None:
+    config = load_user_config()
+    if config is not None and not args.profile_file:
+        save_user_config(
+            HypixelUserConfig(
+                config.minecraft_username,
+                config.uuid,
+                config.selected_profile_name,
+                config.last_profile_id,
+                source,
+                custom_budget,
+            )
+        )
+        args.budget = None
+        return
+    preview_config = HypixelUserConfig("", "", "", None, source, custom_budget)
+    if profile is not None:
+        args.budget = budget_from_profile(profile, preview_config)
+    elif source == BUDGET_SOURCE_CUSTOM:
+        args.budget = max(0.0, float(custom_budget or 0.0))
+    else:
+        args.budget = None
+
+
+def _profile_budget_preview(profile: object | None, source: str, config: HypixelUserConfig | None) -> str:
+    preview = HypixelUserConfig("", "", "", None, source, config.custom_budget if config else None)
+    if source == BUDGET_SOURCE_CUSTOM and config and config.custom_budget is not None:
+        return _coins(config.custom_budget)
+    if source == BUDGET_SOURCE_CUSTOM:
+        return "choose manually"
+    if profile is None:
+        return "applies on next profile load"
+    return _coins(budget_from_profile(profile, preview))
+
+
+def _profile_freshness_label(args: argparse.Namespace, state: _MenuState) -> str:
+    if args.profile_file:
+        return "local fallback"
+    profile = _profile_from_state(state)
+    ttl = int(getattr(args, "profile_cache_ttl", 600) or 600)
+    age = _profile_cache_age(profile)
+    if age is None:
+        age = cache_age_seconds()
+    if profile is not None:
+        source = str(getattr(profile, "profile_source", "") or "").lower()
+        warnings = "\n".join(getattr(profile, "warnings", []) or []).lower()
+        if "stale" in source or "stale cached profile" in warnings or (age is not None and age > ttl):
+            return "stale"
+        if "cache" in source:
+            return "cached"
+        return "fresh"
+    if age is None:
+        return "unavailable"
+    return "cached" if age <= ttl else "stale"
+
+
+def _profile_menu_note(
+    args: argparse.Namespace,
+    state: _MenuState,
+    profile: object | None,
+    config: HypixelUserConfig | None,
+) -> str:
+    lines = [
+        f"Data freshness: {_profile_freshness_label(args, state)}",
+        f"Budget source: {_profile_budget_label(args, config, profile)}",
+    ]
+    restricted = _restricted_profile_note(profile, None)
+    if restricted:
+        lines.extend(["", restricted])
+    if args.profile_file:
+        lines.append("")
+        lines.append("Local profile JSON is an advanced/developer fallback; Hypixel API remains the default profile source.")
+    return "\n".join(lines)
+
+
+def _restricted_profile_note(profile: object | None, module: DashboardModule | None) -> str | None:
+    if profile is None or not getattr(profile, "is_restricted_mode", False):
+        return None
+    allowed = "Accessories Helper remains available."
+    unavailable = "Bazaar Flip, AH Craft Flips, Bazaar Compression, and AH BIN modules are unavailable unless restricted profiles are explicitly allowed."
+    if module is not None:
+        if module.key == "accessories":
+            return f"Restricted profile mode {getattr(profile, 'profile_mode', None)!r}. {allowed}"
+        return f"Restricted profile mode {getattr(profile, 'profile_mode', None)!r}. This market module is unavailable unless restricted profiles are explicitly allowed. {allowed}"
+    return f"Restricted profile mode {getattr(profile, 'profile_mode', None)!r}. {unavailable} {allowed}"
+
+
+def _profile_from_state(state: _MenuState) -> object | None:
+    return getattr(getattr(state, "latest", None), "profile", None)
+
+
+def _load_local_profile_for_menu(args: argparse.Namespace) -> object | None:
+    if not args.profile_file:
+        return None
+    try:
+        return load_profile(args.profile_file, player_name=args.player_name)
+    except Exception:
+        return None
+
+
+def _profile_cache_age(profile: object | None) -> float | None:
+    fetched_at = getattr(profile, "profile_fetched_at", None) if profile is not None else None
+    try:
+        return max(0.0, time.time() - float(fetched_at)) if fetched_at else None
+    except (TypeError, ValueError):
+        return None
 
 
 def _infer_player_name(path: Path) -> str | None:

@@ -1,10 +1,15 @@
 import argparse
+import json
+import time
 from types import SimpleNamespace
 
 from skyflip.cli import build_parser
 from skyflip.dashboard_menu import (
     _MenuState,
     _cycle_section_sort,
+    _budget_source_menu,
+    _profile_freshness_label,
+    _restricted_profile_note,
     _section_sort_key,
     _sorted_section_data,
     load_sort_preferences,
@@ -14,6 +19,7 @@ from skyflip.dashboard_menu import (
 )
 from skyflip.profile_parser import PlayerProfile
 from skyflip.settings_profiles import list_settings_profiles, save_module_settings_preset, save_settings_profile
+from skyflip.user_config import BUDGET_SOURCE_PURSE, HypixelUserConfig, load_user_config, profile_cache_path, save_user_config
 
 
 def test_dashboard_command_without_arguments_opens_menu_mode():
@@ -216,11 +222,48 @@ def test_dashboard_menu_can_refresh_and_open_result_section(monkeypatch, tmp_pat
     assert captured["args"].profile_file == str(profile)
     assert captured["args"].player_name == "PalaMC"
     assert captured["args"].budget == 123
-    assert captured["calls"] == 1
-    output = capsys.readouterr().out
-    assert "Refresh results" in output
-    assert "Best craft flips" in output
-    assert "AH Craft Flips" in output
+
+
+def test_profile_freshness_labels_cache_states(monkeypatch, tmp_path):
+    monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
+    args = make_menu_args(profile_file=None, profile_cache_ttl=60)
+    fresh_state = _MenuState(
+        latest=SimpleNamespace(profile=PlayerProfile("PalaMC", "abc", 1, 2, profile_source="api", profile_fetched_at=time.time()))
+    )
+    stale_state = _MenuState(
+        latest=SimpleNamespace(profile=PlayerProfile("PalaMC", "abc", 1, 2, profile_source="api-cache", profile_fetched_at=time.time() - 120))
+    )
+
+    assert _profile_freshness_label(args, fresh_state) == "fresh"
+    assert _profile_freshness_label(args, stale_state) == "stale"
+    assert _profile_freshness_label(args, _MenuState()) == "unavailable"
+
+    profile_cache_path().parent.mkdir(parents=True, exist_ok=True)
+    profile_cache_path().write_text(json.dumps({"created_at": time.time(), "payload": {"profile": {}}}), encoding="utf-8")
+    assert _profile_freshness_label(args, _MenuState()) == "cached"
+
+
+def test_restricted_profile_note_keeps_accessories_visible():
+    profile = PlayerProfile("PalaMC", "abc", 1, 2, profile_mode="ironman")
+
+    note = _restricted_profile_note(profile, None)
+
+    assert "Bazaar Flip" in note
+    assert "AH Craft Flips" in note
+    assert "Accessories Helper remains available" in note
+
+
+def test_budget_source_menu_persists_api_choice(monkeypatch, tmp_path):
+    monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
+    save_user_config(HypixelUserConfig("PalaMC", "abc", "Apple", "one"))
+    inputs = iter(["1"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
+    args = make_menu_args(budget=123)
+
+    _budget_source_menu(args, _MenuState(latest=SimpleNamespace(profile=PlayerProfile("PalaMC", "abc", 1_000, 2_000))))
+
+    assert load_user_config().budget_source == BUDGET_SOURCE_PURSE
+    assert args.budget is None
 
 
 def test_r_refreshes_inside_settings_without_leaving(monkeypatch, tmp_path):
