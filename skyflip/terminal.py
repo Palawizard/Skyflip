@@ -12,6 +12,7 @@ from .models import RejectedItem
 from .profile_parser import PlayerProfile
 from .report import hours, print_table
 from .scoring import Opportunity
+from .terminal_layout import compact_line, get_terminal_size, too_small_message, usable_width
 
 
 def compact_number(value: float | int | None) -> str:
@@ -43,6 +44,7 @@ def print_dashboard(
     cache_ttl: int,
     talisman_helper: AccessoryAnalysis | None = None,
 ) -> None:
+    _print_resize_notice_if_needed()
     print(f"skyflip dashboard - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Cache TTL: {cache_ttl}s")
     print()
@@ -60,14 +62,15 @@ def print_dashboard(
         print()
         print("API warnings")
         for warning in warnings[:12]:
-            print(f"- {warning}")
+            print(compact_line(f"- {warning}"))
         if len(warnings) > 12:
             print(f"- ... {len(warnings) - 12} more warnings hidden")
     print()
-    print("Manual-only tool: no in-game buying, selling, claiming, clicking, or listing is automated.")
+    print(compact_line("Manual-only tool: no in-game buying, selling, claiming, clicking, or listing is automated."))
 
 
 def print_dashboard_status(data, *, last_refresh: str | None = None, auto_refresh: bool = False) -> None:
+    _print_resize_notice_if_needed()
     print(f"skyflip dashboard - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     if last_refresh:
         print(f"Last refresh: {last_refresh}")
@@ -76,14 +79,16 @@ def print_dashboard_status(data, *, last_refresh: str | None = None, auto_refres
     print()
     _print_player_summary(data.profile, data.budget)
     print(
-        "Results: "
-        f"craft {len(data.craft)}, "
-        f"spread {len(data.bazaar_spreads)}, "
-        f"order {len(data.bazaar_orders)}, "
-        f"compression {len(data.conversions)}, "
-        f"AH {len(data.ah_underpriced)}, "
-        f"talisman {len(data.talisman_helper.recommendations) if getattr(data, 'talisman_helper', None) else 0}, "
-        f"warnings {len(data.warnings)}"
+        compact_line(
+            "Results: "
+            f"craft {len(data.craft)}, "
+            f"spread {len(data.bazaar_spreads)}, "
+            f"order {len(data.bazaar_orders)}, "
+            f"compression {len(data.conversions)}, "
+            f"AH {len(data.ah_underpriced)}, "
+            f"talisman {len(data.talisman_helper.recommendations) if getattr(data, 'talisman_helper', None) else 0}, "
+            f"warnings {len(data.warnings)}"
+        )
     )
     print()
 
@@ -123,7 +128,7 @@ def _print_warnings(warnings: list[str]) -> None:
         return
     print("API warnings")
     for warning in warnings[:25]:
-        print(f"- {warning}")
+        print(compact_line(f"- {warning}"))
     if len(warnings) > 25:
         print(f"- ... {len(warnings) - 25} more warnings hidden")
 
@@ -296,14 +301,16 @@ def _print_talisman_helper(analysis: AccessoryAnalysis, *, view: str | None = No
     view = (view or analysis.view or "recommended").lower().replace("_", "-")
     summary = analysis.summary
     print(
-        f"MP: {compact_number(summary.magical_power)} | "
-        f"Owned: {compact_number(summary.owned_count)} | "
-        f"Missing useful: {compact_number(summary.missing_count)} | "
-        f"Craftable: {compact_number(summary.craftable_count)} | "
-        f"AH affordable: {compact_number(summary.ah_count)}"
+        compact_line(
+            f"MP: {compact_number(summary.magical_power)} | "
+            f"Owned: {compact_number(summary.owned_count)} | "
+            f"Missing useful: {compact_number(summary.missing_count)} | "
+            f"Craftable: {compact_number(summary.craftable_count)} | "
+            f"AH affordable: {compact_number(summary.ah_count)}"
+        )
     )
     if summary.warnings:
-        print(f"Warning: {summary.warnings[0]}")
+        print(_warning_line(summary.warnings[0]))
     print()
     if view in {"craftable-now", "craftable"}:
         _print_accessory_craftable(analysis.craftable)
@@ -517,13 +524,21 @@ def _print_or_empty(headers: list[str], rows: list[list[str]], empty: str) -> No
 
 
 def _print_result_hint(text: str) -> None:
-    print(f"   {text}")
+    print(compact_line(f"   {text}"))
     print()
 
 
 def _print_section_title(title: str) -> None:
-    print(title)
-    print("-" * min(88, max(24, len(title))))
+    width = usable_width()
+    print(compact_line(title, width=width))
+    print("-" * min(width, max(24, len(title))))
+
+
+def _print_resize_notice_if_needed() -> None:
+    size = get_terminal_size()
+    if size.too_small:
+        print(too_small_message(size))
+        print()
 
 
 def _with_qty(name: str, amount: int | float) -> str:
@@ -541,6 +556,16 @@ def _display_risk(value: str, *, test_first: bool = False) -> str:
     if "medium" in text or "med" in text or "slow" in text:
         return "Medium"
     return "Low"
+
+
+def _warning_line(warning: str) -> str:
+    prefixed = f"Warning: {warning}"
+    width = usable_width()
+    if len(prefixed) <= width:
+        return prefixed
+    if len(warning) <= width:
+        return warning
+    return compact_line(prefixed, width=width)
 
 
 def _stage(profile: PlayerProfile) -> str:

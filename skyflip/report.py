@@ -9,6 +9,7 @@ from typing import Any
 
 from .profile_parser import PlayerProfile
 from .scoring import Opportunity
+from .terminal_layout import format_table
 
 
 def print_terminal_report(opportunities: list[Opportunity], rejected: list[Opportunity], warnings: list[str]) -> None:
@@ -183,14 +184,8 @@ def craft_chain(item: Opportunity) -> str:
 
 
 def print_table(headers: list[str], rows: list[list[str]]) -> None:
-    widths = [len(header) for header in headers]
-    for row in rows:
-        for index, value in enumerate(row):
-            widths[index] = min(32, max(widths[index], len(value)))
-    print(" | ".join(header.ljust(widths[index]) for index, header in enumerate(headers)))
-    print("-+-".join("-" * width for width in widths))
-    for row in rows:
-        print(" | ".join(_clip(value, widths[index]).ljust(widths[index]) for index, value in enumerate(row)))
+    for line in format_table(headers, rows, essential_columns={0, 1}):
+        print(line)
 
 
 def coins(value: float | None) -> str:

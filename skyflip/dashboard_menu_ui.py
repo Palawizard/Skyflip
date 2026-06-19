@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import argparse
 import os
-import shutil
 import sys
 from pathlib import Path
 
 from .dashboard import DEFAULT_SECTIONS
+from .terminal_layout import TerminalSize, clip_text, get_terminal_size, too_small_message, usable_width
 from .user_config import load_user_config
 
 
@@ -84,13 +84,26 @@ def _clear_screen() -> None:
 
 
 def _width() -> int:
-    return max(72, min(120, shutil.get_terminal_size((96, 24)).columns))
+    return usable_width()
+
+
+def _terminal_size() -> TerminalSize:
+    return get_terminal_size()
+
+
+def _draw_too_small_if_needed(size: TerminalSize | None = None) -> bool:
+    size = size or _terminal_size()
+    if not size.too_small:
+        return False
+    print(too_small_message(size))
+    return True
 
 
 def _draw_header(title: str, args: argparse.Namespace, state: _MenuState | None) -> None:
-    width = _width()
+    size = _terminal_size()
+    width = usable_width(size)
     print("=" * width)
-    print(f"skyflip / {title}".ljust(width))
+    print(clip_text(f"skyflip / {title}", width).ljust(width))
     print("-" * width)
     profile = _header_profile_label(args, state)
     player = _header_player_label(args, state)
@@ -98,11 +111,11 @@ def _draw_header(title: str, args: argparse.Namespace, state: _MenuState | None)
     refresh = state.last_refresh if state and state.last_refresh else "never"
     auto = "ON" if state and state.auto_refresh else "OFF"
     preset = getattr(args, "active_settings_profile", None) or "default / unsaved"
-    print(f"Profile: {profile}")
-    print(f"Player:  {player.ljust(18)} Budget: {budget.ljust(12)} Last refresh: {refresh}  Auto: {auto}")
-    print(f"Preset:  {preset}")
+    print(compact_menu_line(f"Profile: {profile}", width))
+    print(compact_menu_line(f"Player:  {player}  Budget: {budget}  Last refresh: {refresh}  Auto: {auto}", width))
+    print(compact_menu_line(f"Preset:  {preset}", width))
     if state and state.status_message:
-        print(f"Status:  {state.status_message}")
+        print(compact_menu_line(f"Status: {state.status_message}", width))
     print("=" * width)
     print()
 
@@ -131,7 +144,7 @@ def _header_player_label(args: argparse.Namespace, state: _MenuState | None) -> 
 def _draw_simple_header(title: str) -> None:
     width = _width()
     print("=" * width)
-    print(f"skyflip / {title}")
+    print(compact_menu_line(f"skyflip / {title}", width))
     print("=" * width)
     print()
 
@@ -150,20 +163,22 @@ def _draw_counts(data) -> None:
         ("Talisman", len(data.talisman_helper.recommendations) if getattr(data, "talisman_helper", None) else 0),
         ("Warnings", len(data.warnings)),
     ]
-    print("Results  " + "  ".join(f"{name}: {_badge(str(count))}" for name, count in rows))
+    print(compact_menu_line("Results  " + "  ".join(f"{name}: {_badge(str(count))}" for name, count in rows), _width()))
     print()
 
 
 def _draw_menu(items: list[tuple[str, str, str]]) -> None:
+    width = _width()
     for key, label, hint in items:
-        print(f"  {key.rjust(2)}  {label.ljust(26)} {hint}")
+        print(compact_menu_line(f"  {key.rjust(2)}  {label.ljust(26)} {hint}", width))
     print()
 
 
 def _draw_settings(items: list[tuple[str, str, str]]) -> None:
+    width = _width()
     label_width = max(len(label) for _, label, _ in items)
     for key, label, value in items:
-        print(f"  {key.rjust(2)}  {label.ljust(label_width)}  {value}")
+        print(compact_menu_line(f"  {key.rjust(2)}  {label.ljust(label_width)}  {value}", width))
     print()
 
 
@@ -179,6 +194,7 @@ def _select_menu(
 ) -> str:
     if not _interactive_menu_enabled():
         _clear_screen()
+        _draw_too_small_if_needed()
         if args is not None:
             _draw_header(title, args, state)
         else:
@@ -189,11 +205,12 @@ def _select_menu(
         if show_counts and state is not None:
             _draw_counts(state.latest)
         _draw_menu(entries)
-        return input(f"{prompt}: ").strip().lower()
+        return input(compact_menu_line(f"{prompt}: ", _width())).strip().lower()
 
     selected = 0
     while True:
         _clear_screen()
+        _draw_too_small_if_needed()
         if args is not None:
             _draw_header(title, args, state)
         else:
@@ -205,7 +222,7 @@ def _select_menu(
             _draw_counts(state.latest)
         _draw_selectable_entries(entries, selected)
         print()
-        print(_muted("Up/Down move   Enter select   R refresh   Esc back   Q quit/back"))
+        print(_muted(compact_menu_line("Up/Down move   Enter select   R refresh   Esc back   Q quit/back", _width())))
         key = _read_key()
         if key == "up":
             selected = (selected - 1) % len(entries)
@@ -224,10 +241,11 @@ def _select_menu(
 
 
 def _draw_selectable_entries(entries: list[tuple[str, str, str]], selected: int) -> None:
+    width = _width()
     label_width = min(48, max(len(_plain(label)) for _, label, _ in entries))
     for index, (_, label, hint) in enumerate(entries):
         cursor = ">" if index == selected else " "
-        line = f" {cursor} {label.ljust(label_width)}  {_muted(hint)}"
+        line = compact_menu_line(f" {cursor} {label.ljust(label_width)}  {_muted(hint)}", width)
         if index == selected:
             print(_highlight(line))
         else:
@@ -299,6 +317,10 @@ def _short_path(value: str | None) -> str:
     if len(str(path)) <= 90:
         return str(path)
     return f"...\\{path.name}"
+
+
+def compact_menu_line(value: str, width: int | None = None) -> str:
+    return clip_text(value, width or _width())
 
 
 def _pause(prompt: str = "Press Enter to go back...") -> None:
