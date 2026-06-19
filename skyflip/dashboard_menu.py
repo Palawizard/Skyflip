@@ -18,11 +18,15 @@ from .onboarding import change_profile, ensure_profile_configuration, refresh_pr
 from .profile_fetcher import load_api_profile
 from .profile_parser import load_profile
 from .settings_profiles import (
+    delete_module_settings_preset,
     delete_settings_profile,
     get_active_settings_profile,
+    list_module_settings_presets,
     list_settings_profiles,
     load_active_settings_profile,
+    load_module_settings_preset,
     load_settings_profile,
+    save_module_settings_preset,
     save_settings_profile,
 )
 from .terminal import print_dashboard_section, print_dashboard_status
@@ -204,6 +208,7 @@ def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardM
                 ("3", "Recommended settings", "baseline values for this module"),
                 ("4", "Active settings", "current values for this module"),
                 ("5", "Advanced settings", "edit detailed controls"),
+                ("6", "Custom presets", "save or load this module"),
                 ("b", "Back", "return to modules"),
             ],
             args=args,
@@ -237,6 +242,9 @@ def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardM
             continue
         if choice == "5":
             _module_advanced_settings_menu(args, state, module, resolve_uuid)
+            continue
+        if choice == "6":
+            _module_custom_presets_menu(args, state, module, resolve_uuid)
             continue
         print("Unknown action.")
 
@@ -518,6 +526,151 @@ def _module_advanced_settings_menu(
         _compression_settings_menu(args, state, resolve_uuid)
         return
     _ah_bin_settings_menu(args, state, resolve_uuid)
+
+
+def _module_custom_presets_menu(
+    args: argparse.Namespace,
+    state: _MenuState,
+    module: DashboardModule,
+    resolve_uuid: Callable,
+) -> None:
+    while True:
+        presets = list_module_settings_presets(module.key)
+        choice = _select_menu(
+            f"{module.title} custom presets",
+            _refreshable_entries([
+                ("s", "Save current preset", "create or overwrite a module preset"),
+                ("l", "Load preset", "apply a saved module preset"),
+                ("d", "Delete preset", "remove a saved module preset"),
+                ("b", "Back", f"return to {module.title}"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Choose preset action",
+            note=_module_presets_note(presets),
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice in {"s", "save"}:
+            _save_module_settings_preset_menu(args, state, module)
+            continue
+        if choice in {"l", "load"}:
+            _load_module_settings_preset_menu(args, state, module, resolve_uuid)
+            continue
+        if choice in {"d", "delete"}:
+            _delete_module_settings_preset_menu(args, state, module, resolve_uuid)
+            continue
+        print("Unknown preset action.")
+
+
+def _save_module_settings_preset_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule) -> None:
+    _clear_screen()
+    _draw_header(f"{module.title} / Save custom preset", args, state)
+    name = input("Preset name: ").strip()
+    if not name:
+        _pause("No name entered. Press Enter...")
+        return
+    try:
+        save_module_settings_preset(args, module.key, name)
+    except ValueError as exc:
+        _pause(f"{exc}. Press Enter...")
+        return
+    clean_name = " ".join(name.strip().split())
+    state.module_presets[module.key] = f"Custom: {clean_name}"
+    state.status_message = f"Saved {clean_name} preset for {module.title}."
+    _pause(f"Saved {clean_name} preset. Press Enter...")
+
+
+def _load_module_settings_preset_menu(
+    args: argparse.Namespace,
+    state: _MenuState,
+    module: DashboardModule,
+    resolve_uuid: Callable,
+) -> None:
+    name = _choose_module_settings_preset("Load custom preset", args, state, module, resolve_uuid)
+    if not name:
+        return
+    if load_module_settings_preset(args, module.key, name):
+        state.module_presets[module.key] = f"Custom: {name}"
+        state.status_message = f"Loaded {name} preset for {module.title}."
+        _pause(f"Loaded {name} preset. Press Enter...")
+    else:
+        _pause("Preset not found. Press Enter...")
+
+
+def _delete_module_settings_preset_menu(
+    args: argparse.Namespace,
+    state: _MenuState,
+    module: DashboardModule,
+    resolve_uuid: Callable,
+) -> None:
+    name = _choose_module_settings_preset("Delete custom preset", args, state, module, resolve_uuid)
+    if not name:
+        return
+    if delete_module_settings_preset(module.key, name):
+        if state.module_presets.get(module.key) == f"Custom: {name}":
+            state.module_presets.pop(module.key, None)
+        state.status_message = f"Deleted {name} preset for {module.title}."
+        _pause(f"Deleted {name} preset. Press Enter...")
+    else:
+        _pause("Preset not found. Press Enter...")
+
+
+def _choose_module_settings_preset(
+    title: str,
+    args: argparse.Namespace,
+    state: _MenuState,
+    module: DashboardModule,
+    resolve_uuid: Callable,
+) -> str | None:
+    presets = list_module_settings_presets(module.key)
+    if not presets:
+        _clear_screen()
+        _draw_header(f"{module.title} / {title}", args, state)
+        _pause("No saved module presets. Press Enter...")
+        return None
+    names = sorted(presets)
+    entries = [(str(index), name, _module_settings_summary(module.key, presets[name])) for index, name in enumerate(names, 1)]
+    choice = _select_menu(
+        f"{module.title} / {title}",
+        _refreshable_entries([*entries, ("b", "Back", "return")]),
+        args=args,
+        state=state,
+        prompt="Choose preset",
+    )
+    if _handle_global_refresh(choice, args, state, resolve_uuid):
+        return None
+    if choice in {"b", "back", ""}:
+        return None
+    if choice.isdigit() and 1 <= int(choice) <= len(names):
+        return names[int(choice) - 1]
+    return None
+
+
+def _module_presets_note(presets: dict[str, dict]) -> str:
+    if not presets:
+        return "No saved custom presets for this module yet."
+    names = ", ".join(sorted(presets)[:6])
+    if len(presets) > 6:
+        names += f", +{len(presets) - 6} more"
+    return f"Saved presets: {names}"
+
+
+def _module_settings_summary(module_key: str, settings: dict) -> str:
+    if module_key == "bazaar":
+        rows = settings.get("spread_limit") or settings.get("limit_per_section", "?")
+        capital = settings.get("max_capital_percent_per_flip", "?")
+        speed = "conservative" if settings.get("conservative_speed", True) else "standard"
+        return f"{rows} rows / {capital}% capital / {speed}"
+    if module_key == "craft":
+        return f"min {_coins(settings.get('min_profit'))} / {settings.get('min_profit_percent', '?')}%"
+    if module_key == "accessories":
+        return f"{settings.get('accessory_view', '?')} / {settings.get('max_accessory_recommendations', '?')} rows"
+    if module_key == "compression":
+        return f"{settings.get('conversion_mode', '?')} / min {_coins(settings.get('min_profit'))}"
+    return f"{settings.get('limit_per_section', '?')} rows / min {_coins(settings.get('min_profit'))}"
 
 
 def _compression_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
