@@ -23,6 +23,7 @@ from .profile_parser import load_profile
 from .recipes import check_eligibility, load_recipes, recipe_index
 from .scoring import AnalyzerConfig, Opportunity, evaluate_opportunity
 from .terminal import print_dashboard
+from .user_config import budget_from_profile, load_user_config
 
 
 DEFAULT_SECTIONS = ["craft", "bazaar-spread", "bazaar-order", "bazaar-compression", "ah-underpriced", "talisman"]
@@ -79,7 +80,8 @@ def collect_dashboard_data(args, *, resolve_uuid) -> DashboardData:
     http = HttpClient(cache)
     profile = _load_dashboard_profile(args, http, resolve_uuid=resolve_uuid)
     if args.budget is None:
-        args.budget = max(0.0, profile.available_coins)
+        config = None if getattr(args, "profile_file", None) else load_user_config()
+        args.budget = budget_from_profile(profile, config)
     if not getattr(args, "player_name", None):
         args.player_name = profile.player_name
     warnings = list(profile.warnings)

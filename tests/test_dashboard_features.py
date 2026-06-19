@@ -12,6 +12,7 @@ from skyflip.profile_parser import PlayerProfile
 from skyflip.scoring import AnalyzerConfig, score_generic_opportunity
 from skyflip.terminal import print_dashboard
 from skyflip.dashboard import collect_dashboard_data
+from skyflip.user_config import BUDGET_SOURCE_CUSTOM, HypixelUserConfig, save_user_config
 
 
 def config(**overrides):
@@ -241,3 +242,42 @@ def test_dashboard_uses_api_profile_by_default(monkeypatch):
     assert data.profile is profile
     assert args.budget == 10_000_000
     assert calls == {"ensure": 1, "load": 1}
+
+
+def test_dashboard_uses_configured_budget_source(monkeypatch, tmp_path):
+    monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
+    save_user_config(HypixelUserConfig("PalaMC", "id", "Apple", "one", BUDGET_SOURCE_CUSTOM, 2_500_000))
+    profile = PlayerProfile("PalaMC", "id", 1_000_000, 9_000_000)
+
+    monkeypatch.setattr("skyflip.dashboard.ensure_profile_configuration", lambda http, force_setup=False: None)
+    monkeypatch.setattr("skyflip.dashboard.load_api_profile", lambda http, force_refresh=False, ttl_seconds=600: type("Loaded", (), {"profile": profile})())
+    args = type(
+        "Args",
+        (),
+        {
+            "profile_file": None,
+            "player_name": None,
+            "budget": None,
+            "cache_ttl": 300,
+            "min_profit": 1_000,
+            "min_profit_percent": 1,
+            "min_sales_per_day": 2,
+            "max_median_sell_time_hours": 12,
+            "max_craft_cost": None,
+            "max_capital_percent_per_flip": 10,
+            "limit_per_section": 0,
+            "min_spread_profit_per_unit": 0,
+            "min_spread_volume_week": 1_000,
+            "max_spread_depth_ratio": 1.25,
+            "spread_limit": 0,
+            "sections": "none",
+            "allow_restricted_profile": False,
+            "show_rejected": False,
+            "profile_cache_ttl": 600,
+        },
+    )()
+
+    data = collect_dashboard_data(args, resolve_uuid=lambda http, name: None)
+
+    assert data.budget == 2_500_000
+    assert args.budget == 2_500_000
