@@ -6,9 +6,20 @@ import threading
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Callable
 
 from .dashboard import DEFAULT_SECTIONS, collect_dashboard_data
+from .dashboard_results import (
+    detail_lines,
+    empty_state_hint,
+    merge_module_data,
+    module_candidate_rows,
+    module_rejections,
+    module_summary_lines,
+    module_warnings,
+    normalize_risk,
+)
 from .dashboard_modules import DASHBOARD_MODULES, DashboardModule
 from .module_presets import ModulePreset, apply_module_preset, list_module_presets
 from .module_recommendations import recommend_module_preset
@@ -223,7 +234,7 @@ def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardM
             if not _ensure_required(args):
                 _pause()
                 continue
-            _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
+            _refresh_module_results(args, state, module, resolve_uuid=resolve_uuid, announce=True)
             continue
         if choice in {"2", "results"}:
             _ensure_module_sections(args, module)
@@ -231,7 +242,7 @@ def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardM
                 if not _ensure_required(args):
                     _pause()
                     continue
-                _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
+                _refresh_module_results(args, state, module, resolve_uuid=resolve_uuid, announce=True)
             _module_results_menu(args, state, module)
             continue
         if choice == "3":
@@ -280,21 +291,139 @@ def _module_results_menu(args: argparse.Namespace, state: _MenuState, module: Da
         if data is None:
             print("No results loaded. Refresh results first.")
             return
+        note = "\n".join(module_summary_lines(data, module, last_refresh=state.last_refresh))
         entries = [
-            (str(index), f"{SECTION_LABELS.get(key, _section_name(key))} {_badge(str(_section_count(data, key)))}", _section_hint(key))
+            (str(index), f"{SECTION_LABELS.get(key, _section_name(key))} {_badge(str(_module_section_count(data, module, key)))}", _section_hint(key))
             for index, key in enumerate(keys, 1)
         ]
-        entries.extend([("r", "Refresh results", "scan again"), ("b", "Back", f"return to {module.title}")])
-        choice = _select_menu(f"{module.title} Results", entries, args=args, state=state, prompt="Open section")
+        entries.extend([
+            ("d", "Row details", "inspect one candidate"),
+            ("r", "Refresh this module", "scan only this module"),
+            ("a", "Refresh all results", "scan every enabled section"),
+            ("b", "Back", f"return to {module.title}"),
+        ])
+        choice = _select_menu(f"{module.title} Results", entries, args=args, state=state, prompt="Open section", note=note)
         if choice in {"b", "back", ""}:
             return
-        if _handle_global_refresh(choice, args, state, None):
+        if choice in {"r", "refresh"}:
+            _refresh_module_results(args, state, module, resolve_uuid=getattr(state, "resolve_uuid", None), announce=False)
+            continue
+        if choice in {"a", "all"}:
+            _handle_global_refresh("r", args, state, getattr(state, "resolve_uuid", None))
+            continue
+        if choice in {"s", "summary"}:
+            _show_module_summary(args, state, module)
+            continue
+        if choice in {"d", "details"}:
+            _module_detail_menu(args, state, module)
             continue
         if choice.isdigit() and 1 <= int(choice) <= len(keys):
             key = keys[int(choice) - 1]
-            _show_result_section(args, state, key)
+            if key == "summary":
+                _show_module_summary(args, state, module)
+                continue
+            _show_result_section(args, state, key, module=module)
             continue
         print("Unknown section.")
+
+
+def _show_module_summary(args: argparse.Namespace, state: _MenuState, module: DashboardModule) -> None:
+    _clear_screen()
+    _draw_header(f"{module.title} / Results summary", args, state)
+    data = state.latest
+    if data is None:
+        print("No results loaded. Refresh results first.")
+        _pause()
+        return
+    for line in module_summary_lines(data, module, last_refresh=state.last_refresh):
+        print(line)
+    warnings = module_warnings(data, module)
+    if warnings:
+        print()
+        print("Warnings")
+        for warning in warnings[:8]:
+            print(f"- {warning}")
+    print()
+    print(f"Filters: {_module_filter_summary(args, module)}")
+    _pause()
+
+
+def _module_detail_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule) -> None:
+    while True:
+        data = state.latest
+        if data is None:
+            print("No results loaded. Refresh results first.")
+            return
+        rows = module_candidate_rows(data, module)
+        if not rows:
+            _clear_screen()
+            _draw_header(f"{module.title} / Row details", args, state)
+            print(empty_state_hint(module.key, module.sections[0]))
+            _pause()
+            return
+        entries = [
+            (str(index), _detail_entry_label(section, item), f"risk {normalize_risk(item)}")
+            for index, (section, item) in enumerate(rows[:25], 1)
+        ]
+        choice = _select_menu(
+            f"{module.title} Row details",
+            [*entries, ("b", "Back", f"return to {module.title} results")],
+            args=args,
+            state=state,
+            prompt="Open row",
+            note=f"Filters: {_module_filter_summary(args, module)}",
+        )
+        if choice in {"b", "back", ""}:
+            return
+        if choice.isdigit() and 1 <= int(choice) <= len(entries):
+            section, item = rows[int(choice) - 1]
+            _show_row_detail(args, state, module, section, item)
+            continue
+        print("Unknown row.")
+
+
+def _show_row_detail(args: argparse.Namespace, state: _MenuState, module: DashboardModule, section: str, item: object) -> None:
+    _clear_screen()
+    _draw_header(f"{module.title} / Row detail", args, state)
+    _draw_settings([("", key, value) for key, value in detail_lines(item, section)])
+    _pause()
+
+
+def _detail_entry_label(section: str, item: object) -> str:
+    if section == "craft":
+        return getattr(getattr(item, "recipe", None), "name", "Craft")
+    if section == "bazaar-compression":
+        return str(getattr(item, "name", "Conversion"))
+    if section == "ah-underpriced":
+        return str(getattr(item, "item", "AH item"))
+    if section == "talisman":
+        return str(getattr(getattr(item, "entry", None), "display_name", "Accessory"))
+    return str(getattr(item, "product_id", "Product"))
+
+
+def _module_section_count(data, module: DashboardModule, key: str) -> int | str:
+    if key == "warnings":
+        return len(module_warnings(data, module))
+    if key == "rejected":
+        return len(module_rejections(data, module))
+    return _section_count(data, key)
+
+
+def _module_filter_summary(args: argparse.Namespace, module: DashboardModule) -> str:
+    if module.key == "bazaar":
+        return (
+            f"rows {args.spread_limit or args.limit_per_section}, "
+            f"min volume {args.min_spread_volume_week:g}, "
+            f"speed {'conservative' if args.conservative_speed else 'standard'}"
+        )
+    if module.key == "craft":
+        return f"min profit {_coins(args.min_profit)}, margin {args.min_profit_percent:g}%, rows {args.limit_per_section}"
+    if module.key == "accessories":
+        _ensure_talisman_attrs(args)
+        return f"view {args.accessory_view}, max price {_optional_coins(args.max_accessory_price)}, rows {args.max_accessory_recommendations}"
+    if module.key == "compression":
+        return f"mode {args.conversion_mode}, min profit {_coins(args.min_profit)}, rows {args.limit_per_section}"
+    return f"min profit {_coins(args.min_profit)}, max sell {args.max_median_sell_time_hours:g}h, rows {args.limit_per_section}"
 
 
 def _module_settings_view(
@@ -1208,32 +1337,79 @@ def _refresh_results(args: argparse.Namespace, state: _MenuState, *, resolve_uui
     return True
 
 
-def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str) -> None:
+def _refresh_module_results(
+    args: argparse.Namespace,
+    state: _MenuState,
+    module: DashboardModule,
+    *,
+    resolve_uuid: Callable | None,
+    announce: bool,
+) -> bool:
+    if resolve_uuid is None:
+        resolve_uuid = getattr(state, "resolve_uuid", None)
+    if resolve_uuid is None:
+        print("Refresh callback is unavailable.")
+        return False
+    setattr(state, "resolve_uuid", resolve_uuid)
+    if announce:
+        print(f"Refreshing {module.title}...")
+    original_sections = args.sections
+    args.sections = ",".join(module.sections)
+    try:
+        data = collect_dashboard_data(args, resolve_uuid=resolve_uuid)
+    except Exception as exc:  # noqa: BLE001 - interactive menu should survive failed refreshes
+        print(f"Refresh failed: {exc}")
+        state.status_message = f"Refresh failed: {exc}"
+        return False
+    finally:
+        args.sections = original_sections
+    with state.lock:
+        state.latest = merge_module_data(state.latest, data, module)
+        state.last_refresh = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        state.status_message = f"{module.title} refreshed."
+    if announce:
+        _clear_screen()
+        _show_module_summary(args, state, module)
+    return True
+
+
+def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, module: DashboardModule | None = None) -> None:
     while True:
         data = state.latest
         if data is None:
             print("No results loaded. Refresh results first.")
             return
         sort_key = _section_sort_key(state, key)
-        sorted_data = _sorted_section_data(data, key, sort_key)
+        display_data = _module_scoped_data(data, module, key) if module is not None else data
+        sorted_data = _sorted_section_data(display_data, key, sort_key)
         _clear_screen()
         _draw_header(SECTION_LABELS.get(key, _section_name(key)), args, state)
         _draw_sort_hint(key, sort_key)
+        if module is not None:
+            print(f"Filters: {_module_filter_summary(args, module)}")
         print()
         print_dashboard_section(sorted_data, key, show_rejected=args.show_rejected)
+        if module is not None and _module_section_count(display_data, module, key) == 0 and key not in {"warnings", "rejected"}:
+            print(empty_state_hint(module.key, key))
         if not _interactive_menu_enabled():
-            choice = input("Press R to refresh, left/right to change sort, or Enter to go back: ").strip().lower()
+            choice = input("Press R to refresh, D for details, left/right to change sort, or Enter to go back: ").strip().lower()
             if choice == "left":
                 _cycle_section_sort(state, key, -1)
                 continue
             if choice == "right":
                 _cycle_section_sort(state, key, 1)
                 continue
+            if choice in {"d", "details"} and module is not None:
+                _module_detail_menu(args, state, module)
+                continue
             if choice in {"r", "refresh"}:
-                _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
+                if module is not None:
+                    _refresh_module_results(args, state, module, resolve_uuid=getattr(state, "resolve_uuid", None), announce=False)
+                else:
+                    _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
                 continue
             return
-        print(_muted("Left/Right change sort   R refresh   Enter/Esc back"))
+        print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
         choice = _read_key()
         if choice == "left":
             _cycle_section_sort(state, key, -1)
@@ -1241,11 +1417,28 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str) 
         if choice == "right":
             _cycle_section_sort(state, key, 1)
             continue
+        if choice == "d" and module is not None:
+            _module_detail_menu(args, state, module)
+            continue
         if choice == "r":
-            _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
+            if module is not None:
+                _refresh_module_results(args, state, module, resolve_uuid=getattr(state, "resolve_uuid", None), announce=False)
+            else:
+                _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
             continue
         if choice in {"enter", "escape", "q", "b"}:
             return
+
+
+def _module_scoped_data(data, module: DashboardModule | None, key: str):
+    if module is None:
+        return data
+    values = dict(vars(data)) if hasattr(data, "__dict__") else {}
+    if key == "warnings":
+        values["warnings"] = module_warnings(data, module)
+    elif key == "rejected":
+        values["rejected"] = module_rejections(data, module)
+    return SimpleNamespace(**values)
 
 
 

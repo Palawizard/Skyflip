@@ -285,6 +285,84 @@ def test_r_refreshes_current_result_section(monkeypatch, tmp_path, capsys):
     assert "Best craft flips" in output
 
 
+def test_module_results_refresh_only_scans_that_module(monkeypatch, tmp_path):
+    profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
+    profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    inputs = iter(["1", "2", "", "r", "b", "b", "q"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
+    captured_sections = []
+
+    def fake_collect_dashboard_data(args, *, resolve_uuid):
+        captured_sections.append(args.sections)
+        return SimpleNamespace(
+            profile=PlayerProfile("PalaMC", "abc", 123, 0),
+            budget=args.budget,
+            craft=[],
+            bazaar_spreads=[],
+            bazaar_orders=[],
+            conversions=[],
+            ah_underpriced=[],
+            talisman_helper=None,
+            rejected=[],
+            warnings=[],
+            cache_ttl=args.cache_ttl,
+        )
+
+    monkeypatch.setattr("skyflip.dashboard_menu.collect_dashboard_data", fake_collect_dashboard_data)
+    args = make_menu_args(profile_file=str(profile), sections="craft,bazaar-spread,bazaar-order")
+
+    assert run_dashboard_menu(args, resolve_uuid=lambda http, name: None) == 0
+    assert captured_sections == ["bazaar-spread,bazaar-order", "bazaar-spread,bazaar-order"]
+    assert args.sections == "craft,bazaar-spread,bazaar-order"
+
+
+def test_module_row_details_show_manual_verification(monkeypatch, tmp_path, capsys):
+    profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
+    profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    inputs = iter(["1", "2", "", "d", "1", "", "b", "b", "b", "q"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
+
+    def fake_collect_dashboard_data(args, *, resolve_uuid):
+        return SimpleNamespace(
+            profile=PlayerProfile("PalaMC", "abc", 123, 0),
+            budget=args.budget,
+            craft=[],
+            bazaar_spreads=[
+                SimpleNamespace(
+                    product_id="ENCHANTED_CARROT",
+                    final_score=90,
+                    risk="Medium",
+                    should_test_first=True,
+                    manual_action="Suggested manual action: place a small order.",
+                    reason="wide spread",
+                    capital_required=100_000,
+                    estimated_total_profit=25_000,
+                    profit_percent=12.5,
+                    confidence_score=72,
+                )
+            ],
+            bazaar_orders=[],
+            conversions=[],
+            ah_underpriced=[],
+            talisman_helper=None,
+            rejected=[],
+            warnings=["Bazaar spread section failed: sample warning"],
+            cache_ttl=args.cache_ttl,
+        )
+
+    monkeypatch.setattr("skyflip.dashboard_menu.collect_dashboard_data", fake_collect_dashboard_data)
+    args = make_menu_args(profile_file=str(profile), sections="craft,bazaar-spread,bazaar-order")
+
+    assert run_dashboard_menu(args, resolve_uuid=lambda http, name: None) == 0
+    output = capsys.readouterr().out
+    assert "Filters:" in output
+    assert "Verify" in output
+    assert "top order walls" in output
+    assert "Warnings: 1" in output
+
+
 def test_dashboard_menu_can_save_named_settings_profile(monkeypatch, tmp_path):
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")

@@ -192,6 +192,7 @@ def _print_bazaar_orders(items: list[BazaarOrderFlip]) -> None:
     _print_result_hint("Amount is next to the product. Place buy order at Buy @, then sell at Sell @ after filled.")
     rows = []
     for rank, item in enumerate(items, 1):
+        risk = _display_risk(item.risk)
         rows.append(
             [
                 str(rank),
@@ -201,7 +202,7 @@ def _print_bazaar_orders(items: list[BazaarOrderFlip]) -> None:
                 compact_number(item.estimated_profit),
                 f"{item.profit_percent:.2f}%",
                 item.bottleneck_speed_label,
-                item.risk,
+                risk,
             ]
         )
     _print_or_empty(
@@ -217,7 +218,7 @@ def _print_bazaar_spreads(items: list[BazaarSpreadOpportunity]) -> None:
     _print_result_hint("Amount is next to the product. Coins/h and Profit/min are estimated from the bottleneck buy/sell speed.")
     rows = []
     for rank, item in enumerate(items, 1):
-        risk = f"{item.risk}/Test" if item.should_test_first else item.risk
+        risk = _display_risk(item.risk, test_first=item.should_test_first)
         rows.append(
             [
                 str(rank),
@@ -245,6 +246,7 @@ def _print_conversions(items: list[ConversionFlip]) -> None:
     _print_result_hint("Manual conversion only. Buy inputs, convert manually, then sell outputs.")
     rows = []
     for rank, item in enumerate(items, 1):
+        risk = _display_risk(item.risk)
         rows.append(
             [
                 str(rank),
@@ -253,7 +255,7 @@ def _print_conversions(items: list[ConversionFlip]) -> None:
                 f"{item.profit_percent:.1f}%",
                 item.bottleneck_speed_label,
                 str(item.suggested_batch_size),
-                item.risk,
+                risk,
             ]
         )
     _print_or_empty(
@@ -269,6 +271,7 @@ def _print_ah_underpriced(items: list[AhUnderpricedOpportunity]) -> None:
     _print_result_hint("Check attributes/upgrades manually before buying. This section is intentionally conservative.")
     rows = []
     for rank, item in enumerate(items, 1):
+        risk = _display_risk(item.risk)
         rows.append(
             [
                 str(rank),
@@ -277,7 +280,7 @@ def _print_ah_underpriced(items: list[AhUnderpricedOpportunity]) -> None:
                 compact_number(item.expected_profit),
                 f"{item.underpriced_percent:.1f}%",
                 hours(item.median_sell_time_hours),
-                item.risk,
+                risk,
             ]
         )
     _print_or_empty(
@@ -525,6 +528,19 @@ def _print_section_title(title: str) -> None:
 
 def _with_qty(name: str, amount: int | float) -> str:
     return f"{name} x{compact_number(amount)}"
+
+
+def _display_risk(value: str, *, test_first: bool = False) -> str:
+    if test_first:
+        return "Test first"
+    text = str(value or "").lower()
+    if "test" in text:
+        return "Test first"
+    if "high" in text or "too slow" in text:
+        return "High"
+    if "medium" in text or "med" in text or "slow" in text:
+        return "Medium"
+    return "Low"
 
 
 def _stage(profile: PlayerProfile) -> str:
