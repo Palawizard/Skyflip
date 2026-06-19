@@ -13,12 +13,15 @@ from .dashboard_menu import run_dashboard_menu, should_open_dashboard_menu
 from .dashboard_modules import DASHBOARD_MODULES, module_keys_for_sections
 from .http import ApiError, HttpClient
 from .module_presets import apply_module_preset, get_module_preset, list_module_presets
+from .module_recommendations import recommend_module_presets
 from .onboarding import ensure_profile_configuration, reset_profile_configuration_with_confirmation
 from .pricing import PricingEngine
+from .profile_fetcher import load_api_profile
 from .profile_parser import load_profile
 from .recipes import check_eligibility, load_recipes, recipe_index
 from .report import print_terminal_report, write_csv_report, write_json_report, write_txt_report
 from .scoring import AnalyzerConfig, evaluate_opportunity
+from .user_config import budget_from_profile, load_user_config
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -34,6 +37,8 @@ def main(argv: list[str] | None = None) -> int:
         if getattr(args, "reset_profile_config", False):
             reset_profile_configuration_with_confirmation()
             return 0
+        if getattr(args, "print_recommended_presets", False):
+            return print_recommended_presets(args)
         if getattr(args, "setup", False):
             cache = FileCache(ttl_seconds=getattr(args, "profile_cache_ttl", 600))
             ensure_profile_configuration(HttpClient(cache), force_setup=True)
@@ -157,6 +162,12 @@ def _add_dashboard_args(dashboard_parser: argparse.ArgumentParser) -> None:
 
 
 def _add_module_preset_args(group: argparse._ArgumentGroup) -> None:
+    group.add_argument(
+        "--print-recommended-presets",
+        "--recommend-presets",
+        action="store_true",
+        help="Print profile-aware module preset recommendations without scanning market data",
+    )
     for module in DASHBOARD_MODULES:
         choices = [preset.key for preset in list_module_presets(module.key)]
         flag = f"--{module.key}-preset"
@@ -195,6 +206,48 @@ def _normalize_dashboard_args(args: argparse.Namespace, parser: argparse.Argumen
         preset_key = getattr(args, f"{module.key.replace('-', '_')}_preset", None)
         if preset_key:
             apply_module_preset(args, get_module_preset(module.key, preset_key))
+
+
+def print_recommended_presets(args: argparse.Namespace) -> int:
+    profile = _load_profile_for_preset_recommendations(args)
+    if args.budget is None:
+        config = None if getattr(args, "profile_file", None) else load_user_config()
+        args.budget = budget_from_profile(profile, config)
+    recommendations = recommend_module_presets(profile, args)
+    selected = _recommendation_module_keys(args)
+    print(f"Recommended module presets for {profile.player_name}")
+    print(f"Budget: {args.budget:,.0f}")
+    for key in selected:
+        module = next(module for module in DASHBOARD_MODULES if module.key == key)
+        recommendation = recommendations[key]
+        preset = recommendation.preset
+        print(f"\n{module.title}: {preset.title} (risk {preset.risk_level})")
+        for reason in recommendation.reasons:
+            print(f"- {reason}")
+    return 0
+
+
+def _load_profile_for_preset_recommendations(args: argparse.Namespace) -> object:
+    if getattr(args, "profile_file", None):
+        cache = FileCache(ttl_seconds=getattr(args, "cache_ttl", 300))
+        http = HttpClient(cache)
+        player_uuid = resolve_player_uuid(http, args.player_name) if args.player_name else None
+        return load_profile(args.profile_file, player_name=args.player_name, player_uuid=player_uuid)
+    cache = FileCache(ttl_seconds=getattr(args, "profile_cache_ttl", 600))
+    http = HttpClient(cache)
+    ensure_profile_configuration(http, force_setup=bool(getattr(args, "setup", False)))
+    return load_api_profile(http).profile
+
+
+def _recommendation_module_keys(args: argparse.Namespace) -> list[str]:
+    selected_modules = list(getattr(args, "selected_modules", ()) or ())
+    if selected_modules:
+        return selected_modules
+    sections = _sections_from_value(getattr(args, "sections", None))
+    if sections:
+        keys = module_keys_for_sections(sections)
+        return keys if keys else [module.key for module in DASHBOARD_MODULES]
+    return [module.key for module in DASHBOARD_MODULES]
 
 
 def _parse_module_aliases(values: list[str] | None, parser: argparse.ArgumentParser | None = None) -> list[str]:

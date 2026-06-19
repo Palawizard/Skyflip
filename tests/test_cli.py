@@ -85,3 +85,36 @@ def test_main_module_alias_reaches_dashboard(monkeypatch):
 
     assert result == 0
     assert captured["sections"] == "ah-underpriced"
+
+
+def test_print_recommended_presets_uses_profile_without_dashboard(monkeypatch, tmp_path, capsys):
+    profile = tmp_path / "profile.json"
+    profile.write_text(
+        '{"profile":{"cute_name":"Apple","banking":{"balance":900000},'
+        '"members":{"abc":{"player_name":"PalaMC","coin_purse":100000,'
+        '"inventory":{},"accessory_bag_storage":{"highest_magical_power":80}}}}}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("skyflip.cli.run_dashboard", lambda *args, **kwargs: pytest.fail("dashboard should not run"))
+
+    result = main(["dashboard", "--profile-file", str(profile), "--print-recommended-presets", "--module", "accessories"])
+    output = capsys.readouterr().out
+
+    assert result == 0
+    assert "Recommended module presets for PalaMC" in output
+    assert "Accessories Helper:" in output
+    assert "Bazaar Flip:" not in output
+    assert "Budget:" in output
+
+
+def test_recommend_presets_alias_honors_sections(monkeypatch, tmp_path, capsys):
+    profile = tmp_path / "profile.json"
+    profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":1000000}}}}', encoding="utf-8")
+    monkeypatch.setattr("skyflip.cli.run_dashboard", lambda *args, **kwargs: pytest.fail("dashboard should not run"))
+
+    result = main(["dashboard", "--profile-file", str(profile), "--recommend-presets", "--sections", "craft"])
+    output = capsys.readouterr().out
+
+    assert result == 0
+    assert "AH Craft Flips:" in output
+    assert "Accessories Helper:" not in output
