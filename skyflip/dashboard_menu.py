@@ -10,9 +10,12 @@ from typing import Callable
 
 from .dashboard import DEFAULT_SECTIONS, collect_dashboard_data
 from .dashboard_modules import DASHBOARD_MODULES, DashboardModule
+from .module_presets import ModulePreset, apply_module_preset, list_module_presets
+from .module_recommendations import recommend_module_preset
 from .cache import FileCache
 from .http import HttpClient
 from .onboarding import change_profile, ensure_profile_configuration, refresh_profile_now, reset_profile_configuration_with_confirmation
+from .profile_fetcher import load_api_profile
 from .profile_parser import load_profile
 from .settings_profiles import (
     delete_settings_profile,
@@ -73,6 +76,7 @@ class _MenuState:
     lock: threading.Lock = field(default_factory=threading.Lock)
     section_sorts: dict[str, str] = field(default_factory=dict)
     persist_sort_preferences: bool = False
+    module_presets: dict[str, str] = field(default_factory=dict)
 
 
 def run_dashboard_menu(args: argparse.Namespace, *, resolve_uuid: Callable) -> int:
@@ -226,10 +230,10 @@ def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardM
             _module_results_menu(args, state, module)
             continue
         if choice == "3":
-            _module_settings_view(args, state, module, title="Recommended settings", rows=_recommended_module_settings(args, module))
+            _module_recommended_settings_menu(args, state, module, resolve_uuid)
             continue
         if choice == "4":
-            _module_settings_view(args, state, module, title="Active settings", rows=_active_module_settings(args, module))
+            _module_settings_view(args, state, module, title="Active settings", rows=_active_module_settings(args, state, module))
             continue
         if choice == "5":
             _module_advanced_settings_menu(args, state, module, resolve_uuid)
@@ -299,6 +303,157 @@ def _module_settings_view(
     _pause()
 
 
+def _module_recommended_settings_menu(
+    args: argparse.Namespace,
+    state: _MenuState,
+    module: DashboardModule,
+    resolve_uuid: Callable,
+) -> None:
+    profile = _load_profile_for_recommendations(args, state, resolve_uuid)
+    if profile is None:
+        _pause("Profile data is unavailable. Press Enter...")
+        return
+    recommendation = recommend_module_preset(profile, args, module.key)
+    presets = list_module_presets(module.key)
+    note = _recommendation_note(recommendation.preset, recommendation.reasons)
+    while True:
+        entries = [
+            ("a", f"Apply recommended: {recommendation.preset.title}", f"risk {recommendation.preset.risk_level}"),
+            *[
+                (str(index), preset.title, f"risk {preset.risk_level}")
+                for index, preset in enumerate(presets, 1)
+            ],
+            ("b", "Back", f"return to {module.title}"),
+        ]
+        choice = _select_menu(
+            f"{module.title} Recommended settings",
+            entries,
+            args=args,
+            state=state,
+            prompt="Preset to apply",
+            note=note,
+        )
+        if choice in {"b", "back", ""}:
+            return
+        selected = recommendation.preset if choice == "a" else _preset_from_choice(choice, presets)
+        if selected is None:
+            print("Unknown preset.")
+            continue
+        _apply_selected_module_preset(args, state, selected)
+        _pause(f"Applied {selected.title} preset. Press Enter...")
+        return
+
+
+def _load_profile_for_recommendations(
+    args: argparse.Namespace,
+    state: _MenuState,
+    resolve_uuid: Callable,
+) -> object | None:
+    loaded = getattr(getattr(state, "latest", None), "profile", None)
+    if loaded is not None:
+        return loaded
+    _apply_detected_defaults(args)
+    try:
+        if args.profile_file:
+            player_uuid = resolve_uuid(_profile_http(args), args.player_name) if args.player_name else None
+            profile = load_profile(args.profile_file, player_name=args.player_name, player_uuid=player_uuid)
+        else:
+            http = _profile_http(args)
+            ensure_profile_configuration(http, force_setup=bool(getattr(args, "setup", False)))
+            profile = load_api_profile(
+                http,
+                force_refresh=bool(getattr(args, "refresh_profile", False)),
+                ttl_seconds=int(getattr(args, "profile_cache_ttl", 600) or 600),
+            ).profile
+    except Exception as exc:  # noqa: BLE001 - keep menu usable if profile loading fails
+        state.status_message = f"Profile recommendation failed: {exc}"
+        print(f"Profile recommendation failed: {exc}")
+        return None
+    if args.budget is None:
+        args.budget = max(0.0, profile.available_coins)
+    if not args.player_name:
+        args.player_name = profile.player_name
+    return profile
+
+
+def _recommendation_note(preset: ModulePreset, reasons: tuple[str, ...]) -> str:
+    lines = [
+        f"Recommended preset: {preset.title}",
+        f"Risk level: {preset.risk_level}",
+        "Why this recommendation?",
+        *[f"- {reason}" for reason in reasons],
+        "",
+        "Settings changed:",
+        *[f"- {_setting_label(field)}: {_format_setting_value(value)}" for field, value in preset.settings_patch.items()],
+    ]
+    return "\n".join(lines)
+
+
+def _preset_from_choice(choice: str, presets: tuple[ModulePreset, ...]) -> ModulePreset | None:
+    if not choice.isdigit():
+        return None
+    index = int(choice)
+    if 1 <= index <= len(presets):
+        return presets[index - 1]
+    return None
+
+
+def _apply_selected_module_preset(args: argparse.Namespace, state: _MenuState, preset: ModulePreset) -> None:
+    apply_module_preset(args, preset)
+    state.module_presets[preset.module_key] = preset.title
+    state.status_message = f"Applied {preset.title} preset for {_module_title(preset.module_key)}."
+
+
+def _module_title(module_key: str) -> str:
+    for module in DASHBOARD_MODULES:
+        if module.key == module_key:
+            return module.title
+    return module_key
+
+
+def _setting_label(field: str) -> str:
+    labels = {
+        "spread_limit": "Rows shown",
+        "min_spread_profit_per_unit": "Min spread profit",
+        "min_spread_volume_week": "Min weekly volume",
+        "max_spread_depth_ratio": "Max depth ratio",
+        "max_capital_percent_per_flip": "Capital per flip",
+        "max_estimated_bottleneck_minutes": "Max bottleneck",
+        "min_speed_confidence": "Speed confidence",
+        "conservative_speed": "Conservative speed",
+        "min_profit": "Min profit",
+        "min_profit_percent": "Min margin",
+        "min_sales_per_day": "Min sales per day",
+        "max_median_sell_time_hours": "Max sell time",
+        "use_buy_order_cost": "Use buy order cost",
+        "accessory_view": "View",
+        "accessory_sort": "Sort",
+        "max_accessory_price": "Max accessory price",
+        "max_accessory_recommendations": "Rows shown",
+        "include_locked_accessories": "Include locked",
+        "include_uncertain_accessories": "Include uncertain",
+        "include_manual_unlocks": "Include manual unlocks",
+        "include_ah_accessories": "Include AH items",
+        "include_craftable_accessories": "Include craftable items",
+        "only_craftable": "Only craftable",
+        "only_ah": "Only AH",
+        "show_locked": "Show locked",
+        "conversion_mode": "Mode",
+        "limit_per_section": "Rows shown",
+    }
+    return labels.get(field, field.replace("_", " ").title())
+
+
+def _format_setting_value(value: object) -> str:
+    if isinstance(value, bool):
+        return "yes" if value else "no"
+    if value is None:
+        return "none"
+    if isinstance(value, float):
+        return f"{value:g}"
+    return str(value)
+
+
 def _recommended_module_settings(args: argparse.Namespace, module: DashboardModule) -> list[tuple[str, str, str]]:
     if module.key == "bazaar":
         return [
@@ -337,10 +492,11 @@ def _recommended_module_settings(args: argparse.Namespace, module: DashboardModu
     ]
 
 
-def _active_module_settings(args: argparse.Namespace, module: DashboardModule) -> list[tuple[str, str, str]]:
+def _active_module_settings(args: argparse.Namespace, state: _MenuState, module: DashboardModule) -> list[tuple[str, str, str]]:
     rows = _recommended_module_settings(args, module)
     scanned = ", ".join(module.sections)
-    return [*rows, ("s", "Mapped sections", scanned)]
+    preset = state.module_presets.get(module.key, "not applied")
+    return [("p", "Applied preset", preset), *rows, ("s", "Mapped sections", scanned)]
 
 
 def _module_advanced_settings_menu(
