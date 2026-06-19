@@ -71,6 +71,7 @@ def run_onboarding(http: HttpClient, *, existing: HypixelUserConfig | None = Non
         _print_step(4, "Budget source")
         config = _choose_budget_source(config, profile)
         save_user_config(config)
+        _print_step(5, "Confirmation")
         _confirm_profile_configuration(config, profile)
         return config
 
@@ -136,6 +137,7 @@ def change_profile(http: HttpClient) -> HypixelUserConfig:
     config = _choose_budget_source(config, parse_profile(payload, player_name=config.minecraft_username, player_uuid=config.uuid))
     save_user_config(config)
     _save_api_key_with_warning(api_key)
+    _print_step(5, "Confirmation")
     _confirm_profile_configuration(config, parse_profile(payload, player_name=config.minecraft_username, player_uuid=config.uuid), changed=True)
     return config
 
@@ -165,7 +167,7 @@ def _save_api_key_with_warning(api_key: str) -> None:
 
 
 def _print_step(number: int, label: str) -> None:
-    print(f"\nStep {number}/4 - {label}")
+    print(f"\nStep {number}/5 - {label}")
 
 
 def _choose_budget_source(config: HypixelUserConfig, profile: object) -> HypixelUserConfig:

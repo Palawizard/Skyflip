@@ -55,8 +55,9 @@ def test_onboarding_handles_key_and_profile_errors(monkeypatch, tmp_path, capsys
     assert config.selected_profile_name == "Apple"
     assert config.budget_source == BUDGET_SOURCE_PURSE
     assert load_user_config().budget_source == BUDGET_SOURCE_PURSE
-    assert "Step 1/4 - Minecraft account" in output
-    assert "Step 4/4 - Budget source" in output
+    assert "Step 1/5 - Minecraft account" in output
+    assert "Step 4/5 - Budget source" in output
+    assert "Step 5/5 - Confirmation" in output
     assert "Available profiles: Apple" in output
     assert "SECRET_BAD" not in output
     assert "SECRET_GOOD" not in output
