@@ -679,8 +679,11 @@ def _compression_settings_menu(args: argparse.Namespace, state: _MenuState, reso
             "Bazaar Compression settings",
             _refreshable_entries([
                 ("1", f"Mode  {args.conversion_mode}", "conservative or realistic"),
-                ("2", f"Conversions file  {_short_path(args.bazaar_conversions_file)}", "conversion data file"),
-                ("3", f"Limit per section  {args.limit_per_section}", "rows shown"),
+                ("2", f"Rows shown  {args.limit_per_section}", "result count"),
+                ("3", f"Min profit  {_value(args.min_profit, coins=True)}", "minimum expected profit"),
+                ("4", f"Min profit percent  {args.min_profit_percent:g}%", "minimum margin"),
+                ("5", f"Max capital per flip  {args.max_capital_percent_per_flip:g}%", "budget cap per candidate"),
+                ("6", f"Conversions file  {_short_path(args.bazaar_conversions_file)}", "conversion data file"),
                 ("b", "Back", "return to module"),
             ]),
             args=args,
@@ -694,11 +697,17 @@ def _compression_settings_menu(args: argparse.Namespace, state: _MenuState, reso
         if choice == "1":
             args.conversion_mode = "conservative" if args.conversion_mode == "realistic" else "realistic"
         elif choice == "2":
+            args.limit_per_section = _ask_int("Rows shown", args.limit_per_section)
+        elif choice == "3":
+            args.min_profit = _ask_float("Min profit", args.min_profit)
+        elif choice == "4":
+            args.min_profit_percent = _ask_float("Min profit percent", args.min_profit_percent)
+        elif choice == "5":
+            args.max_capital_percent_per_flip = _ask_float("Max capital percent per flip", args.max_capital_percent_per_flip)
+        elif choice == "6":
             value = input(f"Conversions file [{args.bazaar_conversions_file}]: ").strip()
             if value:
                 args.bazaar_conversions_file = value
-        elif choice == "3":
-            args.limit_per_section = _ask_int("Limit per section", args.limit_per_section)
 
 
 def _ah_bin_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
@@ -706,9 +715,11 @@ def _ah_bin_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_u
         choice = _select_menu(
             "AH BIN Finder settings",
             _refreshable_entries([
-                ("1", f"Watchlist file  {_short_path(args.ah_watchlist_file)}", "AH watchlist data file"),
-                ("2", f"Max median sell time hours  {args.max_median_sell_time_hours:g}", "sell-time ceiling"),
-                ("3", f"Limit per section  {args.limit_per_section}", "rows shown"),
+                ("1", f"Rows shown  {args.limit_per_section}", "result count"),
+                ("2", f"Min profit  {_value(args.min_profit, coins=True)}", "minimum expected profit"),
+                ("3", f"Min profit percent  {args.min_profit_percent:g}%", "minimum margin"),
+                ("4", f"Max median sell time hours  {args.max_median_sell_time_hours:g}", "sell-time ceiling"),
+                ("5", f"Watchlist file  {_short_path(args.ah_watchlist_file)}", "AH watchlist data file"),
                 ("b", "Back", "return to module"),
             ]),
             args=args,
@@ -720,13 +731,17 @@ def _ah_bin_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_u
         if choice in {"b", "back", ""}:
             return
         if choice == "1":
+            args.limit_per_section = _ask_int("Rows shown", args.limit_per_section)
+        elif choice == "2":
+            args.min_profit = _ask_float("Min profit", args.min_profit)
+        elif choice == "3":
+            args.min_profit_percent = _ask_float("Min profit percent", args.min_profit_percent)
+        elif choice == "4":
+            args.max_median_sell_time_hours = _ask_float("Max median sell time hours", args.max_median_sell_time_hours)
+        elif choice == "5":
             value = input(f"Watchlist file [{args.ah_watchlist_file}]: ").strip()
             if value:
                 args.ah_watchlist_file = value
-        elif choice == "2":
-            args.max_median_sell_time_hours = _ask_float("Max median sell time hours", args.max_median_sell_time_hours)
-        elif choice == "3":
-            args.limit_per_section = _ask_int("Limit per section", args.limit_per_section)
 
 
 def _ensure_module_sections(args: argparse.Namespace, module: DashboardModule) -> None:
@@ -740,21 +755,44 @@ def _settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Ca
         choice = _select_menu(
             "Settings",
             _refreshable_entries([
-                ("1", f"Min profit  {_value(args.min_profit, coins=True)}", "minimum total expected profit"),
-                ("2", f"Min profit percent  {args.min_profit_percent:g}%", "minimum margin"),
-                ("3", f"Max capital per flip  {args.max_capital_percent_per_flip:g}%", "budget cap per candidate"),
-                ("4", f"Min sales per day  {args.min_sales_per_day:g}", "market speed floor"),
-                ("5", f"Max median sell time hours  {args.max_median_sell_time_hours:g}", "sell-time ceiling"),
-                ("6", f"Limit per section  {args.limit_per_section}", "rows shown per section"),
-                ("7", f"Cache TTL  {args.cache_ttl}s", "API cache lifetime"),
-                ("8", f"Show rejected  {'yes' if args.show_rejected else 'no'}", "show rejection details"),
-                ("9", f"Scanned sections  {_section_summary(args.sections)}", "what refresh scans"),
-                ("10", "Craft flips settings", "craft-specific filters"),
-                ("11", "Bazaar spread settings", "advanced spread filters"),
-                ("12", "Settings profiles", "save, load, delete named settings"),
-                ("13", "Talisman Helper settings", "accessory filters and prices"),
-                ("14", "Reset Hypixel profile configuration", "remove saved username, profile, cache, API key"),
+                ("1", f"Rows shown  {args.limit_per_section}", "default result count"),
+                ("2", f"Show rejected  {'yes' if args.show_rejected else 'no'}", "show filtered candidates"),
+                ("3", "Settings profiles", "save, load, delete global settings"),
+                ("4", "Advanced global settings", "cache, refresh, scan compatibility"),
                 ("b", "Back", "return to dashboard"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Setting to edit",
+            note="Module thresholds are edited inside each module.",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            args.limit_per_section = _ask_int("Rows shown", args.limit_per_section)
+        elif choice == "2":
+            args.show_rejected = not args.show_rejected
+        elif choice == "3":
+            _settings_profiles_menu(args, state, resolve_uuid)
+        elif choice == "4":
+            _advanced_global_settings_menu(args, state, resolve_uuid)
+        else:
+            print("Unknown setting.")
+
+
+def _advanced_global_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    while True:
+        choice = _select_menu(
+            "Advanced global settings",
+            _refreshable_entries([
+                ("1", f"Cache TTL  {args.cache_ttl}s", "API cache lifetime"),
+                ("2", f"Refresh interval  {args.refresh_interval or 'manual'}", "automatic refresh interval"),
+                ("3", f"Scanned sections  {_section_summary(args.sections)}", "compatibility scan selection"),
+                ("4", f"Allow restricted profile  {'yes' if args.allow_restricted_profile else 'no'}", "include restricted profiles"),
+                ("5", "Reset Hypixel profile configuration", "remove saved profile and API key"),
+                ("b", "Back", "return to settings"),
             ]),
             args=args,
             state=state,
@@ -765,32 +803,15 @@ def _settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Ca
         if choice in {"b", "back", ""}:
             return
         if choice == "1":
-            args.min_profit = _ask_float("Min profit", args.min_profit)
-        elif choice == "2":
-            args.min_profit_percent = _ask_float("Min profit percent", args.min_profit_percent)
-        elif choice == "3":
-            args.max_capital_percent_per_flip = _ask_float("Max capital percent per flip", args.max_capital_percent_per_flip)
-        elif choice == "4":
-            args.min_sales_per_day = _ask_float("Min sales per day", args.min_sales_per_day)
-        elif choice == "5":
-            args.max_median_sell_time_hours = _ask_float("Max median sell time hours", args.max_median_sell_time_hours)
-        elif choice == "6":
-            args.limit_per_section = _ask_int("Limit per section", args.limit_per_section)
-        elif choice == "7":
             args.cache_ttl = _ask_int("Cache TTL seconds", args.cache_ttl)
-        elif choice == "8":
-            args.show_rejected = not args.show_rejected
-        elif choice == "9":
+        elif choice == "2":
+            value = _ask_int("Refresh interval seconds", int(args.refresh_interval or 300))
+            args.refresh_interval = None if value <= 0 else value
+        elif choice == "3":
             _scan_sections_menu(args, state, resolve_uuid)
-        elif choice == "10":
-            _craft_flips_settings_menu(args, state, resolve_uuid)
-        elif choice == "11":
-            _bazaar_spread_settings_menu(args, state, resolve_uuid)
-        elif choice == "12":
-            _settings_profiles_menu(args, state, resolve_uuid)
-        elif choice == "13":
-            _talisman_settings_menu(args, state, resolve_uuid)
-        elif choice == "14":
+        elif choice == "4":
+            args.allow_restricted_profile = not args.allow_restricted_profile
+        elif choice == "5":
             if reset_profile_configuration_with_confirmation():
                 args.profile_file = None
                 args.player_name = None
@@ -806,7 +827,12 @@ def _craft_flips_settings_menu(args: argparse.Namespace, state: _MenuState, reso
             _refreshable_entries([
                 ("1", f"Max craft cost  {_optional_coins(args.max_craft_cost)}", "reject crafts above this cost"),
                 ("2", f"Use buy order cost  {'yes' if args.use_buy_order_cost else 'no'}", "price ingredients from buy-order side"),
-                ("3", f"Recipes file  {_short_path(args.recipes_file)}", "craft recipe data file"),
+                ("3", f"Min profit  {_value(args.min_profit, coins=True)}", "minimum expected profit"),
+                ("4", f"Min profit percent  {args.min_profit_percent:g}%", "minimum margin"),
+                ("5", f"Min sales per day  {args.min_sales_per_day:g}", "market speed floor"),
+                ("6", f"Max median sell time hours  {args.max_median_sell_time_hours:g}", "sell-time ceiling"),
+                ("7", f"Max capital per flip  {args.max_capital_percent_per_flip:g}%", "budget cap per candidate"),
+                ("8", f"Recipes file  {_short_path(args.recipes_file)}", "craft recipe data file"),
                 ("b", "Back", "return to settings"),
             ]),
             args=args,
@@ -822,6 +848,16 @@ def _craft_flips_settings_menu(args: argparse.Namespace, state: _MenuState, reso
         elif choice == "2":
             args.use_buy_order_cost = not args.use_buy_order_cost
         elif choice == "3":
+            args.min_profit = _ask_float("Min profit", args.min_profit)
+        elif choice == "4":
+            args.min_profit_percent = _ask_float("Min profit percent", args.min_profit_percent)
+        elif choice == "5":
+            args.min_sales_per_day = _ask_float("Min sales per day", args.min_sales_per_day)
+        elif choice == "6":
+            args.max_median_sell_time_hours = _ask_float("Max median sell time hours", args.max_median_sell_time_hours)
+        elif choice == "7":
+            args.max_capital_percent_per_flip = _ask_float("Max capital percent per flip", args.max_capital_percent_per_flip)
+        elif choice == "8":
             value = input(f"Recipes file [{args.recipes_file}]: ").strip()
             if value:
                 args.recipes_file = value
@@ -836,6 +872,10 @@ def _bazaar_spread_settings_menu(args: argparse.Namespace, state: _MenuState, re
                 ("2", f"Min spread profit/unit  {_value(args.min_spread_profit_per_unit, coins=True)}", "per-unit spread floor"),
                 ("3", f"Min spread weekly volume  {_value(args.min_spread_volume_week, coins=True)}", "movement floor"),
                 ("4", f"Max spread depth ratio  {args.max_spread_depth_ratio:g}", "wall tolerance"),
+                ("5", f"Max bottleneck minutes  {args.max_estimated_bottleneck_minutes:g}", "speed ceiling"),
+                ("6", f"Min speed confidence  {args.min_speed_confidence:g}", "speed confidence floor"),
+                ("7", f"Conservative speed  {'yes' if args.conservative_speed else 'no'}", "speed model strictness"),
+                ("8", f"Max capital per flip  {args.max_capital_percent_per_flip:g}%", "budget cap per candidate"),
                 ("b", "Back", "return to settings"),
             ]),
             args=args,
@@ -854,6 +894,14 @@ def _bazaar_spread_settings_menu(args: argparse.Namespace, state: _MenuState, re
             args.min_spread_volume_week = _ask_float("Min spread weekly volume", args.min_spread_volume_week)
         elif choice == "4":
             args.max_spread_depth_ratio = _ask_float("Max spread depth ratio", args.max_spread_depth_ratio)
+        elif choice == "5":
+            args.max_estimated_bottleneck_minutes = _ask_float("Max bottleneck minutes", args.max_estimated_bottleneck_minutes)
+        elif choice == "6":
+            args.min_speed_confidence = _ask_float("Min speed confidence", args.min_speed_confidence)
+        elif choice == "7":
+            args.conservative_speed = not args.conservative_speed
+        elif choice == "8":
+            args.max_capital_percent_per_flip = _ask_float("Max capital percent per flip", args.max_capital_percent_per_flip)
 
 
 def _talisman_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:

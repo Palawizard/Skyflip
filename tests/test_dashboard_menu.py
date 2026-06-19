@@ -290,7 +290,7 @@ def test_dashboard_menu_can_save_named_settings_profile(monkeypatch, tmp_path):
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
     monkeypatch.setenv("SKYFLIP_SETTINGS_PROFILES_FILE", str(tmp_path / "settings_profiles.json"))
-    inputs = iter(["s", "12", "s", "Early", "", "b", "b", "q"])
+    inputs = iter(["s", "3", "s", "Early", "", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     args = argparse.Namespace(
         profile_file=None,
@@ -335,16 +335,11 @@ def test_dashboard_menu_can_edit_main_settings(monkeypatch, tmp_path):
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
     inputs = iter([
-        "s", "1", "75000",
-        "2", "12",
-        "3", "12",
-        "4", "4",
-        "5", "8",
-        "6", "15",
-        "7", "300",
-        "8",
-        "9", "2", "3", "4", "5", "b",
-        "10", "1", "2500000", "b",
+        "s", "1", "15",
+        "2",
+        "4", "1", "300",
+        "3", "2", "3", "4", "5", "b",
+        "b", "q",
         "b", "q",
     ])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
@@ -381,12 +376,6 @@ def test_dashboard_menu_can_edit_main_settings(monkeypatch, tmp_path):
     )
 
     assert run_dashboard_menu(args, resolve_uuid=lambda http, name: None) == 0
-    assert args.min_profit == 75_000
-    assert args.min_profit_percent == 12
-    assert args.max_capital_percent_per_flip == 12
-    assert args.max_craft_cost == 2_500_000
-    assert args.min_sales_per_day == 4
-    assert args.max_median_sell_time_hours == 8
     assert args.limit_per_section == 15
     assert args.cache_ttl == 300
     assert args.show_rejected is False
@@ -397,7 +386,7 @@ def test_dashboard_menu_can_edit_craft_settings(monkeypatch, tmp_path):
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["2", "5", "1", "2500000", "2", "3", "data/custom_recipes.json", "b", "b", "q"])
+    inputs = iter(["2", "5", "1", "2500000", "2", "8", "data/custom_recipes.json", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     args = argparse.Namespace(
         profile_file=None,
