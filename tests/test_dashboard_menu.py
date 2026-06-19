@@ -13,7 +13,7 @@ from skyflip.dashboard_menu import (
     should_open_dashboard_menu,
 )
 from skyflip.profile_parser import PlayerProfile
-from skyflip.settings_profiles import list_settings_profiles, save_settings_profile
+from skyflip.settings_profiles import list_settings_profiles, save_module_settings_preset, save_settings_profile
 
 
 def test_dashboard_command_without_arguments_opens_menu_mode():
@@ -134,6 +134,25 @@ def test_module_recommended_settings_can_apply_preset(monkeypatch, tmp_path, cap
     assert "Why this recommendation?" in output
     assert "Applied Budget preset" in output
     assert "Applied preset" in output
+
+
+def test_module_custom_preset_can_load_from_menu(monkeypatch, tmp_path, capsys):
+    profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
+    profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("SKYFLIP_SETTINGS_PROFILES_FILE", str(tmp_path / "settings_profiles.json"))
+    preset_args = make_menu_args(spread_limit=6, min_speed_confidence=70, min_profit=123_456)
+    save_module_settings_preset(preset_args, "bazaar", "Tight spread")
+    inputs = iter(["1", "6", "l", "1", "", "b", "b", "q"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
+    args = make_menu_args(profile_file=str(profile), spread_limit=20, min_speed_confidence=10, min_profit=5_000)
+
+    assert run_dashboard_menu(args, resolve_uuid=lambda http, name: None) == 0
+    assert args.spread_limit == 6
+    assert args.min_speed_confidence == 70
+    assert args.min_profit == 5_000
+    output = capsys.readouterr().out
+    assert "Loaded Tight spread preset" in output
 
 
 def test_dashboard_menu_can_refresh_and_open_result_section(monkeypatch, tmp_path, capsys):
@@ -271,7 +290,7 @@ def test_dashboard_menu_can_save_named_settings_profile(monkeypatch, tmp_path):
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
     monkeypatch.setenv("SKYFLIP_SETTINGS_PROFILES_FILE", str(tmp_path / "settings_profiles.json"))
-    inputs = iter(["s", "12", "s", "Early", "", "b", "b", "q"])
+    inputs = iter(["s", "3", "s", "Early", "", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     args = argparse.Namespace(
         profile_file=None,
@@ -316,16 +335,11 @@ def test_dashboard_menu_can_edit_main_settings(monkeypatch, tmp_path):
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
     inputs = iter([
-        "s", "1", "75000",
-        "2", "12",
-        "3", "12",
-        "4", "4",
-        "5", "8",
-        "6", "15",
-        "7", "300",
-        "8",
-        "9", "2", "3", "4", "5", "b",
-        "10", "1", "2500000", "b",
+        "s", "1", "15",
+        "2",
+        "4", "1", "300",
+        "3", "2", "3", "4", "5", "b",
+        "b", "q",
         "b", "q",
     ])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
@@ -362,12 +376,6 @@ def test_dashboard_menu_can_edit_main_settings(monkeypatch, tmp_path):
     )
 
     assert run_dashboard_menu(args, resolve_uuid=lambda http, name: None) == 0
-    assert args.min_profit == 75_000
-    assert args.min_profit_percent == 12
-    assert args.max_capital_percent_per_flip == 12
-    assert args.max_craft_cost == 2_500_000
-    assert args.min_sales_per_day == 4
-    assert args.max_median_sell_time_hours == 8
     assert args.limit_per_section == 15
     assert args.cache_ttl == 300
     assert args.show_rejected is False
@@ -378,7 +386,7 @@ def test_dashboard_menu_can_edit_craft_settings(monkeypatch, tmp_path):
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["2", "5", "1", "2500000", "2", "3", "data/custom_recipes.json", "b", "b", "q"])
+    inputs = iter(["2", "5", "1", "2500000", "2", "8", "data/custom_recipes.json", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     args = argparse.Namespace(
         profile_file=None,
@@ -510,6 +518,11 @@ def make_menu_args(**overrides):
         "min_spread_profit_per_unit": 0,
         "min_spread_volume_week": 50_000,
         "max_spread_depth_ratio": 0.75,
+        "max_estimated_buy_minutes": None,
+        "max_estimated_sell_minutes": None,
+        "max_estimated_bottleneck_minutes": 240,
+        "min_speed_confidence": 35,
+        "conservative_speed": True,
         "max_craft_cost": None,
         "max_capital_percent_per_flip": 35,
         "use_buy_order_cost": False,
