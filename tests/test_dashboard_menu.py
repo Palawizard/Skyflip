@@ -114,6 +114,28 @@ def test_bazaar_module_routes_to_bazaar_sections(monkeypatch, tmp_path, capsys):
     assert "craft,bazaar-spread,bazaar-order" == args.sections
 
 
+def test_module_recommended_settings_can_apply_preset(monkeypatch, tmp_path, capsys):
+    profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
+    profile.write_text(
+        '{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":50000000,'
+        '"inventory":{},"accessory_bag_storage":{"highest_magical_power":80}}}}}',
+        encoding="utf-8",
+    )
+    monkeypatch.chdir(tmp_path)
+    inputs = iter(["3", "3", "a", "", "4", "", "b", "q"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
+    args = make_menu_args(profile_file=str(profile), budget=None, max_accessory_price=None)
+
+    assert run_dashboard_menu(args, resolve_uuid=lambda http, name: None) == 0
+    assert args.accessory_view == "recommended"
+    assert args.accessory_sort == "coin-per-mp"
+    assert args.max_accessory_price == 500_000
+    output = capsys.readouterr().out
+    assert "Why this recommendation?" in output
+    assert "Applied Budget preset" in output
+    assert "Applied preset" in output
+
+
 def test_dashboard_menu_can_refresh_and_open_result_section(monkeypatch, tmp_path, capsys):
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
