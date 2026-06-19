@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Callable
 
 from .dashboard import DEFAULT_SECTIONS, collect_dashboard_data
+from .dashboard_modules import DASHBOARD_MODULES, DashboardModule
 from .cache import FileCache
 from .http import HttpClient
 from .onboarding import change_profile, ensure_profile_configuration, refresh_profile_now, reset_profile_configuration_with_confirmation
@@ -85,43 +86,29 @@ def run_dashboard_menu(args: argparse.Namespace, *, resolve_uuid: Callable) -> i
         state.status_message = f"Loaded settings preset: {active_profile}"
     while True:
         choice = _main_menu_choice(args, state)
-        if choice in {"1", "r", "refresh"}:
+        module = _module_from_choice(choice)
+        if module is not None:
+            _module_menu(args, state, module, resolve_uuid)
+            continue
+        if choice in {"r", "refresh"}:
             if not _ensure_required(args):
                 _pause()
                 continue
             _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
             continue
-        if choice in {"2", "s", "sections"}:
-            if state.latest is None:
-                if not _ensure_required(args):
-                    _pause()
-                    continue
-                _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
-            _results_sections_menu(args, state)
-            continue
-        if choice in {"3", "settings"}:
+        if choice in {"s", "settings"}:
             _settings_menu(args, state, resolve_uuid)
             continue
-        if choice in {"4", "profile"}:
+        if choice in {"p", "profile"}:
             _profile_menu(args, state, resolve_uuid)
             state.latest = None
             state.last_refresh = None
             continue
-        if choice in {"5", "auto", "automatic"}:
+        if choice in {"a", "auto", "automatic"}:
             if not _ensure_required(args):
                 _pause()
                 continue
             _toggle_auto_refresh(args, state, resolve_uuid=resolve_uuid)
-            continue
-        if choice in {"6", "talisman", "accessories"}:
-            if state.latest is None:
-                if not _ensure_required(args):
-                    _pause()
-                    continue
-                if "talisman" not in _parse_sections(args.sections):
-                    args.sections = ",".join([*_parse_sections(args.sections), "talisman"])
-                _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=False)
-            _show_result_section(args, state, "talisman")
             continue
         if choice in {"q", "quit", "exit"}:
             _stop_auto_refresh(state)
@@ -159,15 +146,18 @@ def _apply_detected_defaults(args: argparse.Namespace) -> None:
 
 
 def _main_menu_choice(args: argparse.Namespace, state: _MenuState) -> str:
+    module_entries = [
+        (str(index), module.title, _module_hint(module))
+        for index, module in enumerate(DASHBOARD_MODULES, 1)
+    ]
     return _select_menu(
-        "Dashboard",
+        "Modules",
         [
-            ("1", "Refresh results", "scan markets now and keep results in memory"),
-            ("2", "Sections", "open one result page at a time"),
-            ("3", "Settings", "filters, limits, scanned sections"),
-            ("4", "Profile / budget", "profile JSON, player name, budget"),
-            ("5", f"Automatic Refresh {'ON' if state.auto_refresh else 'OFF'}", "background refresh every 5 minutes"),
-            ("6", "Talisman Helper", "missing accessories, craftability, AH prices"),
+            *module_entries,
+            ("r", "Refresh results", "scan enabled modules now"),
+            ("s", "Settings", "filters, limits, scanned sections"),
+            ("p", "Profile / budget", "profile JSON, player name, budget"),
+            ("a", f"Automatic Refresh {'ON' if state.auto_refresh else 'OFF'}", "background refresh every 5 minutes"),
             ("q", "Quit", "leave dashboard"),
         ],
         args=args,
@@ -175,6 +165,76 @@ def _main_menu_choice(args: argparse.Namespace, state: _MenuState) -> str:
         show_counts=True,
         prompt="Choose an action",
     )
+
+
+def _module_from_choice(choice: str) -> DashboardModule | None:
+    if choice.isdigit():
+        index = int(choice)
+        if 1 <= index <= len(DASHBOARD_MODULES):
+            return DASHBOARD_MODULES[index - 1]
+    normalized = choice.strip().lower()
+    for module in DASHBOARD_MODULES:
+        if normalized in {module.key, module.title.lower()}:
+            return module
+    return None
+
+
+def _module_hint(module: DashboardModule) -> str:
+    hints = {
+        "bazaar": "spread and order flips",
+        "craft": "craft/list candidates",
+        "accessories": "missing accessories and Magical Power",
+        "compression": "manual conversion flips",
+        "ah-bin": "manual underpriced BIN checks",
+    }
+    return hints.get(module.key, "")
+
+
+def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule, resolve_uuid: Callable) -> None:
+    while True:
+        choice = _select_menu(
+            module.title,
+            [
+                ("1", "Refresh", "scan enabled modules now"),
+                ("2", "Results", "open this module's results"),
+                ("3", "Recommended settings", "baseline values for this module"),
+                ("4", "Active settings", "current values for this module"),
+                ("5", "Advanced settings", "edit detailed controls"),
+                ("b", "Back", "return to modules"),
+            ],
+            args=args,
+            state=state,
+            show_counts=True,
+            prompt="Choose an action",
+        )
+        if choice in {"b", "back", ""}:
+            return
+        if choice in {"1", "r", "refresh"}:
+            _ensure_module_sections(args, module)
+            if not _ensure_required(args):
+                _pause()
+                continue
+            _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
+            continue
+        if choice in {"2", "results"}:
+            _ensure_module_sections(args, module)
+            if state.latest is None:
+                if not _ensure_required(args):
+                    _pause()
+                    continue
+                _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
+            _module_results_menu(args, state, module)
+            continue
+        if choice == "3":
+            _module_settings_view(args, state, module, title="Recommended settings", rows=_recommended_module_settings(args, module))
+            continue
+        if choice == "4":
+            _module_settings_view(args, state, module, title="Active settings", rows=_active_module_settings(args, module))
+            continue
+        if choice == "5":
+            _module_advanced_settings_menu(args, state, module, resolve_uuid)
+            continue
+        print("Unknown action.")
 
 
 def _results_sections_menu(args: argparse.Namespace, state: _MenuState) -> None:
@@ -199,6 +259,171 @@ def _results_sections_menu(args: argparse.Namespace, state: _MenuState) -> None:
             _show_result_section(args, state, key)
             continue
         print("Unknown section.")
+
+
+def _module_results_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule) -> None:
+    keys = list(module.result_sections)
+    while True:
+        data = state.latest
+        if data is None:
+            print("No results loaded. Refresh results first.")
+            return
+        entries = [
+            (str(index), f"{SECTION_LABELS.get(key, _section_name(key))} {_badge(str(_section_count(data, key)))}", _section_hint(key))
+            for index, key in enumerate(keys, 1)
+        ]
+        entries.extend([("r", "Refresh results", "scan again"), ("b", "Back", f"return to {module.title}")])
+        choice = _select_menu(f"{module.title} Results", entries, args=args, state=state, prompt="Open section")
+        if choice in {"b", "back", ""}:
+            return
+        if _handle_global_refresh(choice, args, state, None):
+            continue
+        if choice.isdigit() and 1 <= int(choice) <= len(keys):
+            key = keys[int(choice) - 1]
+            _show_result_section(args, state, key)
+            continue
+        print("Unknown section.")
+
+
+def _module_settings_view(
+    args: argparse.Namespace,
+    state: _MenuState,
+    module: DashboardModule,
+    *,
+    title: str,
+    rows: list[tuple[str, str, str]],
+) -> None:
+    _clear_screen()
+    _draw_header(f"{module.title} / {title}", args, state)
+    _draw_settings(rows)
+    _pause()
+
+
+def _recommended_module_settings(args: argparse.Namespace, module: DashboardModule) -> list[tuple[str, str, str]]:
+    if module.key == "bazaar":
+        return [
+            ("1", "Budget", _coins(args.budget)),
+            ("2", "Rows shown", str(args.spread_limit or args.limit_per_section)),
+            ("3", "Capital per flip", f"{args.max_capital_percent_per_flip:g}%"),
+            ("4", "Speed strictness", "conservative" if getattr(args, "conservative_speed", True) else "standard"),
+        ]
+    if module.key == "craft":
+        return [
+            ("1", "Min profit", _coins(args.min_profit)),
+            ("2", "Min margin", f"{args.min_profit_percent:g}%"),
+            ("3", "Max craft cost", _optional_coins(args.max_craft_cost)),
+            ("4", "Ingredient pricing", "buy order" if args.use_buy_order_cost else "instant buy"),
+        ]
+    if module.key == "accessories":
+        _ensure_talisman_attrs(args)
+        return [
+            ("1", "Rows shown", str(args.max_accessory_recommendations)),
+            ("2", "Max price", _optional_coins(args.max_accessory_price)),
+            ("3", "Craftable items", "shown" if args.include_craftable_accessories else "hidden"),
+            ("4", "AH items", "shown" if args.include_ah_accessories else "hidden"),
+        ]
+    if module.key == "compression":
+        return [
+            ("1", "Mode", args.conversion_mode),
+            ("2", "Rows shown", str(args.limit_per_section)),
+            ("3", "Capital per flip", f"{args.max_capital_percent_per_flip:g}%"),
+            ("4", "Min profit", _coins(args.min_profit)),
+        ]
+    return [
+        ("1", "Rows shown", str(args.limit_per_section)),
+        ("2", "Min profit", _coins(args.min_profit)),
+        ("3", "Max sell time", f"{args.max_median_sell_time_hours:g}h"),
+        ("4", "Manual checks", "required"),
+    ]
+
+
+def _active_module_settings(args: argparse.Namespace, module: DashboardModule) -> list[tuple[str, str, str]]:
+    rows = _recommended_module_settings(args, module)
+    scanned = ", ".join(module.sections)
+    return [*rows, ("s", "Mapped sections", scanned)]
+
+
+def _module_advanced_settings_menu(
+    args: argparse.Namespace,
+    state: _MenuState,
+    module: DashboardModule,
+    resolve_uuid: Callable,
+) -> None:
+    if module.key == "bazaar":
+        _bazaar_spread_settings_menu(args, state, resolve_uuid)
+        return
+    if module.key == "craft":
+        _craft_flips_settings_menu(args, state, resolve_uuid)
+        return
+    if module.key == "accessories":
+        _talisman_settings_menu(args, state, resolve_uuid)
+        return
+    if module.key == "compression":
+        _compression_settings_menu(args, state, resolve_uuid)
+        return
+    _ah_bin_settings_menu(args, state, resolve_uuid)
+
+
+def _compression_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    while True:
+        choice = _select_menu(
+            "Bazaar Compression settings",
+            _refreshable_entries([
+                ("1", f"Mode  {args.conversion_mode}", "conservative or realistic"),
+                ("2", f"Conversions file  {_short_path(args.bazaar_conversions_file)}", "conversion data file"),
+                ("3", f"Limit per section  {args.limit_per_section}", "rows shown"),
+                ("b", "Back", "return to module"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Setting to edit",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            args.conversion_mode = "conservative" if args.conversion_mode == "realistic" else "realistic"
+        elif choice == "2":
+            value = input(f"Conversions file [{args.bazaar_conversions_file}]: ").strip()
+            if value:
+                args.bazaar_conversions_file = value
+        elif choice == "3":
+            args.limit_per_section = _ask_int("Limit per section", args.limit_per_section)
+
+
+def _ah_bin_settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
+    while True:
+        choice = _select_menu(
+            "AH BIN Finder settings",
+            _refreshable_entries([
+                ("1", f"Watchlist file  {_short_path(args.ah_watchlist_file)}", "AH watchlist data file"),
+                ("2", f"Max median sell time hours  {args.max_median_sell_time_hours:g}", "sell-time ceiling"),
+                ("3", f"Limit per section  {args.limit_per_section}", "rows shown"),
+                ("b", "Back", "return to module"),
+            ]),
+            args=args,
+            state=state,
+            prompt="Setting to edit",
+        )
+        if _handle_global_refresh(choice, args, state, resolve_uuid):
+            continue
+        if choice in {"b", "back", ""}:
+            return
+        if choice == "1":
+            value = input(f"Watchlist file [{args.ah_watchlist_file}]: ").strip()
+            if value:
+                args.ah_watchlist_file = value
+        elif choice == "2":
+            args.max_median_sell_time_hours = _ask_float("Max median sell time hours", args.max_median_sell_time_hours)
+        elif choice == "3":
+            args.limit_per_section = _ask_int("Limit per section", args.limit_per_section)
+
+
+def _ensure_module_sections(args: argparse.Namespace, module: DashboardModule) -> None:
+    selected = set(_parse_sections(args.sections))
+    selected.update(module.sections)
+    args.sections = ",".join(section for section in DEFAULT_SECTIONS if section in selected)
 
 
 def _settings_menu(args: argparse.Namespace, state: _MenuState, resolve_uuid: Callable) -> None:
