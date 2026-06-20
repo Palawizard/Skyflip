@@ -59,10 +59,22 @@ def test_craft_cost_calculates_bazaar_ingredients():
     assert not cost.unavailable
 
 
-def test_previous_recipe_crafts_nested_subitem():
+def test_previous_recipe_uses_cheaper_auction_subitem():
     base = Recipe("BASE", "Base", 1, None, True, [Ingredient("A", "A", 10, "bazaar")], Requirements(), [])
     top = Recipe("TOP", "Top", 1, None, True, [Ingredient("BASE", "Base", 1, "previous_recipe")], Requirements(), [])
     cofl = FakeCofl({"BASE": {"active": ActiveAuctions([50, 55], 2, 50, 55, None), "analysis": MarketAnalysis(total_sales=50, sales_per_day=10, median_price=50)}})
+    engine = PricingEngine({"BASE": base, "TOP": top}, FakeBazaar({"A": 10}), cofl)
+
+    cost = engine.craft_cost(top)
+
+    assert cost.total_cost == 50
+    assert cost.ingredients[0].source == "ah-buy-subitem"
+
+
+def test_previous_recipe_crafts_nested_subitem_when_auction_is_expensive():
+    base = Recipe("BASE", "Base", 1, None, True, [Ingredient("A", "A", 10, "bazaar")], Requirements(), [])
+    top = Recipe("TOP", "Top", 1, None, True, [Ingredient("BASE", "Base", 1, "previous_recipe")], Requirements(), [])
+    cofl = FakeCofl({"BASE": {"active": ActiveAuctions([150, 155], 2, 150, 155, None), "analysis": MarketAnalysis(total_sales=50, sales_per_day=10, median_price=150)}})
     engine = PricingEngine({"BASE": base, "TOP": top}, FakeBazaar({"A": 10}), cofl)
 
     cost = engine.craft_cost(top)

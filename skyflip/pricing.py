@@ -190,11 +190,8 @@ class PricingEngine:
             crafted = self.craft_cost(sub_recipe, stack)
             crafted_unit = crafted.per_output_cost
             children = crafted.ingredients
-            if ingredient.source == "craft":
-                market = self.market_metrics(ingredient.tag)
-                ah_unit = market.active.lowest_bin or market.median_sold_price
-            else:
-                ah_unit = None
+            market = self.market_metrics(ingredient.tag)
+            ah_unit = market.active.lowest_bin or market.median_sold_price
             if ah_unit is not None and ah_unit > 0 and ah_unit < crafted_unit:
                 return IngredientCost(
                     ingredient.name,
