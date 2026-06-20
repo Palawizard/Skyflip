@@ -1479,6 +1479,7 @@ def _refresh_module_results(
 
 
 def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, module: DashboardModule | None = None) -> None:
+    rejected_enable_presses = 0
     while True:
         data = state.latest
         if data is None:
@@ -1503,60 +1504,105 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
 
         if not _interactive_menu_enabled():
             draw_screen()
-            choice = input("Press R to refresh, D for details, left/right to change sort, or Enter to go back: ").strip().lower()
+            prompt = "Press R to refresh, D for details, left/right to change sort"
+            if key == "rejected" and not args.show_rejected:
+                prompt += ", S three times to show rejected"
+            choice = input(f"{prompt}, or Enter to go back: ").strip().lower()
             if choice == "left":
+                rejected_enable_presses = 0
                 _cycle_section_sort(state, key, -1)
                 continue
             if choice == "right":
+                rejected_enable_presses = 0
                 _cycle_section_sort(state, key, 1)
                 continue
             if choice in {"d", "details"} and module is not None:
+                rejected_enable_presses = 0
                 _module_detail_menu(args, state, module)
                 continue
             if choice in {"r", "refresh"}:
+                rejected_enable_presses = 0
                 if module is not None:
                     _refresh_module_results(args, state, module, resolve_uuid=getattr(state, "resolve_uuid", None), announce=False)
                 else:
                     _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
                 continue
+            if choice == "s" and key == "rejected" and not args.show_rejected:
+                rejected_enable_presses += 1
+                if rejected_enable_presses >= 3:
+                    args.show_rejected = True
+                    state.status_message = "Rejected rows enabled."
+                    rejected_enable_presses = 0
+                else:
+                    remaining = 3 - rejected_enable_presses
+                    state.status_message = f"Press S {remaining} more time{'s' if remaining != 1 else ''} to show rejected rows."
+                continue
             return
 
         def draw_interactive_screen() -> None:
             draw_screen()
+            footer = _result_section_footer(key, args)
             if key == "talisman":
-                print(_muted("Up/Down scroll   Left/Right change sort   D details   R refresh   Enter/Esc back"))
+                print(_muted(footer))
             else:
-                print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
+                print(_muted(footer))
 
         choice = _read_result_section_key(
             draw_screen,
             redraw_screen=draw_interactive_screen,
             static_render=key == "talisman",
-            footer="Up/Down scroll   Left/Right change sort   D details   R refresh   Enter/Esc back",
+            footer=_result_section_footer(key, args),
         )
         if choice == "left":
+            rejected_enable_presses = 0
             if key == "talisman":
                 _cycle_talisman_sort(state, -1)
             else:
                 _cycle_section_sort(state, key, -1)
             continue
         if choice == "right":
+            rejected_enable_presses = 0
             if key == "talisman":
                 _cycle_talisman_sort(state, 1)
             else:
                 _cycle_section_sort(state, key, 1)
             continue
         if choice == "d" and module is not None:
+            rejected_enable_presses = 0
             _module_detail_menu(args, state, module)
             continue
         if choice == "r":
+            rejected_enable_presses = 0
             if module is not None:
                 _refresh_module_results(args, state, module, resolve_uuid=getattr(state, "resolve_uuid", None), announce=False)
             else:
                 _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
             continue
+        if choice == "s" and key == "rejected" and not args.show_rejected:
+            rejected_enable_presses += 1
+            if rejected_enable_presses >= 3:
+                args.show_rejected = True
+                state.status_message = "Rejected rows enabled."
+                rejected_enable_presses = 0
+            else:
+                remaining = 3 - rejected_enable_presses
+                state.status_message = f"Press S {remaining} more time{'s' if remaining != 1 else ''} to show rejected rows."
+            continue
+        if choice:
+            rejected_enable_presses = 0
         if choice in {"enter", "escape", "q", "b"}:
             return
+
+
+def _result_section_footer(key: str, args: argparse.Namespace) -> str:
+    parts = ["Up/Down scroll"]
+    parts.append("Left/Right change sort")
+    parts.append("D details")
+    parts.append("R refresh")
+    if key == "rejected" and not getattr(args, "show_rejected", False):
+        parts.append("S x3 show rejected")
+    parts.append("Enter/Esc back")
+    return "   ".join(parts)
 
 
 def _read_result_section_key(

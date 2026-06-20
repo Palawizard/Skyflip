@@ -10,6 +10,7 @@ from skyflip.dashboard_menu import (
     _cycle_section_sort,
     _budget_source_menu,
     _profile_freshness_label,
+    _result_section_footer,
     _restricted_profile_note,
     _section_sort_key,
     _show_result_section,
@@ -19,6 +20,7 @@ from skyflip.dashboard_menu import (
     save_sort_preferences,
     should_open_dashboard_menu,
 )
+from skyflip.models import RejectedItem
 from skyflip.profile_parser import PlayerProfile
 from skyflip.settings_profiles import list_settings_profiles, save_module_settings_preset, save_settings_profile
 from skyflip.user_config import BUDGET_SOURCE_PURSE, HypixelUserConfig, load_user_config, profile_cache_path, save_user_config
@@ -360,6 +362,43 @@ def test_oversized_result_section_uses_static_scroll(monkeypatch):
     assert len(writes) == 1
     assert "row 1" in writes[0]
     assert "Up/Down scroll" in writes[0]
+
+
+def test_rejected_result_section_requires_three_presses_to_enable(monkeypatch):
+    args = make_menu_args(profile_file="profile.json", player_name="PalaMC", budget=1_000_000, show_rejected=False)
+    state = _MenuState(
+        latest=SimpleNamespace(
+            profile=PlayerProfile("PalaMC", "abc", 123, 0),
+            budget=1_000_000,
+            craft=[],
+            bazaar_spreads=[],
+            bazaar_orders=[],
+            conversions=[],
+            ah_underpriced=[],
+            talisman_helper=None,
+            rejected=[RejectedItem("craft", "Filtered Craft", "too slow")],
+            warnings=[],
+            cache_ttl=args.cache_ttl,
+        ),
+        last_refresh="2026-06-20 12:00:00",
+    )
+    keys = iter(["s", "s", "s", "enter"])
+
+    monkeypatch.setattr(dashboard_menu, "_interactive_menu_enabled", lambda: True)
+    monkeypatch.setattr(dashboard_menu, "_read_result_section_key", lambda *args, **kwargs: next(keys))
+
+    _show_result_section(args, state, "rejected")
+
+    assert args.show_rejected is True
+    assert state.status_message == "Rejected rows enabled."
+
+
+def test_rejected_result_footer_shows_enable_shortcut_only_when_hidden():
+    hidden_args = make_menu_args(show_rejected=False)
+    visible_args = make_menu_args(show_rejected=True)
+
+    assert "S x3 show rejected" in _result_section_footer("rejected", hidden_args)
+    assert "S x3 show rejected" not in _result_section_footer("rejected", visible_args)
 
 
 def test_talisman_rows_sort_by_cost_and_score():
