@@ -4,6 +4,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 from typing import Iterable
 
+from .accessory_views import accessory_rows_for_view
 from .dashboard_modules import DashboardModule
 from .terminal import compact_number
 from .warning_summary import compact_warnings
@@ -31,7 +32,7 @@ def module_candidate_rows(data, module: DashboardModule) -> list[tuple[str, obje
     for section in module.sections:
         if section == "talisman":
             analysis = getattr(data, "talisman_helper", None)
-            for item in getattr(analysis, "recommendations", []) or []:
+            for item in accessory_rows_for_view(analysis):
                 rows.append((section, item))
             continue
         attr = SECTION_ATTRS.get(section)

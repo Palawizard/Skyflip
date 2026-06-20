@@ -13,6 +13,7 @@ from .profile_parser import PlayerProfile
 from .report import hours, print_table
 from .scoring import Opportunity
 from .terminal_layout import compact_line, get_terminal_size, too_small_message, usable_width
+from .accessory_views import accessory_rows_for_view
 
 
 def compact_number(value: float | int | None) -> str:
@@ -86,7 +87,7 @@ def print_dashboard_status(data, *, last_refresh: str | None = None, auto_refres
             f"order {len(data.bazaar_orders)}, "
             f"compression {len(data.conversions)}, "
             f"AH {len(data.ah_underpriced)}, "
-            f"talisman {len(data.talisman_helper.recommendations) if getattr(data, 'talisman_helper', None) else 0}, "
+            f"talisman {len(accessory_rows_for_view(getattr(data, 'talisman_helper', None)))}, "
             f"warnings {len(data.warnings)}"
         )
     )

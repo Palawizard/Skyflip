@@ -9,6 +9,7 @@ from skyflip.dashboard_results import (
     module_warnings,
     normalize_risk,
 )
+from skyflip.dashboard_menu_ui import _section_count
 from skyflip.models import RejectedItem
 
 
@@ -42,6 +43,21 @@ def test_module_warnings_are_filtered_to_relevant_module():
 
     assert module_warnings(data, get_dashboard_module("bazaar")) == ["Bazaar order section failed: timeout"]
     assert module_warnings(data, get_dashboard_module("accessories")) == ["Talisman Helper failed: missing inventory"]
+
+
+def test_accessory_module_counts_current_view_not_recommendation_limit():
+    module = get_dashboard_module("accessories")
+    analysis = SimpleNamespace(
+        view="all-missing",
+        recommendations=[SimpleNamespace(entry=SimpleNamespace(display_name=f"Limited {index}")) for index in range(30)],
+        all_missing=[SimpleNamespace(entry=SimpleNamespace(display_name=f"Missing {index}")) for index in range(362)],
+    )
+    data = SimpleNamespace(talisman_helper=analysis, rejected=[], warnings=[])
+
+    lines = module_summary_lines(data, module, last_refresh="now")
+
+    assert "Candidates: 362 accepted / 0 filtered" in lines
+    assert _section_count(data, "talisman") == 362
 
 
 def test_module_warnings_do_not_fallback_to_unrelated_global_warnings():

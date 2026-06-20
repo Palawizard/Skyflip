@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Callable
 
 from .dashboard import DEFAULT_SECTIONS
+from .accessory_views import accessory_rows_for_view
 from .terminal_layout import TerminalSize, clip_text, get_terminal_size, too_small_message, usable_width
 from .user_config import load_user_config
 
@@ -69,18 +70,25 @@ def _section_hint(key: str) -> str:
 
 
 def _section_count(data, key: str) -> int | str:
-    counts = {
-        "summary": "-",
-        "craft": len(data.craft),
-        "bazaar-spread": len(data.bazaar_spreads),
-        "bazaar-order": len(data.bazaar_orders),
-        "bazaar-compression": len(data.conversions),
-        "ah-underpriced": len(data.ah_underpriced),
-        "talisman": len(data.talisman_helper.recommendations) if getattr(data, "talisman_helper", None) else 0,
-        "warnings": len(data.warnings),
-        "rejected": len(data.rejected),
-    }
-    return counts.get(key, 0)
+    if key == "summary":
+        return "-"
+    if key == "craft":
+        return len(getattr(data, "craft", []) or [])
+    if key == "bazaar-spread":
+        return len(getattr(data, "bazaar_spreads", []) or [])
+    if key == "bazaar-order":
+        return len(getattr(data, "bazaar_orders", []) or [])
+    if key == "bazaar-compression":
+        return len(getattr(data, "conversions", []) or [])
+    if key == "ah-underpriced":
+        return len(getattr(data, "ah_underpriced", []) or [])
+    if key == "talisman":
+        return len(accessory_rows_for_view(getattr(data, "talisman_helper", None)))
+    if key == "warnings":
+        return len(getattr(data, "warnings", []) or [])
+    if key == "rejected":
+        return len(getattr(data, "rejected", []) or [])
+    return 0
 
 
 def _clear_screen() -> None:
@@ -170,7 +178,7 @@ def _draw_counts(data, count_sections: tuple[str, ...] | None = None) -> None:
             ("Order", len(data.bazaar_orders)),
             ("Compression", len(data.conversions)),
             ("AH", len(data.ah_underpriced)),
-            ("Talisman", len(data.talisman_helper.recommendations) if getattr(data, "talisman_helper", None) else 0),
+            ("Talisman", len(accessory_rows_for_view(getattr(data, "talisman_helper", None)))),
             ("Warnings", len(data.warnings)),
         ]
     else:
