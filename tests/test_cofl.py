@@ -40,6 +40,22 @@ def test_normalize_active_accepts_skycofl_starting_bid_shape():
     assert active.third_lowest_bin == 400_000
 
 
+def test_normalize_active_can_require_explicit_bin_rows():
+    active = normalize_active(
+        [
+            {"startingBid": 661, "bin": False},
+            {"startingBid": 190_000, "bin": True},
+            {"price": 200_000, "auctionType": "BIN"},
+            {"price": 150_000},
+        ],
+        require_bin=True,
+    )
+
+    assert active.lowest_bin == 190_000
+    assert active.second_lowest_bin == 200_000
+    assert active.active_count == 2
+
+
 def test_normalize_sold_uses_highest_bid_amount():
     sold = normalize_sold([{"highestBidAmount": 100}, {"highestBidAmount": 300}, {"highestBidAmount": 200}])
 
@@ -98,3 +114,29 @@ def test_cofl_rate_limit_does_not_skip_other_tags():
     assert len(http.calls) == 2
     assert len(cofl.warnings) == 1
     assert cofl.failure_status("FIRST") == "rate_limited"
+
+
+def test_active_bins_does_not_use_overview_when_bin_endpoint_is_empty():
+    http = SequenceHttp([
+        [],
+        [{"price": 661}],
+    ])
+    cofl = CoflClient(http)
+
+    active = cofl.active_bins("WAND_OF_MENDING")
+
+    assert active == ActiveAuctions(source="fake:active/bin")
+    assert len(http.calls) == 1
+
+
+def test_active_bins_overview_fallback_rejects_unmarked_auctions():
+    http = SequenceHttp([
+        ApiError("HTTP 500 for active/bin"),
+        [{"price": 661}, {"price": 190_000, "bin": True}],
+    ])
+    cofl = CoflClient(http)
+
+    active = cofl.active_bins("WAND_OF_MENDING")
+
+    assert active.lowest_bin == 190_000
+    assert active.active_count == 1

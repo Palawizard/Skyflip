@@ -73,9 +73,7 @@ class CoflClient:
         url = f"{BASE_URL}/auctions/tag/{quote(tag)}/active/bin"
         try:
             result = self.http.get_json(url)
-            active = normalize_active(result.payload, source=f"{result.source}:active/bin")
-            if active.active_count:
-                return active
+            return normalize_active(result.payload, source=f"{result.source}:active/bin", require_bin=True)
         except ApiError as exc:
             status = self._record_failure("active/bin", tag, exc)
             if status in {"rate_limited", "unsupported"}:
@@ -84,7 +82,7 @@ class CoflClient:
         overview_url = f"{BASE_URL}/auctions/tag/{quote(tag)}/active/overview?orderBy=LOWEST_PRICE"
         try:
             result = self.http.get_json(overview_url)
-            return normalize_active(result.payload, source=f"{result.source}:active/overview")
+            return normalize_active(result.payload, source=f"{result.source}:active/overview", require_bin=True)
         except ApiError as exc:
             status = self._record_failure("active overview", tag, exc)
             return ActiveAuctions(source=status)
@@ -161,13 +159,15 @@ def normalize_analysis(payload: dict[str, Any], *, source: str = "live") -> Mark
     )
 
 
-def normalize_active(payload: Any, *, source: str = "live") -> ActiveAuctions:
+def normalize_active(payload: Any, *, source: str = "live", require_bin: bool = False) -> ActiveAuctions:
     rows = payload.get("auctions") if isinstance(payload, dict) else payload
     if not isinstance(rows, list):
         return ActiveAuctions(source=source)
     prices: list[float] = []
     for row in rows:
         if not isinstance(row, dict):
+            continue
+        if require_bin and not _is_bin_auction(row):
             continue
         value = _float_or_none(
             row.get("price")
@@ -226,3 +226,21 @@ def _float_or_none(value: Any) -> float | None:
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+def _is_bin_auction(row: dict[str, Any]) -> bool:
+    for key in ("bin", "isBin", "is_bin"):
+        if key not in row:
+            continue
+        value = row.get(key)
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            return value.strip().lower() in {"true", "1", "yes"}
+        if isinstance(value, (int, float)):
+            return bool(value)
+    for key in ("auctionType", "auction_type", "type"):
+        value = row.get(key)
+        if isinstance(value, str) and value.strip().lower() in {"bin", "buy_it_now", "buy-it-now"}:
+            return True
+    return False
