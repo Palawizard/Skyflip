@@ -51,7 +51,7 @@ def test_local_datasets_validate_without_errors_offline():
 
     assert not result.errors
     assert result.valid_entries > 0
-    assert result.uncertain_entries > 0
+    assert result.uncertain_entries == 0
 
 
 def test_runtime_dataset_warning_ignores_uncertain_and_disabled_entries():
