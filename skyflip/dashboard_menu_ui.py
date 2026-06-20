@@ -374,6 +374,22 @@ def _pause(prompt: str = "Press Enter to go back...") -> None:
     input(prompt)
 
 
+def _pause_with_redraw(draw_screen: Callable[[], None], prompt: str = "Press Enter to go back...") -> None:
+    if not _interactive_menu_enabled():
+        draw_screen()
+        _pause(prompt)
+        return
+
+    def draw_prompt() -> None:
+        draw_screen()
+        print(_muted(compact_menu_line(prompt, _width())))
+
+    while True:
+        key = _read_key_with_redraw(draw_prompt)
+        if key in {"enter", "escape", "q", "b"}:
+            return
+
+
 def _ask_float(label: str, current: float) -> float:
     raw = input(f"{label} [{current:g}]: ").strip().replace(",", "")
     if not raw:
