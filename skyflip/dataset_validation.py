@@ -337,6 +337,9 @@ def _count_status(result: DatasetValidationResult, row: dict[str, Any], *, enabl
         result.disabled_entries += 1
         return
     confidence = str(row.get("confidence", "high")).lower()
+    if row.get("ownership_detection_only") and row.get("verified") is True:
+        result.valid_entries += 1
+        return
     if confidence == "low" or row.get("verified") is False:
         result.uncertain_entries += 1
     else:

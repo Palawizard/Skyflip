@@ -5,13 +5,15 @@ from skyflip.accessory_analysis import analyze_accessories
 from skyflip.accessory_filters import filters_from_args
 from skyflip.accessory_models import AccessoryFilters
 from skyflip.accessory_database import load_accessory_database
-from skyflip.ah_underpriced import load_watchlist
+from skyflip.ah_underpriced import WatchItem, evaluate_watch_item, load_watchlist
 from skyflip.bazaar import BazaarPrice
 from skyflip.bazaar_compression import load_conversions
 from skyflip.cofl import ActiveAuctions, SoldSummary
+from skyflip.dataset_repair import WikiConfirmation, audit_datasets, repair_datasets
 from skyflip.datasets import check_usage_command, generate_obvious_compressions, runtime_dataset_warning, summary_command
 from skyflip.dataset_validation import validate_all_datasets, validate_bazaar_conversions
 from skyflip.profile_parser import PlayerProfile
+from skyflip.scoring import AnalyzerConfig
 
 class FakeBazaar:
     warnings = []
@@ -22,12 +24,26 @@ class FakeBazaar:
 
 class FakeCofl:
     warnings = []
+    calls = []
 
     def active_bins(self, tag):
+        self.calls.append(("active_bins", tag))
         return ActiveAuctions()
 
     def sold_summary(self, tag):
+        self.calls.append(("sold_summary", tag))
         return SoldSummary()
+
+    def analysis(self, tag, days):
+        self.calls.append(("analysis", tag))
+        return None
+
+
+class FakeWiki:
+    def confirm_item(self, name, tag=None):
+        if tag in {"WOOD_TALISMAN", "TEST_RING"}:
+            return WikiConfirmation(name, f"https://wiki.hypixel.net/{name.replace(' ', '_')}")
+        return None
 
 
 def test_local_datasets_validate_without_errors_offline():
@@ -97,6 +113,17 @@ def test_disabled_entries_are_skipped_by_loaders(tmp_path):
     assert [item.tag for item in load_watchlist(watchlist)] == ["B"]
 
 
+def test_watchlist_market_capability_skips_unsupported_cofl_tag():
+    cofl = FakeCofl()
+    item = WatchItem("ELEPHANT;0", "Elephant", "pet", market_source="pet_ah", cofl_auction_supported=False)
+    profile = PlayerProfile("PalaMC", "id", 0, 0, inventory_api_enabled=True)
+
+    result = evaluate_watch_item(item, cofl, profile, AnalyzerConfig(budget=1_000_000))
+
+    assert result.reason == "market data unsupported for pet_ah"
+    assert cofl.calls == []
+
+
 def test_bazaar_conversion_validation_uses_mocked_product_ids(tmp_path):
     path = tmp_path / "bazaar_conversions.json"
     path.write_text(
@@ -152,6 +179,116 @@ def test_manual_verification_metadata_does_not_make_entry_uncertain(tmp_path):
 
     assert result.valid_entries == 1
     assert result.uncertain_entries == 0
+
+
+def test_ownership_detection_only_metadata_is_valid_not_uncertain(tmp_path):
+    root = tmp_path
+    data = root / "data"
+    data.mkdir()
+    (data / "accessories.json").write_text(
+        json.dumps(
+            {
+                "accessories": [
+                    {
+                        "item_id": "TEST_CHARM",
+                        "display_name": "Test Charm",
+                        "rarity": "common",
+                        "family_id": "test_charm",
+                        "tier_index": 0,
+                        "is_accessory": True,
+                        "auctionable": True,
+                        "soulbound": False,
+                        "source_types": ["ah"],
+                        "requirements": {},
+                        "recipe": None,
+                        "verified": True,
+                        "confidence": "medium",
+                        "ownership_detection_only": True,
+                        "source_notes": "metadata only",
+                        "last_verified": "2026-06-20",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    (data / "ah_watchlist.json").write_text(json.dumps({"items": []}), encoding="utf-8")
+    (data / "bazaar_conversions.json").write_text(json.dumps({"conversions": []}), encoding="utf-8")
+    (data / "craft_recipes.json").write_text(json.dumps({"recipes": []}), encoding="utf-8")
+
+    result = validate_all_datasets(root=root)
+
+    assert result.valid_entries == 1
+    assert result.uncertain_entries == 0
+
+
+def test_dataset_repair_classifies_and_confirms_with_mocked_wiki(tmp_path):
+    root = tmp_path
+    data = root / "data"
+    data.mkdir()
+    (data / "accessories.json").write_text(
+        json.dumps(
+            {
+                "accessories": [
+                    {
+                        "item_id": "TEST_RING",
+                        "display_name": "Test Ring",
+                        "rarity": "common",
+                        "family_id": "test_ring",
+                        "tier_index": 0,
+                        "is_accessory": True,
+                        "auctionable": True,
+                        "soulbound": False,
+                        "source_types": ["ah"],
+                        "requirements": {},
+                        "recipe": None,
+                        "auto_generated": True,
+                        "verified": False,
+                        "confidence": "low",
+                        "uncertain_requirements": True,
+                        "source_notes": "old",
+                        "last_verified": "2026-06-20",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    (data / "ah_watchlist.json").write_text(
+        json.dumps({"items": [{"tag": "ELEPHANT;0", "name": "Elephant", "category": "pet", "max_budget_percent": 10}]}),
+        encoding="utf-8",
+    )
+    (data / "bazaar_conversions.json").write_text(json.dumps({"conversions": []}), encoding="utf-8")
+    (data / "craft_recipes.json").write_text(
+        json.dumps(
+            {
+                "recipes": [
+                    {
+                        "output": {"tag": "WOOD_TALISMAN", "display_name": "Wood Talisman", "quantity": 1, "auctionable": False},
+                        "ingredients": [{"item_tag": "LOG", "display_name": "Oak Log", "amount": 8, "source": "bazaar"}],
+                        "verified": False,
+                        "confidence": "low",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    audit = audit_datasets(root=root, wiki=FakeWiki())
+    repair = repair_datasets(root=root, wiki=FakeWiki())
+    repaired_accessory = json.loads((data / "accessories.json").read_text(encoding="utf-8"))["accessories"][0]
+    repaired_watch = json.loads((data / "ah_watchlist.json").read_text(encoding="utf-8"))["items"][0]
+    repaired_recipe = json.loads((data / "craft_recipes.json").read_text(encoding="utf-8"))["recipes"][0]
+
+    assert audit.issue_counts["accessory_ownership_detection_only"] == 1
+    assert repaired_accessory["ownership_detection_only"] is True
+    assert repaired_accessory["recommendation_eligible"] is False
+    assert repaired_accessory["verified"] is True
+    assert repaired_watch["market_source"] == "pet_ah"
+    assert repaired_watch["cofl_auction_supported"] is False
+    assert repaired_recipe["disabled"] is True
+    assert not repair.validation.errors
 
 
 def test_obvious_bazaar_compression_generation_uses_only_existing_products():

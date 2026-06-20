@@ -19,6 +19,7 @@ from .dataset_validation import (
     validate_craft_recipes,
 )
 from .http import HttpClient
+from .dataset_repair import OfficialWikiClient, audit_datasets, repair_datasets
 
 
 BAZAAR_URL = "https://api.hypixel.net/v2/skyblock/bazaar"
@@ -37,6 +38,12 @@ def add_dataset_subparser(subparsers: argparse._SubParsersAction) -> None:
 
     dataset_subparsers.add_parser("summary", help="Print local dataset counts")
 
+    audit = dataset_subparsers.add_parser("audit", help="Audit local datasets for actionable maintenance issues")
+    audit.add_argument("--wiki", action="store_true", help="Use official Hypixel Wiki search to confirm unverified entries")
+
+    repair = dataset_subparsers.add_parser("repair", help="Apply safe automatic dataset repairs")
+    repair.add_argument("--wiki", action="store_true", help="Use official Hypixel Wiki search to confirm unverified entries")
+
     refresh = dataset_subparsers.add_parser("refresh-bazaar-conversions", help="Refresh generated Bazaar conversion data")
     refresh.add_argument("--offline", action="store_true", help="Validate existing conversions without fetching live products")
 
@@ -51,11 +58,15 @@ def run_dataset_command(args: argparse.Namespace) -> int:
         return migrate_command(offline=bool(getattr(args, "offline", False)))
     if command == "summary":
         return summary_command()
+    if command == "audit":
+        return audit_command(wiki=bool(getattr(args, "wiki", False)))
+    if command == "repair":
+        return repair_command(wiki=bool(getattr(args, "wiki", False)))
     if command == "refresh-bazaar-conversions":
         return refresh_bazaar_conversions_command(offline=bool(getattr(args, "offline", False)))
     if command == "check-usage":
         return check_usage_command()
-    print("Choose a datasets subcommand: validate, migrate, summary, refresh-bazaar-conversions, or check-usage.")
+    print("Choose a datasets subcommand: validate, migrate, summary, audit, repair, refresh-bazaar-conversions, or check-usage.")
     return 2
 
 
@@ -115,6 +126,39 @@ def summary_command() -> int:
     print(f"- Uncertain entries: {result.uncertain_entries}")
     print(f"- Validation errors: {len(result.errors)}")
     print(f"- Validation warnings: {len(result.warnings)}")
+    return 0
+
+
+def audit_command(*, wiki: bool = False) -> int:
+    client = OfficialWikiClient() if wiki else None
+    report = audit_datasets(wiki=client)
+    print("Dataset audit")
+    if not report.issue_counts:
+        print("- No actionable dataset maintenance issues found.")
+        return 0
+    for issue, count in sorted(report.issue_counts.items()):
+        examples = ", ".join(report.examples.get(issue, []))
+        print(f"- {issue}: {count}" + (f" ({examples})" if examples else ""))
+    return 0
+
+
+def repair_command(*, wiki: bool = False) -> int:
+    backup_dir = backup_dataset_files()
+    client = OfficialWikiClient() if wiki else None
+    report = repair_datasets(wiki=client)
+    print(f"Backed up datasets to {backup_dir}")
+    print("Dataset repair")
+    if report.changes:
+        for change, count in sorted(report.changes.items()):
+            print(f"- {change}: {count}")
+        print("Changed files")
+        for file_name in sorted(report.changed_files):
+            print(f"- {file_name}")
+    else:
+        print("- No changes needed.")
+    if report.validation:
+        print_validation_summary(report.validation)
+        return 1 if report.validation.errors else 0
     return 0
 
 

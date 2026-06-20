@@ -55,7 +55,7 @@ def analyze_accessories(
     for item in accessories:
         item_missing = item.item_id not in ownership.owned_exact and item.item_id not in ownership.covered_by_higher_tier
         if not filters.include_uncertain and (
-            item.uncertain_requirements or item.confidence == "low"
+            item.uncertain_requirements or item.confidence == "low" or item.ownership_detection_only
         ) and item_missing:
             continue
         skip_low_confidence_ah = item.auto_generated and item.confidence == "low" and not _is_upgrade_from_owned_family(item, ownership, db)
@@ -69,7 +69,13 @@ def analyze_accessories(
     upgrades = [row for row in all_missing if _is_upgrade_from_owned_family(row.entry, ownership, db)]
     locked = [row for row in all_missing if row.status in {"Locked", "Unknown requirements", "Unknown recipe", "Soulbound / manual unlock", "Not craftable / source only"}]
     owned = [row for row in rows if row.owned_exact or row.covered_by_higher_tier]
-    recommended = apply_accessory_filters([row for row in all_missing if row.score > 0 and not row.ah.overpriced and not row.ah.manipulated], filters)
+    recommended = apply_accessory_filters(
+        [
+            row for row in all_missing
+            if row.entry.recommendation_eligible and row.score > 0 and not row.ah.overpriced and not row.ah.manipulated
+        ],
+        filters,
+    )
     recommended = recommended[: filters.max_recommendations]
     cheapest = sorted(
         [row for row in all_missing if row.estimated_cost is not None and row.mp_gain > 0],
@@ -399,6 +405,8 @@ def _craft_state(
 def _ah_state(entry: AccessoryEntry, cofl: CoflClient, *, days: int) -> AccessoryAh:
     if entry.soulbound or not entry.auctionable:
         return AccessoryAh(warnings=["not auctionable"])
+    if not entry.cofl_auction_supported or entry.market_source != "ah":
+        return AccessoryAh(warnings=[f"market data unsupported for {entry.market_source}"])
     active = cofl.active_bins(entry.item_id)
     sold = cofl.sold_summary(entry.item_id)
     lowest = active.lowest_bin
@@ -424,6 +432,8 @@ def _ah_state(entry: AccessoryEntry, cofl: CoflClient, *, days: int) -> Accessor
 
 
 def _status(entry: AccessoryEntry, missing: list[str], craft: AccessoryCraftCost, ah: AccessoryAh) -> str:
+    if entry.ownership_detection_only:
+        return "Ownership detection only"
     if entry.soulbound or ("manual" in entry.source_types and not entry.auctionable):
         return "Soulbound / manual unlock"
     if ah.active.lowest_bin:
@@ -478,6 +488,8 @@ def _score(
     craft: AccessoryCraftCost,
     missing: list[str],
 ) -> tuple[float, list[str]]:
+    if not entry.recommendation_eligible:
+        return 0.0, ["kept for ownership detection"]
     if status in {"Locked", "Unknown requirements", "Unknown recipe"} and not ah.active.lowest_bin:
         if entry.confidence == "low" or entry.requires_manual_verification:
             return 0.0, missing[:2] or ["manual verification required"]

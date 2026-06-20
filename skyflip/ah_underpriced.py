@@ -26,6 +26,9 @@ class WatchItem:
     confidence: str = "medium"
     verified: bool = False
     requires_manual_verification: bool = False
+    market_source: str = "ah"
+    cofl_auction_supported: bool = True
+    cofl_price_supported: bool = True
 
 
 @dataclass(frozen=True)
@@ -70,6 +73,9 @@ def load_watchlist(path: Path | str = "data/ah_watchlist.json") -> list[WatchIte
                 confidence=str(item.get("confidence", "medium")).lower(),
                 verified=bool(item.get("verified", False)),
                 requires_manual_verification=bool(item.get("requires_manual_verification", False)),
+                market_source=str(item.get("market_source", "ah")).lower(),
+                cofl_auction_supported=bool(item.get("cofl_auction_supported", True)),
+                cofl_price_supported=bool(item.get("cofl_price_supported", True)),
             )
         )
     return items
@@ -109,6 +115,8 @@ def evaluate_watch_item(
     requirement_rejection = _watch_requirement_rejection(item, profile)
     if requirement_rejection:
         return RejectedItem("ah-underpriced", item.name, requirement_rejection)
+    if item.market_source != "ah" or not item.cofl_auction_supported:
+        return RejectedItem("ah-underpriced", item.name, f"market data unsupported for {item.market_source}")
 
     active = cofl.active_bins(item.tag)
     analysis = cofl.analysis(item.tag, days) or MarketAnalysis(source="none")
