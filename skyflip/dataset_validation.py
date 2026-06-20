@@ -337,7 +337,7 @@ def _count_status(result: DatasetValidationResult, row: dict[str, Any], *, enabl
         result.disabled_entries += 1
         return
     confidence = str(row.get("confidence", "high")).lower()
-    if confidence == "low" or bool(row.get("requires_manual_verification")) or row.get("verified") is False:
+    if confidence == "low" or row.get("verified") is False:
         result.uncertain_entries += 1
     else:
         result.valid_entries += 1

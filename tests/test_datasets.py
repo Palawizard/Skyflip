@@ -123,6 +123,37 @@ def test_bazaar_conversion_validation_uses_mocked_product_ids(tmp_path):
     assert "not a live Bazaar product" in result.errors[0].message
 
 
+def test_manual_verification_metadata_does_not_make_entry_uncertain(tmp_path):
+    path = tmp_path / "bazaar_conversions.json"
+    path.write_text(
+        json.dumps(
+            {
+                "conversions": [
+                    {
+                        "name": "Manual check",
+                        "input_product_id": "A",
+                        "input_amount": 160,
+                        "output_product_id": "B",
+                        "output_amount": 1,
+                        "conversion_type": "compression",
+                        "verified": True,
+                        "confidence": "medium",
+                        "requires_manual_verification": True,
+                        "source_notes": "Known conversion pattern; verify the final in-game step manually.",
+                        "last_verified": "2026-06-20",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    result = validate_bazaar_conversions(path, bazaar_product_ids={"A", "B"})
+
+    assert result.valid_entries == 1
+    assert result.uncertain_entries == 0
+
+
 def test_obvious_bazaar_compression_generation_uses_only_existing_products():
     rows = generate_obvious_compressions({"COBBLESTONE", "ENCHANTED_COBBLESTONE", "ENCHANTED_COBBLESTONE_BLOCK"})
     pairs = {(row["input_product_id"], row["output_product_id"]) for row in rows}
