@@ -1315,14 +1315,14 @@
           "LAPIS_LAZULI": 9
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "high_capital",
         "slow_sale"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Experience_Artifact",
+      "verified": true
     },
     {
       "confidence": "high",
@@ -1385,13 +1385,13 @@
           "WHEAT": 4
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Farming_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -1586,13 +1586,13 @@
           "BLAZE_ROD": 2
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Fire_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -1780,13 +1780,13 @@
           "OBSIDIAN": 6
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "slow_sale"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Gravity_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -1845,13 +1845,13 @@
           "COBBLESTONE": 8
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "high_capital"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Haste_Ring",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -1914,13 +1914,13 @@
           "LILY_PAD": 3
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Healing_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -2099,14 +2099,14 @@
           "Event-limited upgrade; do not show as a normal craft flip"
         ]
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "high_capital",
         "slow_sale"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Intimidation_Artifact",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -2176,13 +2176,13 @@
           "Event-limited upgrade; do not show as a normal craft flip"
         ]
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Intimidation_Ring",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -2210,13 +2210,13 @@
           "NPC-purchased item; no collection craft requirement"
         ]
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Intimidation_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -2326,13 +2326,13 @@
           "MAGMA_CREAM": 7
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "slow_sale"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Lava_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -2453,13 +2453,13 @@
           "IRON_INGOT": 3
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Magnetic_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -2500,14 +2500,14 @@
           "High Wolf Slayer requirement"
         ]
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "slayer_item",
         "high_capital",
         "slow_sale"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Mana_Flux_Power_Orb",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -2771,13 +2771,13 @@
           "MUSHROOM_COLLECTION": 7
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "slow_sale"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Night_Vision_Charm",
+      "verified": true
     },
     {
       "confidence": "high",
@@ -3109,13 +3109,13 @@
           "NETHER_STALK": 3
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Potion_Affinity_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -3289,13 +3289,13 @@
           "Wolf Slayer recipe"
         ]
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "slayer_item",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Radiant_Power_Orb",
+      "verified": true
     },
     {
       "confidence": "high",
@@ -3606,8 +3606,8 @@
     },
     {
       "confidence": "medium",
-      "disabled": false,
-      "disabled_reason": "",
+      "disabled": true,
+      "disabled_reason": "Output is not auctionable, so it is not eligible for AH craft flips.",
       "ingredients": [
         {
           "amount": 1,
@@ -3635,13 +3635,13 @@
           "NETHER_STALK": 5
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
       "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -3972,13 +3972,13 @@
           "SUGAR_CANE": 2
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Speed_Talisman",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -4115,13 +4115,13 @@
           "POTATO_ITEM": 5
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Vaccine_Ring",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -4147,13 +4147,13 @@
           "POTATO_ITEM": 3
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Vaccine_Talisman",
+      "verified": true
     },
     {
       "confidence": "high",
@@ -4237,13 +4237,13 @@
           "Zombie Slayer recipe"
         ]
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "slayer_item",
         "common_accessory"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Wand_Of_Healing",
+      "verified": true
     },
     {
       "confidence": "medium",
@@ -4284,12 +4284,12 @@
           "Zombie Slayer recipe"
         ]
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "slayer_item"
       ],
-      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Wand_Of_Mending",
+      "verified": true
     },
     {
       "confidence": "high",
@@ -4340,8 +4340,8 @@
     },
     {
       "confidence": "medium",
-      "disabled": false,
-      "disabled_reason": "",
+      "disabled": true,
+      "disabled_reason": "Output is not auctionable, so it is not eligible for AH craft flips.",
       "ingredients": [
         {
           "amount": 16,
@@ -4372,18 +4372,18 @@
           "Requires access to appropriate combat content"
         ]
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "low_volume",
         "manipulated_price_possible"
       ],
       "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "verified": true
     },
     {
       "confidence": "medium",
-      "disabled": false,
-      "disabled_reason": "",
+      "disabled": true,
+      "disabled_reason": "Output is not auctionable, so it is not eligible for AH craft flips.",
       "ingredients": [
         {
           "amount": 48,
@@ -4423,13 +4423,13 @@
           "OAK_WOOD": 3
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "common_accessory",
         "saturated"
       ],
       "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
-      "verified": false
+      "verified": true
     },
     {
       "confidence": "high",
