@@ -1,21 +1,21 @@
 {
   "recipes": [
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 512.0,
+          "amount": 1,
+          "display_name": "Agarimoo Ring",
+          "item_tag": "AGARIMOO_RING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 512,
           "display_name": "Agarimoo Tongue",
           "item_tag": "AGARIMOO_TONGUE",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Agarimoo Ring",
-          "item_tag": "AGARIMOO_RING",
-          "source": "ah"
         }
       ],
       "last_verified": "2026-06-20",
@@ -26,30 +26,30 @@
         "tag": "AGARIMOO_ARTIFACT"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/AGARIMOO_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 96.0,
+          "amount": 1,
+          "display_name": "Agarimoo Talisman",
+          "item_tag": "AGARIMOO_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 96,
           "display_name": "Agarimoo Tongue",
           "item_tag": "AGARIMOO_TONGUE",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Agarimoo Talisman",
-          "item_tag": "AGARIMOO_TALISMAN",
-          "source": "ah"
         }
       ],
       "last_verified": "2026-06-20",
@@ -60,12 +60,12 @@
         "tag": "AGARIMOO_RING"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/AGARIMOO_RING",
       "verified": true
     },
     {
@@ -92,25 +92,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/AGARIMOO_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 16.0,
+          "amount": 16,
           "display_name": "Freshly-Minted Coins",
           "item_tag": "FRESHLY_MINTED_COINS",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Ring of Coins",
           "item_tag": "RING_OF_COINS",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -121,30 +121,30 @@
         "tag": "ARTIFACT_OF_COINS"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/ARTIFACT_OF_COINS",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 256.0,
+          "amount": 256,
           "display_name": "Enchanted Nether Wart",
           "item_tag": "ENCHANTED_NETHER_STALK",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Potion Affinity Ring",
           "item_tag": "RING_POTION_AFFINITY",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -159,11 +159,11 @@
           "NETHER_STALK": 9
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/ARTIFACT_POTION_AFFINITY",
       "verified": true
     },
     {
@@ -194,31 +194,31 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BAIT_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 16.0,
-          "display_name": "Spooky Fragment",
-          "item_tag": "SPOOKY_SHARD",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Bat Person Ring",
+          "item_tag": "BAT_PERSON_RING",
+          "source": "previous_recipe"
         },
         {
-          "amount": 128.0,
+          "amount": 128,
           "display_name": "Ectoplasm",
           "item_tag": "ECTOPLASM",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Bat Person Ring",
-          "item_tag": "BAT_PERSON_RING",
-          "source": "ah"
+          "amount": 16,
+          "display_name": "Spooky Fragment",
+          "item_tag": "SPOOKY_SHARD",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -229,36 +229,36 @@
         "tag": "BAT_PERSON_ARTIFACT"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BAT_PERSON_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
-          "display_name": "Spooky Fragment",
-          "item_tag": "SPOOKY_SHARD",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Bat Person Talisman",
+          "item_tag": "BAT_PERSON_TALISMAN",
+          "source": "ah"
         },
         {
-          "amount": 32.0,
+          "amount": 32,
           "display_name": "Ectoplasm",
           "item_tag": "ECTOPLASM",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Bat Person Talisman",
-          "item_tag": "BAT_PERSON_TALISMAN",
-          "source": "ah"
+          "amount": 4,
+          "display_name": "Spooky Fragment",
+          "item_tag": "SPOOKY_SHARD",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -269,33 +269,33 @@
         "tag": "BAT_PERSON_RING"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BAT_PERSON_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
-          "display_name": "Griffin Feather",
-          "item_tag": "GRIFFIN_FEATHER",
-          "source": "bazaar"
-        },
-        {
-          "amount": 40.0,
+          "amount": 40,
           "display_name": "Ancient Claw",
           "item_tag": "ANCIENT_CLAW",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 4,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1,
           "display_name": "Milk Bucket",
           "item_tag": "MILK_BUCKET",
           "source": "ah"
@@ -309,36 +309,36 @@
         "tag": "BEASTMASTER_CREST_COMMON"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BEASTMASTER_CREST_COMMON",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 128.0,
-          "display_name": "Griffin Feather",
-          "item_tag": "GRIFFIN_FEATHER",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Beastmaster Crest",
+          "item_tag": "BEASTMASTER_CREST_RARE",
+          "source": "previous_recipe"
         },
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Enchanted Ancient Claw",
           "item_tag": "ENCHANTED_ANCIENT_CLAW",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Beastmaster Crest",
-          "item_tag": "BEASTMASTER_CREST_RARE",
-          "source": "ah"
+          "amount": 128,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -349,36 +349,36 @@
         "tag": "BEASTMASTER_CREST_EPIC"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BEASTMASTER_CREST_EPIC",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 256.0,
-          "display_name": "Griffin Feather",
-          "item_tag": "GRIFFIN_FEATHER",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Beastmaster Crest",
+          "item_tag": "BEASTMASTER_CREST_EPIC",
+          "source": "previous_recipe"
         },
         {
-          "amount": 32.0,
+          "amount": 32,
           "display_name": "Enchanted Ancient Claw",
           "item_tag": "ENCHANTED_ANCIENT_CLAW",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Beastmaster Crest",
-          "item_tag": "BEASTMASTER_CREST_EPIC",
-          "source": "ah"
+          "amount": 256,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -389,36 +389,36 @@
         "tag": "BEASTMASTER_CREST_LEGENDARY"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BEASTMASTER_CREST_LEGENDARY",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 32.0,
-          "display_name": "Griffin Feather",
-          "item_tag": "GRIFFIN_FEATHER",
-          "source": "bazaar"
-        },
-        {
-          "amount": 256.0,
+          "amount": 256,
           "display_name": "Ancient Claw",
           "item_tag": "ANCIENT_CLAW",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Beastmaster Crest",
           "item_tag": "BEASTMASTER_CREST_UNCOMMON",
-          "source": "ah"
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 32,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -429,36 +429,36 @@
         "tag": "BEASTMASTER_CREST_RARE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BEASTMASTER_CREST_RARE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
-          "display_name": "Griffin Feather",
-          "item_tag": "GRIFFIN_FEATHER",
-          "source": "bazaar"
-        },
-        {
-          "amount": 80.0,
+          "amount": 80,
           "display_name": "Ancient Claw",
           "item_tag": "ANCIENT_CLAW",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Beastmaster Crest",
           "item_tag": "BEASTMASTER_CREST_COMMON",
-          "source": "ah"
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 8,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -469,12 +469,12 @@
         "tag": "BEASTMASTER_CREST_UNCOMMON"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BEASTMASTER_CREST_UNCOMMON",
       "verified": true
     },
     {
@@ -483,15 +483,15 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
-          "display_name": "Millennia-Old Blaze Ashes",
-          "item_tag": "MILLENIA_OLD_BLAZE_ASHES",
+          "amount": 8,
+          "display_name": "Enchanted Blaze Rod",
+          "item_tag": "ENCHANTED_BLAZE_ROD",
           "source": "bazaar"
         },
         {
-          "amount": 8.0,
-          "display_name": "Enchanted Blaze Rod",
-          "item_tag": "ENCHANTED_BLAZE_ROD",
+          "amount": 8,
+          "display_name": "Millennia-Old Blaze Ashes",
+          "item_tag": "MILLENIA_OLD_BLAZE_ASHES",
           "source": "bazaar"
         }
       ],
@@ -507,25 +507,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BLAZE_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 128.0,
+          "amount": 1,
+          "display_name": "Blood Donor Ring",
+          "item_tag": "BLOOD_DONOR_RING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 128,
           "display_name": "Hemobomb",
           "item_tag": "HEMOBOMB",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Blood Donor Ring",
-          "item_tag": "BLOOD_DONOR_RING",
-          "source": "ah"
         }
       ],
       "last_verified": "2026-06-20",
@@ -540,30 +540,30 @@
           "HEMOVIBE": 9
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BLOOD_DONOR_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 96.0,
+          "amount": 1,
+          "display_name": "Blood Donor Talisman",
+          "item_tag": "BLOOD_DONOR_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 96,
           "display_name": "Hemoglass",
           "item_tag": "HEMOGLASS",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Blood Donor Talisman",
-          "item_tag": "BLOOD_DONOR_TALISMAN",
-          "source": "ah"
         }
       ],
       "last_verified": "2026-06-20",
@@ -578,12 +578,12 @@
           "HEMOVIBE": 6
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BLOOD_DONOR_RING",
       "verified": true
     },
     {
@@ -614,37 +614,37 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BLOOD_DONOR_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 128.0,
+          "amount": 1,
+          "display_name": "Bluetooth Ring",
+          "item_tag": "BLUETOOTH_RING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 128,
           "display_name": "Blue Ring",
           "item_tag": "BLUE_RING",
           "source": "bazaar"
         },
         {
-          "amount": 2.0,
-          "display_name": "§3Blue Goblin Egg",
-          "item_tag": "GOBLIN_EGG_BLUE",
-          "source": "bazaar"
-        },
-        {
-          "amount": 16.0,
+          "amount": 16,
           "display_name": "Blue Shark Tooth",
           "item_tag": "BLUE_SHARK_TOOTH",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Bluetooth Ring",
-          "item_tag": "BLUETOOTH_RING",
-          "source": "ah"
+          "amount": 2,
+          "display_name": "§3Blue Goblin Egg",
+          "item_tag": "GOBLIN_EGG_BLUE",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -655,16 +655,16 @@
         "tag": "BLUERTOOTH_RING"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BLUERTOOTH_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -687,36 +687,36 @@
           "METAL_HEART": 3
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BLUETOOTH_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 128.0,
+          "amount": 1,
+          "display_name": "Burststopper Talisman",
+          "item_tag": "BURSTSTOPPER_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 128,
           "display_name": "Molten Powder",
           "item_tag": "MOLTEN_POWDER",
           "source": "bazaar"
         },
         {
-          "amount": 80.0,
+          "amount": 80,
           "display_name": "Whipped Magma Cream",
           "item_tag": "WHIPPED_MAGMA_CREAM",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Burststopper Talisman",
-          "item_tag": "BURSTSTOPPER_TALISMAN",
-          "source": "ah"
         }
       ],
       "last_verified": "2026-06-20",
@@ -731,12 +731,12 @@
           "blaze": 7
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BURSTSTOPPER_ARTIFACT",
       "verified": true
     },
     {
@@ -745,21 +745,21 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
-          "display_name": "Whipped Magma Cream",
-          "item_tag": "WHIPPED_MAGMA_CREAM",
-          "source": "bazaar"
-        },
-        {
-          "amount": 128.0,
+          "amount": 128,
           "display_name": "Molten Powder",
           "item_tag": "MOLTEN_POWDER",
           "source": "bazaar"
         },
         {
-          "amount": 6.0,
+          "amount": 6,
           "display_name": "Refined Titanium",
           "item_tag": "REFINED_TITANIUM",
+          "source": "bazaar"
+        },
+        {
+          "amount": 4,
+          "display_name": "Whipped Magma Cream",
+          "item_tag": "WHIPPED_MAGMA_CREAM",
           "source": "bazaar"
         }
       ],
@@ -779,7 +779,7 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/BURSTSTOPPER_TALISMAN",
       "verified": true
     },
     {
@@ -806,7 +806,7 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/CATACOMBS_EXPERT_RING",
       "verified": true
     },
     {
@@ -843,7 +843,7 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/COIN_TALISMAN",
       "verified": true
     },
     {
@@ -870,11 +870,11 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/CROPIE_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -893,30 +893,30 @@
         "tag": "CRUX_TALISMAN_1"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/CRUX_TALISMAN_1",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 16.0,
+          "amount": 1,
+          "display_name": "Crux Talisman",
+          "item_tag": "CRUX_TALISMAN_1",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 16,
           "display_name": "Shadow Crux",
           "item_tag": "SHADOW_CRUX",
           "source": "ah"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Crux Talisman",
-          "item_tag": "CRUX_TALISMAN_1",
-          "source": "craft"
         }
       ],
       "last_verified": "2026-06-20",
@@ -927,12 +927,12 @@
         "tag": "CRUX_TALISMAN_2"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/CRUX_TALISMAN_2",
       "verified": true
     },
     {
@@ -969,7 +969,7 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/DAY_CRYSTAL",
       "verified": true
     },
     {
@@ -1012,37 +1012,37 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/DEVOUR_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 12.0,
-          "display_name": "Ritual Residue",
-          "item_tag": "RITUAL_RESIDUE",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Draconic Ring",
+          "item_tag": "DRACONIC_RING",
+          "source": "previous_recipe"
         },
         {
-          "amount": 2.0,
-          "display_name": "Tessellated Ender Pearl",
-          "item_tag": "TESSELLATED_ENDER_PEARL",
-          "source": "bazaar"
-        },
-        {
-          "amount": 128.0,
+          "amount": 128,
           "display_name": "Mite Gel",
           "item_tag": "MITE_GEL",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Draconic Ring",
-          "item_tag": "DRACONIC_RING",
-          "source": "ah"
+          "amount": 12,
+          "display_name": "Ritual Residue",
+          "item_tag": "RITUAL_RESIDUE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 2,
+          "display_name": "Tessellated Ender Pearl",
+          "item_tag": "TESSELLATED_ENDER_PEARL",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1053,39 +1053,39 @@
         "tag": "DRACONIC_ARTIFACT"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/DRACONIC_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
-          "display_name": "Ritual Residue",
-          "item_tag": "RITUAL_RESIDUE",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Draconic Talisman",
+          "item_tag": "DRACONIC_TALISMAN",
+          "source": "previous_recipe"
         },
         {
-          "amount": 96.0,
+          "amount": 96,
           "display_name": "Mite Gel",
           "item_tag": "MITE_GEL",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Draconic Talisman",
-          "item_tag": "DRACONIC_TALISMAN",
-          "source": "ah"
+          "amount": 4,
+          "display_name": "Ritual Residue",
+          "item_tag": "RITUAL_RESIDUE",
+          "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Tessellated Ender Pearl",
           "item_tag": "TESSELLATED_ENDER_PEARL",
           "source": "bazaar"
@@ -1099,12 +1099,12 @@
         "tag": "DRACONIC_RING"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/DRACONIC_RING",
       "verified": true
     },
     {
@@ -1113,21 +1113,21 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 2.0,
-          "display_name": "Ritual Residue",
-          "item_tag": "RITUAL_RESIDUE",
+          "amount": 32,
+          "display_name": "Absolute Ender Pearl",
+          "item_tag": "ABSOLUTE_ENDER_PEARL",
           "source": "bazaar"
         },
         {
-          "amount": 96.0,
+          "amount": 96,
           "display_name": "Mite Gel",
           "item_tag": "MITE_GEL",
           "source": "bazaar"
         },
         {
-          "amount": 32.0,
-          "display_name": "Absolute Ender Pearl",
-          "item_tag": "ABSOLUTE_ENDER_PEARL",
+          "amount": 2,
+          "display_name": "Ritual Residue",
+          "item_tag": "RITUAL_RESIDUE",
           "source": "bazaar"
         }
       ],
@@ -1143,25 +1143,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/DRACONIC_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Nurse Shark Tooth",
           "item_tag": "NURSE_SHARK_TOOTH",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Raggedy Shark Tooth Necklace",
           "item_tag": "RAGGEDY_SHARK_TOOTH_NECKLACE",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1172,35 +1172,35 @@
         "tag": "DULL_SHARK_TOOTH_NECKLACE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/DULL_SHARK_TOOTH_NECKLACE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 36.0,
-          "display_name": "Enchanted Emerald Block",
-          "item_tag": "ENCHANTED_EMERALD_BLOCK",
+          "amount": 1,
+          "display_name": "Avaricious Chalice",
+          "item_tag": "AVARICIOUS_CHALICE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Emerald Ring",
           "item_tag": "EMERALD_RING",
-          "source": "ah"
+          "source": "previous_recipe"
         },
         {
-          "amount": 1.0,
-          "display_name": "Avaricious Chalice",
-          "item_tag": "AVARICIOUS_CHALICE",
+          "amount": 36,
+          "display_name": "Enchanted Emerald Block",
+          "item_tag": "ENCHANTED_EMERALD_BLOCK",
           "source": "bazaar"
         }
       ],
@@ -1212,12 +1212,12 @@
         "tag": "EMERALD_ARTIFACT"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/EMERALD_ARTIFACT",
       "verified": true
     },
     {
@@ -1248,25 +1248,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/EMERALD_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
-          "display_name": "Soul Fragment",
-          "item_tag": "SOUL_FRAGMENT",
-          "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Lucky Hoof",
           "item_tag": "LUCKY_HOOF",
           "source": "ah"
+        },
+        {
+          "amount": 8,
+          "display_name": "Soul Fragment",
+          "item_tag": "SOUL_FRAGMENT",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1277,29 +1277,23 @@
         "tag": "ETERNAL_HOOF"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/ETERNAL_HOOF",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 64,
-          "display_name": "Grand Experience Bottle",
-          "item_tag": "GRAND_EXP_BOTTLE",
-          "source": "bazaar"
-        },
-        {
-          "amount": 64,
-          "display_name": "Enchanted Lapis Lazuli",
-          "item_tag": "ENCHANTED_LAPIS_LAZULI",
+          "amount": 9,
+          "display_name": "Enchanted Lapis Lazuli Block",
+          "item_tag": "ENCHANTED_LAPIS_LAZULI_BLOCK",
           "source": "bazaar"
         }
       ],
@@ -1321,7 +1315,7 @@
         "high_capital",
         "slow_sale"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Experience_Artifact",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/EXPERIENCE_ARTIFACT",
       "verified": true
     },
     {
@@ -1330,15 +1324,15 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
-          "display_name": "Enchanted Pumpkin",
-          "item_tag": "ENCHANTED_PUMPKIN",
+          "amount": 1,
+          "display_name": "Enchanted Glowstone",
+          "item_tag": "ENCHANTED_GLOWSTONE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Enchanted Glowstone",
-          "item_tag": "ENCHANTED_GLOWSTONE",
+          "amount": 8,
+          "display_name": "Enchanted Pumpkin",
+          "item_tag": "ENCHANTED_PUMPKIN",
           "source": "bazaar"
         }
       ],
@@ -1358,18 +1352,24 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FARMER_ORB",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 18,
-          "display_name": "Hay Bale",
-          "item_tag": "HAY_BLOCK",
+          "amount": 4,
+          "display_name": "Seeds",
+          "item_tag": "SEEDS",
+          "source": "bazaar"
+        },
+        {
+          "amount": 40,
+          "display_name": "Wheat",
+          "item_tag": "WHEAT",
           "source": "bazaar"
         }
       ],
@@ -1390,25 +1390,25 @@
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Farming_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FARMING_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 128.0,
+          "amount": 128,
           "display_name": "Enchanted Feather",
           "item_tag": "ENCHANTED_FEATHER",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Feather Ring",
           "item_tag": "FEATHER_RING",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1423,30 +1423,30 @@
           "FEATHER": 9
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FEATHER_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 7.0,
+          "amount": 7,
           "display_name": "Enchanted Feather",
           "item_tag": "ENCHANTED_FEATHER",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Feather Talisman",
           "item_tag": "FEATHER_TALISMAN",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1461,12 +1461,12 @@
           "FEATHER": 7
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FEATHER_RING",
       "verified": true
     },
     {
@@ -1497,25 +1497,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FEATHER_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
+          "amount": 8,
           "display_name": "Condensed Fermento",
           "item_tag": "CONDENSED_FERMENTO",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Squash Ring",
           "item_tag": "SQUASH_RING",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1526,16 +1526,16 @@
         "tag": "FERMENTO_ARTIFACT"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FERMENTO_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -1554,23 +1554,23 @@
         "tag": "FIERY_KUUDRA_CORE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FIERY_KUUDRA_CORE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
           "amount": 9,
-          "display_name": "Blaze Rod",
-          "item_tag": "BLAZE_ROD",
+          "display_name": "Enchanted Blaze Powder",
+          "item_tag": "ENCHANTED_BLAZE_POWDER",
           "source": "bazaar"
         }
       ],
@@ -1591,11 +1591,11 @@
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Fire_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FIRE_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -1626,36 +1626,36 @@
         "tag": "FUTURE_CALORIES"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/FUTURE_CALORIES",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 40.0,
-          "display_name": "Glacial Fragment",
-          "item_tag": "GLACIAL_FRAGMENT",
-          "source": "bazaar"
-        },
-        {
-          "amount": 8.0,
+          "amount": 8,
           "display_name": "Enchanted Packed Ice",
           "item_tag": "ENCHANTED_PACKED_ICE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 40,
+          "display_name": "Glacial Fragment",
+          "item_tag": "GLACIAL_FRAGMENT",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1,
           "display_name": "Glacial Ring",
           "item_tag": "GLACIAL_RING",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1670,33 +1670,33 @@
           "ICE": 8
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/GLACIAL_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 20.0,
-          "display_name": "Glacial Fragment",
-          "item_tag": "GLACIAL_FRAGMENT",
-          "source": "bazaar"
-        },
-        {
-          "amount": 128.0,
+          "amount": 128,
           "display_name": "Enchanted Ice",
           "item_tag": "ENCHANTED_ICE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 20,
+          "display_name": "Glacial Fragment",
+          "item_tag": "GLACIAL_FRAGMENT",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1,
           "display_name": "Glacial Talisman",
           "item_tag": "GLACIAL_TALISMAN",
           "source": "ah"
@@ -1714,30 +1714,30 @@
           "ICE": 6
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/GLACIAL_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 16.0,
+          "amount": 16,
           "display_name": "Glossy Gemstone",
           "item_tag": "GLOSSY_GEMSTONE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Mineral Talisman",
           "item_tag": "MINERAL_TALISMAN",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1748,23 +1748,23 @@
         "tag": "GLOSSY_MINERAL_TALISMAN"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/GLOSSY_MINERAL_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 32,
-          "display_name": "Enchanted Obsidian",
-          "item_tag": "ENCHANTED_OBSIDIAN",
+          "amount": 144,
+          "display_name": "Obsidian",
+          "item_tag": "OBSIDIAN",
           "source": "bazaar"
         }
       ],
@@ -1785,25 +1785,25 @@
         "common_accessory",
         "slow_sale"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Gravity_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/GRAVITY_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 256.0,
+          "amount": 256,
           "display_name": "Enchanted Cobblestone",
           "item_tag": "ENCHANTED_COBBLESTONE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Haste Ring",
           "item_tag": "HASTE_RING",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1814,20 +1814,20 @@
         "tag": "HASTE_ARTIFACT"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/HASTE_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 256,
+          "amount": 128,
           "display_name": "Enchanted Cobblestone",
           "item_tag": "ENCHANTED_COBBLESTONE",
           "source": "bazaar"
@@ -1850,25 +1850,25 @@
         "common_accessory",
         "high_capital"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Haste_Ring",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/HASTE_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Enchanted Lily Pad",
           "item_tag": "ENCHANTED_WATER_LILY",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Healing Talisman",
           "item_tag": "HEALING_TALISMAN",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1883,15 +1883,15 @@
           "WATER_LILY": 8
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/HEALING_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -1919,25 +1919,25 @@
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Healing_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/HEALING_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Blue Shark Tooth",
           "item_tag": "BLUE_SHARK_TOOTH",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Dull Shark Tooth Necklace",
           "item_tag": "DULL_SHARK_TOOTH_NECKLACE",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1948,36 +1948,36 @@
         "tag": "HONED_SHARK_TOOTH_NECKLACE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/HONED_SHARK_TOOTH_NECKLACE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 224.0,
+          "amount": 224,
           "display_name": "Golden Tooth",
           "item_tag": "GOLDEN_TOOTH",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Grizzly Salmon",
           "item_tag": "GRIZZLY_BAIT",
           "source": "ah"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Hunter Talisman",
           "item_tag": "HUNTER_TALISMAN",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -1992,12 +1992,12 @@
           "wolf": 7
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/HUNTER_RING",
       "verified": true
     },
     {
@@ -2006,15 +2006,15 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 64.0,
-          "display_name": "Golden Tooth",
-          "item_tag": "GOLDEN_TOOTH",
+          "amount": 32,
+          "display_name": "Enchanted Rotten Flesh",
+          "item_tag": "ENCHANTED_ROTTEN_FLESH",
           "source": "bazaar"
         },
         {
-          "amount": 32.0,
-          "display_name": "Enchanted Rotten Flesh",
-          "item_tag": "ENCHANTED_ROTTEN_FLESH",
+          "amount": 64,
+          "display_name": "Golden Tooth",
+          "item_tag": "GOLDEN_TOOTH",
           "source": "bazaar"
         }
       ],
@@ -2034,19 +2034,19 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/HUNTER_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Fiery Kuudra Core",
           "item_tag": "FIERY_KUUDRA_CORE",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2057,12 +2057,12 @@
         "tag": "INFERNAL_KUUDRA_CORE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/INFERNAL_KUUDRA_CORE",
       "verified": true
     },
     {
@@ -2109,21 +2109,21 @@
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
+          "amount": 1,
+          "display_name": "Intimidation Artifact",
+          "item_tag": "INTIMIDATION_ARTIFACT",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 8,
           "display_name": "Scare Fragment",
           "item_tag": "SCARE_FRAGMENT",
           "source": "ah"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Intimidation Artifact",
-          "item_tag": "INTIMIDATION_ARTIFACT",
-          "source": "craft"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2134,12 +2134,12 @@
         "tag": "INTIMIDATION_RELIC"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/INTIMIDATION_RELIC",
       "verified": true
     },
     {
@@ -2219,7 +2219,7 @@
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -2238,24 +2238,24 @@
         "tag": "JERRY_TALISMAN_BLUE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/JERRY_TALISMAN_BLUE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 5.0,
+          "amount": 5,
           "display_name": "Purple Jerry Talisman",
           "item_tag": "JERRY_TALISMAN_PURPLE",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2266,24 +2266,24 @@
         "tag": "JERRY_TALISMAN_GOLDEN"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/JERRY_TALISMAN_GOLDEN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 5.0,
+          "amount": 5,
           "display_name": "Blue Jerry Talisman",
           "item_tag": "JERRY_TALISMAN_BLUE",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2294,16 +2294,16 @@
         "tag": "JERRY_TALISMAN_PURPLE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/JERRY_TALISMAN_PURPLE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -2331,25 +2331,25 @@
         "common_accessory",
         "slow_sale"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Lava_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/LAVA_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 512.0,
+          "amount": 512,
           "display_name": "Enchanted Lush Berberis",
           "item_tag": "ENCHANTED_LUSH_BERBERIS",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Lush Ring",
           "item_tag": "LUSH_RING",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2360,30 +2360,30 @@
         "tag": "LUSH_ARTIFACT"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/LUSH_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 64.0,
+          "amount": 64,
           "display_name": "Enchanted Lush Berberis",
           "item_tag": "ENCHANTED_LUSH_BERBERIS",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Lush Talisman",
           "item_tag": "LUSH_TALISMAN",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2394,12 +2394,12 @@
         "tag": "LUSH_RING"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/LUSH_RING",
       "verified": true
     },
     {
@@ -2426,18 +2426,24 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/LUSH_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
+          "amount": 128,
+          "display_name": "Emerald",
+          "item_tag": "EMERALD",
+          "source": "bazaar"
+        },
+        {
           "amount": 32,
-          "display_name": "Enchanted Iron",
-          "item_tag": "ENCHANTED_IRON",
+          "display_name": "Redstone",
+          "item_tag": "REDSTONE",
           "source": "bazaar"
         }
       ],
@@ -2458,19 +2464,19 @@
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Magnetic_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MAGNETIC_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 1,
-          "display_name": "Radiant Power Orb",
-          "item_tag": "RADIANT_POWER_ORB",
-          "source": "previous_recipe"
+          "amount": 4,
+          "display_name": "Enchanted Lapis Block",
+          "item_tag": "ENCHANTED_LAPIS_LAZULI_BLOCK",
+          "source": "bazaar"
         },
         {
           "amount": 32,
@@ -2479,10 +2485,10 @@
           "source": "bazaar"
         },
         {
-          "amount": 2,
-          "display_name": "Enchanted Lapis Block",
-          "item_tag": "ENCHANTED_LAPIS_LAZULI_BLOCK",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Radiant Power Orb",
+          "item_tag": "RADIANT_POWER_ORB",
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2506,11 +2512,11 @@
         "high_capital",
         "slow_sale"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Mana_Flux_Power_Orb",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MANA_FLUX_POWER_ORB",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -2529,24 +2535,24 @@
         "tag": "MASTER_SKULL_TIER_2"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MASTER_SKULL_TIER_2",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Master Skull - Tier 2",
           "item_tag": "MASTER_SKULL_TIER_2",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2557,24 +2563,24 @@
         "tag": "MASTER_SKULL_TIER_3"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MASTER_SKULL_TIER_3",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Master Skull - Tier 3",
           "item_tag": "MASTER_SKULL_TIER_3",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2585,24 +2591,24 @@
         "tag": "MASTER_SKULL_TIER_4"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MASTER_SKULL_TIER_4",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Master Skull - Tier 4",
           "item_tag": "MASTER_SKULL_TIER_4",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2613,24 +2619,24 @@
         "tag": "MASTER_SKULL_TIER_5"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MASTER_SKULL_TIER_5",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Master Skull - Tier 5",
           "item_tag": "MASTER_SKULL_TIER_5",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2641,24 +2647,24 @@
         "tag": "MASTER_SKULL_TIER_6"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MASTER_SKULL_TIER_6",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Master Skull - Tier 6",
           "item_tag": "MASTER_SKULL_TIER_6",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2669,12 +2675,12 @@
         "tag": "MASTER_SKULL_TIER_7"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MASTER_SKULL_TIER_7",
       "verified": true
     },
     {
@@ -2701,7 +2707,7 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/MINERAL_TALISMAN",
       "verified": true
     },
     {
@@ -2738,24 +2744,24 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/NIGHT_CRYSTAL",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 16,
-          "display_name": "Enchanted Red Mushroom",
-          "item_tag": "ENCHANTED_RED_MUSHROOM",
+          "amount": 4,
+          "display_name": "Enchanted Brown Mushroom",
+          "item_tag": "ENCHANTED_BROWN_MUSHROOM",
           "source": "bazaar"
         },
         {
-          "amount": 16,
-          "display_name": "Enchanted Brown Mushroom",
-          "item_tag": "ENCHANTED_BROWN_MUSHROOM",
+          "amount": 4,
+          "display_name": "Enchanted Red Mushroom",
+          "item_tag": "ENCHANTED_RED_MUSHROOM",
           "source": "bazaar"
         }
       ],
@@ -2776,7 +2782,7 @@
         "common_accessory",
         "slow_sale"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Night_Vision_Charm",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/NIGHT_VISION_CHARM",
       "verified": true
     },
     {
@@ -2813,25 +2819,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PERSONAL_COMPACTOR_4000",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 14.0,
+          "amount": 14,
           "display_name": "Enchanted Redstone Block",
           "item_tag": "ENCHANTED_REDSTONE_BLOCK",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Personal Compactor 4000",
           "item_tag": "PERSONAL_COMPACTOR_4000",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2846,30 +2852,30 @@
           "REDSTONE": 11
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PERSONAL_COMPACTOR_5000",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 28.0,
+          "amount": 28,
           "display_name": "Enchanted Redstone Block",
           "item_tag": "ENCHANTED_REDSTONE_BLOCK",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Personal Compactor 5000",
           "item_tag": "PERSONAL_COMPACTOR_5000",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2884,30 +2890,30 @@
           "REDSTONE": 13
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PERSONAL_COMPACTOR_6000",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 56.0,
+          "amount": 56,
           "display_name": "Enchanted Redstone Block",
           "item_tag": "ENCHANTED_REDSTONE_BLOCK",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Personal Compactor 6000",
           "item_tag": "PERSONAL_COMPACTOR_6000",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -2922,11 +2928,11 @@
           "REDSTONE": 14
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PERSONAL_COMPACTOR_7000",
       "verified": true
     },
     {
@@ -2969,25 +2975,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PERSONAL_DELETOR_4000",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 224.0,
+          "amount": 224,
           "display_name": "Enchanted Iron Ingot",
           "item_tag": "ENCHANTED_IRON",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Personal Deletor 4000",
           "item_tag": "PERSONAL_DELETOR_4000",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3002,29 +3008,29 @@
           "IRON_INGOT": 10
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PERSONAL_DELETOR_5000",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 448.0,
+          "amount": 448,
           "display_name": "Enchanted Iron Ingot",
           "item_tag": "ENCHANTED_IRON",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Personal Deletor 5000",
           "item_tag": "PERSONAL_DELETOR_5000",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3039,30 +3045,30 @@
           "IRON_INGOT": 11
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PERSONAL_DELETOR_6000",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 7.0,
+          "amount": 7,
           "display_name": "Enchanted Iron Block",
           "item_tag": "ENCHANTED_IRON_BLOCK",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Personal Deletor 6000",
           "item_tag": "PERSONAL_DELETOR_6000",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3077,21 +3083,21 @@
           "IRON_INGOT": 12
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PERSONAL_DELETOR_7000",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 9,
+          "amount": 144,
           "display_name": "Nether Wart",
           "item_tag": "NETHER_STALK",
           "source": "bazaar"
@@ -3114,25 +3120,25 @@
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Potion_Affinity_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/POTION_AFFINITY_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 32.0,
+          "amount": 32,
           "display_name": "Gemstone Mixture",
           "item_tag": "GEMSTONE_MIXTURE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Ring of Power",
           "item_tag": "POWER_RING",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3147,36 +3153,36 @@
           "GEMSTONE_COLLECTION": 10
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/POWER_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 7.0,
+          "amount": 7,
           "display_name": "Fine Ruby Gemstone",
           "item_tag": "FINE_RUBY_GEM",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Gemstone Mixture",
           "item_tag": "GEMSTONE_MIXTURE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Talisman of Power",
           "item_tag": "POWER_TALISMAN",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3191,11 +3197,11 @@
           "GEMSTONE_COLLECTION": 6
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/POWER_RING",
       "verified": true
     },
     {
@@ -3226,7 +3232,7 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/POWER_TALISMAN",
       "verified": true
     },
     {
@@ -3253,24 +3259,24 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/PULSE_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 16,
-          "display_name": "Enchanted Bone",
-          "item_tag": "ENCHANTED_BONE",
+          "amount": 8,
+          "display_name": "Enchanted Emerald",
+          "item_tag": "ENCHANTED_EMERALD",
           "source": "bazaar"
         },
         {
           "amount": 16,
-          "display_name": "Enchanted String",
-          "item_tag": "ENCHANTED_STRING",
+          "display_name": "Wolf Tooth",
+          "item_tag": "WOLF_TOOTH",
           "source": "bazaar"
         }
       ],
@@ -3294,7 +3300,7 @@
         "slayer_item",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Radiant_Power_Orb",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/RADIANT_POWER_ORB",
       "verified": true
     },
     {
@@ -3303,15 +3309,15 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
-          "display_name": "Shark Fin",
-          "item_tag": "SHARK_FIN",
+          "amount": 1,
+          "display_name": "Nurse Shark Tooth",
+          "item_tag": "NURSE_SHARK_TOOTH",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
-          "display_name": "Nurse Shark Tooth",
-          "item_tag": "NURSE_SHARK_TOOTH",
+          "amount": 8,
+          "display_name": "Shark Fin",
+          "item_tag": "SHARK_FIN",
           "source": "bazaar"
         }
       ],
@@ -3327,25 +3333,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/RAGGEDY_SHARK_TOOTH_NECKLACE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Great White Shark Tooth",
           "item_tag": "GREAT_WHITE_SHARK_TOOTH",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Sharp Shark Tooth Necklace",
           "item_tag": "SHARP_SHARK_TOOTH_NECKLACE",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3356,16 +3362,16 @@
         "tag": "RAZOR_SHARP_SHARK_TOOTH_NECKLACE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/RAZOR_SHARP_SHARK_TOOTH_NECKLACE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -3388,12 +3394,12 @@
           "zombie": 8
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/REAPER_ORB",
       "verified": true
     },
     {
@@ -3402,16 +3408,10 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 1,
-          "display_name": "Red Claw Ring",
-          "item_tag": "RED_CLAW_RING",
-          "source": "previous_recipe"
-        },
-        {
-          "amount": 1,
-          "display_name": "Red Claw Egg",
-          "item_tag": "RED_CLAW_EGG",
-          "source": "ah"
+          "amount": 256,
+          "display_name": "Enchanted Leather",
+          "item_tag": "ENCHANTED_LEATHER",
+          "source": "bazaar"
         },
         {
           "amount": 54,
@@ -3420,10 +3420,16 @@
           "source": "bazaar"
         },
         {
-          "amount": 256,
-          "display_name": "Enchanted Leather",
-          "item_tag": "ENCHANTED_LEATHER",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Red Claw Egg",
+          "item_tag": "RED_CLAW_EGG",
+          "source": "ah"
+        },
+        {
+          "amount": 1,
+          "display_name": "Red Claw Ring",
+          "item_tag": "RED_CLAW_RING",
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3447,7 +3453,7 @@
         "high_capital",
         "low_volume"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/RED_CLAW_ARTIFACT",
       "verified": true
     },
     {
@@ -3456,10 +3462,10 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 1,
-          "display_name": "Red Claw Talisman",
-          "item_tag": "RED_CLAW_TALISMAN",
-          "source": "previous_recipe"
+          "amount": 96,
+          "display_name": "Enchanted Leather",
+          "item_tag": "ENCHANTED_LEATHER",
+          "source": "bazaar"
         },
         {
           "amount": 8,
@@ -3468,10 +3474,10 @@
           "source": "bazaar"
         },
         {
-          "amount": 96,
-          "display_name": "Enchanted Leather",
-          "item_tag": "ENCHANTED_LEATHER",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Red Claw Talisman",
+          "item_tag": "RED_CLAW_TALISMAN",
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3494,7 +3500,7 @@
         "slayer_item",
         "low_volume"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/RED_CLAW_RING",
       "verified": true
     },
     {
@@ -3503,15 +3509,15 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8,
-          "display_name": "Wolf Tooth",
-          "item_tag": "WOLF_TOOTH",
-          "source": "bazaar"
-        },
-        {
           "amount": 1,
           "display_name": "Enchanted Bone",
           "item_tag": "ENCHANTED_BONE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 8,
+          "display_name": "Wolf Tooth",
+          "item_tag": "WOLF_TOOTH",
           "source": "bazaar"
         }
       ],
@@ -3535,25 +3541,25 @@
         "slayer_item",
         "low_volume"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/RED_CLAW_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 64.0,
+          "amount": 1,
+          "display_name": "Artifact of Coins",
+          "item_tag": "ARTIFACT_OF_COINS",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 64,
           "display_name": "Freshly-Minted Coins",
           "item_tag": "FRESHLY_MINTED_COINS",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Artifact of Coins",
-          "item_tag": "ARTIFACT_OF_COINS",
-          "source": "craft"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3564,29 +3570,29 @@
         "tag": "RELIC_OF_COINS"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/RELIC_OF_COINS",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 1,
+          "display_name": "Talisman of Coins",
+          "item_tag": "COIN_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 4,
           "display_name": "Freshly-Minted Coins",
           "item_tag": "FRESHLY_MINTED_COINS",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Talisman of Coins",
-          "item_tag": "COIN_TALISMAN",
-          "source": "craft"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3597,11 +3603,11 @@
         "tag": "RING_OF_COINS"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/RING_OF_COINS",
       "verified": true
     },
     {
@@ -3644,15 +3650,15 @@
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 4,
           "display_name": "Scarf's Thesis",
           "item_tag": "SCARF_THESIS",
-          "source": "ah"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3663,16 +3669,16 @@
         "tag": "SCARF_GRIMOIRE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SCARF_GRIMOIRE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -3691,36 +3697,36 @@
         "tag": "SCARF_THESIS"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import",
         "ah_input"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SCARF_THESIS",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 6.0,
-          "display_name": "Sponge",
-          "item_tag": "SPONGE",
-          "source": "bazaar"
-        },
-        {
-          "amount": 2.0,
+          "amount": 2,
           "display_name": "Enchanted Sponge",
           "item_tag": "ENCHANTED_SPONGE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Sea Creature Talisman",
           "item_tag": "SEA_CREATURE_TALISMAN",
-          "source": "craft"
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 6,
+          "display_name": "Sponge",
+          "item_tag": "SPONGE",
+          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3735,11 +3741,11 @@
           "SPONGE": 6
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SEA_CREATURE_RING",
       "verified": true
     },
     {
@@ -3770,25 +3776,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SEA_CREATURE_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 4.0,
+          "amount": 1,
+          "display_name": "Honed Shark Tooth Necklace",
+          "item_tag": "HONED_SHARK_TOOTH_NECKLACE",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 4,
           "display_name": "Tiger Shark Tooth",
           "item_tag": "TIGER_SHARK_TOOTH",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Honed Shark Tooth Necklace",
-          "item_tag": "HONED_SHARK_TOOTH_NECKLACE",
-          "source": "craft"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3799,29 +3805,29 @@
         "tag": "SHARP_SHARK_TOOTH_NECKLACE"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SHARP_SHARK_TOOTH_NECKLACE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
+          "amount": 8,
           "display_name": "Null Ovoid",
           "item_tag": "NULL_OVOID",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Soulflow Pile",
           "item_tag": "SOULFLOW_PILE",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3836,11 +3842,11 @@
           "enderman": 5
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SOULFLOW_BATTERY",
       "verified": true
     },
     {
@@ -3871,25 +3877,25 @@
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SOULFLOW_PILE",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 48.0,
+          "amount": 48,
           "display_name": "Enchanted Sugar Cane",
           "item_tag": "ENCHANTED_SUGAR_CANE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Speed Ring",
           "item_tag": "SPEED_RING",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3904,29 +3910,29 @@
           "SUGAR_CANE": 8
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SPEED_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 96.0,
+          "amount": 96,
           "display_name": "Enchanted Sugar",
           "item_tag": "ENCHANTED_SUGAR",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Speed Talisman",
           "item_tag": "SPEED_TALISMAN",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -3941,15 +3947,15 @@
           "SUGAR_CANE": 5
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SPEED_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -3977,31 +3983,31 @@
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Speed_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SPEED_TALISMAN",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 128.0,
+          "amount": 1,
+          "display_name": "Bait Ring",
+          "item_tag": "BAIT_RING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 128,
           "display_name": "Enchanted Ink Sac",
           "item_tag": "ENCHANTED_INK_SACK",
           "source": "bazaar"
         },
         {
-          "amount": 128.0,
+          "amount": 128,
           "display_name": "Spiked Bait",
           "item_tag": "SPIKED_BAIT",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Bait Ring",
-          "item_tag": "BAIT_RING",
-          "source": "craft"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4012,29 +4018,29 @@
         "tag": "SPIKED_ATROCITY"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SPIKED_ATROCITY",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 128.0,
+          "amount": 1,
+          "display_name": "Cropie Talisman",
+          "item_tag": "CROPIE_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 128,
           "display_name": "Squash",
           "item_tag": "SQUASH",
           "source": "bazaar"
-        },
-        {
-          "amount": 1.0,
-          "display_name": "Cropie Talisman",
-          "item_tag": "CROPIE_TALISMAN",
-          "source": "craft"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4045,29 +4051,29 @@
         "tag": "SQUASH_RING"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/SQUASH_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 8.0,
+          "amount": 8,
           "display_name": "Poison Sample",
           "item_tag": "POISON_SAMPLE",
           "source": "bazaar"
         },
         {
-          "amount": 1.0,
+          "amount": 1,
           "display_name": "Vaccine Ring",
           "item_tag": "VACCINE_RING",
-          "source": "craft"
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4078,29 +4084,29 @@
         "tag": "VACCINE_ARTIFACT"
       },
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "risk_tags": [
         "neu_recipe_import"
       ],
-      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/VACCINE_ARTIFACT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
+        {
+          "amount": 8,
+          "display_name": "Arachne Fang",
+          "item_tag": "ARACHNE_FANG",
+          "source": "bazaar"
+        },
         {
           "amount": 1,
           "display_name": "Vaccine Talisman",
           "item_tag": "VACCINE_TALISMAN",
           "source": "previous_recipe"
-        },
-        {
-          "amount": 32,
-          "display_name": "Enchanted Poisonous Potato",
-          "item_tag": "ENCHANTED_POISONOUS_POTATO",
-          "source": "bazaar"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4120,11 +4126,11 @@
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Vaccine_Ring",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/VACCINE_RING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -4152,7 +4158,7 @@
         "common_accessory",
         "saturated"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Vaccine_Talisman",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/VACCINE_TALISMAN",
       "verified": true
     },
     {
@@ -4161,10 +4167,10 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 1,
-          "display_name": "Wand of Restoration",
-          "item_tag": "WAND_OF_RESTORATION",
-          "source": "previous_recipe"
+          "amount": 64,
+          "display_name": "Enchanted Dark Oak Log",
+          "item_tag": "ENCHANTED_DARK_OAK_LOG",
+          "source": "bazaar"
         },
         {
           "amount": 64,
@@ -4173,10 +4179,10 @@
           "source": "bazaar"
         },
         {
-          "amount": 64,
-          "display_name": "Enchanted Dark Oak Log",
-          "item_tag": "ENCHANTED_DARK_OAK_LOG",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Wand of Restoration",
+          "item_tag": "WAND_OF_RESTORATION",
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4200,11 +4206,11 @@
         "high_capital",
         "slow_sale"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/WAND_OF_ATONEMENT",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
@@ -4217,9 +4223,8 @@
         {
           "amount": 1,
           "display_name": "Stick",
-          "fixed_coin_cost": 1,
           "item_tag": "STICK",
-          "source": "fixed_cost"
+          "source": "ah"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4242,19 +4247,19 @@
         "slayer_item",
         "common_accessory"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Wand_Of_Healing",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/WAND_OF_HEALING",
       "verified": true
     },
     {
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 1,
-          "display_name": "Wand of Healing",
-          "item_tag": "WAND_OF_HEALING",
-          "source": "previous_recipe"
+          "amount": 12,
+          "display_name": "Enchanted Dark Oak Log",
+          "item_tag": "ENCHANTED_DARK_OAK_LOG",
+          "source": "bazaar"
         },
         {
           "amount": 1,
@@ -4263,10 +4268,10 @@
           "source": "bazaar"
         },
         {
-          "amount": 12,
-          "display_name": "Enchanted Dark Oak Log",
-          "item_tag": "ENCHANTED_DARK_OAK_LOG",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Wand of Healing",
+          "item_tag": "WAND_OF_HEALING",
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4288,7 +4293,7 @@
       "risk_tags": [
         "slayer_item"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki page confirmed: https://wiki.hypixel.net/Wand_Of_Mending",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/WAND_OF_MENDING",
       "verified": true
     },
     {
@@ -4297,10 +4302,10 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 1,
-          "display_name": "Wand of Mending",
-          "item_tag": "WAND_OF_MENDING",
-          "source": "previous_recipe"
+          "amount": 64,
+          "display_name": "Enchanted Dark Oak Log",
+          "item_tag": "ENCHANTED_DARK_OAK_LOG",
+          "source": "bazaar"
         },
         {
           "amount": 16,
@@ -4309,10 +4314,10 @@
           "source": "bazaar"
         },
         {
-          "amount": 64,
-          "display_name": "Enchanted Dark Oak Log",
-          "item_tag": "ENCHANTED_DARK_OAK_LOG",
-          "source": "bazaar"
+          "amount": 1,
+          "display_name": "Wand of Mending",
+          "item_tag": "WAND_OF_MENDING",
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4335,7 +4340,7 @@
         "slayer_item",
         "high_capital"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/WAND_OF_RESTORATION",
       "verified": true
     },
     {
@@ -4437,15 +4442,9 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 1,
-          "display_name": "Zombie Ring",
-          "item_tag": "ZOMBIE_RING",
-          "source": "previous_recipe"
-        },
-        {
-          "amount": 48,
-          "display_name": "Revenant Viscera",
-          "item_tag": "REVENANT_VISCERA",
+          "amount": 16,
+          "display_name": "Enchanted Diamond",
+          "item_tag": "ENCHANTED_DIAMOND",
           "source": "bazaar"
         },
         {
@@ -4455,10 +4454,16 @@
           "source": "bazaar"
         },
         {
-          "amount": 16,
-          "display_name": "Enchanted Diamond",
-          "item_tag": "ENCHANTED_DIAMOND",
+          "amount": 48,
+          "display_name": "Revenant Viscera",
+          "item_tag": "REVENANT_VISCERA",
           "source": "bazaar"
+        },
+        {
+          "amount": 1,
+          "display_name": "Zombie Ring",
+          "item_tag": "ZOMBIE_RING",
+          "source": "previous_recipe"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4482,7 +4487,7 @@
         "high_capital",
         "slow_sale"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/ZOMBIE_ARTIFACT",
       "verified": true
     },
     {
@@ -4491,17 +4496,16 @@
       "disabled_reason": "",
       "ingredients": [
         {
-          "amount": 1,
-          "display_name": "Zombie Talisman",
-          "fixed_coin_cost": 500,
-          "item_tag": "ZOMBIE_TALISMAN",
-          "source": "fixed_cost"
-        },
-        {
           "amount": 64,
           "display_name": "Revenant Flesh",
           "item_tag": "REVENANT_FLESH",
           "source": "bazaar"
+        },
+        {
+          "amount": 1,
+          "display_name": "Zombie Talisman",
+          "item_tag": "ZOMBIE_TALISMAN",
+          "source": "ah"
         }
       ],
       "last_verified": "2026-06-20",
@@ -4524,7 +4528,7 @@
         "slayer_item",
         "common_accessory"
       ],
-      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe template confirmed: https://wiki.hypixel.net/Template:Recipe/ZOMBIE_RING",
       "verified": true
     }
   ]
