@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import argparse
+import io
 import os
 import sys
 import time
+from contextlib import redirect_stdout
 from pathlib import Path
 from typing import Callable
 
@@ -26,6 +28,7 @@ SECTION_LABELS = {
 
 TERMINAL_REDRAW_FPS = 8.0
 _KEY_POLL_SECONDS = 0.01
+_REDRAW_CAPTURE_DEPTH = 0
 
 
 def _parse_sections(value: str) -> list[str]:
@@ -80,6 +83,8 @@ def _section_count(data, key: str) -> int | str:
 
 
 def _clear_screen() -> None:
+    if _REDRAW_CAPTURE_DEPTH:
+        return
     if os.environ.get("SKYFLIP_NO_CLEAR"):
         print()
         return
@@ -330,15 +335,54 @@ def _read_key_with_redraw(
     monotonic = monotonic or time.monotonic
     frame_interval = 1.0 / max(1.0, frame_rate)
     next_frame = 0.0
-    while True:
-        now = monotonic()
-        if now >= next_frame:
+    rendered = False
+    try:
+        while True:
+            now = monotonic()
+            if now >= next_frame:
+                _write_redraw_frame(_capture_redraw_frame(draw_screen))
+                rendered = True
+                next_frame = now + frame_interval
+            timeout = max(0.0, next_frame - monotonic())
+            key = read_key(timeout=timeout)
+            if key:
+                return key
+    finally:
+        if rendered:
+            sys.stdout.write("\033[?25h")
+            sys.stdout.flush()
+
+
+def _capture_redraw_frame(draw_screen: Callable[[], None]) -> str:
+    global _REDRAW_CAPTURE_DEPTH
+    buffer = io.StringIO()
+    _REDRAW_CAPTURE_DEPTH += 1
+    try:
+        with redirect_stdout(buffer):
             draw_screen()
-            next_frame = now + frame_interval
-        timeout = max(0.0, next_frame - monotonic())
-        key = read_key(timeout=timeout)
-        if key:
-            return key
+    finally:
+        _REDRAW_CAPTURE_DEPTH -= 1
+    return buffer.getvalue()
+
+
+def _write_redraw_frame(frame: str) -> None:
+    sys.stdout.write("\033[?25l\033[H")
+    sys.stdout.write(_clear_line_endings(frame))
+    sys.stdout.write("\033[J")
+    sys.stdout.flush()
+
+
+def _clear_line_endings(frame: str) -> str:
+    if not frame:
+        return ""
+    parts = frame.splitlines(keepends=True)
+    output = []
+    for part in parts:
+        if part.endswith("\n"):
+            output.append(f"{part[:-1]}\033[K\n")
+        else:
+            output.append(f"{part}\033[K")
+    return "".join(output)
 
 
 def _highlight(value: str) -> str:

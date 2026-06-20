@@ -1,5 +1,5 @@
 import skyflip.dashboard_menu_ui as menu_ui
-from skyflip.dashboard_menu_ui import _pause_with_redraw, _read_key_with_redraw
+from skyflip.dashboard_menu_ui import _clear_line_endings, _pause_with_redraw, _read_key_with_redraw
 
 
 def test_redraw_loop_draws_at_frame_interval_until_key():
@@ -39,6 +39,28 @@ def test_redraw_loop_returns_without_extra_draw_when_key_arrives():
 
     assert key == "q"
     assert draws == ["draw"]
+
+
+def test_redraw_loop_writes_buffered_frame_without_physical_clear(capsys):
+    def draw_screen():
+        menu_ui._clear_screen()
+        print("Frame body")
+
+    def read_key(*, timeout=None):
+        return "q"
+
+    key = _read_key_with_redraw(draw_screen, frame_rate=8.0, read_key=read_key, monotonic=lambda: 0.0)
+
+    output = capsys.readouterr().out
+    assert key == "q"
+    assert "Frame body" in output
+    assert "\033[H" in output
+    assert "\033[2J" not in output
+    assert output.endswith("\033[?25h")
+
+
+def test_clear_line_endings_prevents_stale_characters():
+    assert _clear_line_endings("short\nlast") == "short\033[K\nlast\033[K"
 
 
 def test_select_menu_uses_redraw_loop_in_interactive_mode(monkeypatch, capsys):
