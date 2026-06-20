@@ -171,7 +171,7 @@ def audit_datasets(*, root: Path = Path("."), wiki: WikiLookup | None = None) ->
         if wiki_recipe:
             if _recipe_signature(row.get("ingredients", [])) != _wiki_recipe_signature(wiki_recipe):
                 report.add("craft_wiki_recipe_mismatch", tag)
-        elif wiki and tag:
+        elif wiki and tag and not _recipe_is_manual_or_event(row):
             report.add("craft_wiki_recipe_missing", tag)
     return report
 
@@ -329,6 +329,13 @@ def _wiki_recipe(wiki: WikiLookup | None, tag: str) -> WikiRecipe | None:
     if recipe_method is None:
         return None
     return recipe_method(tag)
+
+
+def _recipe_is_manual_or_event(row: dict[str, Any]) -> bool:
+    requirements = row.get("requirements")
+    if not isinstance(requirements, dict):
+        return False
+    return bool(requirements.get("manual_source_only") or requirements.get("event_only"))
 
 
 def parse_wiki_recipe_template(text: str, expected_tag: str) -> WikiRecipe | None:

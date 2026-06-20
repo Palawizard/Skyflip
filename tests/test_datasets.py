@@ -389,6 +389,37 @@ def test_dataset_repair_replaces_recipe_ingredients_from_mocked_wiki(tmp_path):
     assert not repair.validation.errors
 
 
+def test_dataset_audit_ignores_missing_wiki_template_for_manual_recipe(tmp_path):
+    root = tmp_path
+    data = root / "data"
+    data.mkdir()
+    (data / "accessories.json").write_text(json.dumps({"accessories": []}), encoding="utf-8")
+    (data / "ah_watchlist.json").write_text(json.dumps({"items": []}), encoding="utf-8")
+    (data / "bazaar_conversions.json").write_text(json.dumps({"conversions": []}), encoding="utf-8")
+    (data / "craft_recipes.json").write_text(
+        json.dumps(
+            {
+                "recipes": [
+                    {
+                        "output": {"tag": "MANUAL_ONLY", "display_name": "Manual Only", "quantity": 1},
+                        "ingredients": [{"item_tag": "NPC", "display_name": "NPC", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 10}],
+                        "requirements": {"manual_source_only": True},
+                        "verified": True,
+                        "confidence": "medium",
+                        "source_notes": "manual",
+                        "last_verified": "2026-06-20",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    audit = audit_datasets(root=root, wiki=FakeRecipeWiki({}))
+
+    assert "craft_wiki_recipe_missing" not in audit.issue_counts
+
+
 def test_obvious_bazaar_compression_generation_uses_only_existing_products():
     rows = generate_obvious_compressions({"COBBLESTONE", "ENCHANTED_COBBLESTONE", "ENCHANTED_COBBLESTONE_BLOCK"})
     pairs = {(row["input_product_id"], row["output_product_id"]) for row in rows}
