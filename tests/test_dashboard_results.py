@@ -22,7 +22,7 @@ def test_module_summary_includes_best_risk_warnings_and_refresh():
         ],
         bazaar_orders=[],
         rejected=[RejectedItem("bazaar-spread", "C", "filtered"), RejectedItem("craft", "D", "filtered")],
-        warnings=["Bazaar spread section failed: timeout", "Talisman Helper failed: data"],
+        warnings=["Bazaar spread section failed: timeout", "Accessories Helper failed: data"],
     )
 
     lines = module_summary_lines(data, module, last_refresh="2026-06-20 01:00:00")
@@ -38,11 +38,11 @@ def test_module_warnings_are_filtered_to_relevant_module():
     data = SimpleNamespace(
         bazaar_spreads=[SimpleNamespace(product_id="A")],
         bazaar_orders=[],
-        warnings=["Bazaar order section failed: timeout", "Talisman Helper failed: missing inventory"],
+        warnings=["Bazaar order section failed: timeout", "Accessories Helper failed: missing inventory"],
     )
 
     assert module_warnings(data, get_dashboard_module("bazaar")) == ["Bazaar order section failed: timeout"]
-    assert module_warnings(data, get_dashboard_module("accessories")) == ["Talisman Helper failed: missing inventory"]
+    assert module_warnings(data, get_dashboard_module("accessories")) == ["Accessories Helper failed: missing inventory"]
 
 
 def test_accessory_module_counts_current_view_not_recommendation_limit():

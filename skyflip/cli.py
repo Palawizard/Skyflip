@@ -94,7 +94,7 @@ def _add_dashboard_args(dashboard_parser: argparse.ArgumentParser) -> None:
     modules.add_argument("--sections", help="Comma-separated raw dashboard sections; kept for compatibility")
     modules.add_argument("--module", action="append", metavar="NAME", help="Friendly module alias: bazaar, craft, accessories, compression, ah-bin, or all")
     modules.add_argument("--limit-per-section", type=int, default=10)
-    modules.add_argument("--talisman-helper", action="store_true", help="Show the Talisman Helper section")
+    modules.add_argument("--accessories-helper", "--talisman-helper", action="store_true", help="Show the Accessories Helper section")
 
     presets = dashboard_parser.add_argument_group("Presets")
     _add_module_preset_args(presets)

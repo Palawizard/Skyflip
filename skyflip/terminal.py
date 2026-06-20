@@ -87,7 +87,7 @@ def print_dashboard_status(data, *, last_refresh: str | None = None, auto_refres
             f"order {len(data.bazaar_orders)}, "
             f"compression {len(data.conversions)}, "
             f"AH {len(data.ah_underpriced)}, "
-            f"talisman {len(accessory_rows_for_view(getattr(data, 'talisman_helper', None)))}, "
+            f"accessories {len(accessory_rows_for_view(getattr(data, 'talisman_helper', None)))}, "
             f"warnings {len(data.warnings)}"
         )
     )
@@ -109,7 +109,7 @@ def print_dashboard_section(data, section: str, *, show_rejected: bool = False) 
         _print_ah_underpriced(data.ah_underpriced)
     elif section == "talisman":
         if data.talisman_helper is None:
-            print("Talisman Helper was not loaded. Enable the talisman section and refresh.")
+            print("Accessories Helper was not loaded. Enable the accessories section and refresh.")
         else:
             _print_talisman_helper(data.talisman_helper)
     elif section == "rejected":
@@ -299,7 +299,7 @@ def _print_ah_underpriced(items: list[AhUnderpricedOpportunity]) -> None:
 
 
 def _print_talisman_helper(analysis: AccessoryAnalysis, *, view: str | None = None) -> None:
-    _print_section_title("G. Talisman Helper")
+    _print_section_title("G. Accessories Helper")
     view = (view or analysis.view or "recommended").lower().replace("_", "-")
     summary = analysis.summary
     print(

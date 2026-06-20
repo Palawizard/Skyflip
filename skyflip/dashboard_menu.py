@@ -1135,7 +1135,7 @@ def _talisman_settings_menu(args: argparse.Namespace, state: _MenuState, resolve
     _ensure_talisman_attrs(args)
     while True:
         choice = _select_menu(
-            "Talisman Helper settings",
+            "Accessories Helper settings",
             _refreshable_entries([
                 ("1", f"Max accessory price  {_optional_coins(args.max_accessory_price)}", "hide pricier recommendations"),
                 ("2", f"Max rows  {args.max_accessory_recommendations}", "rows shown in Recommended"),

@@ -16744,6 +16744,6 @@
       "verified": true
     }
   ],
-  "notes": "Local accessory database for Talisman Helper. Requirements and recipes are intentionally editable because Hypixel does not expose complete accessory crafting data in one stable API resource.",
+  "notes": "Local accessory database for Accessories Helper. Requirements and recipes are intentionally editable because Hypixel does not expose complete accessory crafting data in one stable API resource.",
   "version": 1
 }

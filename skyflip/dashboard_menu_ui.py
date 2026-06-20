@@ -22,7 +22,7 @@ SECTION_LABELS = {
     "bazaar-order": "Bazaar order flips",
     "bazaar-compression": "Bazaar compression/decompression",
     "ah-underpriced": "AH BIN underpriced finder",
-    "talisman": "Talisman Helper",
+    "talisman": "Accessories Helper",
     "warnings": "Warnings",
     "rejected": "Rejected",
 }
@@ -178,7 +178,7 @@ def _draw_counts(data, count_sections: tuple[str, ...] | None = None) -> None:
             ("Order", len(data.bazaar_orders)),
             ("Compression", len(data.conversions)),
             ("AH", len(data.ah_underpriced)),
-            ("Talisman", len(accessory_rows_for_view(getattr(data, "talisman_helper", None)))),
+            ("Accessories", len(accessory_rows_for_view(getattr(data, "talisman_helper", None)))),
             ("Warnings", len(data.warnings)),
         ]
     else:

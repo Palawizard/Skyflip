@@ -292,7 +292,7 @@ def test_talisman_result_section_renders_once_without_redraw_loop(monkeypatch, c
     key_reads = []
 
     def fail_redraw_loop(draw_screen):
-        raise AssertionError("talisman result page should not redraw every frame")
+        raise AssertionError("accessories result page should not redraw every frame")
 
     def fake_read_key(*, timeout=None):
         key_reads.append(timeout)
@@ -306,7 +306,7 @@ def test_talisman_result_section_renders_once_without_redraw_loop(monkeypatch, c
 
     assert key_reads == [None]
     output = capsys.readouterr().out
-    assert "Talisman Helper was not loaded" in output
+    assert "Accessories Helper was not loaded" in output
 
 
 def test_static_result_section_scrolls_with_arrow_keys(monkeypatch, capsys):

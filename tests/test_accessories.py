@@ -354,7 +354,7 @@ def test_terminal_rendering_smoke(capsys):
     print_dashboard_section(data, "talisman")
 
     output = capsys.readouterr().out
-    assert "Talisman Helper" in output
+    assert "Accessories Helper" in output
     assert "MP: 10" in output
     assert "Farming Talisman" in output
     assert "Accessory" in output

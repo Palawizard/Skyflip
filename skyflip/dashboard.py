@@ -177,7 +177,7 @@ def collect_dashboard_data(args, *, resolve_uuid) -> DashboardData:
                 days=getattr(args, "days", 7),
             )
         except Exception as exc:  # noqa: BLE001
-            warnings.append(f"Talisman Helper failed: {exc}")
+            warnings.append(f"Accessories Helper failed: {exc}")
 
     warnings.extend(bazaar.warnings)
     warnings.extend(cofl.warnings)
