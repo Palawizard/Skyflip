@@ -29,6 +29,7 @@ SECTION_LABELS = {
 TERMINAL_REDRAW_FPS = 8.0
 _KEY_POLL_SECONDS = 0.01
 _REDRAW_CAPTURE_DEPTH = 0
+_TERMINAL_APP_MODE_DEPTH = 0
 
 
 def _parse_sections(value: str) -> list[str]:
@@ -275,6 +276,27 @@ def _interactive_menu_enabled() -> bool:
     return sys.stdin.isatty() and sys.stdout.isatty()
 
 
+def _enter_terminal_app_mode() -> bool:
+    if not _interactive_menu_enabled() or os.environ.get("SKYFLIP_NO_ALT_SCREEN"):
+        return False
+    global _TERMINAL_APP_MODE_DEPTH
+    if _TERMINAL_APP_MODE_DEPTH == 0:
+        sys.stdout.write("\033[?1049h\033[?25l\033[H\033[J")
+        sys.stdout.flush()
+    _TERMINAL_APP_MODE_DEPTH += 1
+    return True
+
+
+def _exit_terminal_app_mode(enabled: bool) -> None:
+    if not enabled:
+        return
+    global _TERMINAL_APP_MODE_DEPTH
+    _TERMINAL_APP_MODE_DEPTH = max(0, _TERMINAL_APP_MODE_DEPTH - 1)
+    if _TERMINAL_APP_MODE_DEPTH == 0:
+        sys.stdout.write("\033[?25h\033[?1049l")
+        sys.stdout.flush()
+
+
 def _read_key(timeout: float | None = None) -> str:
     if os.name == "nt":
         import msvcrt
@@ -348,7 +370,7 @@ def _read_key_with_redraw(
             if key:
                 return key
     finally:
-        if rendered:
+        if rendered and _TERMINAL_APP_MODE_DEPTH == 0:
             sys.stdout.write("\033[?25h")
             sys.stdout.flush()
 

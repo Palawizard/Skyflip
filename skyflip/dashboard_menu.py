@@ -73,7 +73,9 @@ from .dashboard_menu_ui import (
     _draw_menu,
     _draw_simple_header,
     _draw_settings,
+    _enter_terminal_app_mode,
     _ensure_talisman_attrs,
+    _exit_terminal_app_mode,
     _interactive_menu_enabled,
     _muted,
     _optional_coins,
@@ -117,36 +119,41 @@ def run_dashboard_menu(args: argparse.Namespace, *, resolve_uuid: Callable) -> i
     state = _MenuState(section_sorts=load_sort_preferences(), persist_sort_preferences=True)
     if active_profile:
         state.status_message = f"Loaded settings preset: {active_profile}"
-    while True:
-        choice = _main_menu_choice(args, state)
-        module = _module_from_choice(choice)
-        if module is not None:
-            _module_menu(args, state, module, resolve_uuid)
-            continue
-        if choice in {"r", "refresh"}:
-            if not _ensure_required(args):
-                _pause()
+    terminal_app_mode = _enter_terminal_app_mode()
+    try:
+        while True:
+            choice = _main_menu_choice(args, state)
+            module = _module_from_choice(choice)
+            if module is not None:
+                _module_menu(args, state, module, resolve_uuid)
                 continue
-            _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
-            continue
-        if choice in {"s", "settings"}:
-            _settings_menu(args, state, resolve_uuid)
-            continue
-        if choice in {"p", "profile"}:
-            _profile_menu(args, state, resolve_uuid)
-            state.latest = None
-            state.last_refresh = None
-            continue
-        if choice in {"a", "auto", "automatic"}:
-            if not _ensure_required(args):
-                _pause()
+            if choice in {"r", "refresh"}:
+                if not _ensure_required(args):
+                    _pause()
+                    continue
+                _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
                 continue
-            _toggle_auto_refresh(args, state, resolve_uuid=resolve_uuid)
-            continue
-        if choice in {"q", "quit", "exit"}:
-            _stop_auto_refresh(state)
-            return 0
-        print("Unknown action.")
+            if choice in {"s", "settings"}:
+                _settings_menu(args, state, resolve_uuid)
+                continue
+            if choice in {"p", "profile"}:
+                _profile_menu(args, state, resolve_uuid)
+                state.latest = None
+                state.last_refresh = None
+                continue
+            if choice in {"a", "auto", "automatic"}:
+                if not _ensure_required(args):
+                    _pause()
+                    continue
+                _toggle_auto_refresh(args, state, resolve_uuid=resolve_uuid)
+                continue
+            if choice in {"q", "quit", "exit"}:
+                _stop_auto_refresh(state)
+                return 0
+            print("Unknown action.")
+    finally:
+        _stop_auto_refresh(state)
+        _exit_terminal_app_mode(terminal_app_mode)
 
 
 def should_open_dashboard_menu(args: argparse.Namespace) -> bool:

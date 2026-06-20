@@ -1,5 +1,11 @@
 import skyflip.dashboard_menu_ui as menu_ui
-from skyflip.dashboard_menu_ui import _clear_line_endings, _pause_with_redraw, _read_key_with_redraw
+from skyflip.dashboard_menu_ui import (
+    _clear_line_endings,
+    _enter_terminal_app_mode,
+    _exit_terminal_app_mode,
+    _pause_with_redraw,
+    _read_key_with_redraw,
+)
 
 
 def test_redraw_loop_draws_at_frame_interval_until_key():
@@ -57,6 +63,44 @@ def test_redraw_loop_writes_buffered_frame_without_physical_clear(capsys):
     assert "\033[H" in output
     assert "\033[2J" not in output
     assert output.endswith("\033[?25h")
+
+
+def test_redraw_loop_keeps_cursor_hidden_inside_app_mode(monkeypatch, capsys):
+    monkeypatch.setattr(menu_ui, "_TERMINAL_APP_MODE_DEPTH", 1)
+
+    def read_key(*, timeout=None):
+        return "q"
+
+    key = _read_key_with_redraw(lambda: print("Frame body"), frame_rate=8.0, read_key=read_key, monotonic=lambda: 0.0)
+
+    output = capsys.readouterr().out
+    assert key == "q"
+    assert "Frame body" in output
+    assert not output.endswith("\033[?25h")
+
+
+def test_terminal_app_mode_uses_alternate_screen(monkeypatch, capsys):
+    monkeypatch.setattr(menu_ui, "_interactive_menu_enabled", lambda: True)
+    monkeypatch.setattr(menu_ui, "_TERMINAL_APP_MODE_DEPTH", 0)
+
+    enabled = _enter_terminal_app_mode()
+    _exit_terminal_app_mode(enabled)
+
+    output = capsys.readouterr().out
+    assert enabled
+    assert "\033[?1049h" in output
+    assert output.endswith("\033[?25h\033[?1049l")
+
+
+def test_terminal_app_mode_can_be_disabled(monkeypatch, capsys):
+    monkeypatch.setattr(menu_ui, "_interactive_menu_enabled", lambda: True)
+    monkeypatch.setenv("SKYFLIP_NO_ALT_SCREEN", "1")
+
+    enabled = _enter_terminal_app_mode()
+    _exit_terminal_app_mode(enabled)
+
+    assert not enabled
+    assert capsys.readouterr().out == ""
 
 
 def test_clear_line_endings_prevents_stale_characters():
