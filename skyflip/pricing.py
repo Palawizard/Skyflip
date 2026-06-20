@@ -143,6 +143,17 @@ class PricingEngine:
             unit = float(ingredient.fixed_coin_cost or 0)
             return IngredientCost(ingredient.name, ingredient.tag, ingredient.amount, unit, unit * ingredient.amount, ingredient.source)
 
+        if ingredient.source == "manual":
+            return IngredientCost(
+                ingredient.name,
+                ingredient.tag,
+                ingredient.amount,
+                0,
+                0,
+                "unavailable",
+                [f"{ingredient.name} is not priced automatically"],
+            )
+
         if ingredient.source == "bazaar":
             price = self.bazaar.price_for(ingredient.tag or "", use_buy_order_cost=self.use_buy_order_cost)
             if price is not None:
@@ -164,8 +175,11 @@ class PricingEngine:
             crafted = self.craft_cost(sub_recipe, stack)
             crafted_unit = crafted.per_output_cost
             children = crafted.ingredients
-            market = self.market_metrics(ingredient.tag)
-            ah_unit = market.active.lowest_bin or market.median_sold_price
+            if ingredient.source == "craft":
+                market = self.market_metrics(ingredient.tag)
+                ah_unit = market.active.lowest_bin or market.median_sold_price
+            else:
+                ah_unit = None
             if ah_unit is not None and ah_unit > 0 and ah_unit < crafted_unit:
                 return IngredientCost(
                     ingredient.name,

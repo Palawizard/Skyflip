@@ -149,20 +149,24 @@ def _draw_simple_header(title: str) -> None:
     print()
 
 
-def _draw_counts(data) -> None:
+def _draw_counts(data, count_sections: tuple[str, ...] | None = None) -> None:
     if data is None:
-        print("No results loaded. Press 1 to refresh.")
-        print()
         return
-    rows = [
-        ("Craft", len(data.craft)),
-        ("Spread", len(data.bazaar_spreads)),
-        ("Order", len(data.bazaar_orders)),
-        ("Compression", len(data.conversions)),
-        ("AH", len(data.ah_underpriced)),
-        ("Talisman", len(data.talisman_helper.recommendations) if getattr(data, "talisman_helper", None) else 0),
-        ("Warnings", len(data.warnings)),
-    ]
+    if count_sections is None:
+        rows = [
+            ("Craft", len(data.craft)),
+            ("Spread", len(data.bazaar_spreads)),
+            ("Order", len(data.bazaar_orders)),
+            ("Compression", len(data.conversions)),
+            ("AH", len(data.ah_underpriced)),
+            ("Talisman", len(data.talisman_helper.recommendations) if getattr(data, "talisman_helper", None) else 0),
+            ("Warnings", len(data.warnings)),
+        ]
+    else:
+        rows = [
+            (SECTION_LABELS.get(key, key).replace(" flips", "").replace(" finder", ""), _section_count(data, key))
+            for key in count_sections
+        ]
     print(compact_menu_line("Results  " + "  ".join(f"{name}: {_badge(str(count))}" for name, count in rows), _width()))
     print()
 
@@ -190,6 +194,7 @@ def _select_menu(
     state: _MenuState | None,
     prompt: str,
     show_counts: bool = False,
+    count_sections: tuple[str, ...] | None = None,
     note: str | None = None,
 ) -> str:
     if not _interactive_menu_enabled():
@@ -203,7 +208,7 @@ def _select_menu(
             print(note)
             print()
         if show_counts and state is not None:
-            _draw_counts(state.latest)
+            _draw_counts(state.latest, count_sections=count_sections)
         _draw_menu(entries)
         return input(compact_menu_line(f"{prompt}: ", _width())).strip().lower()
 
@@ -219,7 +224,7 @@ def _select_menu(
             print(note)
             print()
         if show_counts and state is not None:
-            _draw_counts(state.latest)
+            _draw_counts(state.latest, count_sections=count_sections)
         _draw_selectable_entries(entries, selected)
         print()
         print(_muted(compact_menu_line("Up/Down move   Enter select   R refresh   Esc back   Q quit/back", _width())))

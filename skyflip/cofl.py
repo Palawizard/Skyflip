@@ -134,7 +134,14 @@ def normalize_active(payload: Any, *, source: str = "live") -> ActiveAuctions:
     for row in rows:
         if not isinstance(row, dict):
             continue
-        value = _float_or_none(row.get("price") or row.get("starting_bid") or row.get("lowestBin"))
+        value = _float_or_none(
+            row.get("price")
+            or row.get("startingBid")
+            or row.get("starting_bid")
+            or row.get("lowestBin")
+            or row.get("highestBidAmount")
+            or row.get("highest_bid_amount")
+        )
         if value is not None and value > 0:
             prices.append(value)
     prices.sort()

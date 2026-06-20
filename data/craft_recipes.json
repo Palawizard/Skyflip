@@ -3,7 +3,7 @@
     {
       "output": {"tag": "WAND_OF_HEALING", "display_name": "Wand of Healing", "ah_category": "weapon", "quantity": 1},
       "ingredients": [
-        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 16, "source": "bazaar"},
+        {"item_tag": "REVENANT_FLESH", "display_name": "Revenant Flesh", "amount": 16, "source": "bazaar"},
         {"item_tag": "STICK", "display_name": "Stick", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 1}
       ],
       "requirements": {"min_slayer_levels": {"zombie": 1}, "notes": ["Zombie Slayer recipe"]},
@@ -13,7 +13,8 @@
       "output": {"tag": "WAND_OF_MENDING", "display_name": "Wand of Mending", "ah_category": "weapon", "quantity": 1},
       "ingredients": [
         {"item_tag": "WAND_OF_HEALING", "display_name": "Wand of Healing", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 32, "source": "bazaar"}
+        {"item_tag": "REVENANT_VISCERA", "display_name": "Revenant Viscera", "amount": 1, "source": "bazaar"},
+        {"item_tag": "ENCHANTED_DARK_OAK_LOG", "display_name": "Enchanted Dark Oak Log", "amount": 12, "source": "bazaar"}
       ],
       "requirements": {"min_slayer_levels": {"zombie": 3}, "notes": ["Zombie Slayer recipe"]},
       "risk_tags": ["slayer_item"]
@@ -106,7 +107,7 @@
       "risk_tags": ["common_accessory", "saturated"]
     },
     {
-      "output": {"tag": "POTION_AFFINITY_RING", "display_name": "Potion Affinity Ring", "ah_category": "accessory", "quantity": 1},
+      "output": {"tag": "POTION_AFFINITY_RING", "display_name": "Potion Affinity Ring", "ah_category": "accessory", "quantity": 1, "auctionable": false},
       "ingredients": [
         {"item_tag": "POTION_AFFINITY_TALISMAN", "display_name": "Potion Affinity Talisman", "amount": 1, "source": "previous_recipe"},
         {"item_tag": "ENCHANTED_NETHER_STALK", "display_name": "Enchanted Nether Wart", "amount": 8, "source": "bazaar"}
@@ -134,7 +135,7 @@
     {
       "output": {"tag": "HEALING_TALISMAN", "display_name": "Healing Talisman", "ah_category": "accessory", "quantity": 1},
       "ingredients": [
-        {"item_tag": "LILY_PAD", "display_name": "Lily Pad", "amount": 144, "source": "bazaar"}
+        {"item_tag": "WATER_LILY", "display_name": "Lily Pad", "amount": 144, "source": "bazaar"}
       ],
       "requirements": {"min_collection_tiers": {"LILY_PAD": 3}},
       "risk_tags": ["common_accessory", "saturated"]
@@ -185,7 +186,7 @@
       "ingredients": [
         {"item_tag": "ADVENTURER_NPC", "display_name": "Adventurer NPC purchase", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 10000}
       ],
-      "requirements": {"notes": ["NPC-purchased item; no collection craft requirement"]},
+      "requirements": {"manual_source_only": true, "notes": ["NPC-purchased item; no collection craft requirement"]},
       "risk_tags": ["common_accessory", "saturated"]
     },
     {
@@ -194,7 +195,7 @@
         {"item_tag": "INTIMIDATION_TALISMAN", "display_name": "Intimidation Talisman", "amount": 1, "source": "previous_recipe"},
         {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 32, "source": "bazaar"}
       ],
-      "requirements": {"min_collection_tiers": {"BONE": 5}},
+      "requirements": {"min_collection_tiers": {"BONE": 5}, "event_only": true, "notes": ["Event-limited upgrade; do not show as a normal craft flip"]},
       "risk_tags": ["common_accessory", "saturated"]
     },
     {
@@ -203,24 +204,24 @@
         {"item_tag": "INTIMIDATION_RING", "display_name": "Intimidation Ring", "amount": 1, "source": "previous_recipe"},
         {"item_tag": "ENCHANTED_BONE_BLOCK", "display_name": "Enchanted Bone Block", "amount": 8, "source": "bazaar"}
       ],
-      "requirements": {"min_collection_tiers": {"BONE": 9}},
+      "requirements": {"min_collection_tiers": {"BONE": 9}, "event_only": true, "notes": ["Event-limited upgrade; do not show as a normal craft flip"]},
       "risk_tags": ["common_accessory", "high_capital", "slow_sale"]
     },
     {
-      "output": {"tag": "WOOD_AFFINITY_TALISMAN", "display_name": "Wood Affinity Talisman", "ah_category": "accessory", "quantity": 1},
+      "output": {"tag": "WOOD_AFFINITY_TALISMAN", "display_name": "Wood Affinity Talisman", "ah_category": "accessory", "quantity": 1, "auctionable": false},
       "ingredients": [
-        {"item_tag": "OAK_WOOD", "display_name": "Oak Wood", "amount": 48, "source": "bazaar"},
-        {"item_tag": "SPRUCE_WOOD", "display_name": "Spruce Wood", "amount": 48, "source": "bazaar"},
-        {"item_tag": "BIRCH_WOOD", "display_name": "Birch Wood", "amount": 48, "source": "bazaar"},
-        {"item_tag": "DARK_OAK_WOOD", "display_name": "Dark Oak Wood", "amount": 48, "source": "bazaar"}
+        {"item_tag": "OAK_WOOD", "display_name": "Oak Wood", "amount": 48, "source": "manual"},
+        {"item_tag": "SPRUCE_WOOD", "display_name": "Spruce Wood", "amount": 48, "source": "manual"},
+        {"item_tag": "BIRCH_WOOD", "display_name": "Birch Wood", "amount": 48, "source": "manual"},
+        {"item_tag": "DARK_OAK_WOOD", "display_name": "Dark Oak Wood", "amount": 48, "source": "manual"}
       ],
       "requirements": {"min_collection_tiers": {"OAK_WOOD": 3}},
       "risk_tags": ["common_accessory", "saturated"]
     },
     {
-      "output": {"tag": "WOLF_PAW", "display_name": "Wolf Paw", "ah_category": "accessory", "quantity": 1},
+      "output": {"tag": "WOLF_PAW", "display_name": "Wolf Paw", "ah_category": "accessory", "quantity": 1, "auctionable": false},
       "ingredients": [
-        {"item_tag": "OLD_WOLF_TOOTH", "display_name": "Old Wolf Tooth", "amount": 16, "source": "bazaar"},
+        {"item_tag": "WOLF_TOOTH", "display_name": "Old Wolf Tooth", "amount": 16, "source": "bazaar"},
         {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 16, "source": "bazaar"}
       ],
       "requirements": {"min_skill_levels": {"combat": 12}, "notes": ["Requires access to appropriate combat content"]},

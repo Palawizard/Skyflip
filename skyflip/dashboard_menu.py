@@ -104,6 +104,7 @@ class _MenuState:
     section_sorts: dict[str, str] = field(default_factory=dict)
     persist_sort_preferences: bool = False
     module_presets: dict[str, str] = field(default_factory=dict)
+    module_setup_seen: set[str] = field(default_factory=set)
 
 
 def run_dashboard_menu(args: argparse.Namespace, *, resolve_uuid: Callable) -> int:
@@ -222,6 +223,9 @@ def _module_hint(module: DashboardModule) -> str:
 
 
 def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule, resolve_uuid: Callable) -> None:
+    if module.key not in state.module_setup_seen:
+        _module_first_setup_menu(args, state, module, resolve_uuid)
+        state.module_setup_seen.add(module.key)
     while True:
         choice = _select_menu(
             module.title,
@@ -237,6 +241,7 @@ def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardM
             args=args,
             state=state,
             show_counts=True,
+            count_sections=module.sections,
             prompt="Choose an action",
             note=_restricted_profile_note(_profile_from_state(state), module),
         )
@@ -251,12 +256,7 @@ def _module_menu(args: argparse.Namespace, state: _MenuState, module: DashboardM
             continue
         if choice in {"2", "results"}:
             _ensure_module_sections(args, module)
-            if state.latest is None:
-                if not _ensure_required(args):
-                    _pause()
-                    continue
-                _refresh_module_results(args, state, module, resolve_uuid=resolve_uuid, announce=True)
-            _module_results_menu(args, state, module)
+            _module_results_menu(args, state, module, resolve_uuid)
             continue
         if choice == "3":
             _module_recommended_settings_menu(args, state, module, resolve_uuid)
@@ -297,13 +297,60 @@ def _results_sections_menu(args: argparse.Namespace, state: _MenuState) -> None:
         print("Unknown section.")
 
 
-def _module_results_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule) -> None:
+def _module_first_setup_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule, resolve_uuid: Callable) -> None:
+    presets = list_module_presets(module.key)
+    while True:
+        entries = [
+            ("r", "Use profile recommendation", "load profile and apply the suggested preset"),
+            *[
+                (str(index), preset.title, f"risk {preset.risk_level}")
+                for index, preset in enumerate(presets, 1)
+            ],
+            ("s", "Skip for now", "keep current settings"),
+        ]
+        choice = _select_menu(
+            f"{module.title} Setup",
+            entries,
+            args=args,
+            state=state,
+            prompt="Choose settings",
+            note="Choose settings before using this module. You can change them later from Recommended, Active, Advanced, or Custom presets.",
+        )
+        if choice in {"s", "skip", "b", "back", ""}:
+            state.status_message = f"{module.title} setup skipped."
+            return
+        if choice in {"r", "recommended"}:
+            profile = _load_profile_for_recommendations(args, state, resolve_uuid)
+            if profile is None:
+                _pause("Profile data is unavailable. Press Enter...")
+                return
+            recommendation = recommend_module_preset(profile, args, module.key)
+            _apply_selected_module_preset(args, state, recommendation.preset)
+            state.status_message = f"Applied {recommendation.preset.title} preset for {module.title}."
+            return
+        selected = _preset_from_choice(choice, presets)
+        if selected is None:
+            print("Unknown preset.")
+            continue
+        _apply_selected_module_preset(args, state, selected)
+        state.status_message = f"Applied {selected.title} preset for {module.title}."
+        return
+
+
+def _module_results_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule, resolve_uuid: Callable) -> None:
     keys = list(module.result_sections)
     while True:
         data = state.latest
         if data is None:
-            print("No results loaded. Refresh results first.")
-            return
+            if not _ensure_required(args):
+                _pause()
+                return
+            if not _refresh_module_results(args, state, module, resolve_uuid=resolve_uuid, announce=False):
+                _pause()
+                return
+            data = state.latest
+            if data is None:
+                return
         note = "\n".join(module_summary_lines(data, module, last_refresh=state.last_refresh))
         entries = [
             (str(index), f"{SECTION_LABELS.get(key, _section_name(key))} {_badge(str(_module_section_count(data, module, key)))}", _section_hint(key))
@@ -312,7 +359,6 @@ def _module_results_menu(args: argparse.Namespace, state: _MenuState, module: Da
         entries.extend([
             ("d", "Row details", "inspect one candidate"),
             ("r", "Refresh this module", "scan only this module"),
-            ("a", "Refresh all results", "scan every enabled section"),
             ("b", "Back", f"return to {module.title}"),
         ])
         choice = _select_menu(f"{module.title} Results", entries, args=args, state=state, prompt="Open section", note=note)
@@ -320,9 +366,6 @@ def _module_results_menu(args: argparse.Namespace, state: _MenuState, module: Da
             return
         if choice in {"r", "refresh"}:
             _refresh_module_results(args, state, module, resolve_uuid=getattr(state, "resolve_uuid", None), announce=False)
-            continue
-        if choice in {"a", "all"}:
-            _handle_global_refresh("r", args, state, getattr(state, "resolve_uuid", None))
             continue
         if choice in {"s", "summary"}:
             _show_module_summary(args, state, module)

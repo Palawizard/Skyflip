@@ -31,6 +31,14 @@ def test_normalize_active_sorts_prices():
     assert active.third_lowest_bin == 300
 
 
+def test_normalize_active_accepts_skycofl_starting_bid_shape():
+    active = normalize_active([{"startingBid": 389_999}, {"startingBid": 380_000}, {"startingBid": 400_000}])
+
+    assert active.lowest_bin == 380_000
+    assert active.second_lowest_bin == 389_999
+    assert active.third_lowest_bin == 400_000
+
+
 def test_normalize_sold_uses_highest_bid_amount():
     sold = normalize_sold([{"highestBidAmount": 100}, {"highestBidAmount": 300}, {"highestBidAmount": 200}])
 

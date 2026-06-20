@@ -23,7 +23,7 @@ def make_market(**overrides):
 
 
 def test_profitable_fast_item_is_recommended():
-    recipe = Recipe("OUT", "Output", 1, None, [], Requirements(), [])
+    recipe = Recipe("OUT", "Output", 1, None, True, [], Requirements(), [])
     craft = CraftCost("OUT", "Output", 100_000, 100_000, [])
     eligibility = Eligibility(True, 1.0, ["combat ok"], [])
 
@@ -35,7 +35,7 @@ def test_profitable_fast_item_is_recommended():
 
 
 def test_low_sales_item_is_rejected():
-    recipe = Recipe("OUT", "Output", 1, None, [], Requirements(), [])
+    recipe = Recipe("OUT", "Output", 1, None, True, [], Requirements(), [])
     craft = CraftCost("OUT", "Output", 100_000, 100_000, [])
     eligibility = Eligibility(True, 1.0, ["ok"], [])
     market = make_market(analysis=MarketAnalysis(total_sales=3, sales_per_day=0.5, median_sell_time_hours=1, median_price=200_000))
@@ -47,7 +47,7 @@ def test_low_sales_item_is_rejected():
 
 
 def test_anomalous_volatile_profit_is_rejected():
-    recipe = Recipe("OUT", "Output", 1, None, [], Requirements(), [])
+    recipe = Recipe("OUT", "Output", 1, None, True, [], Requirements(), [])
     craft = CraftCost("OUT", "Output", 10_000, 10_000, [])
     eligibility = Eligibility(True, 1.0, ["ok"], [])
     market = make_market(

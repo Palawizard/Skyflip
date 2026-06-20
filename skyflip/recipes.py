@@ -24,6 +24,8 @@ class Requirements:
     collections: dict[str, int] = field(default_factory=dict)
     catacombs_floor: int | None = None
     skyblock_level: int | None = None
+    event_only: bool = False
+    manual_source_only: bool = False
     notes: list[str] = field(default_factory=list)
 
 
@@ -33,6 +35,7 @@ class Recipe:
     name: str
     quantity: int
     ah_category: str | None
+    auctionable: bool
     ingredients: list[Ingredient]
     requirements: Requirements
     risk_tags: list[str]
@@ -58,6 +61,7 @@ def load_recipes(path: Path | str = "data/craft_recipes.json") -> list[Recipe]:
                 name=output["display_name"],
                 quantity=int(output.get("quantity", 1)),
                 ah_category=output.get("ah_category"),
+                auctionable=bool(output.get("auctionable", True)),
                 ingredients=[
                     Ingredient(
                         tag=ingredient.get("item_tag"),
@@ -74,6 +78,8 @@ def load_recipes(path: Path | str = "data/craft_recipes.json") -> list[Recipe]:
                     collections={k.upper(): int(v) for k, v in requirements.get("min_collection_tiers", {}).items()},
                     catacombs_floor=requirements.get("min_catacombs_floor_completion"),
                     skyblock_level=requirements.get("min_skyblock_level"),
+                    event_only=bool(requirements.get("event_only", False)),
+                    manual_source_only=bool(requirements.get("manual_source_only", False)),
                     notes=list(requirements.get("notes", [])),
                 ),
                 risk_tags=list(item.get("risk_tags", [])),
@@ -90,6 +96,11 @@ def check_eligibility(recipe: Recipe, profile: PlayerProfile) -> Eligibility:
     reasons: list[str] = []
     missing: list[str] = []
     confidence = 1.0
+
+    if recipe.requirements.event_only:
+        missing.append("event-limited craft is not available for craft flips")
+    if recipe.requirements.manual_source_only:
+        missing.append("manual/source-only item is not a repeatable craft flip")
 
     for skill, required in recipe.requirements.skills.items():
         actual = profile.skills.get(skill)
