@@ -14,6 +14,14 @@ from .http import HttpClient
 
 OFFICIAL_WIKI_API_URL = "https://wiki.hypixel.net/api.php"
 TODAY = "2026-06-20"
+KNOWN_WIKI_TITLES = {
+    "CAMPFIRE_TALISMAN_1": "Campfire Badge",
+    "VILLAGE_TALISMAN": "Village Affinity Talisman",
+    "WISE_DRAGON_BOOTS": "Wise Dragon Armor",
+    "WISE_DRAGON_CHESTPLATE": "Wise Dragon Armor",
+    "WISE_DRAGON_HELMET": "Wise Dragon Armor",
+    "WISE_DRAGON_LEGGINGS": "Wise Dragon Armor",
+}
 
 
 @dataclass(frozen=True)
@@ -32,7 +40,7 @@ class OfficialWikiClient:
         self.http = http or HttpClient(FileCache(ttl_seconds=86_400), retries=1, user_agent="skyflip/0.1 dataset-repair")
 
     def confirm_item(self, name: str, tag: str | None = None) -> WikiConfirmation | None:
-        query = str(name or tag or "").strip()
+        query = KNOWN_WIKI_TITLES.get(str(tag or "").upper(), str(name or tag or "").strip())
         if not query:
             return None
         params = urlencode({
@@ -102,9 +110,9 @@ def audit_datasets(*, root: Path = Path("."), wiki: WikiLookup | None = None) ->
             continue
         tag = str(row.get("tag") or "")
         risk_tags = {str(value) for value in row.get("risk_tags", [])}
-        if ";" in tag:
+        if ";" in tag and (row.get("market_source") != "pet_ah" or row.get("cofl_auction_supported") is not False):
             report.add("watchlist_pet_variant_tag", tag)
-        if "attribute_item" in risk_tags:
+        if "attribute_item" in risk_tags and (row.get("market_source") != "attribute_ah" or row.get("cofl_auction_supported") is not False):
             report.add("watchlist_attribute_item_tag", tag)
         if row.get("verified") is False:
             confirmation = wiki.confirm_item(str(row.get("name") or tag), tag) if wiki else None
