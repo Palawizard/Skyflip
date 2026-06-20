@@ -42,6 +42,7 @@ from .settings_profiles import (
     save_settings_profile,
 )
 from .terminal import print_dashboard_section, print_dashboard_status
+from .terminal_layout import get_terminal_size
 from .user_config import (
     BUDGET_SOURCE_CUSTOM,
     BUDGET_SOURCE_PURSE,
@@ -67,6 +68,7 @@ from .dashboard_menu_ui import (
     _ask_int,
     _ask_optional_float,
     _badge,
+    _capture_redraw_frame,
     _clear_screen,
     _coins,
     _draw_header,
@@ -91,6 +93,7 @@ from .dashboard_menu_ui import (
     _select_menu,
     _short_path,
     _value,
+    _write_redraw_frame,
 )
 
 
@@ -1496,9 +1499,16 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
 
         def draw_interactive_screen() -> None:
             draw_screen()
-            print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
+            if key == "talisman":
+                print(_muted("Up/Down scroll   Left/Right change sort   D details   R refresh   Enter/Esc back"))
+            else:
+                print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
 
-        choice = _read_result_section_key(draw_interactive_screen, static_render=key == "talisman")
+        choice = _read_result_section_key(
+            draw_screen if key == "talisman" else draw_interactive_screen,
+            static_render=key == "talisman",
+            footer="Up/Down scroll   Left/Right change sort   D details   R refresh   Enter/Esc back",
+        )
         if choice == "left":
             _cycle_section_sort(state, key, -1)
             continue
@@ -1518,14 +1528,43 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
             return
 
 
-def _read_result_section_key(draw_screen: Callable[[], None], *, static_render: bool = False) -> str:
+def _read_result_section_key(draw_screen: Callable[[], None], *, static_render: bool = False, footer: str = "") -> str:
     if not static_render:
         return _read_key_with_redraw(draw_screen)
-    draw_screen()
+    lines = _capture_redraw_frame(draw_screen).splitlines()
+    offset = 0
     while True:
+        offset = _draw_static_scroll_frame(lines, offset, footer=footer)
         key = _read_key(timeout=None)
+        if key == "up":
+            offset = max(0, offset - 1)
+            continue
+        if key == "down":
+            offset = min(_max_scroll_offset(lines, footer), offset + 1)
+            continue
         if key:
             return key
+
+
+def _draw_static_scroll_frame(lines: list[str], offset: int, *, footer: str = "") -> int:
+    height = max(1, get_terminal_size().height)
+    footer_lines = 1 if footer else 0
+    content_height = max(1, height - footer_lines)
+    max_offset = max(0, len(lines) - content_height)
+    offset = max(0, min(offset, max_offset))
+    visible = lines[offset: offset + content_height]
+    frame = "\n".join(visible)
+    if footer:
+        position = f"{offset + 1}-{min(len(lines), offset + content_height)}/{len(lines)}" if lines else "0/0"
+        frame = f"{frame}\n{_muted(f'{footer}   [{position}]')}" if frame else _muted(f"{footer}   [{position}]")
+    _write_redraw_frame(frame)
+    return offset
+
+
+def _max_scroll_offset(lines: list[str], footer: str = "") -> int:
+    footer_lines = 1 if footer else 0
+    content_height = max(1, max(1, get_terminal_size().height) - footer_lines)
+    return max(0, len(lines) - content_height)
 
 
 def _module_scoped_data(data, module: DashboardModule | None, key: str):

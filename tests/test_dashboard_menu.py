@@ -309,6 +309,32 @@ def test_talisman_result_section_renders_once_without_redraw_loop(monkeypatch, c
     assert "Talisman Helper was not loaded" in output
 
 
+def test_static_result_section_scrolls_with_arrow_keys(monkeypatch, capsys):
+    keys = iter(["down", "down", "up", "enter"])
+    writes = []
+
+    def fake_read_key(*, timeout=None):
+        return next(keys)
+
+    def draw_screen():
+        for index in range(1, 8):
+            print(f"line {index}")
+
+    monkeypatch.setattr(dashboard_menu, "get_terminal_size", lambda: SimpleNamespace(height=4))
+    monkeypatch.setattr(dashboard_menu, "_read_key", fake_read_key)
+    monkeypatch.setattr(dashboard_menu, "_write_redraw_frame", lambda frame: writes.append(frame))
+
+    choice = dashboard_menu._read_result_section_key(draw_screen, static_render=True, footer="Up/Down scroll")
+
+    assert choice == "enter"
+    assert len(writes) == 4
+    assert "line 1" in writes[0]
+    assert "line 3" in writes[2]
+    assert "line 2" in writes[3]
+    assert "Up/Down scroll" in writes[-1]
+    assert capsys.readouterr().out == ""
+
+
 def test_profile_freshness_labels_cache_states(monkeypatch, tmp_path):
     monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
     args = make_menu_args(profile_file=None, profile_cache_ttl=60)
