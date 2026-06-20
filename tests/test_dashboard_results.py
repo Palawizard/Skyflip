@@ -44,6 +44,17 @@ def test_module_warnings_are_filtered_to_relevant_module():
     assert module_warnings(data, get_dashboard_module("accessories")) == ["Talisman Helper failed: missing inventory"]
 
 
+def test_module_warnings_do_not_fallback_to_unrelated_global_warnings():
+    data = SimpleNamespace(
+        bazaar_spreads=[],
+        bazaar_orders=[],
+        craft=[SimpleNamespace(recipe=SimpleNamespace(name="Craft"))],
+        warnings=["Bazaar order section failed: timeout"],
+    )
+
+    assert module_warnings(data, get_dashboard_module("craft")) == []
+
+
 def test_detail_lines_use_consistent_risk_and_manual_verification():
     item = SimpleNamespace(
         product_id="ENCHANTED_CARROT",
@@ -95,7 +106,7 @@ def test_merge_module_data_replaces_only_refreshed_module():
         ah_underpriced=[],
         talisman_helper=None,
         rejected=[RejectedItem("bazaar-order", "ORDER", "new")],
-        warnings=["Bazaar order section failed: new"],
+        warnings=["Bazaar order section failed: new", "Bazaar order section failed: new"],
     )
 
     merged = merge_module_data(existing, updated, module)

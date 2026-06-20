@@ -25,6 +25,7 @@ from .recipes import check_eligibility, load_recipes, recipe_index
 from .scoring import AnalyzerConfig, Opportunity, evaluate_opportunity
 from .terminal import print_dashboard
 from .user_config import budget_from_profile, load_user_config
+from .warning_summary import compact_warnings
 
 
 DEFAULT_SECTIONS = ["craft", "bazaar-spread", "bazaar-order", "bazaar-compression", "ah-underpriced", "talisman"]
@@ -180,6 +181,7 @@ def collect_dashboard_data(args, *, resolve_uuid) -> DashboardData:
 
     warnings.extend(bazaar.warnings)
     warnings.extend(cofl.warnings)
+    warnings = compact_warnings(warnings)
     return DashboardData(
         profile=profile,
         budget=args.budget,
