@@ -219,21 +219,23 @@ def _select_menu(
 
     selected = 0
     while True:
-        _clear_screen()
-        _draw_too_small_if_needed()
-        if args is not None:
-            _draw_header(title, args, state)
-        else:
-            _draw_simple_header(title)
-        if note:
-            print(note)
+        def draw_screen() -> None:
+            _clear_screen()
+            _draw_too_small_if_needed()
+            if args is not None:
+                _draw_header(title, args, state)
+            else:
+                _draw_simple_header(title)
+            if note:
+                print(note)
+                print()
+            if show_counts and state is not None:
+                _draw_counts(state.latest, count_sections=count_sections)
+            _draw_selectable_entries(entries, selected)
             print()
-        if show_counts and state is not None:
-            _draw_counts(state.latest, count_sections=count_sections)
-        _draw_selectable_entries(entries, selected)
-        print()
-        print(_muted(compact_menu_line("Up/Down move   Enter select   R refresh   Esc back   Q quit/back", _width())))
-        key = _read_key()
+            print(_muted(compact_menu_line("Up/Down move   Enter select   R refresh   Esc back   Q quit/back", _width())))
+
+        key = _read_key_with_redraw(draw_screen)
         if key == "up":
             selected = (selected - 1) % len(entries)
         elif key == "down":

@@ -1,3 +1,4 @@
+import skyflip.dashboard_menu_ui as menu_ui
 from skyflip.dashboard_menu_ui import _read_key_with_redraw
 
 
@@ -38,3 +39,27 @@ def test_redraw_loop_returns_without_extra_draw_when_key_arrives():
 
     assert key == "q"
     assert draws == ["draw"]
+
+
+def test_select_menu_uses_redraw_loop_in_interactive_mode(monkeypatch, capsys):
+    redraw_calls = []
+
+    def fake_redraw_loop(draw_screen):
+        redraw_calls.append("called")
+        draw_screen()
+        return "enter"
+
+    monkeypatch.setattr(menu_ui, "_interactive_menu_enabled", lambda: True)
+    monkeypatch.setattr(menu_ui, "_read_key_with_redraw", fake_redraw_loop)
+
+    choice = menu_ui._select_menu(
+        "Test",
+        [("1", "First action", "hint")],
+        args=None,
+        state=None,
+        prompt="Choose",
+    )
+
+    assert choice == "1"
+    assert redraw_calls == ["called"]
+    assert "First action" in capsys.readouterr().out
