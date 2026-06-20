@@ -289,19 +289,20 @@ def _repair_recipes(
             if confirmation:
                 changed |= _confirm_with_wiki(row, confirmation, "craft", path, report)
         wiki_recipe = _wiki_recipe(wiki, tag)
-        if wiki_recipe and _recipe_signature(row.get("ingredients", [])) != _wiki_recipe_signature(wiki_recipe):
+        if wiki_recipe:
             ingredients = _ingredients_from_wiki_recipe(
                 row,
                 wiki_recipe,
                 recipe_tags=recipe_tags,
                 bazaar_product_ids=bazaar_product_ids,
             )
-            changed |= _set(row, "ingredients", ingredients, "craft_wiki_recipe_repaired", path, report)
-            changed |= _set(row, "verified", True, "craft_wiki_recipe_repaired", path, report)
-            changed |= _set(row, "confidence", "high", "craft_wiki_recipe_repaired", path, report)
-            changed |= _set(row, "last_verified", TODAY, "craft_wiki_recipe_repaired", path, report)
-            changed |= _set(row, "requires_manual_verification", False, "craft_wiki_recipe_repaired", path, report)
-            changed |= _set(row, "source_notes", f"Official Hypixel SkyBlock Wiki recipe template confirmed: {wiki_recipe.url}", "craft_wiki_recipe_repaired", path, report)
+            if row.get("ingredients") != ingredients:
+                changed |= _set(row, "ingredients", ingredients, "craft_wiki_recipe_repaired", path, report)
+            changed |= _set(row, "verified", True, "craft_wiki_recipe_confirmed", path, report)
+            changed |= _set(row, "confidence", "high", "craft_wiki_recipe_confirmed", path, report)
+            changed |= _set(row, "last_verified", TODAY, "craft_wiki_recipe_confirmed", path, report)
+            changed |= _set(row, "requires_manual_verification", False, "craft_wiki_recipe_confirmed", path, report)
+            changed |= _set(row, "source_notes", f"Official Hypixel SkyBlock Wiki recipe template confirmed: {wiki_recipe.url}", "craft_wiki_recipe_confirmed", path, report)
     if changed:
         _write_json(path, raw)
 

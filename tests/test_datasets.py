@@ -379,6 +379,7 @@ def test_dataset_repair_replaces_recipe_ingredients_from_mocked_wiki(tmp_path):
     repaired = json.loads((data / "craft_recipes.json").read_text(encoding="utf-8"))["recipes"][1]
 
     assert repair.changes["craft_wiki_recipe_repaired"] >= 1
+    assert repair.changes["craft_wiki_recipe_confirmed"] >= 1
     assert repaired["confidence"] == "high"
     assert repaired["requires_manual_verification"] is False
     assert repaired["ingredients"] == [
