@@ -2,6 +2,7 @@ from skyflip.bazaar import BazaarPrice
 from skyflip.cofl import ActiveAuctions, MarketAnalysis, SoldSummary
 from skyflip.pricing import PricingEngine
 from skyflip.recipes import Ingredient, Recipe, Requirements
+from skyflip.scoring import AnalyzerConfig, evaluate_opportunity
 
 
 class FakeBazaar:
@@ -38,6 +39,9 @@ class FakeCofl:
 
     def sold_summary(self, tag):
         return SoldSummary()
+
+    def failure_status(self, tag):
+        return self.markets.get(tag, {}).get("failure_status")
 
 
 def test_craft_cost_calculates_bazaar_ingredients():
@@ -110,3 +114,16 @@ def test_market_metrics_apply_safe_price_and_volatility_penalty():
 
     assert market.safe_sell_price == 90_000 * 0.99 * 0.75
     assert "large volatility penalty applied" in market.notes
+
+
+def test_rate_limited_market_has_explicit_rejection_reason():
+    recipe = Recipe("OUT", "Output", 1, None, True, [Ingredient("A", "A", 1, "bazaar")], Requirements(), [])
+    cofl = FakeCofl({"OUT": {"analysis": None, "active": ActiveAuctions(source="rate_limited"), "failure_status": "rate_limited"}})
+    engine = PricingEngine({"OUT": recipe}, FakeBazaar({"A": 10}), cofl)
+
+    craft = engine.craft_cost(recipe)
+    market = engine.market_metrics("OUT")
+    opportunity = evaluate_opportunity(recipe, type("Eligibility", (), {"eligible": True, "missing": [], "reasons": [], "confidence": 1.0})(), craft, market, AnalyzerConfig(budget=1_000_000))
+
+    assert market.status == "rate_limited"
+    assert "market check skipped due to SkyCofl rate limit" in opportunity.rejection_reasons

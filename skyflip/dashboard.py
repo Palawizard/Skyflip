@@ -210,6 +210,7 @@ def analyze_craft_section(args, bazaar: BazaarClient, cofl: CoflClient, profile,
     )
     all_results: list[Opportunity] = []
     direct_rejected = []
+    market_candidates = []
     for recipe in recipes:
         if not recipe.auctionable:
             direct_rejected.append(RejectedItem("craft", recipe.name, "item is not auctionable or has no reliable AH market"))
@@ -220,6 +221,23 @@ def analyze_craft_section(args, bazaar: BazaarClient, cofl: CoflClient, profile,
             direct_rejected.append(RejectedItem("craft", recipe.name, static_rejection))
             continue
         craft_cost = pricing.craft_cost(recipe)
+        if craft_cost.unavailable:
+            direct_rejected.append(RejectedItem("craft", recipe.name, " and ".join(craft_cost.unavailable[:3])))
+            continue
+        if config.max_craft_cost is not None and craft_cost.per_output_cost > config.max_craft_cost:
+            direct_rejected.append(RejectedItem("craft", recipe.name, f"craft cost exceeds max craft cost {config.max_craft_cost:,.0f}"))
+            continue
+        if craft_cost.per_output_cost > config.budget:
+            direct_rejected.append(RejectedItem("craft", recipe.name, "craft cost exceeds available budget"))
+            continue
+        market_candidates.append((recipe, eligibility, craft_cost))
+
+    max_market_checks = max(0, int(getattr(args, "max_craft_market_checks", 200) or 0))
+    market_candidates.sort(key=lambda row: (row[2].per_output_cost, row[0].name.lower()))
+    for index, (recipe, eligibility, craft_cost) in enumerate(market_candidates):
+        if index >= max_market_checks:
+            direct_rejected.append(RejectedItem("craft", recipe.name, "market check deferred; max craft market checks reached"))
+            continue
         market = pricing.market_metrics(recipe.tag)
         all_results.append(evaluate_opportunity(recipe, eligibility, craft_cost, market, config))
     recommended = sorted(

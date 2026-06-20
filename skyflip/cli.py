@@ -128,6 +128,7 @@ def _add_dashboard_args(dashboard_parser: argparse.ArgumentParser) -> None:
     advanced.add_argument("--max-estimated-bottleneck-minutes", type=float, default=240.0)
     advanced.add_argument("--min-speed-confidence", type=float, default=35.0)
     advanced.add_argument("--conservative-speed", action=argparse.BooleanOptionalAction, default=True)
+    advanced.add_argument("--max-craft-market-checks", type=int, default=200)
     advanced.add_argument("--accessories-file", default="data/accessories.json")
     advanced.add_argument("--max-accessory-price", type=float)
     advanced.add_argument("--max-accessory-recommendations", type=int, default=15)

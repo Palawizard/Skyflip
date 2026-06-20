@@ -45,6 +45,7 @@ class MarketMetrics:
     manipulation_risk_score: float
     confidence_score: float
     notes: list[str] = field(default_factory=list)
+    status: str = "ok"
 
 
 class PricingEngine:
@@ -117,7 +118,10 @@ class PricingEngine:
 
         active = self.cofl.active_bins(tag)
         median_sold = analysis.median_price or sold.median_price
+        status = self._market_status(tag, analysis, active, sold)
         safe = self._safe_sell_price(median_sold, active, analysis, notes)
+        if safe is None and status == "rate_limited":
+            notes.append("market check skipped due to SkyCofl rate limit")
         confidence = self._confidence(analysis, active, sold, safe)
         price_wall = self._price_wall_score(active, analysis.sales_per_day)
         manipulation = self._manipulation_risk(analysis, active)
@@ -134,9 +138,27 @@ class PricingEngine:
             manipulation_risk_score=manipulation,
             confidence_score=confidence,
             notes=notes,
+            status=status,
         )
         self._market_cache[tag] = result
         return result
+
+    def _market_status(
+        self,
+        tag: str,
+        analysis: MarketAnalysis,
+        active: ActiveAuctions,
+        sold: SoldSummary,
+    ) -> str:
+        failure_status = getattr(self.cofl, "failure_status", lambda _tag: None)(tag)
+        sources = {analysis.source, active.source, sold.source, failure_status}
+        if "unsupported" in sources:
+            return "unsupported"
+        if "rate_limited" in sources:
+            return "rate_limited"
+        if "unavailable" in sources:
+            return "unavailable"
+        return "ok"
 
     def _ingredient_cost(self, ingredient, stack: tuple[str, ...]) -> IngredientCost:
         if ingredient.source in {"npc", "fixed_cost"}:
