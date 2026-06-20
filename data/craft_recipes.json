@@ -1,231 +1,4531 @@
 {
   "recipes": [
     {
-      "output": {"tag": "WAND_OF_HEALING", "display_name": "Wand of Healing", "ah_category": "weapon", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "REVENANT_FLESH", "display_name": "Revenant Flesh", "amount": 16, "source": "bazaar"},
-        {"item_tag": "STICK", "display_name": "Stick", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 1}
+        {
+          "amount": 512.0,
+          "display_name": "Agarimoo Tongue",
+          "item_tag": "AGARIMOO_TONGUE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Agarimoo Ring",
+          "item_tag": "AGARIMOO_RING",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_slayer_levels": {"zombie": 1}, "notes": ["Zombie Slayer recipe"]},
-      "risk_tags": ["slayer_item", "common_accessory"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Agarimoo Artifact",
+        "quantity": 1,
+        "tag": "AGARIMOO_ARTIFACT"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "WAND_OF_MENDING", "display_name": "Wand of Mending", "ah_category": "weapon", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "WAND_OF_HEALING", "display_name": "Wand of Healing", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "REVENANT_VISCERA", "display_name": "Revenant Viscera", "amount": 1, "source": "bazaar"},
-        {"item_tag": "ENCHANTED_DARK_OAK_LOG", "display_name": "Enchanted Dark Oak Log", "amount": 12, "source": "bazaar"}
+        {
+          "amount": 96.0,
+          "display_name": "Agarimoo Tongue",
+          "item_tag": "AGARIMOO_TONGUE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Agarimoo Talisman",
+          "item_tag": "AGARIMOO_TALISMAN",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_slayer_levels": {"zombie": 3}, "notes": ["Zombie Slayer recipe"]},
-      "risk_tags": ["slayer_item"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Agarimoo Ring",
+        "quantity": 1,
+        "tag": "AGARIMOO_RING"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "ZOMBIE_RING", "display_name": "Zombie Ring", "ah_category": "accessory", "quantity": 1},
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ZOMBIE_TALISMAN", "display_name": "Zombie Talisman", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 500},
-        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 64, "source": "bazaar"}
+        {
+          "amount": 9.0,
+          "display_name": "Agarimoo Tongue",
+          "item_tag": "AGARIMOO_TONGUE",
+          "source": "bazaar"
+        }
       ],
-      "requirements": {"min_slayer_levels": {"zombie": 2}, "notes": ["Zombie Slayer recipe"]},
-      "risk_tags": ["slayer_item", "common_accessory"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Agarimoo Talisman",
+        "quantity": 1,
+        "tag": "AGARIMOO_TALISMAN"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "ZOMBIE_ARTIFACT", "display_name": "Zombie Artifact", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ZOMBIE_RING", "display_name": "Zombie Ring", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 128, "source": "bazaar"}
+        {
+          "amount": 16.0,
+          "display_name": "Freshly-Minted Coins",
+          "item_tag": "FRESHLY_MINTED_COINS",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Ring of Coins",
+          "item_tag": "RING_OF_COINS",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_slayer_levels": {"zombie": 7}, "notes": ["High Zombie Slayer requirement"]},
-      "risk_tags": ["slayer_item", "high_capital", "slow_sale"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Artifact of Coins",
+        "quantity": 1,
+        "tag": "ARTIFACT_OF_COINS"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "RED_CLAW_TALISMAN", "display_name": "Red Claw Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 8, "source": "bazaar"},
-        {"item_tag": "GOLDEN_TOOTH", "display_name": "Golden Tooth", "amount": 1, "source": "bazaar"}
+        {
+          "amount": 256.0,
+          "display_name": "Enchanted Nether Wart",
+          "item_tag": "ENCHANTED_NETHER_STALK",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Potion Affinity Ring",
+          "item_tag": "RING_POTION_AFFINITY",
+          "source": "craft"
+        }
       ],
-      "requirements": {"min_slayer_levels": {"wolf": 1}, "notes": ["Wolf Slayer recipe"]},
-      "risk_tags": ["slayer_item", "low_volume"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Potion Affinity Artifact",
+        "quantity": 1,
+        "tag": "ARTIFACT_POTION_AFFINITY"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "NETHER_STALK": 9
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "RADIANT_POWER_ORB", "display_name": "Radiant Power Orb", "ah_category": "misc", "quantity": 1},
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 16, "source": "bazaar"},
-        {"item_tag": "ENCHANTED_STRING", "display_name": "Enchanted String", "amount": 16, "source": "bazaar"}
+        {
+          "amount": 288.0,
+          "display_name": "Enchanted Ink Sac",
+          "item_tag": "ENCHANTED_INK_SACK",
+          "source": "bazaar"
+        }
       ],
-      "requirements": {"min_slayer_levels": {"wolf": 2}, "notes": ["Wolf Slayer recipe"]},
-      "risk_tags": ["slayer_item", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Bait Ring",
+        "quantity": 1,
+        "tag": "BAIT_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "INK_SACK": 8
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "MANA_FLUX_POWER_ORB", "display_name": "Mana Flux Power Orb", "ah_category": "misc", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "RADIANT_POWER_ORB", "display_name": "Radiant Power Orb", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "GOLDEN_TOOTH", "display_name": "Golden Tooth", "amount": 32, "source": "bazaar"},
-        {"item_tag": "ENCHANTED_LAPIS_LAZULI_BLOCK", "display_name": "Enchanted Lapis Block", "amount": 2, "source": "bazaar"}
+        {
+          "amount": 16.0,
+          "display_name": "Spooky Fragment",
+          "item_tag": "SPOOKY_SHARD",
+          "source": "bazaar"
+        },
+        {
+          "amount": 128.0,
+          "display_name": "Ectoplasm",
+          "item_tag": "ECTOPLASM",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Bat Person Ring",
+          "item_tag": "BAT_PERSON_RING",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_slayer_levels": {"wolf": 6}, "notes": ["High Wolf Slayer requirement"]},
-      "risk_tags": ["slayer_item", "high_capital", "slow_sale"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Bat Person Artifact",
+        "quantity": 1,
+        "tag": "BAT_PERSON_ARTIFACT"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "VACCINE_TALISMAN", "display_name": "Vaccine Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "POISONOUS_POTATO", "display_name": "Poisonous Potato", "amount": 9, "source": "bazaar"}
+        {
+          "amount": 4.0,
+          "display_name": "Spooky Fragment",
+          "item_tag": "SPOOKY_SHARD",
+          "source": "bazaar"
+        },
+        {
+          "amount": 32.0,
+          "display_name": "Ectoplasm",
+          "item_tag": "ECTOPLASM",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Bat Person Talisman",
+          "item_tag": "BAT_PERSON_TALISMAN",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"POTATO_ITEM": 3}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Bat Person Ring",
+        "quantity": 1,
+        "tag": "BAT_PERSON_RING"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "VACCINE_RING", "display_name": "Vaccine Ring", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "VACCINE_TALISMAN", "display_name": "Vaccine Talisman", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "ENCHANTED_POISONOUS_POTATO", "display_name": "Enchanted Poisonous Potato", "amount": 32, "source": "bazaar"}
+        {
+          "amount": 4.0,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 40.0,
+          "display_name": "Ancient Claw",
+          "item_tag": "ANCIENT_CLAW",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Milk Bucket",
+          "item_tag": "MILK_BUCKET",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"POTATO_ITEM": 5}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Beastmaster Crest",
+        "quantity": 1,
+        "tag": "BEASTMASTER_CREST_COMMON"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "MAGNETIC_TALISMAN", "display_name": "Magnetic Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ENCHANTED_IRON", "display_name": "Enchanted Iron", "amount": 32, "source": "bazaar"}
+        {
+          "amount": 128.0,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 4.0,
+          "display_name": "Enchanted Ancient Claw",
+          "item_tag": "ENCHANTED_ANCIENT_CLAW",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Beastmaster Crest",
+          "item_tag": "BEASTMASTER_CREST_RARE",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"IRON_INGOT": 3}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Beastmaster Crest",
+        "quantity": 1,
+        "tag": "BEASTMASTER_CREST_EPIC"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "SPEED_TALISMAN", "display_name": "Speed Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "SUGAR_CANE", "display_name": "Sugar Cane", "amount": 108, "source": "bazaar"}
+        {
+          "amount": 256.0,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 32.0,
+          "display_name": "Enchanted Ancient Claw",
+          "item_tag": "ENCHANTED_ANCIENT_CLAW",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Beastmaster Crest",
+          "item_tag": "BEASTMASTER_CREST_EPIC",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"SUGAR_CANE": 2}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Beastmaster Crest",
+        "quantity": 1,
+        "tag": "BEASTMASTER_CREST_LEGENDARY"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "POTION_AFFINITY_TALISMAN", "display_name": "Potion Affinity Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "NETHER_STALK", "display_name": "Nether Wart", "amount": 9, "source": "bazaar"}
+        {
+          "amount": 32.0,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 256.0,
+          "display_name": "Ancient Claw",
+          "item_tag": "ANCIENT_CLAW",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Beastmaster Crest",
+          "item_tag": "BEASTMASTER_CREST_UNCOMMON",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"NETHER_STALK": 3}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Beastmaster Crest",
+        "quantity": 1,
+        "tag": "BEASTMASTER_CREST_RARE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "POTION_AFFINITY_RING", "display_name": "Potion Affinity Ring", "ah_category": "accessory", "quantity": 1, "auctionable": false},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "POTION_AFFINITY_TALISMAN", "display_name": "Potion Affinity Talisman", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "ENCHANTED_NETHER_STALK", "display_name": "Enchanted Nether Wart", "amount": 8, "source": "bazaar"}
+        {
+          "amount": 8.0,
+          "display_name": "Griffin Feather",
+          "item_tag": "GRIFFIN_FEATHER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 80.0,
+          "display_name": "Ancient Claw",
+          "item_tag": "ANCIENT_CLAW",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Beastmaster Crest",
+          "item_tag": "BEASTMASTER_CREST_COMMON",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"NETHER_STALK": 5}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Beastmaster Crest",
+        "quantity": 1,
+        "tag": "BEASTMASTER_CREST_UNCOMMON"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "HASTE_RING", "display_name": "Haste Ring", "ah_category": "accessory", "quantity": 1},
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ENCHANTED_COBBLESTONE", "display_name": "Enchanted Cobblestone", "amount": 256, "source": "bazaar"}
+        {
+          "amount": 8.0,
+          "display_name": "Millennia-Old Blaze Ashes",
+          "item_tag": "MILLENIA_OLD_BLAZE_ASHES",
+          "source": "bazaar"
+        },
+        {
+          "amount": 8.0,
+          "display_name": "Enchanted Blaze Rod",
+          "item_tag": "ENCHANTED_BLAZE_ROD",
+          "source": "bazaar"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"COBBLESTONE": 8}},
-      "risk_tags": ["common_accessory", "high_capital"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Blaze Talisman",
+        "quantity": 1,
+        "tag": "BLAZE_TALISMAN"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "EXPERIENCE_ARTIFACT", "display_name": "Experience Artifact", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "GRAND_EXP_BOTTLE", "display_name": "Grand Experience Bottle", "amount": 64, "source": "bazaar"},
-        {"item_tag": "ENCHANTED_LAPIS_LAZULI", "display_name": "Enchanted Lapis Lazuli", "amount": 64, "source": "bazaar"}
+        {
+          "amount": 128.0,
+          "display_name": "Hemobomb",
+          "item_tag": "HEMOBOMB",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Blood Donor Ring",
+          "item_tag": "BLOOD_DONOR_RING",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"LAPIS_LAZULI": 9}},
-      "risk_tags": ["common_accessory", "high_capital", "slow_sale"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Blood Donor Artifact",
+        "quantity": 1,
+        "tag": "BLOOD_DONOR_ARTIFACT"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "HEMOVIBE": 9
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "HEALING_TALISMAN", "display_name": "Healing Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "WATER_LILY", "display_name": "Lily Pad", "amount": 144, "source": "bazaar"}
+        {
+          "amount": 96.0,
+          "display_name": "Hemoglass",
+          "item_tag": "HEMOGLASS",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Blood Donor Talisman",
+          "item_tag": "BLOOD_DONOR_TALISMAN",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"LILY_PAD": 3}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Blood Donor Ring",
+        "quantity": 1,
+        "tag": "BLOOD_DONOR_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "HEMOVIBE": 6
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "FIRE_TALISMAN", "display_name": "Fire Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "BLAZE_ROD", "display_name": "Blaze Rod", "amount": 9, "source": "bazaar"}
+        {
+          "amount": 108.0,
+          "display_name": "Hemovibe",
+          "item_tag": "HEMOVIBE",
+          "source": "bazaar"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"BLAZE_ROD": 2}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Blood Donor Talisman",
+        "quantity": 1,
+        "tag": "BLOOD_DONOR_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "HEMOVIBE": 2
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "LAVA_TALISMAN", "display_name": "Lava Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ENCHANTED_MAGMA_CREAM", "display_name": "Enchanted Magma Cream", "amount": 9, "source": "bazaar"}
+        {
+          "amount": 128.0,
+          "display_name": "Blue Ring",
+          "item_tag": "BLUE_RING",
+          "source": "bazaar"
+        },
+        {
+          "amount": 2.0,
+          "display_name": "§3Blue Goblin Egg",
+          "item_tag": "GOBLIN_EGG_BLUE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 16.0,
+          "display_name": "Blue Shark Tooth",
+          "item_tag": "BLUE_SHARK_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Bluetooth Ring",
+          "item_tag": "BLUETOOTH_RING",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"MAGMA_CREAM": 7}},
-      "risk_tags": ["common_accessory", "slow_sale"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Bluertooth Ring",
+        "quantity": 1,
+        "tag": "BLUERTOOTH_RING"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "FARMING_TALISMAN", "display_name": "Farming Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "HAY_BLOCK", "display_name": "Hay Bale", "amount": 18, "source": "bazaar"}
+        {
+          "amount": 32.0,
+          "display_name": "Living Metal Heart",
+          "item_tag": "METAL_HEART",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"WHEAT": 4}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Bluetooth Ring",
+        "quantity": 1,
+        "tag": "BLUETOOTH_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "METAL_HEART": 3
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "GRAVITY_TALISMAN", "display_name": "Gravity Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ENCHANTED_OBSIDIAN", "display_name": "Enchanted Obsidian", "amount": 32, "source": "bazaar"}
+        {
+          "amount": 128.0,
+          "display_name": "Molten Powder",
+          "item_tag": "MOLTEN_POWDER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 80.0,
+          "display_name": "Whipped Magma Cream",
+          "item_tag": "WHIPPED_MAGMA_CREAM",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Burststopper Talisman",
+          "item_tag": "BURSTSTOPPER_TALISMAN",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"OBSIDIAN": 6}},
-      "risk_tags": ["common_accessory", "slow_sale"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Burststopper Artifact",
+        "quantity": 1,
+        "tag": "BURSTSTOPPER_ARTIFACT"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "blaze": 7
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "NIGHT_VISION_CHARM", "display_name": "Night Vision Charm", "ah_category": "accessory", "quantity": 1},
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ENCHANTED_RED_MUSHROOM", "display_name": "Enchanted Red Mushroom", "amount": 16, "source": "bazaar"},
-        {"item_tag": "ENCHANTED_BROWN_MUSHROOM", "display_name": "Enchanted Brown Mushroom", "amount": 16, "source": "bazaar"}
+        {
+          "amount": 4.0,
+          "display_name": "Whipped Magma Cream",
+          "item_tag": "WHIPPED_MAGMA_CREAM",
+          "source": "bazaar"
+        },
+        {
+          "amount": 128.0,
+          "display_name": "Molten Powder",
+          "item_tag": "MOLTEN_POWDER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 6.0,
+          "display_name": "Refined Titanium",
+          "item_tag": "REFINED_TITANIUM",
+          "source": "bazaar"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"MUSHROOM_COLLECTION": 7}},
-      "risk_tags": ["common_accessory", "slow_sale"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Burststopper Talisman",
+        "quantity": 1,
+        "tag": "BURSTSTOPPER_TALISMAN"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "blaze": 3
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "INTIMIDATION_TALISMAN", "display_name": "Intimidation Talisman", "ah_category": "accessory", "quantity": 1},
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "ADVENTURER_NPC", "display_name": "Adventurer NPC purchase", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 10000}
+        {
+          "amount": 24.0,
+          "display_name": "Wither Catalyst",
+          "item_tag": "WITHER_CATALYST",
+          "source": "bazaar"
+        }
       ],
-      "requirements": {"manual_source_only": true, "notes": ["NPC-purchased item; no collection craft requirement"]},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Catacombs Expert Ring",
+        "quantity": 1,
+        "tag": "CATACOMBS_EXPERT_RING"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "INTIMIDATION_RING", "display_name": "Intimidation Ring", "ah_category": "accessory", "quantity": 1},
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "INTIMIDATION_TALISMAN", "display_name": "Intimidation Talisman", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 32, "source": "bazaar"}
+        {
+          "amount": 20.0,
+          "display_name": "Emerald",
+          "item_tag": "EMERALD",
+          "source": "bazaar"
+        },
+        {
+          "amount": 5.0,
+          "display_name": "Gold Ingot",
+          "item_tag": "GOLD_INGOT",
+          "source": "bazaar"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"BONE": 5}, "event_only": true, "notes": ["Event-limited upgrade; do not show as a normal craft flip"]},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Talisman of Coins",
+        "quantity": 1,
+        "tag": "COIN_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "EMERALD": 2
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "INTIMIDATION_ARTIFACT", "display_name": "Intimidation Artifact", "ah_category": "accessory", "quantity": 1},
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "INTIMIDATION_RING", "display_name": "Intimidation Ring", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "ENCHANTED_BONE_BLOCK", "display_name": "Enchanted Bone Block", "amount": 8, "source": "bazaar"}
+        {
+          "amount": 256.0,
+          "display_name": "Cropie",
+          "item_tag": "CROPIE",
+          "source": "bazaar"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"BONE": 9}, "event_only": true, "notes": ["Event-limited upgrade; do not show as a normal craft flip"]},
-      "risk_tags": ["common_accessory", "high_capital", "slow_sale"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Cropie Talisman",
+        "quantity": 1,
+        "tag": "CROPIE_TALISMAN"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "WOOD_AFFINITY_TALISMAN", "display_name": "Wood Affinity Talisman", "ah_category": "accessory", "quantity": 1, "auctionable": false},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "OAK_WOOD", "display_name": "Oak Wood", "amount": 48, "source": "manual"},
-        {"item_tag": "SPRUCE_WOOD", "display_name": "Spruce Wood", "amount": 48, "source": "manual"},
-        {"item_tag": "BIRCH_WOOD", "display_name": "Birch Wood", "amount": 48, "source": "manual"},
-        {"item_tag": "DARK_OAK_WOOD", "display_name": "Dark Oak Wood", "amount": 48, "source": "manual"}
+        {
+          "amount": 8.0,
+          "display_name": "Shy Crux",
+          "item_tag": "SHAME_CRUX",
+          "source": "ah"
+        }
       ],
-      "requirements": {"min_collection_tiers": {"OAK_WOOD": 3}},
-      "risk_tags": ["common_accessory", "saturated"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Crux Talisman",
+        "quantity": 1,
+        "tag": "CRUX_TALISMAN_1"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
     },
     {
-      "output": {"tag": "WOLF_PAW", "display_name": "Wolf Paw", "ah_category": "accessory", "quantity": 1, "auctionable": false},
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
       "ingredients": [
-        {"item_tag": "WOLF_TOOTH", "display_name": "Old Wolf Tooth", "amount": 16, "source": "bazaar"},
-        {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 16, "source": "bazaar"}
+        {
+          "amount": 16.0,
+          "display_name": "Shadow Crux",
+          "item_tag": "SHADOW_CRUX",
+          "source": "ah"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Crux Talisman",
+          "item_tag": "CRUX_TALISMAN_1",
+          "source": "craft"
+        }
       ],
-      "requirements": {"min_skill_levels": {"combat": 12}, "notes": ["Requires access to appropriate combat content"]},
-      "risk_tags": ["low_volume", "manipulated_price_possible"]
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Crux Ring",
+        "quantity": 1,
+        "tag": "CRUX_TALISMAN_2"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Enchanted Nether Quartz",
+          "item_tag": "ENCHANTED_QUARTZ",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Enchanted Quartz Block",
+          "item_tag": "ENCHANTED_QUARTZ_BLOCK",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Day Crystal",
+        "quantity": 1,
+        "tag": "DAY_CRYSTAL"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "QUARTZ": 8
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 2.0,
+          "display_name": "Enchanted Raw Chicken",
+          "item_tag": "ENCHANTED_RAW_CHICKEN",
+          "source": "bazaar"
+        },
+        {
+          "amount": 8.0,
+          "display_name": "Enchanted Raw Salmon",
+          "item_tag": "ENCHANTED_RAW_SALMON",
+          "source": "bazaar"
+        },
+        {
+          "amount": 39.0,
+          "display_name": "Revenant Viscera",
+          "item_tag": "REVENANT_VISCERA",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Devour Ring",
+        "quantity": 1,
+        "tag": "DEVOUR_RING"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "zombie": 5
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 12.0,
+          "display_name": "Ritual Residue",
+          "item_tag": "RITUAL_RESIDUE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 2.0,
+          "display_name": "Tessellated Ender Pearl",
+          "item_tag": "TESSELLATED_ENDER_PEARL",
+          "source": "bazaar"
+        },
+        {
+          "amount": 128.0,
+          "display_name": "Mite Gel",
+          "item_tag": "MITE_GEL",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Draconic Ring",
+          "item_tag": "DRACONIC_RING",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Draconic Artifact",
+        "quantity": 1,
+        "tag": "DRACONIC_ARTIFACT"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Ritual Residue",
+          "item_tag": "RITUAL_RESIDUE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 96.0,
+          "display_name": "Mite Gel",
+          "item_tag": "MITE_GEL",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Draconic Talisman",
+          "item_tag": "DRACONIC_TALISMAN",
+          "source": "ah"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Tessellated Ender Pearl",
+          "item_tag": "TESSELLATED_ENDER_PEARL",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Draconic Ring",
+        "quantity": 1,
+        "tag": "DRACONIC_RING"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 2.0,
+          "display_name": "Ritual Residue",
+          "item_tag": "RITUAL_RESIDUE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 96.0,
+          "display_name": "Mite Gel",
+          "item_tag": "MITE_GEL",
+          "source": "bazaar"
+        },
+        {
+          "amount": 32.0,
+          "display_name": "Absolute Ender Pearl",
+          "item_tag": "ABSOLUTE_ENDER_PEARL",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Draconic Talisman",
+        "quantity": 1,
+        "tag": "DRACONIC_TALISMAN"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Nurse Shark Tooth",
+          "item_tag": "NURSE_SHARK_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Raggedy Shark Tooth Necklace",
+          "item_tag": "RAGGEDY_SHARK_TOOTH_NECKLACE",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Dull Shark Tooth Necklace",
+        "quantity": 1,
+        "tag": "DULL_SHARK_TOOTH_NECKLACE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 36.0,
+          "display_name": "Enchanted Emerald Block",
+          "item_tag": "ENCHANTED_EMERALD_BLOCK",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Emerald Ring",
+          "item_tag": "EMERALD_RING",
+          "source": "ah"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Avaricious Chalice",
+          "item_tag": "AVARICIOUS_CHALICE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Emerald Artifact",
+        "quantity": 1,
+        "tag": "EMERALD_ARTIFACT"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 32.0,
+          "display_name": "Enchanted Emerald",
+          "item_tag": "ENCHANTED_EMERALD",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Emerald Ring",
+        "quantity": 1,
+        "tag": "EMERALD_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "EMERALD": 5
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8.0,
+          "display_name": "Soul Fragment",
+          "item_tag": "SOUL_FRAGMENT",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Lucky Hoof",
+          "item_tag": "LUCKY_HOOF",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Eternal Hoof",
+        "quantity": 1,
+        "tag": "ETERNAL_HOOF"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 64,
+          "display_name": "Grand Experience Bottle",
+          "item_tag": "GRAND_EXP_BOTTLE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 64,
+          "display_name": "Enchanted Lapis Lazuli",
+          "item_tag": "ENCHANTED_LAPIS_LAZULI",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Experience Artifact",
+        "quantity": 1,
+        "tag": "EXPERIENCE_ARTIFACT"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "LAPIS_LAZULI": 9
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "high_capital",
+        "slow_sale"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8.0,
+          "display_name": "Enchanted Pumpkin",
+          "item_tag": "ENCHANTED_PUMPKIN",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Enchanted Glowstone",
+          "item_tag": "ENCHANTED_GLOWSTONE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Farmer Orb",
+        "quantity": 1,
+        "tag": "FARMER_ORB"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "PUMPKIN": 6
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 18,
+          "display_name": "Hay Bale",
+          "item_tag": "HAY_BLOCK",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Farming Talisman",
+        "quantity": 1,
+        "tag": "FARMING_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "WHEAT": 4
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 128.0,
+          "display_name": "Enchanted Feather",
+          "item_tag": "ENCHANTED_FEATHER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Feather Ring",
+          "item_tag": "FEATHER_RING",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Feather Artifact",
+        "quantity": 1,
+        "tag": "FEATHER_ARTIFACT"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "FEATHER": 9
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 7.0,
+          "display_name": "Enchanted Feather",
+          "item_tag": "ENCHANTED_FEATHER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Feather Talisman",
+          "item_tag": "FEATHER_TALISMAN",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Feather Ring",
+        "quantity": 1,
+        "tag": "FEATHER_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "FEATHER": 7
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 108.0,
+          "display_name": "Feather",
+          "item_tag": "FEATHER",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Feather Talisman",
+        "quantity": 1,
+        "tag": "FEATHER_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "FEATHER": 4
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8.0,
+          "display_name": "Condensed Fermento",
+          "item_tag": "CONDENSED_FERMENTO",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Squash Ring",
+          "item_tag": "SQUASH_RING",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Fermento Artifact",
+        "quantity": 1,
+        "tag": "FERMENTO_ARTIFACT"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Burning Kuudra Core",
+          "item_tag": "BURNING_KUUDRA_CORE",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Fiery Kuudra Core",
+        "quantity": 1,
+        "tag": "FIERY_KUUDRA_CORE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 9,
+          "display_name": "Blaze Rod",
+          "item_tag": "BLAZE_ROD",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Fire Talisman",
+        "quantity": 1,
+        "tag": "FIRE_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "BLAZE_ROD": 2
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 384.0,
+          "display_name": "Enchanted Raw Cod",
+          "item_tag": "ENCHANTED_RAW_FISH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 48.0,
+          "display_name": "Silver Magmafish",
+          "item_tag": "MAGMA_FISH_SILVER",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Pre-Digestion Fish",
+          "item_tag": "PRE_DIGESTION_FISH",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Future Calories Talisman",
+        "quantity": 1,
+        "tag": "FUTURE_CALORIES"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 40.0,
+          "display_name": "Glacial Fragment",
+          "item_tag": "GLACIAL_FRAGMENT",
+          "source": "bazaar"
+        },
+        {
+          "amount": 8.0,
+          "display_name": "Enchanted Packed Ice",
+          "item_tag": "ENCHANTED_PACKED_ICE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Glacial Ring",
+          "item_tag": "GLACIAL_RING",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Glacial Artifact",
+        "quantity": 1,
+        "tag": "GLACIAL_ARTIFACT"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "ICE": 8
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 20.0,
+          "display_name": "Glacial Fragment",
+          "item_tag": "GLACIAL_FRAGMENT",
+          "source": "bazaar"
+        },
+        {
+          "amount": 128.0,
+          "display_name": "Enchanted Ice",
+          "item_tag": "ENCHANTED_ICE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Glacial Talisman",
+          "item_tag": "GLACIAL_TALISMAN",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Glacial Ring",
+        "quantity": 1,
+        "tag": "GLACIAL_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "ICE": 6
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 16.0,
+          "display_name": "Glossy Gemstone",
+          "item_tag": "GLOSSY_GEMSTONE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Mineral Talisman",
+          "item_tag": "MINERAL_TALISMAN",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Glossy Mineral Talisman",
+        "quantity": 1,
+        "tag": "GLOSSY_MINERAL_TALISMAN"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 32,
+          "display_name": "Enchanted Obsidian",
+          "item_tag": "ENCHANTED_OBSIDIAN",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Gravity Talisman",
+        "quantity": 1,
+        "tag": "GRAVITY_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "OBSIDIAN": 6
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "slow_sale"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 256.0,
+          "display_name": "Enchanted Cobblestone",
+          "item_tag": "ENCHANTED_COBBLESTONE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Haste Ring",
+          "item_tag": "HASTE_RING",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Haste Artifact",
+        "quantity": 1,
+        "tag": "HASTE_ARTIFACT"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 256,
+          "display_name": "Enchanted Cobblestone",
+          "item_tag": "ENCHANTED_COBBLESTONE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Haste Ring",
+        "quantity": 1,
+        "tag": "HASTE_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "COBBLESTONE": 8
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "high_capital"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Enchanted Lily Pad",
+          "item_tag": "ENCHANTED_WATER_LILY",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Healing Talisman",
+          "item_tag": "HEALING_TALISMAN",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Healing Ring",
+        "quantity": 1,
+        "tag": "HEALING_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "WATER_LILY": 8
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 144,
+          "display_name": "Lily Pad",
+          "item_tag": "WATER_LILY",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Healing Talisman",
+        "quantity": 1,
+        "tag": "HEALING_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "LILY_PAD": 3
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Blue Shark Tooth",
+          "item_tag": "BLUE_SHARK_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Dull Shark Tooth Necklace",
+          "item_tag": "DULL_SHARK_TOOTH_NECKLACE",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Honed Shark Tooth Necklace",
+        "quantity": 1,
+        "tag": "HONED_SHARK_TOOTH_NECKLACE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 224.0,
+          "display_name": "Golden Tooth",
+          "item_tag": "GOLDEN_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Grizzly Salmon",
+          "item_tag": "GRIZZLY_BAIT",
+          "source": "ah"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Hunter Talisman",
+          "item_tag": "HUNTER_TALISMAN",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Hunter Ring",
+        "quantity": 1,
+        "tag": "HUNTER_RING"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "wolf": 7
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 64.0,
+          "display_name": "Golden Tooth",
+          "item_tag": "GOLDEN_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 32.0,
+          "display_name": "Enchanted Rotten Flesh",
+          "item_tag": "ENCHANTED_ROTTEN_FLESH",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Hunter Talisman",
+        "quantity": 1,
+        "tag": "HUNTER_TALISMAN"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "wolf": 7
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Fiery Kuudra Core",
+          "item_tag": "FIERY_KUUDRA_CORE",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Infernal Kuudra Core",
+        "quantity": 1,
+        "tag": "INFERNAL_KUUDRA_CORE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Intimidation Ring",
+          "item_tag": "INTIMIDATION_RING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 8,
+          "display_name": "Enchanted Bone Block",
+          "item_tag": "ENCHANTED_BONE_BLOCK",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Intimidation Artifact",
+        "quantity": 1,
+        "tag": "INTIMIDATION_ARTIFACT"
+      },
+      "requirements": {
+        "event_only": true,
+        "min_collection_tiers": {
+          "BONE": 9
+        },
+        "notes": [
+          "Event-limited upgrade; do not show as a normal craft flip"
+        ]
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "high_capital",
+        "slow_sale"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8.0,
+          "display_name": "Scare Fragment",
+          "item_tag": "SCARE_FRAGMENT",
+          "source": "ah"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Intimidation Artifact",
+          "item_tag": "INTIMIDATION_ARTIFACT",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Intimidation Relic",
+        "quantity": 1,
+        "tag": "INTIMIDATION_RELIC"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Intimidation Talisman",
+          "item_tag": "INTIMIDATION_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 32,
+          "display_name": "Enchanted Bone",
+          "item_tag": "ENCHANTED_BONE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Intimidation Ring",
+        "quantity": 1,
+        "tag": "INTIMIDATION_RING"
+      },
+      "requirements": {
+        "event_only": true,
+        "min_collection_tiers": {
+          "BONE": 5
+        },
+        "notes": [
+          "Event-limited upgrade; do not show as a normal craft flip"
+        ]
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Adventurer NPC purchase",
+          "fixed_coin_cost": 10000,
+          "item_tag": "ADVENTURER_NPC",
+          "source": "fixed_cost"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Intimidation Talisman",
+        "quantity": 1,
+        "tag": "INTIMIDATION_TALISMAN"
+      },
+      "requirements": {
+        "manual_source_only": true,
+        "notes": [
+          "NPC-purchased item; no collection craft requirement"
+        ]
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 5.0,
+          "display_name": "Green Jerry Talisman",
+          "item_tag": "JERRY_TALISMAN_GREEN",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Blue Jerry Talisman",
+        "quantity": 1,
+        "tag": "JERRY_TALISMAN_BLUE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 5.0,
+          "display_name": "Purple Jerry Talisman",
+          "item_tag": "JERRY_TALISMAN_PURPLE",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Golden Jerry Artifact",
+        "quantity": 1,
+        "tag": "JERRY_TALISMAN_GOLDEN"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 5.0,
+          "display_name": "Blue Jerry Talisman",
+          "item_tag": "JERRY_TALISMAN_BLUE",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Purple Jerry Talisman",
+        "quantity": 1,
+        "tag": "JERRY_TALISMAN_PURPLE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 9,
+          "display_name": "Enchanted Magma Cream",
+          "item_tag": "ENCHANTED_MAGMA_CREAM",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Lava Talisman",
+        "quantity": 1,
+        "tag": "LAVA_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "MAGMA_CREAM": 7
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "slow_sale"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 512.0,
+          "display_name": "Enchanted Lush Berberis",
+          "item_tag": "ENCHANTED_LUSH_BERBERIS",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Lush Ring",
+          "item_tag": "LUSH_RING",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Lush Artifact",
+        "quantity": 1,
+        "tag": "LUSH_ARTIFACT"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 64.0,
+          "display_name": "Enchanted Lush Berberis",
+          "item_tag": "ENCHANTED_LUSH_BERBERIS",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Lush Talisman",
+          "item_tag": "LUSH_TALISMAN",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Lush Ring",
+        "quantity": 1,
+        "tag": "LUSH_RING"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 576.0,
+          "display_name": "Lush Berberis",
+          "item_tag": "LUSH_BERBERIS",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Lush Talisman",
+        "quantity": 1,
+        "tag": "LUSH_TALISMAN"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 32,
+          "display_name": "Enchanted Iron",
+          "item_tag": "ENCHANTED_IRON",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Magnetic Talisman",
+        "quantity": 1,
+        "tag": "MAGNETIC_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "IRON_INGOT": 3
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Radiant Power Orb",
+          "item_tag": "RADIANT_POWER_ORB",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 32,
+          "display_name": "Golden Tooth",
+          "item_tag": "GOLDEN_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 2,
+          "display_name": "Enchanted Lapis Block",
+          "item_tag": "ENCHANTED_LAPIS_LAZULI_BLOCK",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "misc",
+        "display_name": "Mana Flux Power Orb",
+        "quantity": 1,
+        "tag": "MANA_FLUX_POWER_ORB"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "wolf": 6
+        },
+        "notes": [
+          "High Wolf Slayer requirement"
+        ]
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item",
+        "high_capital",
+        "slow_sale"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Master Skull - Tier 1",
+          "item_tag": "MASTER_SKULL_TIER_1",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Master Skull - Tier 2",
+        "quantity": 1,
+        "tag": "MASTER_SKULL_TIER_2"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Master Skull - Tier 2",
+          "item_tag": "MASTER_SKULL_TIER_2",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Master Skull - Tier 3",
+        "quantity": 1,
+        "tag": "MASTER_SKULL_TIER_3"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Master Skull - Tier 3",
+          "item_tag": "MASTER_SKULL_TIER_3",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Master Skull - Tier 4",
+        "quantity": 1,
+        "tag": "MASTER_SKULL_TIER_4"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Master Skull - Tier 4",
+          "item_tag": "MASTER_SKULL_TIER_4",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Master Skull - Tier 5",
+        "quantity": 1,
+        "tag": "MASTER_SKULL_TIER_5"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Master Skull - Tier 5",
+          "item_tag": "MASTER_SKULL_TIER_5",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Master Skull - Tier 6",
+        "quantity": 1,
+        "tag": "MASTER_SKULL_TIER_6"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Master Skull - Tier 6",
+          "item_tag": "MASTER_SKULL_TIER_6",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Master Skull - Tier 7",
+        "quantity": 1,
+        "tag": "MASTER_SKULL_TIER_7"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 9.0,
+          "display_name": "Refined Mineral",
+          "item_tag": "REFINED_MINERAL",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Mineral Talisman",
+        "quantity": 1,
+        "tag": "MINERAL_TALISMAN"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Enchanted Nether Quartz",
+          "item_tag": "ENCHANTED_QUARTZ",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Enchanted Quartz Block",
+          "item_tag": "ENCHANTED_QUARTZ_BLOCK",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Night Crystal",
+        "quantity": 1,
+        "tag": "NIGHT_CRYSTAL"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "QUARTZ": 7
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 16,
+          "display_name": "Enchanted Red Mushroom",
+          "item_tag": "ENCHANTED_RED_MUSHROOM",
+          "source": "bazaar"
+        },
+        {
+          "amount": 16,
+          "display_name": "Enchanted Brown Mushroom",
+          "item_tag": "ENCHANTED_BROWN_MUSHROOM",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Night Vision Charm",
+        "quantity": 1,
+        "tag": "NIGHT_VISION_CHARM"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "MUSHROOM_COLLECTION": 7
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "slow_sale"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 448.0,
+          "display_name": "Enchanted Redstone Dust",
+          "item_tag": "ENCHANTED_REDSTONE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Super Compactor 3000",
+          "item_tag": "SUPER_COMPACTOR_3000",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Personal Compactor 4000",
+        "quantity": 1,
+        "tag": "PERSONAL_COMPACTOR_4000"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "REDSTONE": 9
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 14.0,
+          "display_name": "Enchanted Redstone Block",
+          "item_tag": "ENCHANTED_REDSTONE_BLOCK",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Personal Compactor 4000",
+          "item_tag": "PERSONAL_COMPACTOR_4000",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Personal Compactor 5000",
+        "quantity": 1,
+        "tag": "PERSONAL_COMPACTOR_5000"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "REDSTONE": 11
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 28.0,
+          "display_name": "Enchanted Redstone Block",
+          "item_tag": "ENCHANTED_REDSTONE_BLOCK",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Personal Compactor 5000",
+          "item_tag": "PERSONAL_COMPACTOR_5000",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Personal Compactor 6000",
+        "quantity": 1,
+        "tag": "PERSONAL_COMPACTOR_6000"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "REDSTONE": 13
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 56.0,
+          "display_name": "Enchanted Redstone Block",
+          "item_tag": "ENCHANTED_REDSTONE_BLOCK",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Personal Compactor 6000",
+          "item_tag": "PERSONAL_COMPACTOR_6000",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Personal Compactor 7000",
+        "quantity": 1,
+        "tag": "PERSONAL_COMPACTOR_7000"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "REDSTONE": 14
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 112.0,
+          "display_name": "Enchanted Iron Ingot",
+          "item_tag": "ENCHANTED_IRON",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Enchanted Lava Bucket",
+          "item_tag": "ENCHANTED_LAVA_BUCKET",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Enchanted Redstone Block",
+          "item_tag": "ENCHANTED_REDSTONE_BLOCK",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Personal Deletor 4000",
+        "quantity": 1,
+        "tag": "PERSONAL_DELETOR_4000"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "IRON_INGOT": 9
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 224.0,
+          "display_name": "Enchanted Iron Ingot",
+          "item_tag": "ENCHANTED_IRON",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Personal Deletor 4000",
+          "item_tag": "PERSONAL_DELETOR_4000",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Personal Deletor 5000",
+        "quantity": 1,
+        "tag": "PERSONAL_DELETOR_5000"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "IRON_INGOT": 10
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 448.0,
+          "display_name": "Enchanted Iron Ingot",
+          "item_tag": "ENCHANTED_IRON",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Personal Deletor 5000",
+          "item_tag": "PERSONAL_DELETOR_5000",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Personal Deletor 6000",
+        "quantity": 1,
+        "tag": "PERSONAL_DELETOR_6000"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "IRON_INGOT": 11
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 7.0,
+          "display_name": "Enchanted Iron Block",
+          "item_tag": "ENCHANTED_IRON_BLOCK",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Personal Deletor 6000",
+          "item_tag": "PERSONAL_DELETOR_6000",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Personal Deletor 7000",
+        "quantity": 1,
+        "tag": "PERSONAL_DELETOR_7000"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "IRON_INGOT": 12
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 9,
+          "display_name": "Nether Wart",
+          "item_tag": "NETHER_STALK",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Potion Affinity Talisman",
+        "quantity": 1,
+        "tag": "POTION_AFFINITY_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "NETHER_STALK": 3
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 32.0,
+          "display_name": "Gemstone Mixture",
+          "item_tag": "GEMSTONE_MIXTURE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Ring of Power",
+          "item_tag": "POWER_RING",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Artifact of Power",
+        "quantity": 1,
+        "tag": "POWER_ARTIFACT"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "GEMSTONE_COLLECTION": 10
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 7.0,
+          "display_name": "Fine Ruby Gemstone",
+          "item_tag": "FINE_RUBY_GEM",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Gemstone Mixture",
+          "item_tag": "GEMSTONE_MIXTURE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Talisman of Power",
+          "item_tag": "POWER_TALISMAN",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Ring of Power",
+        "quantity": 1,
+        "tag": "POWER_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "GEMSTONE_COLLECTION": 6
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 45.0,
+          "display_name": "Flawed Ruby Gemstone",
+          "item_tag": "FLAWED_RUBY_GEM",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Talisman of Power",
+        "quantity": 1,
+        "tag": "POWER_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "GEMSTONE_COLLECTION": 4
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 256.0,
+          "display_name": "Orb of Energy",
+          "item_tag": "ORB_OF_ENERGY",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Pulse Ring",
+        "quantity": 1,
+        "tag": "PULSE_RING"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 16,
+          "display_name": "Enchanted Bone",
+          "item_tag": "ENCHANTED_BONE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 16,
+          "display_name": "Enchanted String",
+          "item_tag": "ENCHANTED_STRING",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "misc",
+        "display_name": "Radiant Power Orb",
+        "quantity": 1,
+        "tag": "RADIANT_POWER_ORB"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "wolf": 2
+        },
+        "notes": [
+          "Wolf Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8.0,
+          "display_name": "Shark Fin",
+          "item_tag": "SHARK_FIN",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Nurse Shark Tooth",
+          "item_tag": "NURSE_SHARK_TOOTH",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Raggedy Shark Tooth Necklace",
+        "quantity": 1,
+        "tag": "RAGGEDY_SHARK_TOOTH_NECKLACE"
+      },
+      "requirements": {},
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Great White Shark Tooth",
+          "item_tag": "GREAT_WHITE_SHARK_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Sharp Shark Tooth Necklace",
+          "item_tag": "SHARP_SHARK_TOOTH_NECKLACE",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Razor-sharp Shark Tooth Necklace",
+        "quantity": 1,
+        "tag": "RAZOR_SHARP_SHARK_TOOTH_NECKLACE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8.0,
+          "display_name": "Scythe Blade",
+          "item_tag": "SCYTHE_BLADE",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Reaper Orb",
+        "quantity": 1,
+        "tag": "REAPER_ORB"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "zombie": 8
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Red Claw Ring",
+          "item_tag": "RED_CLAW_RING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 1,
+          "display_name": "Red Claw Egg",
+          "item_tag": "RED_CLAW_EGG",
+          "source": "ah"
+        },
+        {
+          "amount": 54,
+          "display_name": "Golden Tooth",
+          "item_tag": "GOLDEN_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 256,
+          "display_name": "Enchanted Leather",
+          "item_tag": "ENCHANTED_LEATHER",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Red Claw Artifact",
+        "quantity": 1,
+        "tag": "RED_CLAW_ARTIFACT"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "wolf": 5
+        },
+        "notes": [
+          "Wolf Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "slayer_item",
+        "high_capital",
+        "low_volume"
+      ],
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Red Claw Talisman",
+          "item_tag": "RED_CLAW_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 8,
+          "display_name": "Golden Tooth",
+          "item_tag": "GOLDEN_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 96,
+          "display_name": "Enchanted Leather",
+          "item_tag": "ENCHANTED_LEATHER",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Red Claw Ring",
+        "quantity": 1,
+        "tag": "RED_CLAW_RING"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "wolf": 5
+        },
+        "notes": [
+          "Wolf Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "slayer_item",
+        "low_volume"
+      ],
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8,
+          "display_name": "Wolf Tooth",
+          "item_tag": "WOLF_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1,
+          "display_name": "Enchanted Bone",
+          "item_tag": "ENCHANTED_BONE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Red Claw Talisman",
+        "quantity": 1,
+        "tag": "RED_CLAW_TALISMAN"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "wolf": 1
+        },
+        "notes": [
+          "Wolf Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "slayer_item",
+        "low_volume"
+      ],
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 64.0,
+          "display_name": "Freshly-Minted Coins",
+          "item_tag": "FRESHLY_MINTED_COINS",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Artifact of Coins",
+          "item_tag": "ARTIFACT_OF_COINS",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Relic of Coins",
+        "quantity": 1,
+        "tag": "RELIC_OF_COINS"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Freshly-Minted Coins",
+          "item_tag": "FRESHLY_MINTED_COINS",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Talisman of Coins",
+          "item_tag": "COIN_TALISMAN",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Ring of Coins",
+        "quantity": 1,
+        "tag": "RING_OF_COINS"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Potion Affinity Talisman",
+          "item_tag": "POTION_AFFINITY_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 8,
+          "display_name": "Enchanted Nether Wart",
+          "item_tag": "ENCHANTED_NETHER_STALK",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "auctionable": false,
+        "display_name": "Potion Affinity Ring",
+        "quantity": 1,
+        "tag": "RING_POTION_AFFINITY"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "NETHER_STALK": 5
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Scarf's Thesis",
+          "item_tag": "SCARF_THESIS",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Scarf's Grimoire",
+        "quantity": 1,
+        "tag": "SCARF_GRIMOIRE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Scarf's Studies",
+          "item_tag": "SCARF_STUDIES",
+          "source": "ah"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Scarf's Thesis",
+        "quantity": 1,
+        "tag": "SCARF_THESIS"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import",
+        "ah_input"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 6.0,
+          "display_name": "Sponge",
+          "item_tag": "SPONGE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 2.0,
+          "display_name": "Enchanted Sponge",
+          "item_tag": "ENCHANTED_SPONGE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Sea Creature Talisman",
+          "item_tag": "SEA_CREATURE_TALISMAN",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Sea Creature Ring",
+        "quantity": 1,
+        "tag": "SEA_CREATURE_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "SPONGE": 6
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 18.0,
+          "display_name": "Sponge",
+          "item_tag": "SPONGE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Sea Creature Talisman",
+        "quantity": 1,
+        "tag": "SEA_CREATURE_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "SPONGE": 4
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 4.0,
+          "display_name": "Tiger Shark Tooth",
+          "item_tag": "TIGER_SHARK_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Honed Shark Tooth Necklace",
+          "item_tag": "HONED_SHARK_TOOTH_NECKLACE",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Sharp Shark Tooth Necklace",
+        "quantity": 1,
+        "tag": "SHARP_SHARK_TOOTH_NECKLACE"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8.0,
+          "display_name": "Null Ovoid",
+          "item_tag": "NULL_OVOID",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Soulflow Pile",
+          "item_tag": "SOULFLOW_PILE",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Soulflow Battery",
+        "quantity": 1,
+        "tag": "SOULFLOW_BATTERY"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "enderman": 5
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 90.0,
+          "display_name": "Null Sphere",
+          "item_tag": "NULL_SPHERE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Soulflow Pile",
+        "quantity": 1,
+        "tag": "SOULFLOW_PILE"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "enderman": 2
+        }
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 48.0,
+          "display_name": "Enchanted Sugar Cane",
+          "item_tag": "ENCHANTED_SUGAR_CANE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Speed Ring",
+          "item_tag": "SPEED_RING",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Speed Artifact",
+        "quantity": 1,
+        "tag": "SPEED_ARTIFACT"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "SUGAR_CANE": 8
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 96.0,
+          "display_name": "Enchanted Sugar",
+          "item_tag": "ENCHANTED_SUGAR",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Speed Talisman",
+          "item_tag": "SPEED_TALISMAN",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Speed Ring",
+        "quantity": 1,
+        "tag": "SPEED_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "SUGAR_CANE": 5
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 108,
+          "display_name": "Sugar Cane",
+          "item_tag": "SUGAR_CANE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Speed Talisman",
+        "quantity": 1,
+        "tag": "SPEED_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "SUGAR_CANE": 2
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 128.0,
+          "display_name": "Enchanted Ink Sac",
+          "item_tag": "ENCHANTED_INK_SACK",
+          "source": "bazaar"
+        },
+        {
+          "amount": 128.0,
+          "display_name": "Spiked Bait",
+          "item_tag": "SPIKED_BAIT",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Bait Ring",
+          "item_tag": "BAIT_RING",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Spiked Atrocity",
+        "quantity": 1,
+        "tag": "SPIKED_ATROCITY"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 128.0,
+          "display_name": "Squash",
+          "item_tag": "SQUASH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Cropie Talisman",
+          "item_tag": "CROPIE_TALISMAN",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Squash Ring",
+        "quantity": 1,
+        "tag": "SQUASH_RING"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 8.0,
+          "display_name": "Poison Sample",
+          "item_tag": "POISON_SAMPLE",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1.0,
+          "display_name": "Vaccine Ring",
+          "item_tag": "VACCINE_RING",
+          "source": "craft"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Vaccine Artifact",
+        "quantity": 1,
+        "tag": "VACCINE_ARTIFACT"
+      },
+      "requirements": {},
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "neu_recipe_import"
+      ],
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Vaccine Talisman",
+          "item_tag": "VACCINE_TALISMAN",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 32,
+          "display_name": "Enchanted Poisonous Potato",
+          "item_tag": "ENCHANTED_POISONOUS_POTATO",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Vaccine Ring",
+        "quantity": 1,
+        "tag": "VACCINE_RING"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "POTATO_ITEM": 5
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 9,
+          "display_name": "Poisonous Potato",
+          "item_tag": "POISONOUS_POTATO",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Vaccine Talisman",
+        "quantity": 1,
+        "tag": "VACCINE_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "POTATO_ITEM": 3
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Wand of Restoration",
+          "item_tag": "WAND_OF_RESTORATION",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 64,
+          "display_name": "Revenant Viscera",
+          "item_tag": "REVENANT_VISCERA",
+          "source": "bazaar"
+        },
+        {
+          "amount": 64,
+          "display_name": "Enchanted Dark Oak Log",
+          "item_tag": "ENCHANTED_DARK_OAK_LOG",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "weapon",
+        "display_name": "Wand of Atonement",
+        "quantity": 1,
+        "tag": "WAND_OF_ATONEMENT"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "zombie": 7
+        },
+        "notes": [
+          "Zombie Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "slayer_item",
+        "high_capital",
+        "slow_sale"
+      ],
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 16,
+          "display_name": "Revenant Flesh",
+          "item_tag": "REVENANT_FLESH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 1,
+          "display_name": "Stick",
+          "fixed_coin_cost": 1,
+          "item_tag": "STICK",
+          "source": "fixed_cost"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "weapon",
+        "display_name": "Wand of Healing",
+        "quantity": 1,
+        "tag": "WAND_OF_HEALING"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "zombie": 1
+        },
+        "notes": [
+          "Zombie Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item",
+        "common_accessory"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Wand of Healing",
+          "item_tag": "WAND_OF_HEALING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 1,
+          "display_name": "Revenant Viscera",
+          "item_tag": "REVENANT_VISCERA",
+          "source": "bazaar"
+        },
+        {
+          "amount": 12,
+          "display_name": "Enchanted Dark Oak Log",
+          "item_tag": "ENCHANTED_DARK_OAK_LOG",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "weapon",
+        "display_name": "Wand of Mending",
+        "quantity": 1,
+        "tag": "WAND_OF_MENDING"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "zombie": 3
+        },
+        "notes": [
+          "Zombie Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Wand of Mending",
+          "item_tag": "WAND_OF_MENDING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 16,
+          "display_name": "Revenant Viscera",
+          "item_tag": "REVENANT_VISCERA",
+          "source": "bazaar"
+        },
+        {
+          "amount": 64,
+          "display_name": "Enchanted Dark Oak Log",
+          "item_tag": "ENCHANTED_DARK_OAK_LOG",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "weapon",
+        "display_name": "Wand of Restoration",
+        "quantity": 1,
+        "tag": "WAND_OF_RESTORATION"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "zombie": 6
+        },
+        "notes": [
+          "Zombie Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "slayer_item",
+        "high_capital"
+      ],
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "verified": true
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 16,
+          "display_name": "Old Wolf Tooth",
+          "item_tag": "WOLF_TOOTH",
+          "source": "bazaar"
+        },
+        {
+          "amount": 16,
+          "display_name": "Enchanted Bone",
+          "item_tag": "ENCHANTED_BONE",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "auctionable": false,
+        "display_name": "Wolf Paw",
+        "quantity": 1,
+        "tag": "WOLF_PAW"
+      },
+      "requirements": {
+        "min_skill_levels": {
+          "combat": 12
+        },
+        "notes": [
+          "Requires access to appropriate combat content"
+        ]
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "low_volume",
+        "manipulated_price_possible"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "medium",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 48,
+          "display_name": "Oak Wood",
+          "item_tag": "OAK_WOOD",
+          "source": "manual"
+        },
+        {
+          "amount": 48,
+          "display_name": "Spruce Wood",
+          "item_tag": "SPRUCE_WOOD",
+          "source": "manual"
+        },
+        {
+          "amount": 48,
+          "display_name": "Birch Wood",
+          "item_tag": "BIRCH_WOOD",
+          "source": "manual"
+        },
+        {
+          "amount": 48,
+          "display_name": "Dark Oak Wood",
+          "item_tag": "DARK_OAK_WOOD",
+          "source": "manual"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "auctionable": false,
+        "display_name": "Wood Affinity Talisman",
+        "quantity": 1,
+        "tag": "WOOD_TALISMAN"
+      },
+      "requirements": {
+        "min_collection_tiers": {
+          "OAK_WOOD": 3
+        }
+      },
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "common_accessory",
+        "saturated"
+      ],
+      "source_notes": "Existing local SkyFlip craft recipe; verify against official wiki before aggressive recommendations.",
+      "verified": false
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Zombie Ring",
+          "item_tag": "ZOMBIE_RING",
+          "source": "previous_recipe"
+        },
+        {
+          "amount": 48,
+          "display_name": "Revenant Viscera",
+          "item_tag": "REVENANT_VISCERA",
+          "source": "bazaar"
+        },
+        {
+          "amount": 32,
+          "display_name": "Enchanted Iron",
+          "item_tag": "ENCHANTED_IRON",
+          "source": "bazaar"
+        },
+        {
+          "amount": 16,
+          "display_name": "Enchanted Diamond",
+          "item_tag": "ENCHANTED_DIAMOND",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Zombie Artifact",
+        "quantity": 1,
+        "tag": "ZOMBIE_ARTIFACT"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "zombie": 7
+        },
+        "notes": [
+          "High Zombie Slayer requirement"
+        ]
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "slayer_item",
+        "high_capital",
+        "slow_sale"
+      ],
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "verified": true
+    },
+    {
+      "confidence": "high",
+      "disabled": false,
+      "disabled_reason": "",
+      "ingredients": [
+        {
+          "amount": 1,
+          "display_name": "Zombie Talisman",
+          "fixed_coin_cost": 500,
+          "item_tag": "ZOMBIE_TALISMAN",
+          "source": "fixed_cost"
+        },
+        {
+          "amount": 64,
+          "display_name": "Revenant Flesh",
+          "item_tag": "REVENANT_FLESH",
+          "source": "bazaar"
+        }
+      ],
+      "last_verified": "2026-06-20",
+      "output": {
+        "ah_category": "accessory",
+        "display_name": "Zombie Ring",
+        "quantity": 1,
+        "tag": "ZOMBIE_RING"
+      },
+      "requirements": {
+        "min_slayer_levels": {
+          "zombie": 2
+        },
+        "notes": [
+          "Zombie Slayer recipe"
+        ]
+      },
+      "requires_manual_verification": false,
+      "risk_tags": [
+        "slayer_item",
+        "common_accessory"
+      ],
+      "source_notes": "Official Hypixel SkyBlock Wiki recipe page.",
+      "verified": true
     }
   ]
 }

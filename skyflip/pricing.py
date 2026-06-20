@@ -170,6 +170,21 @@ class PricingEngine:
                 return IngredientCost(ingredient.name, ingredient.tag, ingredient.amount, fallback, fallback * ingredient.amount, "cofl:bazaar-snapshot")
             return IngredientCost(ingredient.name, ingredient.tag, ingredient.amount, 0, 0, "unavailable", ["missing Bazaar product"])
 
+        if ingredient.source == "ah":
+            market = self.market_metrics(ingredient.tag or "")
+            unit = market.active.lowest_bin or market.median_sold_price
+            if unit is not None and unit > 0:
+                return IngredientCost(
+                    ingredient.name,
+                    ingredient.tag,
+                    ingredient.amount,
+                    unit,
+                    unit * ingredient.amount,
+                    "ah",
+                    ["AH-priced ingredient; verify the input manually"],
+                )
+            return IngredientCost(ingredient.name, ingredient.tag, ingredient.amount, 0, 0, "unavailable", ["missing AH input price"])
+
         if ingredient.source in {"craft", "previous_recipe"} and ingredient.tag in self.recipes:
             sub_recipe = self.recipes[ingredient.tag]
             crafted = self.craft_cost(sub_recipe, stack)

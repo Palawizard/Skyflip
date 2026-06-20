@@ -32,6 +32,8 @@ def load_accessory_database(path: str | Path = "data/accessories.json") -> Acces
     raw = json.loads(target.read_text(encoding="utf-8"))
     accessories: list[AccessoryEntry] = []
     for item in raw.get("accessories", []):
+        if item.get("disabled"):
+            continue
         req = item.get("requirements") or {}
         recipe = item.get("recipe") or {}
         ingredients = recipe.get("ingredients", recipe if isinstance(recipe, list) else [])
@@ -74,7 +76,12 @@ def load_accessory_database(path: str | Path = "data/accessories.json") -> Acces
                 notes=str(item.get("notes", "")),
                 recommended_for_stage=str(item.get("recommended_for_stage", "any")),
                 manual_unlock_notes=str(item.get("manual_unlock_notes", "")),
-                uncertain_requirements=bool(item.get("uncertain_requirements", False)),
+                uncertain_requirements=bool(item.get("uncertain_requirements", False) or item.get("confidence") == "low"),
+                verified=bool(item.get("verified", False)),
+                confidence=str(item.get("confidence", "medium")).lower(),
+                source_notes=str(item.get("source_notes", "")),
+                last_verified=str(item.get("last_verified", "")),
+                requires_manual_verification=bool(item.get("requires_manual_verification", False)),
             )
         )
     database = AccessoryDatabase(_infer_accessory_families([item for item in accessories if item.is_accessory]))
@@ -129,6 +136,11 @@ def augment_with_hypixel_accessories(database: AccessoryDatabase, http: Any) -> 
                 recommended_for_stage="any",
                 manual_unlock_notes="Verify source in game or check AH if tradable.",
                 uncertain_requirements=True,
+                verified=True,
+                confidence="low",
+                source_notes="Imported from Hypixel item resources; accessory metadata only.",
+                last_verified="",
+                requires_manual_verification=True,
             )
         )
     return AccessoryDatabase(_infer_accessory_families(accessories))

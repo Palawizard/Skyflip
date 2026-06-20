@@ -1,27 +1,1086 @@
 {
   "items": [
-    {"tag": "WISE_DRAGON_HELMET", "name": "Wise Dragon Helmet", "category": "mage armor", "max_budget_percent": 12},
-    {"tag": "WISE_DRAGON_CHESTPLATE", "name": "Wise Dragon Chestplate", "category": "mage armor", "max_budget_percent": 18},
-    {"tag": "WISE_DRAGON_LEGGINGS", "name": "Wise Dragon Leggings", "category": "mage armor", "max_budget_percent": 16},
-    {"tag": "WISE_DRAGON_BOOTS", "name": "Wise Dragon Boots", "category": "mage armor", "max_budget_percent": 10},
-    {"tag": "DARK_GOGGLES", "name": "Dark Goggles", "category": "mage armor", "max_budget_percent": 8},
-    {"tag": "SHADOW_GOGGLES", "name": "Shadow Goggles", "category": "mage armor", "max_budget_percent": 12, "min_catacombs_floor": 2},
-    {"tag": "WITHER_GOGGLES", "name": "Wither Goggles", "category": "mage armor", "max_budget_percent": 35, "min_catacombs_floor": 6, "notes": "Often expensive for early-mid budgets."},
-    {"tag": "BONZO_STAFF", "name": "Bonzo Staff", "category": "mage weapon", "max_budget_percent": 18, "min_catacombs_floor": 1},
-    {"tag": "SPIRIT_SCEPTRE", "name": "Spirit Sceptre", "category": "mage weapon", "max_budget_percent": 35, "min_catacombs_floor": 4},
-    {"tag": "DREADLORD_SWORD", "name": "Dreadlord Sword", "category": "mage weapon", "max_budget_percent": 8},
-    {"tag": "SHEEP;0", "name": "Sheep Pet", "category": "pet", "max_budget_percent": 20},
-    {"tag": "GUARDIAN;0", "name": "Guardian Pet", "category": "pet", "max_budget_percent": 15},
-    {"tag": "ENDERMAN;0", "name": "Enderman Pet", "category": "pet", "max_budget_percent": 10},
-    {"tag": "WAND_OF_HEALING", "name": "Wand of Healing", "category": "slayer utility", "max_budget_percent": 8},
-    {"tag": "WAND_OF_MENDING", "name": "Wand of Mending", "category": "slayer utility", "max_budget_percent": 10},
-    {"tag": "RADIANT_POWER_ORB", "name": "Radiant Power Orb", "category": "slayer utility", "max_budget_percent": 12},
-    {"tag": "MANA_FLUX_POWER_ORB", "name": "Mana Flux Power Orb", "category": "slayer utility", "max_budget_percent": 35},
-    {"tag": "ZOMBIE_RING", "name": "Zombie Ring", "category": "accessory", "max_budget_percent": 8},
-    {"tag": "VACCINE_RING", "name": "Vaccine Ring", "category": "accessory", "max_budget_percent": 8},
-    {"tag": "MAGNETIC_TALISMAN", "name": "Magnetic Talisman", "category": "accessory", "max_budget_percent": 6},
-    {"tag": "SPEED_TALISMAN", "name": "Speed Talisman", "category": "accessory", "max_budget_percent": 5},
-    {"tag": "INTIMIDATION_RING", "name": "Intimidation Ring", "category": "accessory", "max_budget_percent": 8},
-    {"tag": "WOLF_PAW", "name": "Wolf Paw", "category": "accessory", "max_budget_percent": 10}
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 22,
+      "min_requirements": {},
+      "name": "Bat Artifact",
+      "notes": "Higher bat accessory tier; verify current supply.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "event_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "BAT_ARTIFACT",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {},
+      "name": "Bat Talisman",
+      "notes": "Event/accessory item; verify current supply.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "event_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "BAT_TALISMAN",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Fish Affinity Talisman",
+      "notes": "Fishing accessory.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "fishing_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "FISH_AFFINITY_TALISMAN",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {},
+      "name": "Intimidation Ring",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "INTIMIDATION_RING",
+      "verified": false
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 6,
+      "min_requirements": {},
+      "name": "Magnetic Talisman",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "MAGNETIC_TALISMAN",
+      "verified": false
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 12,
+      "min_requirements": {},
+      "name": "Mineral Talisman",
+      "notes": "Mining Fiesta accessory; event supply can vary.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "event_item",
+        "mining_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "MINERAL_TALISMAN",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Personal Compactor 4000",
+      "notes": "Common utility accessory.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "accessory"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "PERSONAL_COMPACTOR_4000",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 14,
+      "min_requirements": {},
+      "name": "Personal Compactor 5000",
+      "notes": "Utility accessory upgrade.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "accessory"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "PERSONAL_COMPACTOR_5000",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 20,
+      "min_requirements": {},
+      "name": "Personal Compactor 6000",
+      "notes": "Utility accessory upgrade.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "accessory"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "PERSONAL_COMPACTOR_6000",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 35,
+      "min_requirements": {},
+      "name": "Personal Compactor 7000",
+      "notes": "Expensive utility accessory upgrade.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "accessory"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "PERSONAL_COMPACTOR_7000",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Personal Deletor 4000",
+      "notes": "Utility accessory.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "accessory"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "PERSONAL_DELETOR_4000",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "low",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 24,
+      "min_requirements": {
+        "slayers": {
+          "wolf": 7
+        }
+      },
+      "name": "Red Claw Artifact",
+      "notes": "Wolf Slayer accessory upgrade.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "RED_CLAW_ARTIFACT",
+      "verified": false
+    },
+    {
+      "category": "accessory",
+      "confidence": "low",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 12,
+      "min_requirements": {
+        "slayers": {
+          "wolf": 5
+        }
+      },
+      "name": "Red Claw Ring",
+      "notes": "Wolf Slayer accessory upgrade.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "RED_CLAW_RING",
+      "verified": false
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {
+        "slayers": {
+          "wolf": 1
+        }
+      },
+      "name": "Red Claw Talisman",
+      "notes": "Wolf Slayer accessory.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "RED_CLAW_TALISMAN",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 5,
+      "min_requirements": {},
+      "name": "Speed Talisman",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "SPEED_TALISMAN",
+      "verified": false
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {
+        "slayers": {
+          "spider": 5
+        }
+      },
+      "name": "Tarantula Ring",
+      "notes": "Spider Slayer accessory; verify market speed.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "TARANTULA_RING",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 28,
+      "min_requirements": {},
+      "name": "Titanium Artifact",
+      "notes": "Mining accessory upgrade.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "mining_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "TITANIUM_ARTIFACT",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {},
+      "name": "Titanium Ring",
+      "notes": "Mining accessory upgrade.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "mining_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "TITANIUM_RING",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 12,
+      "min_requirements": {},
+      "name": "Titanium Talisman",
+      "notes": "Mining accessory.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "mining_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "TITANIUM_TALISMAN",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {},
+      "name": "Vaccine Ring",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "VACCINE_RING",
+      "verified": false
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Wolf Paw",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "WOLF_PAW",
+      "verified": false
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {
+        "slayers": {
+          "zombie": 7
+        }
+      },
+      "name": "Zombie Artifact",
+      "notes": "High Zombie Slayer requirement.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "ZOMBIE_ARTIFACT",
+      "verified": true
+    },
+    {
+      "category": "accessory",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {},
+      "name": "Zombie Ring",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "ZOMBIE_RING",
+      "verified": false
+    },
+    {
+      "category": "dungeon armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {
+        "catacombs_floor_completions": [
+          3
+        ]
+      },
+      "name": "Adaptive Boots",
+      "notes": "Early dungeon armor; verify stars/quality.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "ADAPTIVE_BOOTS",
+      "verified": true
+    },
+    {
+      "category": "dungeon armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {
+        "catacombs_floor_completions": [
+          3
+        ]
+      },
+      "name": "Adaptive Chestplate",
+      "notes": "Early dungeon armor; verify stars/quality.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "ADAPTIVE_CHESTPLATE",
+      "verified": true
+    },
+    {
+      "category": "dungeon armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 12,
+      "min_requirements": {
+        "catacombs_floor_completions": [
+          3
+        ]
+      },
+      "name": "Adaptive Helmet",
+      "notes": "Early dungeon armor; verify stars/quality.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "ADAPTIVE_HELMET",
+      "verified": true
+    },
+    {
+      "category": "dungeon armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 16,
+      "min_requirements": {
+        "catacombs_floor_completions": [
+          3
+        ]
+      },
+      "name": "Adaptive Leggings",
+      "notes": "Early dungeon armor; verify stars/quality.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "ADAPTIVE_LEGGINGS",
+      "verified": true
+    },
+    {
+      "category": "dungeon armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Super Heavy Chestplate",
+      "notes": "Tank/dungeon item; verify floor quality.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "SUPER_HEAVY_CHESTPLATE",
+      "verified": true
+    },
+    {
+      "category": "dungeon armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {},
+      "name": "Zombie Soldier Chestplate",
+      "notes": "Common early dungeon armor; verify rarity/floor quality.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "ZOMBIE_SOLDIER_CHESTPLATE",
+      "verified": true
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {},
+      "name": "Dark Goggles",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "DARK_GOGGLES",
+      "verified": false
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {
+        "catacombs_floor_completions": [
+          6
+        ]
+      },
+      "name": "Necromancer Lord Boots",
+      "notes": "Requires later dungeon progression; verify stars.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "NECROMANCER_LORD_BOOTS",
+      "verified": true
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 35,
+      "min_requirements": {
+        "catacombs_floor_completions": [
+          6
+        ]
+      },
+      "name": "Necromancer Lord Chestplate",
+      "notes": "Requires later dungeon progression; verify stars.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "NECROMANCER_LORD_CHESTPLATE",
+      "verified": true
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 20,
+      "min_requirements": {
+        "catacombs_floor_completions": [
+          6
+        ]
+      },
+      "name": "Necromancer Lord Helmet",
+      "notes": "Requires later dungeon progression; verify stars.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "NECROMANCER_LORD_HELMET",
+      "verified": true
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 28,
+      "min_requirements": {
+        "catacombs_floor_completions": [
+          6
+        ]
+      },
+      "name": "Necromancer Lord Leggings",
+      "notes": "Requires later dungeon progression; verify stars.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "dungeon_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "NECROMANCER_LORD_LEGGINGS",
+      "verified": true
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 12,
+      "min_catacombs_floor": 2,
+      "min_requirements": {},
+      "name": "Shadow Goggles",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "SHADOW_GOGGLES",
+      "verified": false
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Wise Dragon Boots",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "WISE_DRAGON_BOOTS",
+      "verified": false
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {},
+      "name": "Wise Dragon Chestplate",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "WISE_DRAGON_CHESTPLATE",
+      "verified": false
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 12,
+      "min_requirements": {},
+      "name": "Wise Dragon Helmet",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "WISE_DRAGON_HELMET",
+      "verified": false
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 16,
+      "min_requirements": {},
+      "name": "Wise Dragon Leggings",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "WISE_DRAGON_LEGGINGS",
+      "verified": false
+    },
+    {
+      "category": "mage armor",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 35,
+      "min_catacombs_floor": 6,
+      "min_requirements": {},
+      "name": "Wither Goggles",
+      "notes": "Often expensive for early-mid budgets.",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "WITHER_GOGGLES",
+      "verified": false
+    },
+    {
+      "category": "mage weapon",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {},
+      "name": "Aurora Staff",
+      "notes": "Verify attributes and tier before buying.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "attribute_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "AURORA_STAFF",
+      "verified": true
+    },
+    {
+      "category": "mage weapon",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_catacombs_floor": 1,
+      "min_requirements": {},
+      "name": "Bonzo Staff",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "BONZO_STAFF",
+      "verified": false
+    },
+    {
+      "category": "mage weapon",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {},
+      "name": "Dreadlord Sword",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "DREADLORD_SWORD",
+      "verified": false
+    },
+    {
+      "category": "mage weapon",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 25,
+      "min_requirements": {},
+      "name": "Frozen Scythe",
+      "notes": "Medium-budget mage weapon; verify enchants and dungeonization.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "volatile_price"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "FROZEN_SCYTHE",
+      "verified": true
+    },
+    {
+      "category": "mage weapon",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 45,
+      "min_requirements": {},
+      "name": "Glacial Scythe",
+      "notes": "Expensive upgrade; budget filter should hide it for early profiles.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "expensive"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "GLACIAL_SCYTHE",
+      "verified": true
+    },
+    {
+      "category": "mage weapon",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 12,
+      "min_requirements": {},
+      "name": "Ink Wand",
+      "notes": "Utility mage weapon with variable demand.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slow_sale"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "INK_WAND",
+      "verified": true
+    },
+    {
+      "category": "mage weapon",
+      "confidence": "low",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 55,
+      "min_requirements": {},
+      "name": "Midas Staff",
+      "notes": "Late/expensive mage weapon; verify paid value and upgrades.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "expensive",
+        "attribute_check"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "MIDAS_STAFF",
+      "verified": false
+    },
+    {
+      "category": "mage weapon",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 35,
+      "min_catacombs_floor": 4,
+      "min_requirements": {},
+      "name": "Spirit Sceptre",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "SPIRIT_SCEPTRE",
+      "verified": false
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 24,
+      "min_requirements": {},
+      "name": "Elephant Pet",
+      "notes": "Farming pet; verify rarity/level.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "pet"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "ELEPHANT;0",
+      "verified": true
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Enderman Pet",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "ENDERMAN;0",
+      "verified": false
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 20,
+      "min_requirements": {},
+      "name": "Griffin Pet",
+      "notes": "Pet tag format follows existing SkyCofl pet watch entries.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "pet"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "GRIFFIN;0",
+      "verified": true
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 15,
+      "min_requirements": {},
+      "name": "Guardian Pet",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "GUARDIAN;0",
+      "verified": false
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {},
+      "name": "Lion Pet",
+      "notes": "Combat pet; verify rarity/level.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "pet"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "LION;0",
+      "verified": true
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {},
+      "name": "Mithril Golem Pet",
+      "notes": "Mining pet; verify rarity/level.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "pet"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "MITHRIL_GOLEM;0",
+      "verified": true
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 30,
+      "min_requirements": {},
+      "name": "Mooshroom Cow Pet",
+      "notes": "Farming pet; verify rarity/level.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "pet"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "MOOSHROOM_COW;0",
+      "verified": true
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Rabbit Pet",
+      "notes": "Farming pet; verify rarity/level.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "pet"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "RABBIT;0",
+      "verified": true
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 20,
+      "min_requirements": {},
+      "name": "Sheep Pet",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "SHEEP;0",
+      "verified": false
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {},
+      "name": "Tiger Pet",
+      "notes": "Combat pet; verify rarity/level.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "pet"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "TIGER;0",
+      "verified": true
+    },
+    {
+      "category": "pet",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {},
+      "name": "Wolf Pet",
+      "notes": "Combat/slayer pet; verify rarity/level.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "pet"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "WOLF;0",
+      "verified": true
+    },
+    {
+      "category": "slayer utility",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 35,
+      "min_requirements": {},
+      "name": "Mana Flux Power Orb",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "MANA_FLUX_POWER_ORB",
+      "verified": false
+    },
+    {
+      "category": "slayer utility",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 12,
+      "min_requirements": {},
+      "name": "Radiant Power Orb",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "RADIANT_POWER_ORB",
+      "verified": false
+    },
+    {
+      "category": "slayer utility",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 8,
+      "min_requirements": {},
+      "name": "Wand of Healing",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "WAND_OF_HEALING",
+      "verified": false
+    },
+    {
+      "category": "slayer utility",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 10,
+      "min_requirements": {},
+      "name": "Wand of Mending",
+      "requires_manual_verification": true,
+      "risk_tags": [],
+      "source_notes": "Existing local SkyFlip AH watchlist; tag should be verified against SkyCofl before aggressive use.",
+      "tag": "WAND_OF_MENDING",
+      "verified": false
+    },
+    {
+      "category": "slayer utility",
+      "confidence": "medium",
+      "enabled": true,
+      "last_verified": "2026-06-20",
+      "max_budget_percent": 18,
+      "min_requirements": {
+        "slayers": {
+          "zombie": 6
+        }
+      },
+      "name": "Wand of Restoration",
+      "notes": "Zombie Slayer utility; budget and slayer gated.",
+      "requires_manual_verification": true,
+      "risk_tags": [
+        "slayer_item"
+      ],
+      "source_notes": "Hypixel item resource tag or existing SkyFlip/SkyCofl tag convention; verify listing attributes manually.",
+      "tag": "WAND_OF_RESTORATION",
+      "verified": true
+    }
   ]
 }

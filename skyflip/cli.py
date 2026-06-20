@@ -11,6 +11,8 @@ from .cofl import CoflClient
 from .dashboard import run_dashboard
 from .dashboard_menu import run_dashboard_menu, should_open_dashboard_menu
 from .dashboard_modules import DASHBOARD_MODULES, module_keys_for_sections
+from .datasets import add_dataset_subparser, run_dataset_command
+from .datasets import runtime_dataset_warning
 from .http import ApiError, HttpClient
 from .module_presets import apply_module_preset, get_module_preset, list_module_presets
 from .module_recommendations import recommend_module_presets
@@ -32,6 +34,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(effective_argv)
     if args.command == "analyze":
         return analyze(args)
+    if args.command == "datasets":
+        return run_dataset_command(args)
     if args.command == "dashboard":
         _normalize_dashboard_args(args, parser)
         if getattr(args, "reset_profile_config", False):
@@ -69,6 +73,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     dashboard_parser = subparsers.add_parser("dashboard", help="Print a terminal flipping dashboard")
     _add_dashboard_args(dashboard_parser)
+    add_dataset_subparser(subparsers)
     return parser
 
 
@@ -155,7 +160,7 @@ def _add_dashboard_args(dashboard_parser: argparse.ArgumentParser) -> None:
     advanced.add_argument("--only-ah", action="store_true")
     advanced.add_argument("--refresh-accessories", action="store_true", help="Accepted for compatibility; accessory database is reloaded each run")
     advanced.add_argument("--include-locked-accessories", action=argparse.BooleanOptionalAction, default=False)
-    advanced.add_argument("--include-uncertain-accessories", action=argparse.BooleanOptionalAction, default=True)
+    advanced.add_argument("--include-uncertain-accessories", action=argparse.BooleanOptionalAction, default=False)
     advanced.add_argument("--include-manual-unlocks", action=argparse.BooleanOptionalAction, default=True)
     advanced.add_argument("--include-ah-accessories", action=argparse.BooleanOptionalAction, default=True)
     advanced.add_argument("--include-craftable-accessories", action=argparse.BooleanOptionalAction, default=True)
@@ -307,6 +312,9 @@ def analyze(args: argparse.Namespace) -> int:
     player_uuid = resolve_player_uuid(http, args.player_name)
     profile = load_profile(args.profile_file, player_name=args.player_name, player_uuid=player_uuid)
     warnings = list(profile.warnings)
+    dataset_warning = runtime_dataset_warning(paths={"craft_recipes": args.recipes_file})
+    if dataset_warning:
+        warnings.append(f"Dataset warning: {dataset_warning}")
     if profile.is_restricted_mode and not args.allow_restricted_profile:
         warnings.append(
             f"Profile mode {profile.profile_mode!r} is restricted; normal AH craft flipping is not recommended."

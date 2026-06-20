@@ -19,7 +19,13 @@ class WatchItem:
     category: str
     max_budget_percent: float = 35.0
     min_catacombs_floor: int | None = None
+    min_requirements: dict[str, dict[str, int]] | None = None
+    risk_tags: tuple[str, ...] = ()
     notes: str = ""
+    enabled: bool = True
+    confidence: str = "medium"
+    verified: bool = False
+    requires_manual_verification: bool = False
 
 
 @dataclass(frozen=True)
@@ -48,6 +54,8 @@ def load_watchlist(path: Path | str = "data/ah_watchlist.json") -> list[WatchIte
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
     items: list[WatchItem] = []
     for item in raw.get("items", []):
+        if item.get("enabled") is False or item.get("disabled"):
+            continue
         items.append(
             WatchItem(
                 tag=item["tag"],
@@ -55,7 +63,13 @@ def load_watchlist(path: Path | str = "data/ah_watchlist.json") -> list[WatchIte
                 category=item.get("category", "general"),
                 max_budget_percent=float(item.get("max_budget_percent", 35)),
                 min_catacombs_floor=item.get("min_catacombs_floor"),
+                min_requirements=item.get("min_requirements") or {},
+                risk_tags=tuple(item.get("risk_tags", [])),
                 notes=item.get("notes", ""),
+                enabled=bool(item.get("enabled", True)),
+                confidence=str(item.get("confidence", "medium")).lower(),
+                verified=bool(item.get("verified", False)),
+                requires_manual_verification=bool(item.get("requires_manual_verification", False)),
             )
         )
     return items
@@ -92,6 +106,9 @@ def evaluate_watch_item(
     rejection: list[str] = []
     if item.min_catacombs_floor is not None and profile.catacombs_floor_completions.get(item.min_catacombs_floor, 0) <= 0:
         return RejectedItem("ah-underpriced", item.name, f"locked: catacombs floor {item.min_catacombs_floor} completion required")
+    requirement_rejection = _watch_requirement_rejection(item, profile)
+    if requirement_rejection:
+        return RejectedItem("ah-underpriced", item.name, requirement_rejection)
 
     active = cofl.active_bins(item.tag)
     analysis = cofl.analysis(item.tag, days) or MarketAnalysis(source="none")
@@ -136,6 +153,10 @@ def evaluate_watch_item(
         rejection.append("sold prices are too volatile")
 
     confidence = min(100.0, speed.confidence_score * 0.7 + min(30.0, sample_count))
+    if item.confidence == "medium":
+        confidence *= 0.9
+    elif item.confidence == "low" or item.requires_manual_verification:
+        confidence *= 0.65
     manipulation_penalty = 20.0 if any("outlier" in reason or "volatile" in reason for reason in rejection) else 0.0
     budget_fit = max(0.0, min(100.0, 100.0 * (1 - active.lowest_bin / max(1.0, safe_budget))))
     competition = max(0.0, min(100.0, 100.0 - active.active_count / max(1.0, analysis.sales_per_day * 4) * 100))
@@ -184,3 +205,20 @@ def _safe_resale_price(active: ActiveAuctions, median: float) -> float:
     if active.third_lowest_bin:
         candidates.append(active.third_lowest_bin * 0.97)
     return max(1.0, min(candidates))
+
+
+def _watch_requirement_rejection(item: WatchItem, profile: PlayerProfile) -> str | None:
+    requirements = item.min_requirements or {}
+    for skill, required in (requirements.get("skills") or {}).items():
+        actual = profile.skills.get(str(skill).lower())
+        if actual is None or actual < int(required):
+            return f"locked: {skill} {actual or 0} < {required}"
+    for slayer, required in (requirements.get("slayers") or {}).items():
+        actual = profile.slayer_levels.get(str(slayer).lower())
+        if actual is None or actual < int(required):
+            return f"locked: {slayer} slayer {actual or 0} < {required}"
+    for floor in requirements.get("catacombs_floor_completions") or []:
+        required_floor = int(floor)
+        if profile.catacombs_floor_completions.get(required_floor, 0) <= 0:
+            return f"locked: catacombs floor {required_floor} completion required"
+    return None

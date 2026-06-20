@@ -97,6 +97,11 @@ class AccessoryEntry:
     recommended_for_stage: str = "any"
     manual_unlock_notes: str = ""
     uncertain_requirements: bool = False
+    verified: bool = False
+    confidence: str = "medium"
+    source_notes: str = ""
+    last_verified: str = ""
+    requires_manual_verification: bool = False
 
 
 @dataclass(frozen=True)
@@ -217,7 +222,7 @@ class AccessoryFilters:
     only_ah: bool = False
     hide_locked: bool = True
     search: str | None = None
-    include_uncertain: bool = True
+    include_uncertain: bool = False
     include_manual: bool = True
     include_ah: bool = True
     include_craftable: bool = True
