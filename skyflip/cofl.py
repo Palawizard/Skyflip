@@ -19,6 +19,7 @@ class SoldSummary:
     min_price: float | None = None
     max_price: float | None = None
     confidence: float = 0.0
+    source: str = "none"
 
 
 @dataclass(frozen=True)
@@ -52,7 +53,7 @@ class CoflClient:
         self.http = http
         self.warnings: list[str] = []
         self._unsupported_tags: set[str] = set()
-        self._rate_limited = False
+        self._failure_status: dict[str, str] = {}
 
     def analysis(self, tag: str, days: int) -> MarketAnalysis | None:
         if self._should_skip(tag):
@@ -76,17 +77,17 @@ class CoflClient:
             if active.active_count:
                 return active
         except ApiError as exc:
-            self._record_failure("active/bin", tag, exc)
-            if tag in self._unsupported_tags or self._rate_limited:
-                return ActiveAuctions()
+            status = self._record_failure("active/bin", tag, exc)
+            if status in {"rate_limited", "unsupported"}:
+                return ActiveAuctions(source=status)
 
         overview_url = f"{BASE_URL}/auctions/tag/{quote(tag)}/active/overview?orderBy=LOWEST_PRICE"
         try:
             result = self.http.get_json(overview_url)
             return normalize_active(result.payload, source=f"{result.source}:active/overview")
         except ApiError as exc:
-            self._record_failure("active overview", tag, exc)
-            return ActiveAuctions()
+            status = self._record_failure("active overview", tag, exc)
+            return ActiveAuctions(source=status)
 
     def sold_summary(self, tag: str) -> SoldSummary:
         if self._should_skip(tag):
@@ -95,9 +96,9 @@ class CoflClient:
         try:
             result = self.http.get_json(url)
         except ApiError as exc:
-            self._record_failure("sold auctions", tag, exc)
-            return SoldSummary()
-        return normalize_sold(result.payload)
+            status = self._record_failure("sold auctions", tag, exc)
+            return SoldSummary(source=status)
+        return normalize_sold(result.payload, source=result.source)
 
     def bazaar_snapshot_price(self, tag: str) -> float | None:
         if self._should_skip(tag):
@@ -118,18 +119,26 @@ class CoflClient:
         return None
 
     def _should_skip(self, tag: str) -> bool:
-        return self._rate_limited or tag in self._unsupported_tags
+        return tag in self._unsupported_tags
 
-    def _record_failure(self, operation: str, tag: str, exc: ApiError) -> None:
+    def failure_status(self, tag: str) -> str | None:
+        return self._failure_status.get(tag)
+
+    def _record_failure(self, operation: str, tag: str, exc: ApiError) -> str:
         text = str(exc)
         if "429" in text:
-            if not self._rate_limited:
-                self.warnings.append(f"SkyCofl {operation} unavailable for {tag}: {exc}")
-            self._rate_limited = True
-            return
+            status = "rate_limited"
+            self._failure_status[tag] = status
+            self.warnings.append(f"SkyCofl {operation} unavailable for {tag}: {exc}")
+            return status
         if "400" in text or "Bad Request" in text:
+            status = "unsupported"
             self._unsupported_tags.add(tag)
+        else:
+            status = "unavailable"
+        self._failure_status[tag] = status
         self.warnings.append(f"SkyCofl {operation} unavailable for {tag}: {exc}")
+        return status
 
 
 def normalize_analysis(payload: dict[str, Any], *, source: str = "live") -> MarketAnalysis:
@@ -181,7 +190,7 @@ def normalize_active(payload: Any, *, source: str = "live") -> ActiveAuctions:
     )
 
 
-def normalize_sold(payload: Any) -> SoldSummary:
+def normalize_sold(payload: Any, *, source: str = "live") -> SoldSummary:
     rows = payload.get("auctions") if isinstance(payload, dict) else payload
     if not isinstance(rows, list):
         return SoldSummary()
@@ -202,6 +211,7 @@ def normalize_sold(payload: Any) -> SoldSummary:
         min_price=min(prices),
         max_price=max(prices),
         confidence=min(1.0, len(prices) / 30),
+        source=source,
     )
 
 

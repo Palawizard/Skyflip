@@ -58,11 +58,24 @@ class FailingHttp:
         raise self.exc
 
 
+class SequenceHttp:
+    def __init__(self, responses):
+        self.responses = list(responses)
+        self.calls = []
+
+    def get_json(self, url):
+        self.calls.append(url)
+        response = self.responses.pop(0)
+        if isinstance(response, Exception):
+            raise response
+        return type("Result", (), {"payload": response, "source": "fake", "url": url})()
+
+
 def test_cofl_bad_request_skips_remaining_tag_endpoints():
     http = FailingHttp(ApiError("400 Client Error: Bad Request for url"))
     cofl = CoflClient(http)
 
-    assert cofl.active_bins("BAD_TAG") == ActiveAuctions()
+    assert cofl.active_bins("BAD_TAG") == ActiveAuctions(source="unsupported")
     assert cofl.analysis("BAD_TAG", 7) is None
     assert cofl.sold_summary("BAD_TAG") == SoldSummary()
 
@@ -70,12 +83,18 @@ def test_cofl_bad_request_skips_remaining_tag_endpoints():
     assert len(cofl.warnings) == 1
 
 
-def test_cofl_rate_limit_skips_remaining_refresh_calls():
-    http = FailingHttp(ApiError("HTTP 429 for https://sky.coflnet.com/api/test"))
+def test_cofl_rate_limit_does_not_skip_other_tags():
+    http = SequenceHttp([
+        ApiError("HTTP 429 for https://sky.coflnet.com/api/test"),
+        {"medianPrice": 123_000, "totalSales": 20, "salesPerDay": 5},
+    ])
     cofl = CoflClient(http)
 
     assert cofl.analysis("FIRST", 7) is None
-    assert cofl.active_bins("SECOND") == ActiveAuctions()
+    second = cofl.analysis("SECOND", 7)
 
-    assert len(http.calls) == 1
+    assert second is not None
+    assert second.median_price == 123_000
+    assert len(http.calls) == 2
     assert len(cofl.warnings) == 1
+    assert cofl.failure_status("FIRST") == "rate_limited"
