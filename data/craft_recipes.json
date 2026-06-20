@@ -185,7 +185,7 @@
       "ingredients": [
         {"item_tag": "ADVENTURER_NPC", "display_name": "Adventurer NPC purchase", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 10000}
       ],
-      "requirements": {"notes": ["NPC-purchased item; no collection craft requirement"]},
+      "requirements": {"manual_source_only": true, "notes": ["NPC-purchased item; no collection craft requirement"]},
       "risk_tags": ["common_accessory", "saturated"]
     },
     {
@@ -194,7 +194,7 @@
         {"item_tag": "INTIMIDATION_TALISMAN", "display_name": "Intimidation Talisman", "amount": 1, "source": "previous_recipe"},
         {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 32, "source": "bazaar"}
       ],
-      "requirements": {"min_collection_tiers": {"BONE": 5}},
+      "requirements": {"min_collection_tiers": {"BONE": 5}, "event_only": true, "notes": ["Event-limited upgrade; do not show as a normal craft flip"]},
       "risk_tags": ["common_accessory", "saturated"]
     },
     {
@@ -203,7 +203,7 @@
         {"item_tag": "INTIMIDATION_RING", "display_name": "Intimidation Ring", "amount": 1, "source": "previous_recipe"},
         {"item_tag": "ENCHANTED_BONE_BLOCK", "display_name": "Enchanted Bone Block", "amount": 8, "source": "bazaar"}
       ],
-      "requirements": {"min_collection_tiers": {"BONE": 9}},
+      "requirements": {"min_collection_tiers": {"BONE": 9}, "event_only": true, "notes": ["Event-limited upgrade; do not show as a normal craft flip"]},
       "risk_tags": ["common_accessory", "high_capital", "slow_sale"]
     },
     {

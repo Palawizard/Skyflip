@@ -1,5 +1,5 @@
 from skyflip.profile_parser import PlayerProfile
-from skyflip.recipes import Ingredient, Recipe, Requirements, check_eligibility
+from skyflip.recipes import Ingredient, Recipe, Requirements, check_eligibility, load_recipes
 
 
 def test_eligibility_checks_skills_slayers_and_collections():
@@ -45,3 +45,39 @@ def test_eligibility_locks_missing_requirement():
 
     assert not eligibility.eligible
     assert eligibility.missing == ["wolf slayer 3 < 6"]
+
+
+def test_event_limited_recipe_is_not_craft_flip_eligible():
+    recipes = {recipe.tag: recipe for recipe in load_recipes("data/craft_recipes.json")}
+    profile = PlayerProfile(
+        player_name="PalaMC",
+        member_id="uuid",
+        purse=0,
+        bank=0,
+        collection_tiers={"BONE": 9},
+        slayer_levels={"zombie": 3},
+    )
+
+    ring = check_eligibility(recipes["INTIMIDATION_RING"], profile)
+    artifact = check_eligibility(recipes["INTIMIDATION_ARTIFACT"], profile)
+
+    assert not ring.eligible
+    assert "event-limited craft is not available for craft flips" in ring.missing
+    assert not artifact.eligible
+    assert "event-limited craft is not available for craft flips" in artifact.missing
+
+
+def test_wand_of_mending_stays_eligible_for_zombie_slayer_three():
+    recipes = {recipe.tag: recipe for recipe in load_recipes("data/craft_recipes.json")}
+    profile = PlayerProfile(
+        player_name="PalaMC",
+        member_id="uuid",
+        purse=0,
+        bank=0,
+        slayer_levels={"zombie": 3},
+    )
+
+    eligibility = check_eligibility(recipes["WAND_OF_MENDING"], profile)
+
+    assert eligibility.eligible
+    assert "zombie slayer 3 >= 3" in eligibility.reasons

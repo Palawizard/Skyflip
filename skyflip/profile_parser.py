@@ -258,6 +258,10 @@ def _extract_skill_xp(member: dict[str, Any]) -> dict[str, float]:
 
 def _extract_slayers(member: dict[str, Any]) -> tuple[dict[str, float], dict[str, int]]:
     bosses = _deep_get(member, ["slayer", "slayer_bosses"], {}) or {}
+    if not bosses:
+        bosses = member.get("slayer_bosses") or {}
+    if not bosses:
+        bosses = _deep_get(member, ["player_data", "slayer", "slayer_bosses"], {}) or {}
     xp_by_boss: dict[str, float] = {}
     levels: dict[str, int] = {}
     for boss, info in bosses.items():
