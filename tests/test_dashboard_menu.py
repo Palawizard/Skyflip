@@ -91,7 +91,7 @@ def test_bazaar_module_routes_to_bazaar_sections(monkeypatch, tmp_path, capsys):
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["1", "1", "", "2", "2", "", "b", "b", "q"])
+    inputs = iter(["1", "s", "1", "", "2", "2", "", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
 
     def fake_collect_dashboard_data(args, *, resolve_uuid):
@@ -117,6 +117,9 @@ def test_bazaar_module_routes_to_bazaar_sections(monkeypatch, tmp_path, capsys):
     assert "Bazaar Flip Results" in output
     assert "Bazaar spread flips" in output
     assert "Best Bazaar Spread Flips" in output
+    assert "No results loaded. Press 1 to refresh." not in output
+    assert "Refresh all results" not in output
+    assert "Results  Bazaar spread: [0]  Bazaar order: [0]" in output
     assert "craft,bazaar-spread,bazaar-order" == args.sections
 
 
@@ -128,7 +131,7 @@ def test_module_recommended_settings_can_apply_preset(monkeypatch, tmp_path, cap
         encoding="utf-8",
     )
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["3", "3", "a", "", "4", "", "b", "q"])
+    inputs = iter(["3", "s", "3", "a", "", "4", "", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     args = make_menu_args(profile_file=str(profile), budget=None, max_accessory_price=None)
 
@@ -149,7 +152,7 @@ def test_module_custom_preset_can_load_from_menu(monkeypatch, tmp_path, capsys):
     monkeypatch.setenv("SKYFLIP_SETTINGS_PROFILES_FILE", str(tmp_path / "settings_profiles.json"))
     preset_args = make_menu_args(spread_limit=6, min_speed_confidence=70, min_profit=123_456)
     save_module_settings_preset(preset_args, "bazaar", "Tight spread")
-    inputs = iter(["1", "6", "l", "1", "", "b", "b", "q"])
+    inputs = iter(["1", "s", "6", "l", "1", "", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     args = make_menu_args(profile_file=str(profile), spread_limit=20, min_speed_confidence=10, min_profit=5_000)
 
@@ -165,7 +168,7 @@ def test_dashboard_menu_can_refresh_and_open_result_section(monkeypatch, tmp_pat
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["2", "1", "", "2", "2", "", "b", "b", "q"])
+    inputs = iter(["2", "s", "1", "", "2", "2", "", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     captured = {"calls": 0}
 
@@ -300,7 +303,7 @@ def test_r_refreshes_current_result_section(monkeypatch, tmp_path, capsys):
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["2", "1", "", "2", "2", "r", "", "b", "b", "q"])
+    inputs = iter(["2", "s", "1", "", "2", "r", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     captured = {"calls": 0}
 
@@ -325,14 +328,14 @@ def test_r_refreshes_current_result_section(monkeypatch, tmp_path, capsys):
     assert run_dashboard_menu(args, resolve_uuid=lambda http, name: None) == 0
     assert captured["calls"] == 2
     output = capsys.readouterr().out
-    assert "Best craft flips" in output
+    assert "Refresh all results" not in output
 
 
 def test_module_results_refresh_only_scans_that_module(monkeypatch, tmp_path):
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["1", "2", "", "r", "b", "b", "q"])
+    inputs = iter(["1", "s", "2", "r", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     captured_sections = []
 
@@ -364,7 +367,7 @@ def test_module_row_details_show_manual_verification(monkeypatch, tmp_path, caps
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["1", "2", "", "d", "1", "", "b", "b", "b", "q"])
+    inputs = iter(["1", "s", "2", "d", "1", "", "b", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
 
     def fake_collect_dashboard_data(args, *, resolve_uuid):
@@ -507,7 +510,7 @@ def test_dashboard_menu_can_edit_craft_settings(monkeypatch, tmp_path):
     profile = tmp_path / "PalaMC_Test_20260617_selected_profile.json"
     profile.write_text('{"profile":{"members":{"abc":{"player_name":"PalaMC","coin_purse":123}}}}', encoding="utf-8")
     monkeypatch.chdir(tmp_path)
-    inputs = iter(["2", "5", "1", "2500000", "2", "8", "data/custom_recipes.json", "b", "b", "q"])
+    inputs = iter(["2", "s", "5", "1", "2500000", "2", "8", "data/custom_recipes.json", "b", "b", "q"])
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
     args = argparse.Namespace(
         profile_file=None,
