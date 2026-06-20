@@ -1,3 +1,4 @@
+import json
 import time
 
 from skyflip.ah_underpriced import WatchItem, evaluate_watch_item
@@ -337,3 +338,51 @@ def test_craft_section_keeps_wand_and_excludes_event_recipe():
     assert "INTIMIDATION_RING" not in {item.recipe.tag for item in recommended}
     ring_rejection = next(item for item in rejected if item.item == "Intimidation Ring")
     assert "event-limited craft" in ring_rejection.reason
+
+
+def test_craft_section_skips_non_auctionable_recipe_market_calls(tmp_path):
+    recipe_file = tmp_path / "recipes.json"
+    recipe_file.write_text(
+        json.dumps(
+            {
+                "recipes": [
+                    {
+                        "output": {
+                            "tag": "NO_MARKET",
+                            "display_name": "No Market Item",
+                            "quantity": 1,
+                            "auctionable": False,
+                        },
+                        "ingredients": [{"item_tag": "A", "display_name": "A", "amount": 1, "source": "bazaar"}],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    class FakeBazaar:
+        warnings = []
+
+        def price_for(self, tag, *, use_buy_order_cost=False):
+            raise AssertionError("non-auctionable recipes should not be priced")
+
+    class FakeCofl:
+        warnings = []
+
+        def analysis(self, tag, days):
+            raise AssertionError("non-auctionable recipes should not query market data")
+
+    args = type("Args", (), {"recipes_file": str(recipe_file), "use_buy_order_cost": False, "days": 7})()
+
+    recommended, rejected = analyze_craft_section(
+        args,
+        FakeBazaar(),
+        FakeCofl(),
+        PlayerProfile("PalaMC", "id", 1, 2),
+        config(),
+    )
+
+    assert recommended == []
+    assert rejected[0].item == "No Market Item"
+    assert "not auctionable" in rejected[0].reason

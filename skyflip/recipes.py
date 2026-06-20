@@ -35,6 +35,7 @@ class Recipe:
     name: str
     quantity: int
     ah_category: str | None
+    auctionable: bool
     ingredients: list[Ingredient]
     requirements: Requirements
     risk_tags: list[str]
@@ -60,6 +61,7 @@ def load_recipes(path: Path | str = "data/craft_recipes.json") -> list[Recipe]:
                 name=output["display_name"],
                 quantity=int(output.get("quantity", 1)),
                 ah_category=output.get("ah_category"),
+                auctionable=bool(output.get("auctionable", True)),
                 ingredients=[
                     Ingredient(
                         tag=ingredient.get("item_tag"),

@@ -8,6 +8,7 @@ def test_eligibility_checks_skills_slayers_and_collections():
         name="Test Item",
         quantity=1,
         ah_category="accessory",
+        auctionable=True,
         ingredients=[Ingredient("ROTTEN_FLESH", "Rotten Flesh", 1, "bazaar")],
         requirements=Requirements(skills={"combat": 12}, slayers={"zombie": 3}, collections={"ROTTEN_FLESH": 5}),
         risk_tags=[],
@@ -35,6 +36,7 @@ def test_eligibility_locks_missing_requirement():
         name="Test Item",
         quantity=1,
         ah_category=None,
+        auctionable=True,
         ingredients=[],
         requirements=Requirements(slayers={"wolf": 6}),
         risk_tags=[],
@@ -81,3 +83,18 @@ def test_wand_of_mending_stays_eligible_for_zombie_slayer_three():
 
     assert eligibility.eligible
     assert "zombie slayer 3 >= 3" in eligibility.reasons
+
+
+def test_craft_recipe_data_marks_unmarketable_and_uses_priceable_tags():
+    recipes = {recipe.tag: recipe for recipe in load_recipes("data/craft_recipes.json")}
+
+    assert not recipes["POTION_AFFINITY_RING"].auctionable
+    assert not recipes["WOOD_AFFINITY_TALISMAN"].auctionable
+    assert not recipes["WOLF_PAW"].auctionable
+    assert any(ingredient.tag == "WATER_LILY" for ingredient in recipes["HEALING_TALISMAN"].ingredients)
+    assert any(ingredient.tag == "WOLF_TOOTH" for ingredient in recipes["WOLF_PAW"].ingredients)
+    assert all(
+        ingredient.source != "bazaar" or ingredient.tag not in {"LILY_PAD", "OLD_WOLF_TOOTH", "OAK_WOOD", "SPRUCE_WOOD", "BIRCH_WOOD", "DARK_OAK_WOOD"}
+        for recipe in recipes.values()
+        for ingredient in recipe.ingredients
+    )

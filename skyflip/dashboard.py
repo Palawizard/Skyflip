@@ -185,6 +185,8 @@ def collect_dashboard_data(args, *, resolve_uuid) -> DashboardData:
 
 
 def analyze_craft_section(args, bazaar: BazaarClient, cofl: CoflClient, profile, config: AnalyzerConfig) -> tuple[list[Opportunity], list]:
+    from .models import RejectedItem
+
     recipes = load_recipes(args.recipes_file)
     pricing = PricingEngine(
         recipe_index(recipes),
@@ -194,8 +196,16 @@ def analyze_craft_section(args, bazaar: BazaarClient, cofl: CoflClient, profile,
         days=args.days,
     )
     all_results: list[Opportunity] = []
+    direct_rejected = []
     for recipe in recipes:
+        if not recipe.auctionable:
+            direct_rejected.append(RejectedItem("craft", recipe.name, "item is not auctionable or has no reliable AH market"))
+            continue
         eligibility = check_eligibility(recipe, profile)
+        static_rejection = _static_recipe_rejection(eligibility.missing)
+        if static_rejection:
+            direct_rejected.append(RejectedItem("craft", recipe.name, static_rejection))
+            continue
         craft_cost = pricing.craft_cost(recipe)
         market = pricing.market_metrics(recipe.tag)
         all_results.append(evaluate_opportunity(recipe, eligibility, craft_cost, market, config))
@@ -209,7 +219,7 @@ def analyze_craft_section(args, bazaar: BazaarClient, cofl: CoflClient, profile,
         for item in all_results
         if item.rejected
     ]
-    return recommended, rejected
+    return recommended, [*direct_rejected, *rejected]
 
 
 def write_dashboard_json(path: Path, profile, craft, bazaar_spreads, bazaar_orders, conversions, ah_underpriced, talisman_helper, rejected, warnings) -> None:
@@ -308,6 +318,15 @@ def _craft_rejected(item: Opportunity):
     from .models import RejectedItem
 
     return RejectedItem("craft", item.recipe.name, " and ".join(item.rejection_reasons[:3]))
+
+
+def _static_recipe_rejection(missing: list[str]) -> str | None:
+    static_reasons = [
+        reason
+        for reason in missing
+        if "event-limited craft" in reason or "manual/source-only item" in reason
+    ]
+    return " and ".join(static_reasons) if static_reasons else None
 
 
 def _serializable(value):

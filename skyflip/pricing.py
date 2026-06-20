@@ -143,6 +143,17 @@ class PricingEngine:
             unit = float(ingredient.fixed_coin_cost or 0)
             return IngredientCost(ingredient.name, ingredient.tag, ingredient.amount, unit, unit * ingredient.amount, ingredient.source)
 
+        if ingredient.source == "manual":
+            return IngredientCost(
+                ingredient.name,
+                ingredient.tag,
+                ingredient.amount,
+                0,
+                0,
+                "unavailable",
+                [f"{ingredient.name} is not priced automatically"],
+            )
+
         if ingredient.source == "bazaar":
             price = self.bazaar.price_for(ingredient.tag or "", use_buy_order_cost=self.use_buy_order_cost)
             if price is not None:

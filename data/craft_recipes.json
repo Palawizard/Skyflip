@@ -107,7 +107,7 @@
       "risk_tags": ["common_accessory", "saturated"]
     },
     {
-      "output": {"tag": "POTION_AFFINITY_RING", "display_name": "Potion Affinity Ring", "ah_category": "accessory", "quantity": 1},
+      "output": {"tag": "POTION_AFFINITY_RING", "display_name": "Potion Affinity Ring", "ah_category": "accessory", "quantity": 1, "auctionable": false},
       "ingredients": [
         {"item_tag": "POTION_AFFINITY_TALISMAN", "display_name": "Potion Affinity Talisman", "amount": 1, "source": "previous_recipe"},
         {"item_tag": "ENCHANTED_NETHER_STALK", "display_name": "Enchanted Nether Wart", "amount": 8, "source": "bazaar"}
@@ -135,7 +135,7 @@
     {
       "output": {"tag": "HEALING_TALISMAN", "display_name": "Healing Talisman", "ah_category": "accessory", "quantity": 1},
       "ingredients": [
-        {"item_tag": "LILY_PAD", "display_name": "Lily Pad", "amount": 144, "source": "bazaar"}
+        {"item_tag": "WATER_LILY", "display_name": "Lily Pad", "amount": 144, "source": "bazaar"}
       ],
       "requirements": {"min_collection_tiers": {"LILY_PAD": 3}},
       "risk_tags": ["common_accessory", "saturated"]
@@ -208,20 +208,20 @@
       "risk_tags": ["common_accessory", "high_capital", "slow_sale"]
     },
     {
-      "output": {"tag": "WOOD_AFFINITY_TALISMAN", "display_name": "Wood Affinity Talisman", "ah_category": "accessory", "quantity": 1},
+      "output": {"tag": "WOOD_AFFINITY_TALISMAN", "display_name": "Wood Affinity Talisman", "ah_category": "accessory", "quantity": 1, "auctionable": false},
       "ingredients": [
-        {"item_tag": "OAK_WOOD", "display_name": "Oak Wood", "amount": 48, "source": "bazaar"},
-        {"item_tag": "SPRUCE_WOOD", "display_name": "Spruce Wood", "amount": 48, "source": "bazaar"},
-        {"item_tag": "BIRCH_WOOD", "display_name": "Birch Wood", "amount": 48, "source": "bazaar"},
-        {"item_tag": "DARK_OAK_WOOD", "display_name": "Dark Oak Wood", "amount": 48, "source": "bazaar"}
+        {"item_tag": "OAK_WOOD", "display_name": "Oak Wood", "amount": 48, "source": "manual"},
+        {"item_tag": "SPRUCE_WOOD", "display_name": "Spruce Wood", "amount": 48, "source": "manual"},
+        {"item_tag": "BIRCH_WOOD", "display_name": "Birch Wood", "amount": 48, "source": "manual"},
+        {"item_tag": "DARK_OAK_WOOD", "display_name": "Dark Oak Wood", "amount": 48, "source": "manual"}
       ],
       "requirements": {"min_collection_tiers": {"OAK_WOOD": 3}},
       "risk_tags": ["common_accessory", "saturated"]
     },
     {
-      "output": {"tag": "WOLF_PAW", "display_name": "Wolf Paw", "ah_category": "accessory", "quantity": 1},
+      "output": {"tag": "WOLF_PAW", "display_name": "Wolf Paw", "ah_category": "accessory", "quantity": 1, "auctionable": false},
       "ingredients": [
-        {"item_tag": "OLD_WOLF_TOOTH", "display_name": "Old Wolf Tooth", "amount": 16, "source": "bazaar"},
+        {"item_tag": "WOLF_TOOTH", "display_name": "Old Wolf Tooth", "amount": 16, "source": "bazaar"},
         {"item_tag": "ENCHANTED_BONE", "display_name": "Enchanted Bone", "amount": 16, "source": "bazaar"}
       ],
       "requirements": {"min_skill_levels": {"combat": 12}, "notes": ["Requires access to appropriate combat content"]},
