@@ -3,7 +3,9 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+import time
 from pathlib import Path
+from typing import Callable
 
 from .dashboard import DEFAULT_SECTIONS
 from .terminal_layout import TerminalSize, clip_text, get_terminal_size, too_small_message, usable_width
@@ -21,6 +23,9 @@ SECTION_LABELS = {
     "warnings": "Warnings",
     "rejected": "Rejected",
 }
+
+TERMINAL_REDRAW_FPS = 8.0
+_KEY_POLL_SECONDS = 0.01
 
 
 def _parse_sections(value: str) -> list[str]:
@@ -263,10 +268,17 @@ def _interactive_menu_enabled() -> bool:
     return sys.stdin.isatty() and sys.stdout.isatty()
 
 
-def _read_key() -> str:
+def _read_key(timeout: float | None = None) -> str:
     if os.name == "nt":
         import msvcrt
 
+        if timeout is not None:
+            deadline = time.monotonic() + max(0.0, timeout)
+            while not msvcrt.kbhit():
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    return ""
+                time.sleep(min(_KEY_POLL_SECONDS, remaining))
         char = msvcrt.getwch()
         if char in ("\x00", "\xe0"):
             code = msvcrt.getwch()
@@ -277,6 +289,7 @@ def _read_key() -> str:
             return "escape"
         return char.lower()
 
+    import select
     import termios
     import tty
 
@@ -284,9 +297,14 @@ def _read_key() -> str:
     old = termios.tcgetattr(fd)
     try:
         tty.setraw(fd)
+        if timeout is not None:
+            ready, _, _ = select.select([sys.stdin], [], [], max(0.0, timeout))
+            if not ready:
+                return ""
         char = sys.stdin.read(1)
         if char == "\x1b":
-            next_chars = sys.stdin.read(2)
+            ready, _, _ = select.select([sys.stdin], [], [], _KEY_POLL_SECONDS)
+            next_chars = sys.stdin.read(2) if ready else ""
             if next_chars == "[A":
                 return "up"
             if next_chars == "[B":
@@ -297,6 +315,28 @@ def _read_key() -> str:
         return char.lower()
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
+def _read_key_with_redraw(
+    draw_screen: Callable[[], None],
+    *,
+    frame_rate: float = TERMINAL_REDRAW_FPS,
+    read_key: Callable[..., str] | None = None,
+    monotonic: Callable[[], float] | None = None,
+) -> str:
+    read_key = read_key or _read_key
+    monotonic = monotonic or time.monotonic
+    frame_interval = 1.0 / max(1.0, frame_rate)
+    next_frame = 0.0
+    while True:
+        now = monotonic()
+        if now >= next_frame:
+            draw_screen()
+            next_frame = now + frame_interval
+        timeout = max(0.0, next_frame - monotonic())
+        key = read_key(timeout=timeout)
+        if key:
+            return key
 
 
 def _highlight(value: str) -> str:
