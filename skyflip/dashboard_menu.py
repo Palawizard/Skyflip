@@ -73,13 +73,16 @@ from .dashboard_menu_ui import (
     _draw_menu,
     _draw_simple_header,
     _draw_settings,
+    _enter_terminal_app_mode,
     _ensure_talisman_attrs,
+    _exit_terminal_app_mode,
     _interactive_menu_enabled,
     _muted,
     _optional_coins,
     _parse_sections,
     _pause,
-    _read_key,
+    _pause_with_redraw,
+    _read_key_with_redraw,
     _section_count,
     _section_hint,
     _section_name,
@@ -116,36 +119,41 @@ def run_dashboard_menu(args: argparse.Namespace, *, resolve_uuid: Callable) -> i
     state = _MenuState(section_sorts=load_sort_preferences(), persist_sort_preferences=True)
     if active_profile:
         state.status_message = f"Loaded settings preset: {active_profile}"
-    while True:
-        choice = _main_menu_choice(args, state)
-        module = _module_from_choice(choice)
-        if module is not None:
-            _module_menu(args, state, module, resolve_uuid)
-            continue
-        if choice in {"r", "refresh"}:
-            if not _ensure_required(args):
-                _pause()
+    terminal_app_mode = _enter_terminal_app_mode()
+    try:
+        while True:
+            choice = _main_menu_choice(args, state)
+            module = _module_from_choice(choice)
+            if module is not None:
+                _module_menu(args, state, module, resolve_uuid)
                 continue
-            _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
-            continue
-        if choice in {"s", "settings"}:
-            _settings_menu(args, state, resolve_uuid)
-            continue
-        if choice in {"p", "profile"}:
-            _profile_menu(args, state, resolve_uuid)
-            state.latest = None
-            state.last_refresh = None
-            continue
-        if choice in {"a", "auto", "automatic"}:
-            if not _ensure_required(args):
-                _pause()
+            if choice in {"r", "refresh"}:
+                if not _ensure_required(args):
+                    _pause()
+                    continue
+                _refresh_results(args, state, resolve_uuid=resolve_uuid, announce=True)
                 continue
-            _toggle_auto_refresh(args, state, resolve_uuid=resolve_uuid)
-            continue
-        if choice in {"q", "quit", "exit"}:
-            _stop_auto_refresh(state)
-            return 0
-        print("Unknown action.")
+            if choice in {"s", "settings"}:
+                _settings_menu(args, state, resolve_uuid)
+                continue
+            if choice in {"p", "profile"}:
+                _profile_menu(args, state, resolve_uuid)
+                state.latest = None
+                state.last_refresh = None
+                continue
+            if choice in {"a", "auto", "automatic"}:
+                if not _ensure_required(args):
+                    _pause()
+                    continue
+                _toggle_auto_refresh(args, state, resolve_uuid=resolve_uuid)
+                continue
+            if choice in {"q", "quit", "exit"}:
+                _stop_auto_refresh(state)
+                return 0
+            print("Unknown action.")
+    finally:
+        _stop_auto_refresh(state)
+        _exit_terminal_app_mode(terminal_app_mode)
 
 
 def should_open_dashboard_menu(args: argparse.Namespace) -> bool:
@@ -384,24 +392,26 @@ def _module_results_menu(args: argparse.Namespace, state: _MenuState, module: Da
 
 
 def _show_module_summary(args: argparse.Namespace, state: _MenuState, module: DashboardModule) -> None:
-    _clear_screen()
-    _draw_header(f"{module.title} / Results summary", args, state)
     data = state.latest
-    if data is None:
-        print("No results loaded. Refresh results first.")
-        _pause()
-        return
-    for line in module_summary_lines(data, module, last_refresh=state.last_refresh):
-        print(line)
-    warnings = module_warnings(data, module)
-    if warnings:
+
+    def draw_screen() -> None:
+        _clear_screen()
+        _draw_header(f"{module.title} / Results summary", args, state)
+        if data is None:
+            print("No results loaded. Refresh results first.")
+            return
+        for line in module_summary_lines(data, module, last_refresh=state.last_refresh):
+            print(line)
+        warnings = module_warnings(data, module)
+        if warnings:
+            print()
+            print("Warnings")
+            for warning in warnings[:8]:
+                print(f"- {warning}")
         print()
-        print("Warnings")
-        for warning in warnings[:8]:
-            print(f"- {warning}")
-    print()
-    print(f"Filters: {_module_filter_summary(args, module)}")
-    _pause()
+        print(f"Filters: {_module_filter_summary(args, module)}")
+
+    _pause_with_redraw(draw_screen)
 
 
 def _module_detail_menu(args: argparse.Namespace, state: _MenuState, module: DashboardModule) -> None:
@@ -412,10 +422,12 @@ def _module_detail_menu(args: argparse.Namespace, state: _MenuState, module: Das
             return
         rows = module_candidate_rows(data, module)
         if not rows:
-            _clear_screen()
-            _draw_header(f"{module.title} / Row details", args, state)
-            print(empty_state_hint(module.key, module.sections[0]))
-            _pause()
+            def draw_screen() -> None:
+                _clear_screen()
+                _draw_header(f"{module.title} / Row details", args, state)
+                print(empty_state_hint(module.key, module.sections[0]))
+
+            _pause_with_redraw(draw_screen)
             return
         entries = [
             (str(index), _detail_entry_label(section, item), f"risk {normalize_risk(item)}")
@@ -439,10 +451,12 @@ def _module_detail_menu(args: argparse.Namespace, state: _MenuState, module: Das
 
 
 def _show_row_detail(args: argparse.Namespace, state: _MenuState, module: DashboardModule, section: str, item: object) -> None:
-    _clear_screen()
-    _draw_header(f"{module.title} / Row detail", args, state)
-    _draw_settings([("", key, value) for key, value in detail_lines(item, section)])
-    _pause()
+    def draw_screen() -> None:
+        _clear_screen()
+        _draw_header(f"{module.title} / Row detail", args, state)
+        _draw_settings([("", key, value) for key, value in detail_lines(item, section)])
+
+    _pause_with_redraw(draw_screen)
 
 
 def _detail_entry_label(section: str, item: object) -> str:
@@ -490,10 +504,12 @@ def _module_settings_view(
     title: str,
     rows: list[tuple[str, str, str]],
 ) -> None:
-    _clear_screen()
-    _draw_header(f"{module.title} / {title}", args, state)
-    _draw_settings(rows)
-    _pause()
+    def draw_screen() -> None:
+        _clear_screen()
+        _draw_header(f"{module.title} / {title}", args, state)
+        _draw_settings(rows)
+
+    _pause_with_redraw(draw_screen)
 
 
 def _module_recommended_settings_menu(
@@ -1446,16 +1462,19 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
         sort_key = _section_sort_key(state, key)
         display_data = _module_scoped_data(data, module, key) if module is not None else data
         sorted_data = _sorted_section_data(display_data, key, sort_key)
-        _clear_screen()
-        _draw_header(SECTION_LABELS.get(key, _section_name(key)), args, state)
-        _draw_sort_hint(key, sort_key)
-        if module is not None:
-            print(f"Filters: {_module_filter_summary(args, module)}")
-        print()
-        print_dashboard_section(sorted_data, key, show_rejected=args.show_rejected)
-        if module is not None and _module_section_count(display_data, module, key) == 0 and key not in {"warnings", "rejected"}:
-            print(empty_state_hint(module.key, key))
+        def draw_screen() -> None:
+            _clear_screen()
+            _draw_header(SECTION_LABELS.get(key, _section_name(key)), args, state)
+            _draw_sort_hint(key, sort_key)
+            if module is not None:
+                print(f"Filters: {_module_filter_summary(args, module)}")
+            print()
+            print_dashboard_section(sorted_data, key, show_rejected=args.show_rejected)
+            if module is not None and _module_section_count(display_data, module, key) == 0 and key not in {"warnings", "rejected"}:
+                print(empty_state_hint(module.key, key))
+
         if not _interactive_menu_enabled():
+            draw_screen()
             choice = input("Press R to refresh, D for details, left/right to change sort, or Enter to go back: ").strip().lower()
             if choice == "left":
                 _cycle_section_sort(state, key, -1)
@@ -1473,8 +1492,12 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
                     _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
                 continue
             return
-        print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
-        choice = _read_key()
+
+        def draw_interactive_screen() -> None:
+            draw_screen()
+            print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
+
+        choice = _read_key_with_redraw(draw_interactive_screen)
         if choice == "left":
             _cycle_section_sort(state, key, -1)
             continue

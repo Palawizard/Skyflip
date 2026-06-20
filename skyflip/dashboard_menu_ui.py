@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import io
 import os
 import sys
+import time
+from contextlib import redirect_stdout
 from pathlib import Path
+from typing import Callable
 
 from .dashboard import DEFAULT_SECTIONS
 from .terminal_layout import TerminalSize, clip_text, get_terminal_size, too_small_message, usable_width
@@ -21,6 +25,11 @@ SECTION_LABELS = {
     "warnings": "Warnings",
     "rejected": "Rejected",
 }
+
+TERMINAL_REDRAW_FPS = 8.0
+_KEY_POLL_SECONDS = 0.01
+_REDRAW_CAPTURE_DEPTH = 0
+_TERMINAL_APP_MODE_DEPTH = 0
 
 
 def _parse_sections(value: str) -> list[str]:
@@ -75,6 +84,8 @@ def _section_count(data, key: str) -> int | str:
 
 
 def _clear_screen() -> None:
+    if _REDRAW_CAPTURE_DEPTH:
+        return
     if os.environ.get("SKYFLIP_NO_CLEAR"):
         print()
         return
@@ -214,21 +225,23 @@ def _select_menu(
 
     selected = 0
     while True:
-        _clear_screen()
-        _draw_too_small_if_needed()
-        if args is not None:
-            _draw_header(title, args, state)
-        else:
-            _draw_simple_header(title)
-        if note:
-            print(note)
+        def draw_screen() -> None:
+            _clear_screen()
+            _draw_too_small_if_needed()
+            if args is not None:
+                _draw_header(title, args, state)
+            else:
+                _draw_simple_header(title)
+            if note:
+                print(note)
+                print()
+            if show_counts and state is not None:
+                _draw_counts(state.latest, count_sections=count_sections)
+            _draw_selectable_entries(entries, selected)
             print()
-        if show_counts and state is not None:
-            _draw_counts(state.latest, count_sections=count_sections)
-        _draw_selectable_entries(entries, selected)
-        print()
-        print(_muted(compact_menu_line("Up/Down move   Enter select   R refresh   Esc back   Q quit/back", _width())))
-        key = _read_key()
+            print(_muted(compact_menu_line("Up/Down move   Enter select   R refresh   Esc back   Q quit/back", _width())))
+
+        key = _read_key_with_redraw(draw_screen)
         if key == "up":
             selected = (selected - 1) % len(entries)
         elif key == "down":
@@ -263,10 +276,38 @@ def _interactive_menu_enabled() -> bool:
     return sys.stdin.isatty() and sys.stdout.isatty()
 
 
-def _read_key() -> str:
+def _enter_terminal_app_mode() -> bool:
+    if not _interactive_menu_enabled() or os.environ.get("SKYFLIP_NO_ALT_SCREEN"):
+        return False
+    global _TERMINAL_APP_MODE_DEPTH
+    if _TERMINAL_APP_MODE_DEPTH == 0:
+        sys.stdout.write("\033[?1049h\033[?25l\033[H\033[J")
+        sys.stdout.flush()
+    _TERMINAL_APP_MODE_DEPTH += 1
+    return True
+
+
+def _exit_terminal_app_mode(enabled: bool) -> None:
+    if not enabled:
+        return
+    global _TERMINAL_APP_MODE_DEPTH
+    _TERMINAL_APP_MODE_DEPTH = max(0, _TERMINAL_APP_MODE_DEPTH - 1)
+    if _TERMINAL_APP_MODE_DEPTH == 0:
+        sys.stdout.write("\033[?25h\033[?1049l")
+        sys.stdout.flush()
+
+
+def _read_key(timeout: float | None = None) -> str:
     if os.name == "nt":
         import msvcrt
 
+        if timeout is not None:
+            deadline = time.monotonic() + max(0.0, timeout)
+            while not msvcrt.kbhit():
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    return ""
+                time.sleep(min(_KEY_POLL_SECONDS, remaining))
         char = msvcrt.getwch()
         if char in ("\x00", "\xe0"):
             code = msvcrt.getwch()
@@ -277,6 +318,7 @@ def _read_key() -> str:
             return "escape"
         return char.lower()
 
+    import select
     import termios
     import tty
 
@@ -284,9 +326,14 @@ def _read_key() -> str:
     old = termios.tcgetattr(fd)
     try:
         tty.setraw(fd)
+        if timeout is not None:
+            ready, _, _ = select.select([sys.stdin], [], [], max(0.0, timeout))
+            if not ready:
+                return ""
         char = sys.stdin.read(1)
         if char == "\x1b":
-            next_chars = sys.stdin.read(2)
+            ready, _, _ = select.select([sys.stdin], [], [], _KEY_POLL_SECONDS)
+            next_chars = sys.stdin.read(2) if ready else ""
             if next_chars == "[A":
                 return "up"
             if next_chars == "[B":
@@ -297,6 +344,67 @@ def _read_key() -> str:
         return char.lower()
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
+def _read_key_with_redraw(
+    draw_screen: Callable[[], None],
+    *,
+    frame_rate: float = TERMINAL_REDRAW_FPS,
+    read_key: Callable[..., str] | None = None,
+    monotonic: Callable[[], float] | None = None,
+) -> str:
+    read_key = read_key or _read_key
+    monotonic = monotonic or time.monotonic
+    frame_interval = 1.0 / max(1.0, frame_rate)
+    next_frame = 0.0
+    rendered = False
+    try:
+        while True:
+            now = monotonic()
+            if now >= next_frame:
+                _write_redraw_frame(_capture_redraw_frame(draw_screen))
+                rendered = True
+                next_frame = now + frame_interval
+            timeout = max(0.0, next_frame - monotonic())
+            key = read_key(timeout=timeout)
+            if key:
+                return key
+    finally:
+        if rendered and _TERMINAL_APP_MODE_DEPTH == 0:
+            sys.stdout.write("\033[?25h")
+            sys.stdout.flush()
+
+
+def _capture_redraw_frame(draw_screen: Callable[[], None]) -> str:
+    global _REDRAW_CAPTURE_DEPTH
+    buffer = io.StringIO()
+    _REDRAW_CAPTURE_DEPTH += 1
+    try:
+        with redirect_stdout(buffer):
+            draw_screen()
+    finally:
+        _REDRAW_CAPTURE_DEPTH -= 1
+    return buffer.getvalue()
+
+
+def _write_redraw_frame(frame: str) -> None:
+    sys.stdout.write("\033[?25l\033[H")
+    sys.stdout.write(_clear_line_endings(frame))
+    sys.stdout.write("\033[J")
+    sys.stdout.flush()
+
+
+def _clear_line_endings(frame: str) -> str:
+    if not frame:
+        return ""
+    parts = frame.splitlines(keepends=True)
+    output = []
+    for part in parts:
+        if part.endswith("\n"):
+            output.append(f"{part[:-1]}\033[K\n")
+        else:
+            output.append(f"{part}\033[K")
+    return "".join(output)
 
 
 def _highlight(value: str) -> str:
@@ -330,6 +438,22 @@ def compact_menu_line(value: str, width: int | None = None) -> str:
 
 def _pause(prompt: str = "Press Enter to go back...") -> None:
     input(prompt)
+
+
+def _pause_with_redraw(draw_screen: Callable[[], None], prompt: str = "Press Enter to go back...") -> None:
+    if not _interactive_menu_enabled():
+        draw_screen()
+        _pause(prompt)
+        return
+
+    def draw_prompt() -> None:
+        draw_screen()
+        print(_muted(compact_menu_line(prompt, _width())))
+
+    while True:
+        key = _read_key_with_redraw(draw_prompt)
+        if key in {"enter", "escape", "q", "b"}:
+            return
 
 
 def _ask_float(label: str, current: float) -> float:

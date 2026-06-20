@@ -3,6 +3,7 @@ import json
 import time
 from types import SimpleNamespace
 
+import skyflip.dashboard_menu as dashboard_menu
 from skyflip.cli import build_parser
 from skyflip.dashboard_menu import (
     _MenuState,
@@ -11,6 +12,7 @@ from skyflip.dashboard_menu import (
     _profile_freshness_label,
     _restricted_profile_note,
     _section_sort_key,
+    _show_result_section,
     _sorted_section_data,
     load_sort_preferences,
     run_dashboard_menu,
@@ -225,6 +227,48 @@ def test_dashboard_menu_can_refresh_and_open_result_section(monkeypatch, tmp_pat
     assert captured["args"].profile_file == str(profile)
     assert captured["args"].player_name == "PalaMC"
     assert captured["args"].budget == 123
+
+
+def test_result_section_redraw_does_not_refresh_results(monkeypatch, capsys):
+    args = make_menu_args(profile_file="profile.json", player_name="PalaMC", budget=1_000_000)
+    state = _MenuState(
+        latest=SimpleNamespace(
+            profile=PlayerProfile("PalaMC", "abc", 123, 0),
+            budget=1_000_000,
+            craft=[],
+            bazaar_spreads=[],
+            bazaar_orders=[],
+            conversions=[],
+            ah_underpriced=[],
+            talisman_helper=None,
+            rejected=[],
+            warnings=[],
+            cache_ttl=args.cache_ttl,
+        ),
+        last_refresh="2026-06-20 12:00:00",
+    )
+    draw_count = 0
+
+    def fake_redraw_loop(draw_screen):
+        nonlocal draw_count
+        draw_screen()
+        draw_screen()
+        draw_count += 2
+        return "enter"
+
+    def fail_refresh(*args, **kwargs):
+        raise AssertionError("redraw must not refresh results")
+
+    monkeypatch.setattr(dashboard_menu, "_interactive_menu_enabled", lambda: True)
+    monkeypatch.setattr(dashboard_menu, "_read_key_with_redraw", fake_redraw_loop)
+    monkeypatch.setattr(dashboard_menu, "collect_dashboard_data", fail_refresh)
+
+    _show_result_section(args, state, "craft")
+
+    assert draw_count == 2
+    output = capsys.readouterr().out
+    assert "Craft flips" in output
+    assert "Refresh results first" not in output
 
 
 def test_profile_freshness_labels_cache_states(monkeypatch, tmp_path):
