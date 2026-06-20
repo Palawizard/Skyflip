@@ -3,7 +3,7 @@
     {
       "output": {"tag": "WAND_OF_HEALING", "display_name": "Wand of Healing", "ah_category": "weapon", "quantity": 1},
       "ingredients": [
-        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 16, "source": "bazaar"},
+        {"item_tag": "REVENANT_FLESH", "display_name": "Revenant Flesh", "amount": 16, "source": "bazaar"},
         {"item_tag": "STICK", "display_name": "Stick", "amount": 1, "source": "fixed_cost", "fixed_coin_cost": 1}
       ],
       "requirements": {"min_slayer_levels": {"zombie": 1}, "notes": ["Zombie Slayer recipe"]},
@@ -13,7 +13,8 @@
       "output": {"tag": "WAND_OF_MENDING", "display_name": "Wand of Mending", "ah_category": "weapon", "quantity": 1},
       "ingredients": [
         {"item_tag": "WAND_OF_HEALING", "display_name": "Wand of Healing", "amount": 1, "source": "previous_recipe"},
-        {"item_tag": "ENCHANTED_ROTTEN_FLESH", "display_name": "Enchanted Rotten Flesh", "amount": 32, "source": "bazaar"}
+        {"item_tag": "REVENANT_VISCERA", "display_name": "Revenant Viscera", "amount": 1, "source": "bazaar"},
+        {"item_tag": "ENCHANTED_DARK_OAK_LOG", "display_name": "Enchanted Dark Oak Log", "amount": 12, "source": "bazaar"}
       ],
       "requirements": {"min_slayer_levels": {"zombie": 3}, "notes": ["Zombie Slayer recipe"]},
       "risk_tags": ["slayer_item"]
