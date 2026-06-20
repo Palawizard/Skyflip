@@ -39,6 +39,11 @@ class Recipe:
     ingredients: list[Ingredient]
     requirements: Requirements
     risk_tags: list[str]
+    verified: bool = False
+    confidence: str = "high"
+    source_notes: str = ""
+    last_verified: str = ""
+    requires_manual_verification: bool = False
 
 
 @dataclass(frozen=True)
@@ -53,6 +58,8 @@ def load_recipes(path: Path | str = "data/craft_recipes.json") -> list[Recipe]:
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
     recipes: list[Recipe] = []
     for item in raw.get("recipes", []):
+        if item.get("disabled"):
+            continue
         output = item["output"]
         requirements = item.get("requirements", {})
         recipes.append(
@@ -83,6 +90,11 @@ def load_recipes(path: Path | str = "data/craft_recipes.json") -> list[Recipe]:
                     notes=list(requirements.get("notes", [])),
                 ),
                 risk_tags=list(item.get("risk_tags", [])),
+                verified=bool(item.get("verified", False)),
+                confidence=str(item.get("confidence", "medium")).lower(),
+                source_notes=str(item.get("source_notes", "")),
+                last_verified=str(item.get("last_verified", "")),
+                requires_manual_verification=bool(item.get("requires_manual_verification", False)),
             )
         )
     return recipes
@@ -150,6 +162,11 @@ def check_eligibility(recipe: Recipe, profile: PlayerProfile) -> Eligibility:
 
     if recipe.requirements.notes:
         reasons.extend(recipe.requirements.notes)
+    if recipe.confidence == "medium":
+        confidence -= 0.05
+    elif recipe.confidence == "low" or recipe.requires_manual_verification:
+        confidence -= 0.25
+        reasons.append("recipe requires manual verification")
 
     return Eligibility(
         eligible=not missing,

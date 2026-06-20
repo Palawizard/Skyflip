@@ -20,6 +20,14 @@ class BazaarConversion:
     output_amount: float
     conversion_type: str
     craftable_manually: bool
+    manual_craft_operations: int = 1
+    manual_effort: str = "low"
+    requires_collection: dict[str, int] | None = None
+    verified: bool = False
+    confidence: str = "medium"
+    disabled: bool = False
+    disabled_reason: str = ""
+    requires_manual_verification: bool = False
     notes: str = ""
 
 
@@ -87,6 +95,8 @@ def load_conversions(path: Path | str = "data/bazaar_conversions.json") -> list[
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
     conversions: list[BazaarConversion] = []
     for item in raw.get("conversions", []):
+        if item.get("disabled"):
+            continue
         conversions.append(
             BazaarConversion(
                 name=item.get("name") or f"{item['input_product_id']} -> {item['output_product_id']}",
@@ -96,6 +106,14 @@ def load_conversions(path: Path | str = "data/bazaar_conversions.json") -> list[
                 output_amount=float(item.get("output_amount", 1)),
                 conversion_type=item.get("conversion_type", "compression"),
                 craftable_manually=bool(item.get("craftable_manually", True)),
+                manual_craft_operations=int(item.get("manual_craft_operations", 1) or 1),
+                manual_effort=str(item.get("manual_effort", "low")).lower(),
+                requires_collection={str(k).upper(): int(v) for k, v in (item.get("requires_collection") or {}).items()},
+                verified=bool(item.get("verified", False)),
+                confidence=str(item.get("confidence", "medium")).lower(),
+                disabled=bool(item.get("disabled", False)),
+                disabled_reason=str(item.get("disabled_reason", "")),
+                requires_manual_verification=bool(item.get("requires_manual_verification", False)),
                 notes=item.get("notes", ""),
             )
         )
@@ -213,14 +231,12 @@ def evaluate_conversion(
         rejection.append("speed confidence is too low")
     if batch <= 0:
         rejection.append("conversion requires too much capital")
-    if conversion.input_amount >= 160 and total_profit < config.min_profit * 2:
-        rejection.append("too much manual crafting for the profit")
     if output_product.top_sell_offer_depth > bottleneck_volume * 0.75 and bottleneck_volume > 0:
         rejection.append("output spread depends on thin or crowded orders")
 
     budget_fit = max(0.0, min(100.0, 100.0 * (1 - input_cost * max(batch, 1) / max(1.0, safe_capital))))
     competition = max(0.0, min(100.0, 100.0 - output_product.top_sell_offer_depth / max(1.0, bottleneck_volume) * 100))
-    effort_penalty = 8.0 if conversion.input_amount >= 160 else 0.0
+    effort_penalty = _manual_effort_penalty(conversion)
     score = score_generic_opportunity(
         profit=total_profit,
         profit_percent=profit_percent,
@@ -273,3 +289,14 @@ def _max_estimated_bottleneck_minutes(config: AnalyzerConfig) -> float:
 
 def _min_speed_confidence(config: AnalyzerConfig) -> float:
     return float(getattr(config, "min_speed_confidence", 35.0) or 0.0)
+
+
+def _manual_effort_penalty(conversion: BazaarConversion) -> float:
+    base = {"low": 4.0, "medium": 10.0, "high": 18.0}.get(conversion.manual_effort, 8.0)
+    operations = max(1, conversion.manual_craft_operations)
+    confidence = 0.0
+    if conversion.confidence == "medium":
+        confidence = 4.0
+    elif conversion.confidence == "low" or conversion.requires_manual_verification:
+        confidence = 12.0
+    return base + min(12.0, operations * 1.5) + confidence

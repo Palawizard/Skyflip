@@ -15,6 +15,7 @@ from .bazaar_order import find_bazaar_order_flips
 from .bazaar_spread import find_bazaar_spread_flips
 from .cache import FileCache
 from .cofl import CoflClient
+from .datasets import runtime_dataset_warning
 from .http import HttpClient
 from .onboarding import ensure_profile_configuration
 from .profile_fetcher import load_api_profile
@@ -85,6 +86,16 @@ def collect_dashboard_data(args, *, resolve_uuid) -> DashboardData:
     if not getattr(args, "player_name", None):
         args.player_name = profile.player_name
     warnings = list(profile.warnings)
+    dataset_warning = runtime_dataset_warning(
+        paths={
+            "accessories": getattr(args, "accessories_file", "data/accessories.json"),
+            "ah_watchlist": getattr(args, "ah_watchlist_file", "data/ah_watchlist.json"),
+            "bazaar_conversions": getattr(args, "bazaar_conversions_file", "data/bazaar_conversions.json"),
+            "craft_recipes": getattr(args, "recipes_file", "data/craft_recipes.json"),
+        }
+    )
+    if dataset_warning:
+        warnings.append(f"Dataset warning: {dataset_warning}")
     config = AnalyzerConfig(
         budget=args.budget,
         min_profit=args.min_profit,

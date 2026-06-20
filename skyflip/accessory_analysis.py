@@ -44,8 +44,13 @@ def analyze_accessories(
     rows: list[AccessoryRecommendation] = []
     ah_checks = 0
     for item in db.accessories:
+        if not filters.include_uncertain and (
+            item.uncertain_requirements or item.confidence == "low" or item.requires_manual_verification
+        ):
+            continue
         item_missing = item.item_id not in ownership.owned_exact and item.item_id not in ownership.covered_by_higher_tier
-        fetch_ah = bool(filters.include_ah and item_missing and ah_checks < filters.max_ah_checks)
+        skip_low_confidence_ah = item.auto_generated and item.confidence == "low" and not _is_upgrade_from_owned_family(item, ownership, db)
+        fetch_ah = bool(filters.include_ah and item_missing and not skip_low_confidence_ah and ah_checks < filters.max_ah_checks)
         if fetch_ah:
             ah_checks += 1
         rows.append(evaluate_accessory(item, profile, db, ownership, bazaar, cofl, filters=filters, days=days, fetch_ah=fetch_ah))
@@ -82,7 +87,7 @@ def analyze_accessories(
         locked=apply_accessory_filters(locked, AccessoryFilters(**{**filters.__dict__, "hide_locked": False, "show_locked": True})),
         all_missing=apply_accessory_filters(all_missing, AccessoryFilters(**{**filters.__dict__, "hide_locked": False})),
         owned=apply_accessory_filters(owned, AccessoryFilters(**{**filters.__dict__, "show_owned": True, "hide_locked": False})),
-        rows=rows,
+        rows=apply_accessory_filters(rows, filters),
         ownership=ownership,
     )
 
@@ -465,6 +470,8 @@ def _score(
     missing: list[str],
 ) -> tuple[float, list[str]]:
     if status in {"Locked", "Unknown requirements", "Unknown recipe"} and not ah.active.lowest_bin:
+        if entry.confidence == "low" or entry.requires_manual_verification:
+            return 0.0, missing[:2] or ["manual verification required"]
         return 8.0 if entry.uncertain_requirements else 0.0, missing[:2] or ["locked"]
     value_score = 18.0
     if coin_per_mp is not None:
@@ -484,6 +491,10 @@ def _score(
     penalty = 0.0
     if entry.uncertain_requirements:
         penalty += 12
+    if entry.confidence == "medium":
+        penalty += 4
+    elif entry.confidence == "low" or entry.requires_manual_verification:
+        penalty += 16
     if entry.soulbound:
         penalty += 8
     if ah.manipulated or ah.overpriced:

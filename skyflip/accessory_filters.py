@@ -54,7 +54,7 @@ def filters_from_args(args: Any) -> AccessoryFilters:
         only_ah=bool(getattr(args, "only_ah", False)),
         hide_locked=not bool(getattr(args, "show_locked", False) and getattr(args, "include_locked_accessories", True)),
         search=getattr(args, "accessory_search", None),
-        include_uncertain=bool(getattr(args, "include_uncertain_accessories", True)),
+        include_uncertain=bool(getattr(args, "include_uncertain_accessories", False)),
         include_manual=bool(getattr(args, "include_manual_unlocks", True)),
         include_ah=bool(getattr(args, "include_ah_accessories", True)),
         include_craftable=bool(getattr(args, "include_craftable_accessories", True)),
