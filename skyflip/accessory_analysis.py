@@ -43,12 +43,21 @@ def analyze_accessories(
     ownership = detect_owned_accessories(profile, db)
     rows: list[AccessoryRecommendation] = []
     ah_checks = 0
-    for item in db.accessories:
-        if not filters.include_uncertain and (
-            item.uncertain_requirements or item.confidence == "low" or item.requires_manual_verification
-        ):
-            continue
+    accessories = sorted(
+        db.accessories,
+        key=lambda item: (
+            not _is_upgrade_from_owned_family(item, ownership, db),
+            item.family_id,
+            item.tier_index,
+            item.display_name.lower(),
+        ),
+    )
+    for item in accessories:
         item_missing = item.item_id not in ownership.owned_exact and item.item_id not in ownership.covered_by_higher_tier
+        if not filters.include_uncertain and (
+            item.uncertain_requirements or item.confidence == "low"
+        ) and item_missing:
+            continue
         skip_low_confidence_ah = item.auto_generated and item.confidence == "low" and not _is_upgrade_from_owned_family(item, ownership, db)
         fetch_ah = bool(filters.include_ah and item_missing and not skip_low_confidence_ah and ah_checks < filters.max_ah_checks)
         if fetch_ah:

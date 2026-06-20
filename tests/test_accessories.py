@@ -177,7 +177,7 @@ def test_ganache_chocolate_slab_covers_smooth_chocolate_bar():
         FakeBazaar(),
         FakeCofl({"SMOOTH_CHOCOLATE_BAR": [50_000], "PRESTIGE_CHOCOLATE_REALM": [1_000_000]}),
         database=db,
-        filters=AccessoryFilters(max_recommendations=50),
+        filters=AccessoryFilters(max_recommendations=50, include_uncertain=True),
     )
 
     recommended = {row.entry.item_id for row in analysis.recommendations}
@@ -207,7 +207,7 @@ def test_auto_imported_non_suffix_chain_gets_inferred_family():
         FakeBazaar(),
         FakeCofl({"SMOOTH_CHOCOLATE_BAR": [50_000], "PRESTIGE_CHOCOLATE_REALM": [1_000_000]}),
         database=db,
-        filters=AccessoryFilters(max_recommendations=50),
+        filters=AccessoryFilters(max_recommendations=50, include_uncertain=True),
     )
 
     assert db.by_id["SMOOTH_CHOCOLATE_BAR"].family_id == "chocolate"
@@ -321,7 +321,7 @@ def test_ah_availability_normalization_and_safety():
         FakeBazaar(),
         FakeCofl({"SPIDER_TALISMAN": [50_000, 52_000, 55_000]}, {"SPIDER_TALISMAN": SoldSummary(median_price=54_000, sale_count=10)}),
         database=db,
-        filters=AccessoryFilters(only_ah=True),
+        filters=AccessoryFilters(only_ah=True, max_ah_checks=500),
     )
 
     spider = next(row for row in analysis.ah_available if row.entry.item_id == "SPIDER_TALISMAN")
@@ -443,7 +443,7 @@ def test_missing_inventory_warning_and_lower_confidence():
 def test_no_crash_when_ah_fails_or_requirements_uncertain():
     db = load_accessory_database("data/accessories.json")
     profile = PlayerProfile("PalaMC", "id", 0, 0, inventory_api_enabled=True)
-    analysis = analyze_accessories(profile, FakeBazaar(), FakeCofl(fail=True), database=db, filters=AccessoryFilters(show_locked=True, hide_locked=False))
+    analysis = analyze_accessories(profile, FakeBazaar(), FakeCofl(fail=True), database=db, filters=AccessoryFilters(show_locked=True, hide_locked=False, include_uncertain=True))
 
     assert analysis.rows
     assert any(row.entry.uncertain_requirements for row in analysis.rows)

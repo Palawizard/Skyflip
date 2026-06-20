@@ -222,7 +222,7 @@ class AccessoryFilters:
     only_ah: bool = False
     hide_locked: bool = True
     search: str | None = None
-    include_uncertain: bool = True
+    include_uncertain: bool = False
     include_manual: bool = True
     include_ah: bool = True
     include_craftable: bool = True

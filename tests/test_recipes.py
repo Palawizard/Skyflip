@@ -88,8 +88,8 @@ def test_wand_of_mending_stays_eligible_for_zombie_slayer_three():
 def test_craft_recipe_data_marks_unmarketable_and_uses_priceable_tags():
     recipes = {recipe.tag: recipe for recipe in load_recipes("data/craft_recipes.json")}
 
-    assert not recipes["POTION_AFFINITY_RING"].auctionable
-    assert not recipes["WOOD_AFFINITY_TALISMAN"].auctionable
+    assert not recipes["RING_POTION_AFFINITY"].auctionable
+    assert not recipes["WOOD_TALISMAN"].auctionable
     assert not recipes["WOLF_PAW"].auctionable
     assert any(ingredient.tag == "WATER_LILY" for ingredient in recipes["HEALING_TALISMAN"].ingredients)
     assert any(ingredient.tag == "WOLF_TOOTH" for ingredient in recipes["WOLF_PAW"].ingredients)

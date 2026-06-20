@@ -21,7 +21,13 @@ def apply_accessory_filters(rows: Iterable[AccessoryRecommendation], filters: Ac
     if not filters.show_owned:
         result = [row for row in result if not row.owned_exact and not row.covered_by_higher_tier]
     if not filters.include_uncertain:
-        result = [row for row in result if not row.entry.uncertain_requirements]
+        result = [
+            row
+            for row in result
+            if row.owned_exact
+            or row.covered_by_higher_tier
+            or not (row.entry.uncertain_requirements or row.entry.confidence == "low")
+        ]
     if not filters.include_manual:
         result = [row for row in result if "manual" not in row.entry.source_types and row.status != "Soulbound / manual unlock"]
     if not filters.include_craftable:

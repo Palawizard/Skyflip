@@ -35,7 +35,7 @@
     },
     {
       "auctionable": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Agarimoo Talisman",
@@ -48,28 +48,36 @@
       "notes": "Rift-related accessory.",
       "rarity": "common",
       "recipe": {
-        "ingredients": []
+        "ingredients": [
+          {
+            "display_name": "Agarimoo Tongue",
+            "item_id": "AGARIMOO_TONGUE",
+            "quantity": 9.0,
+            "source": "bazaar"
+          }
+        ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "mid",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "rift",
         "ah"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
-      "verified": false
+      "verified": true
     },
     {
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Agarimoo Artifact",
@@ -81,13 +89,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Agarimoo Tongue",
+            "item_id": "AGARIMOO_TONGUE",
+            "quantity": 512.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Agarimoo Ring",
+            "item_id": "AGARIMOO_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -102,7 +125,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Agarimoo Ring",
@@ -114,13 +137,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Agarimoo Tongue",
+            "item_id": "AGARIMOO_TONGUE",
+            "quantity": 96.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Agarimoo Talisman",
+            "item_id": "AGARIMOO_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -430,7 +468,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Artifact of Coins",
@@ -442,13 +480,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Freshly-Minted Coins",
+            "item_id": "FRESHLY_MINTED_COINS",
+            "quantity": 16.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Ring of Coins",
+            "item_id": "RING_OF_COINS",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -529,7 +582,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Potion Affinity Artifact",
@@ -541,13 +594,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Nether Wart",
+            "item_id": "ENCHANTED_NETHER_STALK",
+            "quantity": 256.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Potion Affinity Ring",
+            "item_id": "RING_POTION_AFFINITY",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "NETHER_STALK": 9
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -628,7 +700,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Bait Ring",
@@ -640,19 +712,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Ink Sac",
+            "item_id": "ENCHANTED_INK_SACK",
+            "quantity": 288.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "collections": {
+          "INK_SACK": 8
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -758,7 +843,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Bat Person Artifact",
@@ -770,13 +855,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Spooky Fragment",
+            "item_id": "SPOOKY_SHARD",
+            "quantity": 16.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Ectoplasm",
+            "item_id": "ECTOPLASM",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Bat Person Ring",
+            "item_id": "BAT_PERSON_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -791,7 +897,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Bat Person Ring",
@@ -803,13 +909,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Spooky Fragment",
+            "item_id": "SPOOKY_SHARD",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Ectoplasm",
+            "item_id": "ECTOPLASM",
+            "quantity": 32.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Bat Person Talisman",
+            "item_id": "BAT_PERSON_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -855,7 +982,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Beastmaster Crest",
@@ -867,13 +994,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "common",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Griffin Feather",
+            "item_id": "GRIFFIN_FEATHER",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Ancient Claw",
+            "item_id": "ANCIENT_CLAW",
+            "quantity": 40.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Milk Bucket",
+            "item_id": "MILK_BUCKET",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -888,7 +1036,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Beastmaster Crest",
@@ -900,13 +1048,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Griffin Feather",
+            "item_id": "GRIFFIN_FEATHER",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Ancient Claw",
+            "item_id": "ENCHANTED_ANCIENT_CLAW",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Beastmaster Crest",
+            "item_id": "BEASTMASTER_CREST_RARE",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -921,7 +1090,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Beastmaster Crest",
@@ -933,13 +1102,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "legendary",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Griffin Feather",
+            "item_id": "GRIFFIN_FEATHER",
+            "quantity": 256.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Ancient Claw",
+            "item_id": "ENCHANTED_ANCIENT_CLAW",
+            "quantity": 32.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Beastmaster Crest",
+            "item_id": "BEASTMASTER_CREST_EPIC",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -954,7 +1144,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Beastmaster Crest",
@@ -966,13 +1156,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Griffin Feather",
+            "item_id": "GRIFFIN_FEATHER",
+            "quantity": 32.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Ancient Claw",
+            "item_id": "ANCIENT_CLAW",
+            "quantity": 256.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Beastmaster Crest",
+            "item_id": "BEASTMASTER_CREST_UNCOMMON",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -987,7 +1198,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Beastmaster Crest",
@@ -999,13 +1210,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Griffin Feather",
+            "item_id": "GRIFFIN_FEATHER",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Ancient Claw",
+            "item_id": "ANCIENT_CLAW",
+            "quantity": 80.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Beastmaster Crest",
+            "item_id": "BEASTMASTER_CREST_COMMON",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -1346,7 +1578,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Blaze Talisman",
@@ -1358,19 +1590,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Millennia-Old Blaze Ashes",
+            "item_id": "MILLENIA_OLD_BLAZE_ASHES",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Blaze Rod",
+            "item_id": "ENCHANTED_BLAZE_ROD",
+            "quantity": 8.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -1379,7 +1626,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Blood Donor Artifact",
@@ -1391,13 +1638,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Hemobomb",
+            "item_id": "HEMOBOMB",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Blood Donor Ring",
+            "item_id": "BLOOD_DONOR_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "HEMOVIBE": 9
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -1412,7 +1678,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Blood Donor Ring",
@@ -1424,13 +1690,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Hemoglass",
+            "item_id": "HEMOGLASS",
+            "quantity": 96.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Blood Donor Talisman",
+            "item_id": "BLOOD_DONOR_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "HEMOVIBE": 6
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -1445,7 +1730,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Blood Donor Talisman",
@@ -1457,19 +1742,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "common",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Hemovibe",
+            "item_id": "HEMOVIBE",
+            "quantity": 108.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "collections": {
+          "HEMOVIBE": 2
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -1577,7 +1875,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Bluertooth Ring",
@@ -1589,13 +1887,40 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Blue Ring",
+            "item_id": "BLUE_RING",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "§3Blue Goblin Egg",
+            "item_id": "GOBLIN_EGG_BLUE",
+            "quantity": 2.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Blue Shark Tooth",
+            "item_id": "BLUE_SHARK_TOOTH",
+            "quantity": 16.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Bluetooth Ring",
+            "item_id": "BLUETOOTH_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -1610,7 +1935,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Bluetooth Ring",
@@ -1622,13 +1947,26 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Living Metal Heart",
+            "item_id": "METAL_HEART",
+            "quantity": 32.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "METAL_HEART": 3
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -1775,7 +2113,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Burststopper Artifact",
@@ -1787,13 +2125,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Molten Powder",
+            "item_id": "MOLTEN_POWDER",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Whipped Magma Cream",
+            "item_id": "WHIPPED_MAGMA_CREAM",
+            "quantity": 80.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Burststopper Talisman",
+            "item_id": "BURSTSTOPPER_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "slayers": {
+          "blaze": 7
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -1808,7 +2171,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Burststopper Talisman",
@@ -1820,19 +2183,44 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Whipped Magma Cream",
+            "item_id": "WHIPPED_MAGMA_CREAM",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Molten Powder",
+            "item_id": "MOLTEN_POWDER",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Refined Titanium",
+            "item_id": "REFINED_TITANIUM",
+            "quantity": 6.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "slayers": {
+          "blaze": 3
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -3053,7 +3441,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Catacombs Expert Ring",
@@ -3065,19 +3453,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Wither Catalyst",
+            "item_id": "WITHER_CATALYST",
+            "quantity": 24.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -3338,7 +3735,7 @@
     },
     {
       "auctionable": true,
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Talisman of Coins",
@@ -3351,18 +3748,37 @@
       "notes": "Usually obtained from Bat Pinata or bought from AH.",
       "rarity": "common",
       "recipe": {
-        "ingredients": []
+        "ingredients": [
+          {
+            "display_name": "Emerald",
+            "item_id": "EMERALD",
+            "quantity": 20.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Gold Ingot",
+            "item_id": "GOLD_INGOT",
+            "quantity": 5.0,
+            "source": "bazaar"
+          }
+        ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "early",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "EMERALD": 2
+        }
+      },
       "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "quest"
       ],
       "tier_index": 0,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -3601,7 +4017,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Cropie Talisman",
@@ -3613,19 +4029,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "common",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Cropie",
+            "item_id": "CROPIE",
+            "quantity": 256.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -3634,7 +4059,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Crux Talisman",
@@ -3646,13 +4071,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "common",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Shy Crux",
+            "item_id": "SHAME_CRUX",
+            "quantity": 8.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -3667,7 +4101,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Crux Ring",
@@ -3679,19 +4113,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Shadow Crux",
+            "item_id": "SHADOW_CRUX",
+            "quantity": 16.0,
+            "source": "ah"
+          },
+          {
+            "display_name": "Crux Talisman",
+            "item_id": "CRUX_TALISMAN_1",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -3931,7 +4380,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Day Crystal",
@@ -3943,19 +4392,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Nether Quartz",
+            "item_id": "ENCHANTED_QUARTZ",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Quartz Block",
+            "item_id": "ENCHANTED_QUARTZ_BLOCK",
+            "quantity": 1.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "collections": {
+          "QUARTZ": 8
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -3997,7 +4465,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Devour Ring",
@@ -4009,19 +4477,44 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Raw Chicken",
+            "item_id": "ENCHANTED_RAW_CHICKEN",
+            "quantity": 2.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Raw Salmon",
+            "item_id": "ENCHANTED_RAW_SALMON",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Revenant Viscera",
+            "item_id": "REVENANT_VISCERA",
+            "quantity": 39.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "slayers": {
+          "zombie": 5
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -4030,7 +4523,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Draconic Artifact",
@@ -4042,13 +4535,40 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Ritual Residue",
+            "item_id": "RITUAL_RESIDUE",
+            "quantity": 12.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Tessellated Ender Pearl",
+            "item_id": "TESSELLATED_ENDER_PEARL",
+            "quantity": 2.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Mite Gel",
+            "item_id": "MITE_GEL",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Draconic Ring",
+            "item_id": "DRACONIC_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -4063,7 +4583,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Draconic Ring",
@@ -4075,13 +4595,40 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Ritual Residue",
+            "item_id": "RITUAL_RESIDUE",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Mite Gel",
+            "item_id": "MITE_GEL",
+            "quantity": 96.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Draconic Talisman",
+            "item_id": "DRACONIC_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          },
+          {
+            "display_name": "Tessellated Ender Pearl",
+            "item_id": "TESSELLATED_ENDER_PEARL",
+            "quantity": 1.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -4096,7 +4643,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Draconic Talisman",
@@ -4108,19 +4655,40 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Ritual Residue",
+            "item_id": "RITUAL_RESIDUE",
+            "quantity": 2.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Mite Gel",
+            "item_id": "MITE_GEL",
+            "quantity": 96.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Absolute Ender Pearl",
+            "item_id": "ABSOLUTE_ENDER_PEARL",
+            "quantity": 32.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -4129,7 +4697,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Dull Shark Tooth Necklace",
@@ -4141,13 +4709,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Nurse Shark Tooth",
+            "item_id": "NURSE_SHARK_TOOTH",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Raggedy Shark Tooth Necklace",
+            "item_id": "RAGGEDY_SHARK_TOOTH_NECKLACE",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -4195,7 +4778,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Emerald Artifact",
@@ -4207,13 +4790,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Emerald Block",
+            "item_id": "ENCHANTED_EMERALD_BLOCK",
+            "quantity": 36.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Emerald Ring",
+            "item_id": "EMERALD_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          },
+          {
+            "display_name": "Avaricious Chalice",
+            "item_id": "AVARICIOUS_CHALICE",
+            "quantity": 1.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -4228,7 +4832,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Emerald Ring",
@@ -4240,19 +4844,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Emerald",
+            "item_id": "ENCHANTED_EMERALD",
+            "quantity": 32.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "collections": {
+          "EMERALD": 5
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -4459,7 +5076,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Eternal Hoof",
@@ -4471,13 +5088,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Soul Fragment",
+            "item_id": "SOUL_FRAGMENT",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Lucky Hoof",
+            "item_id": "LUCKY_HOOF",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -4540,7 +5172,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Farmer Orb",
@@ -4552,19 +5184,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Pumpkin",
+            "item_id": "ENCHANTED_PUMPKIN",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Glowstone",
+            "item_id": "ENCHANTED_GLOWSTONE",
+            "quantity": 1.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "collections": {
+          "PUMPKIN": 6
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -4613,7 +5264,7 @@
     },
     {
       "auctionable": true,
-      "confidence": "medium",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Feather Talisman",
@@ -4630,11 +5281,12 @@
           {
             "display_name": "Feather",
             "item_id": "FEATHER",
-            "quantity": 108,
+            "quantity": 108.0,
             "source": "bazaar"
           }
         ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "early",
       "requirements": {
         "collections": {
@@ -4643,12 +5295,13 @@
       },
       "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "craft",
         "ah"
       ],
       "tier_index": 0,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": "FEATHER_RING",
       "verified": true
@@ -4657,7 +5310,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Feather Ring",
@@ -4669,13 +5322,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Feather",
+            "item_id": "ENCHANTED_FEATHER",
+            "quantity": 7.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Feather Talisman",
+            "item_id": "FEATHER_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "FEATHER": 7
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -4690,7 +5362,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Feather Artifact",
@@ -4702,13 +5374,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Feather",
+            "item_id": "ENCHANTED_FEATHER",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Feather Ring",
+            "item_id": "FEATHER_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "FEATHER": 9
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -4723,7 +5414,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Fermento Artifact",
@@ -4735,13 +5426,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Condensed Fermento",
+            "item_id": "CONDENSED_FERMENTO",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Squash Ring",
+            "item_id": "SQUASH_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -4756,7 +5462,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Fiery Kuudra Core",
@@ -4768,13 +5474,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Burning Kuudra Core",
+            "item_id": "BURNING_KUUDRA_CORE",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -5124,7 +5839,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Future Calories Talisman",
@@ -5136,13 +5851,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "common",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Raw Cod",
+            "item_id": "ENCHANTED_RAW_FISH",
+            "quantity": 384.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Silver Magmafish",
+            "item_id": "MAGMA_FISH_SILVER",
+            "quantity": 48.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Pre-Digestion Fish",
+            "item_id": "PRE_DIGESTION_FISH",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -5256,7 +5992,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Glacial Artifact",
@@ -5268,13 +6004,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Glacial Fragment",
+            "item_id": "GLACIAL_FRAGMENT",
+            "quantity": 40.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Packed Ice",
+            "item_id": "ENCHANTED_PACKED_ICE",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Glacial Ring",
+            "item_id": "GLACIAL_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "ICE": 8
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -5289,7 +6050,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Glacial Ring",
@@ -5301,13 +6062,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Glacial Fragment",
+            "item_id": "GLACIAL_FRAGMENT",
+            "quantity": 20.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Ice",
+            "item_id": "ENCHANTED_ICE",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Glacial Talisman",
+            "item_id": "GLACIAL_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "ICE": 6
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -5322,7 +6108,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Glossy Mineral Talisman",
@@ -5334,13 +6120,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Glossy Gemstone",
+            "item_id": "GLOSSY_GEMSTONE",
+            "quantity": 16.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Mineral Talisman",
+            "item_id": "MINERAL_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -5760,7 +6561,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Haste Artifact",
@@ -5772,13 +6573,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Cobblestone",
+            "item_id": "ENCHANTED_COBBLESTONE",
+            "quantity": 256.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Haste Ring",
+            "item_id": "HASTE_RING",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -5835,7 +6651,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Healing Ring",
@@ -5847,13 +6663,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Lily Pad",
+            "item_id": "ENCHANTED_WATER_LILY",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Healing Talisman",
+            "item_id": "HEALING_TALISMAN",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "WATER_LILY": 8
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -6009,7 +6844,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Honed Shark Tooth Necklace",
@@ -6021,13 +6856,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Blue Shark Tooth",
+            "item_id": "BLUE_SHARK_TOOTH",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Dull Shark Tooth Necklace",
+            "item_id": "DULL_SHARK_TOOTH_NECKLACE",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -6042,7 +6892,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Hunter Ring",
@@ -6054,19 +6904,44 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Golden Tooth",
+            "item_id": "GOLDEN_TOOTH",
+            "quantity": 224.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Grizzly Salmon",
+            "item_id": "GRIZZLY_BAIT",
+            "quantity": 1.0,
+            "source": "ah"
+          },
+          {
+            "display_name": "Hunter Talisman",
+            "item_id": "HUNTER_TALISMAN",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "slayers": {
+          "wolf": 7
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -6075,7 +6950,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Hunter Talisman",
@@ -6087,19 +6962,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Golden Tooth",
+            "item_id": "GOLDEN_TOOTH",
+            "quantity": 64.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Rotten Flesh",
+            "item_id": "ENCHANTED_ROTTEN_FLESH",
+            "quantity": 32.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "slayers": {
+          "wolf": 7
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -6108,7 +7002,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Infernal Kuudra Core",
@@ -6120,13 +7014,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "legendary",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Fiery Kuudra Core",
+            "item_id": "FIERY_KUUDRA_CORE",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -6261,7 +7164,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Intimidation Relic",
@@ -6273,13 +7176,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Scare Fragment",
+            "item_id": "SCARE_FRAGMENT",
+            "quantity": 8.0,
+            "source": "ah"
+          },
+          {
+            "display_name": "Intimidation Artifact",
+            "item_id": "INTIMIDATION_ARTIFACT",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -6390,7 +7308,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Blue Jerry Talisman",
@@ -6402,13 +7320,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Green Jerry Talisman",
+            "item_id": "JERRY_TALISMAN_GREEN",
+            "quantity": 5.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -6423,7 +7350,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Golden Jerry Artifact",
@@ -6435,13 +7362,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "legendary",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Purple Jerry Talisman",
+            "item_id": "JERRY_TALISMAN_PURPLE",
+            "quantity": 5.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -6489,7 +7425,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Purple Jerry Talisman",
@@ -6501,13 +7437,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Blue Jerry Talisman",
+            "item_id": "JERRY_TALISMAN_BLUE",
+            "quantity": 5.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -6991,7 +7936,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Lush Artifact",
@@ -7003,13 +7948,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Lush Berberis",
+            "item_id": "ENCHANTED_LUSH_BERBERIS",
+            "quantity": 512.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Lush Ring",
+            "item_id": "LUSH_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -7024,7 +7984,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Lush Ring",
@@ -7036,13 +7996,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Lush Berberis",
+            "item_id": "ENCHANTED_LUSH_BERBERIS",
+            "quantity": 64.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Lush Talisman",
+            "item_id": "LUSH_TALISMAN",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -7057,7 +8032,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Lush Talisman",
@@ -7069,19 +8044,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Lush Berberis",
+            "item_id": "LUSH_BERBERIS",
+            "quantity": 576.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -7231,7 +8215,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Master Skull - Tier 2",
@@ -7243,13 +8227,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "common",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Master Skull - Tier 1",
+            "item_id": "MASTER_SKULL_TIER_1",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -7264,7 +8257,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Master Skull - Tier 3",
@@ -7276,13 +8269,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Master Skull - Tier 2",
+            "item_id": "MASTER_SKULL_TIER_2",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -7297,7 +8299,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Master Skull - Tier 4",
@@ -7309,13 +8311,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Master Skull - Tier 3",
+            "item_id": "MASTER_SKULL_TIER_3",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -7330,7 +8341,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Master Skull - Tier 5",
@@ -7342,13 +8353,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Master Skull - Tier 4",
+            "item_id": "MASTER_SKULL_TIER_4",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -7363,7 +8383,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Master Skull - Tier 6",
@@ -7375,13 +8395,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Master Skull - Tier 5",
+            "item_id": "MASTER_SKULL_TIER_5",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -7396,7 +8425,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Master Skull - Tier 7",
@@ -7408,13 +8437,22 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "legendary",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Master Skull - Tier 6",
+            "item_id": "MASTER_SKULL_TIER_6",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -7626,7 +8664,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Mineral Talisman",
@@ -7638,19 +8676,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Refined Mineral",
+            "item_id": "REFINED_MINERAL",
+            "quantity": 9.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -7922,7 +8969,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Night Crystal",
@@ -7934,19 +8981,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Nether Quartz",
+            "item_id": "ENCHANTED_QUARTZ",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Quartz Block",
+            "item_id": "ENCHANTED_QUARTZ_BLOCK",
+            "quantity": 1.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "collections": {
+          "QUARTZ": 7
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -8390,7 +9456,7 @@
     },
     {
       "auctionable": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Personal Compactor 4000",
@@ -8405,42 +9471,43 @@
       "recipe": {
         "ingredients": [
           {
-            "display_name": "Enchanted Redstone Block",
-            "item_id": "ENCHANTED_REDSTONE_BLOCK",
-            "quantity": 7,
+            "display_name": "Enchanted Redstone Dust",
+            "item_id": "ENCHANTED_REDSTONE",
+            "quantity": 448.0,
             "source": "bazaar"
           },
           {
             "display_name": "Super Compactor 3000",
             "item_id": "SUPER_COMPACTOR_3000",
-            "quantity": 1,
+            "quantity": 1.0,
             "source": "bazaar"
           }
         ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "early-mid",
       "requirements": {
         "collections": {
           "REDSTONE": 9
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "craft",
         "ah",
         "mining"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": "PERSONAL_COMPACTOR_5000",
-      "verified": false
+      "verified": true
     },
     {
       "auctionable": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Personal Compactor 5000",
@@ -8455,28 +9522,29 @@
       "recipe": {
         "ingredients": [
           {
-            "display_name": "Personal Compactor 4000",
-            "item_id": "PERSONAL_COMPACTOR_4000",
-            "quantity": 1,
-            "source": "previous_tier"
-          },
-          {
             "display_name": "Enchanted Redstone Block",
             "item_id": "ENCHANTED_REDSTONE_BLOCK",
-            "quantity": 14,
+            "quantity": 14.0,
             "source": "bazaar"
+          },
+          {
+            "display_name": "Personal Compactor 4000",
+            "item_id": "PERSONAL_COMPACTOR_4000",
+            "quantity": 1.0,
+            "source": "ah"
           }
         ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "mid",
       "requirements": {
         "collections": {
-          "REDSTONE": 10
+          "REDSTONE": 11
         }
       },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "craft",
         "ah",
@@ -8486,11 +9554,11 @@
       "uncertain_requirements": true,
       "upgrade_from": "PERSONAL_COMPACTOR_4000",
       "upgrade_to": "PERSONAL_COMPACTOR_6000",
-      "verified": false
+      "verified": true
     },
     {
       "auctionable": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Personal Compactor 6000",
@@ -8505,28 +9573,29 @@
       "recipe": {
         "ingredients": [
           {
-            "display_name": "Personal Compactor 5000",
-            "item_id": "PERSONAL_COMPACTOR_5000",
-            "quantity": 1,
-            "source": "previous_tier"
-          },
-          {
             "display_name": "Enchanted Redstone Block",
             "item_id": "ENCHANTED_REDSTONE_BLOCK",
-            "quantity": 21,
+            "quantity": 28.0,
             "source": "bazaar"
+          },
+          {
+            "display_name": "Personal Compactor 5000",
+            "item_id": "PERSONAL_COMPACTOR_5000",
+            "quantity": 1.0,
+            "source": "ah"
           }
         ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "mid",
       "requirements": {
         "collections": {
-          "REDSTONE": 11
+          "REDSTONE": 13
         }
       },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "craft",
         "ah",
@@ -8536,11 +9605,11 @@
       "uncertain_requirements": true,
       "upgrade_from": "PERSONAL_COMPACTOR_5000",
       "upgrade_to": "PERSONAL_COMPACTOR_7000",
-      "verified": false
+      "verified": true
     },
     {
       "auctionable": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Personal Compactor 7000",
@@ -8555,42 +9624,43 @@
       "recipe": {
         "ingredients": [
           {
-            "display_name": "Personal Compactor 6000",
-            "item_id": "PERSONAL_COMPACTOR_6000",
-            "quantity": 1,
-            "source": "previous_tier"
-          },
-          {
             "display_name": "Enchanted Redstone Block",
             "item_id": "ENCHANTED_REDSTONE_BLOCK",
-            "quantity": 28,
+            "quantity": 56.0,
             "source": "bazaar"
+          },
+          {
+            "display_name": "Personal Compactor 6000",
+            "item_id": "PERSONAL_COMPACTOR_6000",
+            "quantity": 1.0,
+            "source": "previous_tier"
           }
         ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "mid",
       "requirements": {
         "collections": {
-          "REDSTONE": 12
+          "REDSTONE": 14
         }
       },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "craft",
         "ah",
         "mining"
       ],
       "tier_index": 3,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": "PERSONAL_COMPACTOR_6000",
       "upgrade_to": null,
-      "verified": false
+      "verified": true
     },
     {
       "auctionable": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Personal Deletor 4000",
@@ -8605,44 +9675,51 @@
       "recipe": {
         "ingredients": [
           {
-            "display_name": "Enchanted Iron Block",
-            "item_id": "ENCHANTED_IRON_BLOCK",
-            "quantity": 6,
+            "display_name": "Enchanted Iron Ingot",
+            "item_id": "ENCHANTED_IRON",
+            "quantity": 112.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Lava Bucket",
+            "item_id": "ENCHANTED_LAVA_BUCKET",
+            "quantity": 1.0,
             "source": "bazaar"
           },
           {
             "display_name": "Enchanted Redstone Block",
             "item_id": "ENCHANTED_REDSTONE_BLOCK",
-            "quantity": 2,
+            "quantity": 1.0,
             "source": "bazaar"
           }
         ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "mid",
       "requirements": {
         "collections": {
           "IRON_INGOT": 9
         }
       },
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "craft",
         "ah",
         "mining"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": "PERSONAL_DELETOR_5000",
-      "verified": false
+      "verified": true
     },
     {
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Personal Deletor 5000",
@@ -8654,19 +9731,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Iron Ingot",
+            "item_id": "ENCHANTED_IRON",
+            "quantity": 224.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Personal Deletor 4000",
+            "item_id": "PERSONAL_DELETOR_4000",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "IRON_INGOT": 10
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 1,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": "PERSONAL_DELETOR_4000",
       "upgrade_to": "PERSONAL_DELETOR_6000",
       "verified": true
@@ -8675,7 +9771,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Personal Deletor 6000",
@@ -8687,19 +9783,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Iron Ingot",
+            "item_id": "ENCHANTED_IRON",
+            "quantity": 448.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Personal Deletor 5000",
+            "item_id": "PERSONAL_DELETOR_5000",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "IRON_INGOT": 11
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 2,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": "PERSONAL_DELETOR_5000",
       "upgrade_to": "PERSONAL_DELETOR_7000",
       "verified": true
@@ -8708,7 +9823,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Personal Deletor 7000",
@@ -8720,19 +9835,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "legendary",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Iron Block",
+            "item_id": "ENCHANTED_IRON_BLOCK",
+            "quantity": 7.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Personal Deletor 6000",
+            "item_id": "PERSONAL_DELETOR_6000",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "IRON_INGOT": 12
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 3,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": "PERSONAL_DELETOR_6000",
       "upgrade_to": null,
       "verified": true
@@ -9206,7 +10340,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Artifact of Power",
@@ -9218,19 +10352,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Gemstone Mixture",
+            "item_id": "GEMSTONE_MIXTURE",
+            "quantity": 32.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Ring of Power",
+            "item_id": "POWER_RING",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "GEMSTONE_COLLECTION": 10
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -9272,7 +10425,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Ring of Power",
@@ -9284,19 +10437,44 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Fine Ruby Gemstone",
+            "item_id": "FINE_RUBY_GEM",
+            "quantity": 7.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Gemstone Mixture",
+            "item_id": "GEMSTONE_MIXTURE",
+            "quantity": 1.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Talisman of Power",
+            "item_id": "POWER_TALISMAN",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "GEMSTONE_COLLECTION": 6
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -9305,7 +10483,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Talisman of Power",
@@ -9317,19 +10495,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "common",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Flawed Ruby Gemstone",
+            "item_id": "FLAWED_RUBY_GEM",
+            "quantity": 45.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "collections": {
+          "GEMSTONE_COLLECTION": 4
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -9437,7 +10628,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Pulse Ring",
@@ -9449,19 +10640,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Orb of Energy",
+            "item_id": "ORB_OF_ENERGY",
+            "quantity": 256.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -9536,7 +10736,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Razor-sharp Shark Tooth Necklace",
@@ -9548,19 +10748,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "legendary",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Great White Shark Tooth",
+            "item_id": "GREAT_WHITE_SHARK_TOOTH",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Sharp Shark Tooth Necklace",
+            "item_id": "SHARP_SHARK_TOOTH_NECKLACE",
+            "quantity": 1.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -9569,7 +10784,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Reaper Orb",
@@ -9581,19 +10796,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "legendary",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Scythe Blade",
+            "item_id": "SCYTHE_BLADE",
+            "quantity": 8.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "slayers": {
+          "zombie": 8
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -9778,7 +11006,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Relic of Coins",
@@ -9790,19 +11018,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Freshly-Minted Coins",
+            "item_id": "FRESHLY_MINTED_COINS",
+            "quantity": 64.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Artifact of Coins",
+            "item_id": "ARTIFACT_OF_COINS",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -9976,7 +11219,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Ring of Coins",
@@ -9988,19 +11231,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Freshly-Minted Coins",
+            "item_id": "FRESHLY_MINTED_COINS",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Talisman of Coins",
+            "item_id": "COIN_TALISMAN",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -10273,7 +11531,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Scarf's Grimoire",
@@ -10285,19 +11543,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "legendary",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Scarf's Thesis",
+            "item_id": "SCARF_THESIS",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -10339,7 +11606,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Scarf's Thesis",
@@ -10351,19 +11618,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Scarf's Studies",
+            "item_id": "SCARF_STUDIES",
+            "quantity": 4.0,
+            "source": "ah"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -10503,7 +11779,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Sea Creature Ring",
@@ -10515,19 +11791,44 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Sponge",
+            "item_id": "SPONGE",
+            "quantity": 6.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Enchanted Sponge",
+            "item_id": "ENCHANTED_SPONGE",
+            "quantity": 2.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Sea Creature Talisman",
+            "item_id": "SEA_CREATURE_TALISMAN",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "SPONGE": 6
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -10536,7 +11837,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Sea Creature Talisman",
@@ -10548,19 +11849,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "common",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Sponge",
+            "item_id": "SPONGE",
+            "quantity": 18.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "collections": {
+          "SPONGE": 4
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -10697,7 +12011,7 @@
     },
     {
       "auctionable": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Raggedy Shark Tooth Necklace",
@@ -10710,29 +12024,43 @@
       "notes": "Fishing Festival accessory.",
       "rarity": "common",
       "recipe": {
-        "ingredients": []
+        "ingredients": [
+          {
+            "display_name": "Shark Fin",
+            "item_id": "SHARK_FIN",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Nurse Shark Tooth",
+            "item_id": "NURSE_SHARK_TOOTH",
+            "quantity": 1.0,
+            "source": "bazaar"
+          }
+        ]
       },
+      "recipe_verified": true,
       "recommended_for_stage": "early-mid",
       "requirements": {},
-      "requires_manual_verification": true,
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Existing local SkyFlip dataset; verify recipe/source before aggressive recommendations.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "fishing",
         "event",
         "ah"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
-      "verified": false
+      "verified": true
     },
     {
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Sharp Shark Tooth Necklace",
@@ -10744,19 +12072,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Tiger Shark Tooth",
+            "item_id": "TIGER_SHARK_TOOTH",
+            "quantity": 4.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Honed Shark Tooth Necklace",
+            "item_id": "HONED_SHARK_TOOTH_NECKLACE",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -11765,7 +13108,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Soulflow Battery",
@@ -11777,19 +13120,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Null Ovoid",
+            "item_id": "NULL_OVOID",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Soulflow Pile",
+            "item_id": "SOULFLOW_PILE",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "slayers": {
+          "enderman": 5
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -11798,7 +13160,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "high",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Soulflow Pile",
@@ -11810,19 +13172,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Null Sphere",
+            "item_id": "NULL_SPHERE",
+            "quantity": 90.0,
+            "source": "bazaar"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
-      "requires_manual_verification": true,
+      "requirements": {
+        "slayers": {
+          "enderman": 2
+        }
+      },
+      "requires_manual_verification": false,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -11864,7 +13239,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Speed Artifact",
@@ -11876,19 +13251,38 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Sugar Cane",
+            "item_id": "ENCHANTED_SUGAR_CANE",
+            "quantity": 48.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Speed Ring",
+            "item_id": "SPEED_RING",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "SUGAR_CANE": 8
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -11930,7 +13324,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Speed Ring",
@@ -11942,13 +13336,32 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Sugar",
+            "item_id": "ENCHANTED_SUGAR",
+            "quantity": 96.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Speed Talisman",
+            "item_id": "SPEED_TALISMAN",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
-      "requirements": {},
+      "requirements": {
+        "collections": {
+          "SUGAR_CANE": 5
+        }
+      },
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
@@ -12103,7 +13516,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Spiked Atrocity",
@@ -12115,19 +13528,40 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "epic",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Enchanted Ink Sac",
+            "item_id": "ENCHANTED_INK_SACK",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Spiked Bait",
+            "item_id": "SPIKED_BAIT",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Bait Ring",
+            "item_id": "BAIT_RING",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -12136,7 +13570,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Squash Ring",
@@ -12148,19 +13582,34 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "uncommon",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Squash",
+            "item_id": "SQUASH",
+            "quantity": 128.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Cropie Talisman",
+            "item_id": "CROPIE_TALISMAN",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
       ],
       "tier_index": 0,
-      "uncertain_requirements": true,
+      "uncertain_requirements": false,
       "upgrade_from": null,
       "upgrade_to": null,
       "verified": true
@@ -12818,7 +14267,7 @@
       "aliases": [],
       "auctionable": true,
       "auto_generated": true,
-      "confidence": "low",
+      "confidence": "medium",
       "disabled": false,
       "disabled_reason": "",
       "display_name": "Vaccine Artifact",
@@ -12830,13 +14279,28 @@
       "museum_required_if_any": null,
       "notes": "Imported from Hypixel item resources. Requirements and exact source need manual verification.",
       "rarity": "rare",
-      "recipe": null,
-      "recipe_verified": false,
+      "recipe": {
+        "ingredients": [
+          {
+            "display_name": "Poison Sample",
+            "item_id": "POISON_SAMPLE",
+            "quantity": 8.0,
+            "source": "bazaar"
+          },
+          {
+            "display_name": "Vaccine Ring",
+            "item_id": "VACCINE_RING",
+            "quantity": 1.0,
+            "source": "previous_tier"
+          }
+        ]
+      },
+      "recipe_verified": true,
       "recommended_for_stage": "any",
       "requirements": {},
       "requires_manual_verification": true,
       "soulbound": false,
-      "source_notes": "Hypixel SkyBlock item resources API for item ID, name, rarity, category, and soulbound flag only.",
+      "source_notes": "NotEnoughUpdates-REPO structured recipe data; output cross-checked against Hypixel item resources and Bazaar ingredient IDs cross-checked against live Hypixel Bazaar.",
       "source_types": [
         "ah",
         "manual"
