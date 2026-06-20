@@ -4,7 +4,7 @@ import argparse
 import sys
 import threading
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime
 from pathlib import Path
 from types import SimpleNamespace
@@ -97,6 +97,27 @@ from .dashboard_menu_ui import (
 )
 
 
+
+
+TALISMAN_SORTS = ("score", "cost", "coin-per-mp", "rarity", "name", "status")
+TALISMAN_SORT_LABELS = {
+    "score": "score",
+    "cost": "cost",
+    "coin-per-mp": "coin/MP",
+    "rarity": "rarity",
+    "name": "name",
+    "status": "status",
+}
+RARITY_SORT = {
+    "common": 1,
+    "uncommon": 2,
+    "rare": 3,
+    "epic": 4,
+    "legendary": 5,
+    "mythic": 6,
+    "special": 7,
+    "very special": 8,
+}
 
 
 @dataclass
@@ -1463,13 +1484,16 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
         if data is None:
             print("No results loaded. Refresh results first.")
             return
-        sort_key = _section_sort_key(state, key)
+        sort_key = _current_talisman_sort(state) if key == "talisman" else _section_sort_key(state, key)
         display_data = _module_scoped_data(data, module, key) if module is not None else data
-        sorted_data = _sorted_section_data(display_data, key, sort_key)
+        sorted_data = _sorted_talisman_data(display_data, sort_key) if key == "talisman" else _sorted_section_data(display_data, key, sort_key)
         def draw_screen() -> None:
             _clear_screen()
             _draw_header(SECTION_LABELS.get(key, _section_name(key)), args, state)
-            _draw_sort_hint(key, sort_key)
+            if key == "talisman":
+                _draw_talisman_sort_hint(sort_key)
+            else:
+                _draw_sort_hint(key, sort_key)
             if module is not None:
                 print(f"Filters: {_module_filter_summary(args, module)}")
             print()
@@ -1505,15 +1529,22 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
                 print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
 
         choice = _read_result_section_key(
-            draw_screen if key == "talisman" else draw_interactive_screen,
+            draw_screen,
+            redraw_screen=draw_interactive_screen,
             static_render=key == "talisman",
             footer="Up/Down scroll   Left/Right change sort   D details   R refresh   Enter/Esc back",
         )
         if choice == "left":
-            _cycle_section_sort(state, key, -1)
+            if key == "talisman":
+                _cycle_talisman_sort(state, -1)
+            else:
+                _cycle_section_sort(state, key, -1)
             continue
         if choice == "right":
-            _cycle_section_sort(state, key, 1)
+            if key == "talisman":
+                _cycle_talisman_sort(state, 1)
+            else:
+                _cycle_section_sort(state, key, 1)
             continue
         if choice == "d" and module is not None:
             _module_detail_menu(args, state, module)
@@ -1528,10 +1559,16 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
             return
 
 
-def _read_result_section_key(draw_screen: Callable[[], None], *, static_render: bool = False, footer: str = "") -> str:
-    if not static_render:
-        return _read_key_with_redraw(draw_screen)
+def _read_result_section_key(
+    draw_screen: Callable[[], None],
+    *,
+    static_render: bool = False,
+    footer: str = "",
+    redraw_screen: Callable[[], None] | None = None,
+) -> str:
     lines = _capture_redraw_frame(draw_screen).splitlines()
+    if not static_render and not _frame_needs_scroll(lines, footer):
+        return _read_key_with_redraw(redraw_screen or draw_screen)
     offset = 0
     while True:
         offset = _draw_static_scroll_frame(lines, offset, footer=footer)
@@ -1544,6 +1581,11 @@ def _read_result_section_key(draw_screen: Callable[[], None], *, static_render: 
             continue
         if key:
             return key
+
+
+def _frame_needs_scroll(lines: list[str], footer: str = "") -> bool:
+    footer_lines = 1 if footer else 0
+    return len(lines) + footer_lines > max(1, get_terminal_size().height)
 
 
 def _draw_static_scroll_frame(lines: list[str], offset: int, *, footer: str = "") -> int:
@@ -1565,6 +1607,69 @@ def _max_scroll_offset(lines: list[str], footer: str = "") -> int:
     footer_lines = 1 if footer else 0
     content_height = max(1, max(1, get_terminal_size().height) - footer_lines)
     return max(0, len(lines) - content_height)
+
+
+def _current_talisman_sort(state: _MenuState) -> str:
+    value = state.section_sorts.get("talisman", TALISMAN_SORTS[0])
+    return value if value in TALISMAN_SORTS else TALISMAN_SORTS[0]
+
+
+def _cycle_talisman_sort(state: _MenuState, direction: int) -> None:
+    current = _current_talisman_sort(state)
+    index = TALISMAN_SORTS.index(current)
+    state.section_sorts["talisman"] = TALISMAN_SORTS[(index + direction) % len(TALISMAN_SORTS)]
+    if state.persist_sort_preferences:
+        save_sort_preferences(state.section_sorts)
+
+
+def _draw_talisman_sort_hint(sort_key: str) -> None:
+    options = " / ".join(
+        f"[{TALISMAN_SORT_LABELS[value]}]" if value == sort_key else TALISMAN_SORT_LABELS[value]
+        for value in TALISMAN_SORTS
+    )
+    print(_muted(f"Sort: {options}"))
+
+
+def _sorted_talisman_data(data, sort_key: str):
+    analysis = getattr(data, "talisman_helper", None)
+    if analysis is None:
+        return data
+    sorted_analysis = replace(
+        analysis,
+        recommendations=_sort_talisman_rows(analysis.recommendations, sort_key),
+        craftable=_sort_talisman_rows(analysis.craftable, sort_key),
+        ah_available=_sort_talisman_rows(analysis.ah_available, sort_key),
+        upgrades=_sort_talisman_rows(analysis.upgrades, sort_key),
+        locked=_sort_talisman_rows(analysis.locked, sort_key),
+        all_missing=_sort_talisman_rows(analysis.all_missing, sort_key),
+        owned=_sort_talisman_rows(analysis.owned, sort_key),
+        rows=_sort_talisman_rows(analysis.rows, sort_key),
+    )
+    values = dict(vars(data)) if hasattr(data, "__dict__") else {}
+    values["talisman_helper"] = sorted_analysis
+    return SimpleNamespace(**values)
+
+
+def _sort_talisman_rows(rows: list[object], sort_key: str) -> list[object]:
+    reverse = sort_key in {"score", "rarity"}
+    return sorted(rows, key=lambda row: _talisman_sort_value(row, sort_key), reverse=reverse)
+
+
+def _talisman_sort_value(row: object, sort_key: str):
+    entry = getattr(row, "entry", None)
+    if sort_key == "cost":
+        value = getattr(row, "estimated_cost", None)
+        return (value is None, value or 0, str(getattr(entry, "display_name", "")))
+    if sort_key == "coin-per-mp":
+        value = getattr(row, "coin_per_mp", None)
+        return (value is None, value or 0, str(getattr(entry, "display_name", "")))
+    if sort_key == "rarity":
+        return (RARITY_SORT.get(str(getattr(entry, "rarity", "")).lower(), 0), float(getattr(row, "score", 0) or 0))
+    if sort_key == "name":
+        return str(getattr(entry, "display_name", "")).lower()
+    if sort_key == "status":
+        return (str(getattr(row, "status", "")).lower(), str(getattr(entry, "display_name", "")).lower())
+    return (float(getattr(row, "score", 0) or 0), str(getattr(entry, "display_name", "")).lower())
 
 
 def _module_scoped_data(data, module: DashboardModule | None, key: str):

@@ -335,6 +335,54 @@ def test_static_result_section_scrolls_with_arrow_keys(monkeypatch, capsys):
     assert capsys.readouterr().out == ""
 
 
+def test_oversized_result_section_uses_static_scroll(monkeypatch):
+    keys = iter(["enter"])
+    writes = []
+
+    def fail_redraw_loop(draw_screen):
+        raise AssertionError("oversized result pages should use static scroll")
+
+    def fake_read_key(*, timeout=None):
+        return next(keys)
+
+    def draw_screen():
+        for index in range(1, 7):
+            print(f"row {index}")
+
+    monkeypatch.setattr(dashboard_menu, "get_terminal_size", lambda: SimpleNamespace(height=4))
+    monkeypatch.setattr(dashboard_menu, "_read_key_with_redraw", fail_redraw_loop)
+    monkeypatch.setattr(dashboard_menu, "_read_key", fake_read_key)
+    monkeypatch.setattr(dashboard_menu, "_write_redraw_frame", lambda frame: writes.append(frame))
+
+    choice = dashboard_menu._read_result_section_key(draw_screen, footer="Up/Down scroll")
+
+    assert choice == "enter"
+    assert len(writes) == 1
+    assert "row 1" in writes[0]
+    assert "Up/Down scroll" in writes[0]
+
+
+def test_talisman_rows_sort_by_cost_and_score():
+    cheap = SimpleNamespace(
+        entry=SimpleNamespace(display_name="Cheap", rarity="common"),
+        estimated_cost=1_000,
+        coin_per_mp=200,
+        score=20,
+        status="Available on AH",
+    )
+    strong = SimpleNamespace(
+        entry=SimpleNamespace(display_name="Strong", rarity="legendary"),
+        estimated_cost=10_000,
+        coin_per_mp=100,
+        score=80,
+        status="Craftable now",
+    )
+
+    assert [row.entry.display_name for row in dashboard_menu._sort_talisman_rows([cheap, strong], "cost")] == ["Cheap", "Strong"]
+    assert [row.entry.display_name for row in dashboard_menu._sort_talisman_rows([cheap, strong], "score")] == ["Strong", "Cheap"]
+    assert [row.entry.display_name for row in dashboard_menu._sort_talisman_rows([cheap, strong], "coin-per-mp")] == ["Strong", "Cheap"]
+
+
 def test_profile_freshness_labels_cache_states(monkeypatch, tmp_path):
     monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
     args = make_menu_args(profile_file=None, profile_cache_ttl=60)
