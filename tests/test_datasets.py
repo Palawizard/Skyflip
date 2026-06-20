@@ -9,7 +9,7 @@ from skyflip.ah_underpriced import load_watchlist
 from skyflip.bazaar import BazaarPrice
 from skyflip.bazaar_compression import load_conversions
 from skyflip.cofl import ActiveAuctions, SoldSummary
-from skyflip.datasets import check_usage_command, generate_obvious_compressions, summary_command
+from skyflip.datasets import check_usage_command, generate_obvious_compressions, runtime_dataset_warning, summary_command
 from skyflip.dataset_validation import validate_all_datasets, validate_bazaar_conversions
 from skyflip.profile_parser import PlayerProfile
 
@@ -36,6 +36,18 @@ def test_local_datasets_validate_without_errors_offline():
     assert not result.errors
     assert result.valid_entries > 0
     assert result.uncertain_entries > 0
+
+
+def test_runtime_dataset_warning_ignores_uncertain_and_disabled_entries():
+    assert runtime_dataset_warning() is None
+
+
+def test_runtime_dataset_warning_reports_real_errors(tmp_path):
+    path = tmp_path / "missing.json"
+
+    warning = runtime_dataset_warning(paths={"craft_recipes": path})
+
+    assert warning == "1 dataset error; run `python -m skyflip datasets validate` for details."
 
 
 def test_disabled_entries_are_skipped_by_loaders(tmp_path):

@@ -175,7 +175,10 @@ def runtime_dataset_warning(*, paths: dict[str, Path | str] | None = None) -> st
         result.extend(validate_bazaar_conversions(Path(paths.get("bazaar_conversions", DATASET_FILES["bazaar_conversions"]))))
     if "craft_recipes" in selected:
         result.extend(validate_craft_recipes(Path(paths.get("craft_recipes", DATASET_FILES["craft_recipes"]))))
-    return compact_warning(result)
+    if not result.errors:
+        return None
+    count = len(result.errors)
+    return f"{count} dataset error{'s' if count != 1 else ''}; run `python -m skyflip datasets validate` for details."
 
 
 def fetch_bazaar_product_ids() -> set[str]:
