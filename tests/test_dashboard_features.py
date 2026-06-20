@@ -1,7 +1,7 @@
 import time
 
 from skyflip.ah_underpriced import WatchItem, evaluate_watch_item
-from skyflip.bazaar import BazaarProduct
+from skyflip.bazaar import BazaarPrice, BazaarProduct
 from skyflip.bazaar_compression import BazaarConversion, evaluate_conversion
 from skyflip.bazaar_order import evaluate_bazaar_order_product
 from skyflip.cache import FileCache
@@ -11,7 +11,7 @@ from skyflip.models import RejectedItem
 from skyflip.profile_parser import PlayerProfile
 from skyflip.scoring import AnalyzerConfig, score_generic_opportunity
 from skyflip.terminal import print_dashboard
-from skyflip.dashboard import collect_dashboard_data
+from skyflip.dashboard import analyze_craft_section, collect_dashboard_data
 from skyflip.user_config import BUDGET_SOURCE_CUSTOM, HypixelUserConfig, save_user_config
 
 
@@ -281,3 +281,59 @@ def test_dashboard_uses_configured_budget_source(monkeypatch, tmp_path):
 
     assert data.budget == 2_500_000
     assert args.budget == 2_500_000
+
+
+def test_craft_section_keeps_wand_and_excludes_event_recipe():
+    class FakeBazaar:
+        warnings = []
+
+        def price_for(self, tag, *, use_buy_order_cost=False):
+            return BazaarPrice(tag, 100.0, "fake")
+
+    class FakeCofl:
+        warnings = []
+
+        def analysis(self, tag, days):
+            price = 250_000 if tag == "WAND_OF_MENDING" else 200_000
+            return MarketAnalysis(total_sales=120, sales_per_day=20, median_sell_time_hours=2, median_price=price)
+
+        def active_bins(self, tag):
+            price = 250_000 if tag == "WAND_OF_MENDING" else 200_000
+            return ActiveAuctions([price, price * 1.01, price * 1.02], 3, price, price * 1.01, None)
+
+        def sold_summary(self, tag):
+            return SoldSummary()
+
+        def bazaar_snapshot_price(self, tag):
+            return 100.0
+
+    args = type(
+        "Args",
+        (),
+        {
+            "recipes_file": "data/craft_recipes.json",
+            "use_buy_order_cost": False,
+            "days": 7,
+        },
+    )()
+    profile = PlayerProfile(
+        "PalaMC",
+        "id",
+        1_000_000,
+        9_000_000,
+        slayer_levels={"zombie": 3},
+        collection_tiers={"BONE": 9},
+    )
+
+    recommended, rejected = analyze_craft_section(
+        args,
+        FakeBazaar(),
+        FakeCofl(),
+        profile,
+        config(limit=50, min_profit=1_000, min_profit_percent=1, min_sales_per_day=1),
+    )
+
+    assert "WAND_OF_MENDING" in {item.recipe.tag for item in recommended}
+    assert "INTIMIDATION_RING" not in {item.recipe.tag for item in recommended}
+    ring_rejection = next(item for item in rejected if item.item == "Intimidation Ring")
+    assert "event-limited craft" in ring_rejection.reason
