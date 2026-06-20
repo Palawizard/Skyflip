@@ -271,6 +271,44 @@ def test_result_section_redraw_does_not_refresh_results(monkeypatch, capsys):
     assert "Refresh results first" not in output
 
 
+def test_talisman_result_section_renders_once_without_redraw_loop(monkeypatch, capsys):
+    args = make_menu_args(profile_file="profile.json", player_name="PalaMC", budget=1_000_000)
+    state = _MenuState(
+        latest=SimpleNamespace(
+            profile=PlayerProfile("PalaMC", "abc", 123, 0),
+            budget=1_000_000,
+            craft=[],
+            bazaar_spreads=[],
+            bazaar_orders=[],
+            conversions=[],
+            ah_underpriced=[],
+            talisman_helper=None,
+            rejected=[],
+            warnings=[],
+            cache_ttl=args.cache_ttl,
+        ),
+        last_refresh="2026-06-20 12:00:00",
+    )
+    key_reads = []
+
+    def fail_redraw_loop(draw_screen):
+        raise AssertionError("talisman result page should not redraw every frame")
+
+    def fake_read_key(*, timeout=None):
+        key_reads.append(timeout)
+        return "enter"
+
+    monkeypatch.setattr(dashboard_menu, "_interactive_menu_enabled", lambda: True)
+    monkeypatch.setattr(dashboard_menu, "_read_key_with_redraw", fail_redraw_loop)
+    monkeypatch.setattr(dashboard_menu, "_read_key", fake_read_key)
+
+    _show_result_section(args, state, "talisman")
+
+    assert key_reads == [None]
+    output = capsys.readouterr().out
+    assert "Talisman Helper was not loaded" in output
+
+
 def test_profile_freshness_labels_cache_states(monkeypatch, tmp_path):
     monkeypatch.setenv("SKYFLIP_CONFIG_DIR", str(tmp_path))
     args = make_menu_args(profile_file=None, profile_cache_ttl=60)

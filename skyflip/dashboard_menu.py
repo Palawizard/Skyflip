@@ -82,6 +82,7 @@ from .dashboard_menu_ui import (
     _parse_sections,
     _pause,
     _pause_with_redraw,
+    _read_key,
     _read_key_with_redraw,
     _section_count,
     _section_hint,
@@ -1497,7 +1498,7 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
             draw_screen()
             print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
 
-        choice = _read_key_with_redraw(draw_interactive_screen)
+        choice = _read_result_section_key(draw_interactive_screen, static_render=key == "talisman")
         if choice == "left":
             _cycle_section_sort(state, key, -1)
             continue
@@ -1515,6 +1516,16 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
             continue
         if choice in {"enter", "escape", "q", "b"}:
             return
+
+
+def _read_result_section_key(draw_screen: Callable[[], None], *, static_render: bool = False) -> str:
+    if not static_render:
+        return _read_key_with_redraw(draw_screen)
+    draw_screen()
+    while True:
+        key = _read_key(timeout=None)
+        if key:
+            return key
 
 
 def _module_scoped_data(data, module: DashboardModule | None, key: str):
