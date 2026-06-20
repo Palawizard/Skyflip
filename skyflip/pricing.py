@@ -55,7 +55,7 @@ class PricingEngine:
         bazaar: BazaarClient,
         cofl: CoflClient,
         *,
-        use_buy_order_cost: bool = False,
+        use_buy_order_cost: bool = True,
         days: int = 7,
     ) -> None:
         self.recipes = recipes

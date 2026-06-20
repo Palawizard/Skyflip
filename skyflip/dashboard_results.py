@@ -178,6 +178,14 @@ def cost_text(item: object, section: str) -> str:
 
 
 def profit_text(item: object) -> str:
+    if hasattr(item, "recipe") and hasattr(item, "max_batch_size"):
+        value = getattr(item, "estimated_profit", None)
+        percent = getattr(item, "profit_percent", None)
+        batch = getattr(item, "max_batch_size", 1) or 1
+        text = f"{compact_number(value)} each / batch {compact_number((value or 0) * batch)}"
+        if percent is not None:
+            text += f" / {float(percent):.1f}%"
+        return text
     value = (
         getattr(item, "estimated_profit", None)
         or getattr(item, "estimated_total_profit", None)

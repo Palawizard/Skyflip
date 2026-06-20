@@ -179,13 +179,14 @@ def _print_craft(items: list[Opportunity]) -> None:
                 str(rank),
                 _with_qty(item.recipe.name, item.max_batch_size),
                 compact_number(item.estimated_profit),
+                compact_number(item.estimated_profit * item.max_batch_size),
                 f"{item.profit_percent:.1f}%",
                 item.speed_label,
                 f"{item.confidence:.0f}%",
             ]
         )
     _print_or_empty(
-        ["#", "Item xQty", "Profit", "Margin", "Speed", "Conf"],
+        ["#", "Item xQty", "Profit/item", "Batch profit", "Margin", "Speed", "Conf"],
         rows,
         "No craft flips passed the configured filters.",
     )

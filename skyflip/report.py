@@ -26,7 +26,7 @@ def print_terminal_report(opportunities: list[Opportunity], rejected: list[Oppor
             print(f"{len(rejected)} recipes were rejected; see JSON report for details.")
         return
 
-    headers = ["#", "Item", "Cost", "Safe sell", "Profit", "Profit %", "Sales/d", "Med sell", "BINs", "Risk", "Why", "Batch"]
+    headers = ["#", "Item", "Cost", "Safe sell", "Profit/item", "Batch profit", "Profit %", "Sales/d", "Med sell", "BINs", "Risk", "Why", "Batch"]
     table_rows = []
     for rank, item in enumerate(rows, start=1):
         table_rows.append(
@@ -36,6 +36,7 @@ def print_terminal_report(opportunities: list[Opportunity], rejected: list[Oppor
                 coins(item.craft_cost.per_output_cost),
                 coins(item.safe_sell_price),
                 coins(item.estimated_profit),
+                coins(item.estimated_profit * item.max_batch_size),
                 f"{item.profit_percent:.1f}%",
                 f"{item.market.analysis.sales_per_day:.1f}",
                 hours(item.market.analysis.median_sell_time_hours),

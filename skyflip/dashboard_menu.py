@@ -660,7 +660,7 @@ def _setting_label(field: str) -> str:
         "min_profit_percent": "Min margin",
         "min_sales_per_day": "Min sales per day",
         "max_median_sell_time_hours": "Max sell time",
-        "use_buy_order_cost": "Use buy order cost",
+        "use_buy_order_cost": "Use instant buy cost",
         "accessory_view": "View",
         "accessory_sort": "Sort",
         "max_accessory_price": "Max accessory price",
@@ -702,7 +702,7 @@ def _recommended_module_settings(args: argparse.Namespace, module: DashboardModu
             ("1", "Min profit", _coins(args.min_profit)),
             ("2", "Min margin", f"{args.min_profit_percent:g}%"),
             ("3", "Max craft cost", _optional_coins(args.max_craft_cost)),
-            ("4", "Ingredient pricing", "buy order" if args.use_buy_order_cost else "instant buy"),
+            ("4", "Ingredient pricing", "instant buy" if args.use_buy_order_cost else "sell-order side"),
         ]
     if module.key == "accessories":
         _ensure_talisman_attrs(args)
@@ -1053,7 +1053,7 @@ def _craft_flips_settings_menu(args: argparse.Namespace, state: _MenuState, reso
             "Craft flips settings",
             _refreshable_entries([
                 ("1", f"Max craft cost  {_optional_coins(args.max_craft_cost)}", "reject crafts above this cost"),
-                ("2", f"Use buy order cost  {'yes' if args.use_buy_order_cost else 'no'}", "price ingredients from buy-order side"),
+                ("2", f"Use instant buy cost  {'yes' if args.use_buy_order_cost else 'no'}", "price ingredients from the instant-buy side"),
                 ("3", f"Min profit  {_value(args.min_profit, coins=True)}", "minimum expected profit"),
                 ("4", f"Min profit percent  {args.min_profit_percent:g}%", "minimum margin"),
                 ("5", f"Min sales per day  {args.min_sales_per_day:g}", "market speed floor"),

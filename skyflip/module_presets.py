@@ -76,7 +76,7 @@ MODULE_PRESETS: tuple[ModulePreset, ...] = (
             "min_sales_per_day": 5.0,
             "max_median_sell_time_hours": 8.0,
             "max_capital_percent_per_flip": 15.0,
-            "use_buy_order_cost": False,
+            "use_buy_order_cost": True,
         },
     ),
     ModulePreset(
@@ -90,7 +90,7 @@ MODULE_PRESETS: tuple[ModulePreset, ...] = (
             "min_sales_per_day": 2.0,
             "max_median_sell_time_hours": 12.0,
             "max_capital_percent_per_flip": 35.0,
-            "use_buy_order_cost": False,
+            "use_buy_order_cost": True,
         },
     ),
     ModulePreset(

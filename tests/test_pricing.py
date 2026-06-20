@@ -11,8 +11,10 @@ class FakeBazaar:
 
     def __init__(self, prices):
         self.prices = prices
+        self.calls = []
 
     def price_for(self, tag, *, use_buy_order_cost=False):
+        self.calls.append((tag, use_buy_order_cost))
         value = self.prices.get(tag)
         if value is None:
             return None
@@ -61,6 +63,7 @@ def test_craft_cost_calculates_bazaar_ingredients():
 
     assert cost.total_cost == 40
     assert not cost.unavailable
+    assert engine.bazaar.calls == [("A", True)]
 
 
 def test_previous_recipe_uses_cheaper_auction_subitem():
