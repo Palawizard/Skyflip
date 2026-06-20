@@ -9,7 +9,7 @@ from skyflip.ah_underpriced import WatchItem, evaluate_watch_item, load_watchlis
 from skyflip.bazaar import BazaarPrice
 from skyflip.bazaar_compression import load_conversions
 from skyflip.cofl import ActiveAuctions, SoldSummary
-from skyflip.dataset_repair import WikiConfirmation, audit_datasets, repair_datasets
+from skyflip.dataset_repair import WikiConfirmation, audit_datasets, parse_wiki_recipe_template, repair_datasets
 from skyflip.datasets import check_usage_command, generate_obvious_compressions, runtime_dataset_warning, summary_command
 from skyflip.dataset_validation import validate_all_datasets, validate_bazaar_conversions
 from skyflip.profile_parser import PlayerProfile
@@ -44,6 +44,17 @@ class FakeWiki:
         if tag in {"WOOD_TALISMAN", "TEST_RING"}:
             return WikiConfirmation(name, f"https://wiki.hypixel.net/{name.replace(' ', '_')}")
         return None
+
+
+class FakeRecipeWiki:
+    def __init__(self, templates):
+        self.templates = templates
+
+    def confirm_item(self, name, tag=None):
+        return None
+
+    def recipe(self, tag):
+        return parse_wiki_recipe_template(self.templates.get(tag, ""), tag)
 
 
 def test_local_datasets_validate_without_errors_offline():
@@ -288,6 +299,92 @@ def test_dataset_repair_classifies_and_confirms_with_mocked_wiki(tmp_path):
     assert repaired_watch["market_source"] == "pet_ah"
     assert repaired_watch["cofl_auction_supported"] is False
     assert repaired_recipe["disabled"] is True
+    assert not repair.validation.errors
+
+
+def test_wiki_recipe_template_parser_counts_slots_and_trailing_amounts():
+    text = """<includeonly>{{Recipe|{{{1|first}}}
+|first = {{Craft Item
+|in1 = {{Item/ENCHANTED_SUGAR|lore}},12
+|in2 = {{Item/ENCHANTED_SUGAR|lore}},12
+|in5 = {{Item/SPEED_TALISMAN|lore}}
+|out = {{Item/SPEED_RING|lore}}
+}}
+}}</includeonly>"""
+
+    recipe = parse_wiki_recipe_template(text, "SPEED_RING")
+
+    assert recipe is not None
+    assert [(ingredient.tag, ingredient.amount) for ingredient in recipe.ingredients] == [
+        ("ENCHANTED_SUGAR", 24),
+        ("SPEED_TALISMAN", 1),
+    ]
+
+
+def test_dataset_repair_replaces_recipe_ingredients_from_mocked_wiki(tmp_path):
+    root = tmp_path
+    data = root / "data"
+    data.mkdir()
+    (data / "accessories.json").write_text(json.dumps({"accessories": []}), encoding="utf-8")
+    (data / "ah_watchlist.json").write_text(json.dumps({"items": []}), encoding="utf-8")
+    (data / "bazaar_conversions.json").write_text(json.dumps({"conversions": []}), encoding="utf-8")
+    (data / "craft_recipes.json").write_text(
+        json.dumps(
+            {
+                "recipes": [
+                    {
+                        "output": {"tag": "VACCINE_TALISMAN", "display_name": "Vaccine Talisman", "quantity": 1},
+                        "ingredients": [{"item_tag": "POISONOUS_POTATO", "display_name": "Poisonous Potato", "amount": 9, "source": "bazaar"}],
+                        "verified": True,
+                        "confidence": "high",
+                        "source_notes": "old",
+                        "last_verified": "2026-06-20",
+                    },
+                    {
+                        "output": {"tag": "VACCINE_RING", "display_name": "Vaccine Ring", "quantity": 1},
+                        "ingredients": [
+                            {"item_tag": "VACCINE_TALISMAN", "display_name": "Vaccine Talisman", "amount": 1, "source": "previous_recipe"},
+                            {"item_tag": "ENCHANTED_POISONOUS_POTATO", "display_name": "Enchanted Poisonous Potato", "amount": 32, "source": "bazaar"},
+                        ],
+                        "verified": True,
+                        "confidence": "medium",
+                        "source_notes": "old",
+                        "last_verified": "2026-06-20",
+                    },
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    wiki = FakeRecipeWiki(
+        {
+            "VACCINE_RING": """<includeonly>{{Recipe|{{{1|first}}}
+|first = {{Craft Item
+|in1 = {{Item/ARACHNE_FANG|lore}}
+|in2 = {{Item/ARACHNE_FANG|lore}}
+|in3 = {{Item/ARACHNE_FANG|lore}}
+|in4 = {{Item/ARACHNE_FANG|lore}}
+|in5 = {{Item/VACCINE_TALISMAN|lore}}
+|in6 = {{Item/ARACHNE_FANG|lore}}
+|in7 = {{Item/ARACHNE_FANG|lore}}
+|in8 = {{Item/ARACHNE_FANG|lore}}
+|in9 = {{Item/ARACHNE_FANG|lore}}
+|out = {{Item/VACCINE_RING|lore}}
+}}
+}}</includeonly>"""
+        }
+    )
+
+    repair = repair_datasets(root=root, wiki=wiki, bazaar_product_ids={"ARACHNE_FANG", "POISONOUS_POTATO"})
+    repaired = json.loads((data / "craft_recipes.json").read_text(encoding="utf-8"))["recipes"][1]
+
+    assert repair.changes["craft_wiki_recipe_repaired"] >= 1
+    assert repaired["confidence"] == "high"
+    assert repaired["requires_manual_verification"] is False
+    assert repaired["ingredients"] == [
+        {"amount": 8, "display_name": "Arachne Fang", "item_tag": "ARACHNE_FANG", "source": "bazaar"},
+        {"amount": 1, "display_name": "Vaccine Talisman", "item_tag": "VACCINE_TALISMAN", "source": "previous_recipe"},
+    ]
     assert not repair.validation.errors
 
 

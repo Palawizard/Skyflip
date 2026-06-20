@@ -145,7 +145,8 @@ def audit_command(*, wiki: bool = False) -> int:
 def repair_command(*, wiki: bool = False) -> int:
     backup_dir = backup_dataset_files()
     client = OfficialWikiClient() if wiki else None
-    report = repair_datasets(wiki=client)
+    product_ids = fetch_bazaar_product_ids() if wiki else None
+    report = repair_datasets(wiki=client, bazaar_product_ids=product_ids)
     print(f"Backed up datasets to {backup_dir}")
     print("Dataset repair")
     if report.changes:
