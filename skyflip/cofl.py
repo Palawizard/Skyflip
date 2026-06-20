@@ -51,18 +51,24 @@ class CoflClient:
     def __init__(self, http: HttpClient) -> None:
         self.http = http
         self.warnings: list[str] = []
+        self._unsupported_tags: set[str] = set()
+        self._rate_limited = False
 
     def analysis(self, tag: str, days: int) -> MarketAnalysis | None:
+        if self._should_skip(tag):
+            return None
         url = f"{BASE_URL}/item/price/{quote(tag)}/analysis?days={days}"
         try:
             result = self.http.get_json(url)
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl analysis unavailable for {tag}: {exc}")
+            self._record_failure("analysis", tag, exc)
             return None
         payload = result.payload if isinstance(result.payload, dict) else {}
         return normalize_analysis(payload, source=result.source)
 
     def active_bins(self, tag: str) -> ActiveAuctions:
+        if self._should_skip(tag):
+            return ActiveAuctions()
         url = f"{BASE_URL}/auctions/tag/{quote(tag)}/active/bin"
         try:
             result = self.http.get_json(url)
@@ -70,31 +76,37 @@ class CoflClient:
             if active.active_count:
                 return active
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl active/bin unavailable for {tag}: {exc}")
+            self._record_failure("active/bin", tag, exc)
+            if tag in self._unsupported_tags or self._rate_limited:
+                return ActiveAuctions()
 
         overview_url = f"{BASE_URL}/auctions/tag/{quote(tag)}/active/overview?orderBy=LOWEST_PRICE"
         try:
             result = self.http.get_json(overview_url)
             return normalize_active(result.payload, source=f"{result.source}:active/overview")
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl active overview unavailable for {tag}: {exc}")
+            self._record_failure("active overview", tag, exc)
             return ActiveAuctions()
 
     def sold_summary(self, tag: str) -> SoldSummary:
+        if self._should_skip(tag):
+            return SoldSummary()
         url = f"{BASE_URL}/auctions/tag/{quote(tag)}/sold?page=0&pageSize=100"
         try:
             result = self.http.get_json(url)
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl sold auctions unavailable for {tag}: {exc}")
+            self._record_failure("sold auctions", tag, exc)
             return SoldSummary()
         return normalize_sold(result.payload)
 
     def bazaar_snapshot_price(self, tag: str) -> float | None:
+        if self._should_skip(tag):
+            return None
         url = f"{BASE_URL}/bazaar/{quote(tag)}/snapshot"
         try:
             result = self.http.get_json(url)
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl Bazaar snapshot unavailable for {tag}: {exc}")
+            self._record_failure("Bazaar snapshot", tag, exc)
             return None
         payload = result.payload
         if not isinstance(payload, dict):
@@ -104,6 +116,20 @@ class CoflClient:
             if isinstance(value, (int, float)) and value > 0:
                 return float(value)
         return None
+
+    def _should_skip(self, tag: str) -> bool:
+        return self._rate_limited or tag in self._unsupported_tags
+
+    def _record_failure(self, operation: str, tag: str, exc: ApiError) -> None:
+        text = str(exc)
+        if "429" in text:
+            if not self._rate_limited:
+                self.warnings.append(f"SkyCofl {operation} unavailable for {tag}: {exc}")
+            self._rate_limited = True
+            return
+        if "400" in text or "Bad Request" in text:
+            self._unsupported_tags.add(tag)
+        self.warnings.append(f"SkyCofl {operation} unavailable for {tag}: {exc}")
 
 
 def normalize_analysis(payload: dict[str, Any], *, source: str = "live") -> MarketAnalysis:

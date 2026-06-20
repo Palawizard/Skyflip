@@ -1,4 +1,5 @@
-from skyflip.cofl import normalize_active, normalize_analysis, normalize_sold
+from skyflip.cofl import ActiveAuctions, CoflClient, SoldSummary, normalize_active, normalize_analysis, normalize_sold
+from skyflip.http import ApiError
 
 
 def test_normalize_analysis_current_shape():
@@ -45,3 +46,36 @@ def test_normalize_sold_uses_highest_bid_amount():
     assert sold.sale_count == 3
     assert sold.median_price == 200
     assert sold.mean_price == 200
+
+
+class FailingHttp:
+    def __init__(self, exc):
+        self.exc = exc
+        self.calls = []
+
+    def get_json(self, url):
+        self.calls.append(url)
+        raise self.exc
+
+
+def test_cofl_bad_request_skips_remaining_tag_endpoints():
+    http = FailingHttp(ApiError("400 Client Error: Bad Request for url"))
+    cofl = CoflClient(http)
+
+    assert cofl.active_bins("BAD_TAG") == ActiveAuctions()
+    assert cofl.analysis("BAD_TAG", 7) is None
+    assert cofl.sold_summary("BAD_TAG") == SoldSummary()
+
+    assert len(http.calls) == 1
+    assert len(cofl.warnings) == 1
+
+
+def test_cofl_rate_limit_skips_remaining_refresh_calls():
+    http = FailingHttp(ApiError("HTTP 429 for https://sky.coflnet.com/api/test"))
+    cofl = CoflClient(http)
+
+    assert cofl.analysis("FIRST", 7) is None
+    assert cofl.active_bins("SECOND") == ActiveAuctions()
+
+    assert len(http.calls) == 1
+    assert len(cofl.warnings) == 1
