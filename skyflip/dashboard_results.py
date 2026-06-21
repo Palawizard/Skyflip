@@ -4,8 +4,10 @@ from dataclasses import replace
 from types import SimpleNamespace
 from typing import Iterable
 
+from .accessory_views import accessory_rows_for_view
 from .dashboard_modules import DashboardModule
 from .terminal import compact_number
+from .warning_summary import compact_warnings
 
 
 SECTION_ATTRS = {
@@ -19,7 +21,7 @@ SECTION_ATTRS = {
 MODULE_WARNING_KEYWORDS = {
     "bazaar": ("bazaar", "hypixel bazaar", "spread", "order"),
     "craft": ("craft", "recipe", "skycofl", "cofl"),
-    "accessories": ("talisman", "accessory", "accessories", "inventory"),
+    "accessories": ("talisman", "accessory", "accessories", "inventory", "skycofl", "cofl"),
     "compression": ("compression", "conversion", "bazaar"),
     "ah-bin": ("ah", "underpriced", "bin", "skycofl", "cofl"),
 }
@@ -30,7 +32,7 @@ def module_candidate_rows(data, module: DashboardModule) -> list[tuple[str, obje
     for section in module.sections:
         if section == "talisman":
             analysis = getattr(data, "talisman_helper", None)
-            for item in getattr(analysis, "recommendations", []) or []:
+            for item in accessory_rows_for_view(analysis):
                 rows.append((section, item))
             continue
         attr = SECTION_ATTRS.get(section)
@@ -47,10 +49,7 @@ def module_rejections(data, module: DashboardModule) -> list[object]:
 def module_warnings(data, module: DashboardModule) -> list[str]:
     warnings = list(getattr(data, "warnings", []) or [])
     keywords = MODULE_WARNING_KEYWORDS.get(module.key, ())
-    selected = [warning for warning in warnings if _matches_warning(warning, keywords)]
-    if not selected and warnings and module_candidate_rows(data, module):
-        return warnings[:3]
-    return selected
+    return [warning for warning in warnings if _matches_warning(warning, keywords)]
 
 
 def module_summary_lines(data, module: DashboardModule, *, last_refresh: str | None) -> list[str]:
@@ -180,6 +179,14 @@ def cost_text(item: object, section: str) -> str:
 
 
 def profit_text(item: object) -> str:
+    if hasattr(item, "recipe") and hasattr(item, "max_batch_size"):
+        value = getattr(item, "estimated_profit", None)
+        percent = getattr(item, "profit_percent", None)
+        batch = getattr(item, "max_batch_size", 1) or 1
+        text = f"{compact_number(value)} each / batch {compact_number((value or 0) * batch)}"
+        if percent is not None:
+            text += f" / {float(percent):.1f}%"
+        return text
     value = (
         getattr(item, "estimated_profit", None)
         or getattr(item, "estimated_total_profit", None)
@@ -255,7 +262,7 @@ def _merge_warnings(existing, updated, module: DashboardModule) -> list[str]:
     new_warnings = list(getattr(updated, "warnings", []) or [])
     keywords = MODULE_WARNING_KEYWORDS.get(module.key, ())
     kept = [warning for warning in old_warnings if not _matches_warning(warning, keywords)]
-    return [*kept, *new_warnings]
+    return compact_warnings([*kept, *new_warnings])
 
 
 def _matches_warning(warning: str, keywords: tuple[str, ...]) -> bool:

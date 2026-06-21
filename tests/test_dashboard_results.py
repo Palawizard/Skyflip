@@ -9,6 +9,7 @@ from skyflip.dashboard_results import (
     module_warnings,
     normalize_risk,
 )
+from skyflip.dashboard_menu_ui import _section_count
 from skyflip.models import RejectedItem
 
 
@@ -21,7 +22,7 @@ def test_module_summary_includes_best_risk_warnings_and_refresh():
         ],
         bazaar_orders=[],
         rejected=[RejectedItem("bazaar-spread", "C", "filtered"), RejectedItem("craft", "D", "filtered")],
-        warnings=["Bazaar spread section failed: timeout", "Talisman Helper failed: data"],
+        warnings=["Bazaar spread section failed: timeout", "Accessories Helper failed: data"],
     )
 
     lines = module_summary_lines(data, module, last_refresh="2026-06-20 01:00:00")
@@ -37,11 +38,37 @@ def test_module_warnings_are_filtered_to_relevant_module():
     data = SimpleNamespace(
         bazaar_spreads=[SimpleNamespace(product_id="A")],
         bazaar_orders=[],
-        warnings=["Bazaar order section failed: timeout", "Talisman Helper failed: missing inventory"],
+        warnings=["Bazaar order section failed: timeout", "Accessories Helper failed: missing inventory"],
     )
 
     assert module_warnings(data, get_dashboard_module("bazaar")) == ["Bazaar order section failed: timeout"]
-    assert module_warnings(data, get_dashboard_module("accessories")) == ["Talisman Helper failed: missing inventory"]
+    assert module_warnings(data, get_dashboard_module("accessories")) == ["Accessories Helper failed: missing inventory"]
+
+
+def test_accessory_module_counts_current_view_not_recommendation_limit():
+    module = get_dashboard_module("accessories")
+    analysis = SimpleNamespace(
+        view="all-missing",
+        recommendations=[SimpleNamespace(entry=SimpleNamespace(display_name=f"Limited {index}")) for index in range(30)],
+        all_missing=[SimpleNamespace(entry=SimpleNamespace(display_name=f"Missing {index}")) for index in range(362)],
+    )
+    data = SimpleNamespace(talisman_helper=analysis, rejected=[], warnings=[])
+
+    lines = module_summary_lines(data, module, last_refresh="now")
+
+    assert "Candidates: 362 accepted / 0 filtered" in lines
+    assert _section_count(data, "talisman") == 362
+
+
+def test_module_warnings_do_not_fallback_to_unrelated_global_warnings():
+    data = SimpleNamespace(
+        bazaar_spreads=[],
+        bazaar_orders=[],
+        craft=[SimpleNamespace(recipe=SimpleNamespace(name="Craft"))],
+        warnings=["Bazaar order section failed: timeout"],
+    )
+
+    assert module_warnings(data, get_dashboard_module("craft")) == []
 
 
 def test_detail_lines_use_consistent_risk_and_manual_verification():
@@ -95,7 +122,7 @@ def test_merge_module_data_replaces_only_refreshed_module():
         ah_underpriced=[],
         talisman_helper=None,
         rejected=[RejectedItem("bazaar-order", "ORDER", "new")],
-        warnings=["Bazaar order section failed: new"],
+        warnings=["Bazaar order section failed: new", "Bazaar order section failed: new"],
     )
 
     merged = merge_module_data(existing, updated, module)

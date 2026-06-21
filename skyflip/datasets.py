@@ -19,6 +19,7 @@ from .dataset_validation import (
     validate_craft_recipes,
 )
 from .http import HttpClient
+from .dataset_repair import OfficialWikiClient, audit_datasets, repair_datasets
 
 
 BAZAAR_URL = "https://api.hypixel.net/v2/skyblock/bazaar"
@@ -37,6 +38,12 @@ def add_dataset_subparser(subparsers: argparse._SubParsersAction) -> None:
 
     dataset_subparsers.add_parser("summary", help="Print local dataset counts")
 
+    audit = dataset_subparsers.add_parser("audit", help="Audit local datasets for actionable maintenance issues")
+    audit.add_argument("--wiki", action="store_true", help="Use official Hypixel Wiki search to confirm unverified entries")
+
+    repair = dataset_subparsers.add_parser("repair", help="Apply safe automatic dataset repairs")
+    repair.add_argument("--wiki", action="store_true", help="Use official Hypixel Wiki search to confirm unverified entries")
+
     refresh = dataset_subparsers.add_parser("refresh-bazaar-conversions", help="Refresh generated Bazaar conversion data")
     refresh.add_argument("--offline", action="store_true", help="Validate existing conversions without fetching live products")
 
@@ -51,11 +58,15 @@ def run_dataset_command(args: argparse.Namespace) -> int:
         return migrate_command(offline=bool(getattr(args, "offline", False)))
     if command == "summary":
         return summary_command()
+    if command == "audit":
+        return audit_command(wiki=bool(getattr(args, "wiki", False)))
+    if command == "repair":
+        return repair_command(wiki=bool(getattr(args, "wiki", False)))
     if command == "refresh-bazaar-conversions":
         return refresh_bazaar_conversions_command(offline=bool(getattr(args, "offline", False)))
     if command == "check-usage":
         return check_usage_command()
-    print("Choose a datasets subcommand: validate, migrate, summary, refresh-bazaar-conversions, or check-usage.")
+    print("Choose a datasets subcommand: validate, migrate, summary, audit, repair, refresh-bazaar-conversions, or check-usage.")
     return 2
 
 
@@ -118,6 +129,40 @@ def summary_command() -> int:
     return 0
 
 
+def audit_command(*, wiki: bool = False) -> int:
+    client = OfficialWikiClient() if wiki else None
+    report = audit_datasets(wiki=client)
+    print("Dataset audit")
+    if not report.issue_counts:
+        print("- No actionable dataset maintenance issues found.")
+        return 0
+    for issue, count in sorted(report.issue_counts.items()):
+        examples = ", ".join(report.examples.get(issue, []))
+        print(f"- {issue}: {count}" + (f" ({examples})" if examples else ""))
+    return 0
+
+
+def repair_command(*, wiki: bool = False) -> int:
+    backup_dir = backup_dataset_files()
+    client = OfficialWikiClient() if wiki else None
+    product_ids = fetch_bazaar_product_ids() if wiki else None
+    report = repair_datasets(wiki=client, bazaar_product_ids=product_ids)
+    print(f"Backed up datasets to {backup_dir}")
+    print("Dataset repair")
+    if report.changes:
+        for change, count in sorted(report.changes.items()):
+            print(f"- {change}: {count}")
+        print("Changed files")
+        for file_name in sorted(report.changed_files):
+            print(f"- {file_name}")
+    else:
+        print("- No changes needed.")
+    if report.validation:
+        print_validation_summary(report.validation)
+        return 1 if report.validation.errors else 0
+    return 0
+
+
 def refresh_bazaar_conversions_command(*, offline: bool = False) -> int:
     backup_dir = backup_dataset_files(files=[DATASET_FILES["bazaar_conversions"]])
     product_ids = None if offline else fetch_bazaar_product_ids()
@@ -175,7 +220,10 @@ def runtime_dataset_warning(*, paths: dict[str, Path | str] | None = None) -> st
         result.extend(validate_bazaar_conversions(Path(paths.get("bazaar_conversions", DATASET_FILES["bazaar_conversions"]))))
     if "craft_recipes" in selected:
         result.extend(validate_craft_recipes(Path(paths.get("craft_recipes", DATASET_FILES["craft_recipes"]))))
-    return compact_warning(result)
+    if not result.errors:
+        return None
+    count = len(result.errors)
+    return f"{count} dataset error{'s' if count != 1 else ''}; run `python -m skyflip datasets validate` for details."
 
 
 def fetch_bazaar_product_ids() -> set[str]:

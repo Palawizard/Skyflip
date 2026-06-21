@@ -39,7 +39,7 @@ pytest
 
 SkyFlip uses editable local datasets in `data/` for content Hypixel does not expose as one complete stable resource:
 
-- `accessories.json`: Talisman Helper accessory IDs, families, requirements, source types, and optional recipes.
+- `accessories.json`: Accessories Helper accessory IDs, families, requirements, source types, and optional recipes.
 - `craft_recipes.json`: AH craft flip recipes.
 - `bazaar_conversions.json`: Bazaar compression candidates validated against live Bazaar product IDs.
 - `ah_watchlist.json`: manual AH BIN candidates filtered by budget and progression.

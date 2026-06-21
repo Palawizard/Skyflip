@@ -19,6 +19,7 @@ class SoldSummary:
     min_price: float | None = None
     max_price: float | None = None
     confidence: float = 0.0
+    source: str = "none"
 
 
 @dataclass(frozen=True)
@@ -51,50 +52,60 @@ class CoflClient:
     def __init__(self, http: HttpClient) -> None:
         self.http = http
         self.warnings: list[str] = []
+        self._unsupported_tags: set[str] = set()
+        self._failure_status: dict[str, str] = {}
 
     def analysis(self, tag: str, days: int) -> MarketAnalysis | None:
+        if self._should_skip(tag):
+            return None
         url = f"{BASE_URL}/item/price/{quote(tag)}/analysis?days={days}"
         try:
             result = self.http.get_json(url)
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl analysis unavailable for {tag}: {exc}")
+            self._record_failure("analysis", tag, exc)
             return None
         payload = result.payload if isinstance(result.payload, dict) else {}
         return normalize_analysis(payload, source=result.source)
 
     def active_bins(self, tag: str) -> ActiveAuctions:
+        if self._should_skip(tag):
+            return ActiveAuctions()
         url = f"{BASE_URL}/auctions/tag/{quote(tag)}/active/bin"
         try:
             result = self.http.get_json(url)
-            active = normalize_active(result.payload, source=f"{result.source}:active/bin")
-            if active.active_count:
-                return active
+            return normalize_active(result.payload, source=f"{result.source}:active/bin", require_bin=True)
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl active/bin unavailable for {tag}: {exc}")
+            status = self._record_failure("active/bin", tag, exc)
+            if status in {"rate_limited", "unsupported"}:
+                return ActiveAuctions(source=status)
 
         overview_url = f"{BASE_URL}/auctions/tag/{quote(tag)}/active/overview?orderBy=LOWEST_PRICE"
         try:
             result = self.http.get_json(overview_url)
-            return normalize_active(result.payload, source=f"{result.source}:active/overview")
+            return normalize_active(result.payload, source=f"{result.source}:active/overview", require_bin=True)
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl active overview unavailable for {tag}: {exc}")
-            return ActiveAuctions()
+            status = self._record_failure("active overview", tag, exc)
+            return ActiveAuctions(source=status)
 
     def sold_summary(self, tag: str) -> SoldSummary:
+        if self._should_skip(tag):
+            return SoldSummary()
         url = f"{BASE_URL}/auctions/tag/{quote(tag)}/sold?page=0&pageSize=100"
         try:
             result = self.http.get_json(url)
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl sold auctions unavailable for {tag}: {exc}")
-            return SoldSummary()
-        return normalize_sold(result.payload)
+            status = self._record_failure("sold auctions", tag, exc)
+            return SoldSummary(source=status)
+        return normalize_sold(result.payload, source=result.source)
 
     def bazaar_snapshot_price(self, tag: str) -> float | None:
+        if self._should_skip(tag):
+            return None
         url = f"{BASE_URL}/bazaar/{quote(tag)}/snapshot"
         try:
             result = self.http.get_json(url)
         except ApiError as exc:
-            self.warnings.append(f"SkyCofl Bazaar snapshot unavailable for {tag}: {exc}")
+            self._record_failure("Bazaar snapshot", tag, exc)
             return None
         payload = result.payload
         if not isinstance(payload, dict):
@@ -104,6 +115,28 @@ class CoflClient:
             if isinstance(value, (int, float)) and value > 0:
                 return float(value)
         return None
+
+    def _should_skip(self, tag: str) -> bool:
+        return tag in self._unsupported_tags
+
+    def failure_status(self, tag: str) -> str | None:
+        return self._failure_status.get(tag)
+
+    def _record_failure(self, operation: str, tag: str, exc: ApiError) -> str:
+        text = str(exc)
+        if "429" in text:
+            status = "rate_limited"
+            self._failure_status[tag] = status
+            self.warnings.append(f"SkyCofl {operation} unavailable for {tag}: {exc}")
+            return status
+        if "400" in text or "Bad Request" in text:
+            status = "unsupported"
+            self._unsupported_tags.add(tag)
+        else:
+            status = "unavailable"
+        self._failure_status[tag] = status
+        self.warnings.append(f"SkyCofl {operation} unavailable for {tag}: {exc}")
+        return status
 
 
 def normalize_analysis(payload: dict[str, Any], *, source: str = "live") -> MarketAnalysis:
@@ -126,13 +159,15 @@ def normalize_analysis(payload: dict[str, Any], *, source: str = "live") -> Mark
     )
 
 
-def normalize_active(payload: Any, *, source: str = "live") -> ActiveAuctions:
+def normalize_active(payload: Any, *, source: str = "live", require_bin: bool = False) -> ActiveAuctions:
     rows = payload.get("auctions") if isinstance(payload, dict) else payload
     if not isinstance(rows, list):
         return ActiveAuctions(source=source)
     prices: list[float] = []
     for row in rows:
         if not isinstance(row, dict):
+            continue
+        if require_bin and not _is_bin_auction(row):
             continue
         value = _float_or_none(
             row.get("price")
@@ -155,7 +190,7 @@ def normalize_active(payload: Any, *, source: str = "live") -> ActiveAuctions:
     )
 
 
-def normalize_sold(payload: Any) -> SoldSummary:
+def normalize_sold(payload: Any, *, source: str = "live") -> SoldSummary:
     rows = payload.get("auctions") if isinstance(payload, dict) else payload
     if not isinstance(rows, list):
         return SoldSummary()
@@ -176,6 +211,7 @@ def normalize_sold(payload: Any) -> SoldSummary:
         min_price=min(prices),
         max_price=max(prices),
         confidence=min(1.0, len(prices) / 30),
+        source=source,
     )
 
 
@@ -190,3 +226,21 @@ def _float_or_none(value: Any) -> float | None:
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+def _is_bin_auction(row: dict[str, Any]) -> bool:
+    for key in ("bin", "isBin", "is_bin"):
+        if key not in row:
+            continue
+        value = row.get(key)
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            return value.strip().lower() in {"true", "1", "yes"}
+        if isinstance(value, (int, float)):
+            return bool(value)
+    for key in ("auctionType", "auction_type", "type"):
+        value = row.get(key)
+        if isinstance(value, str) and value.strip().lower() in {"bin", "buy_it_now", "buy-it-now"}:
+            return True
+    return False

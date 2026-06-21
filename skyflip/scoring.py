@@ -66,7 +66,12 @@ def evaluate_opportunity(
         rejection_reasons.extend(craft_cost.unavailable)
 
     if market.safe_sell_price is None:
-        rejection_reasons.append("safe sell price could not be estimated reliably")
+        if market.status == "rate_limited":
+            rejection_reasons.append("market check skipped due to SkyCofl rate limit")
+        elif market.status == "unsupported":
+            rejection_reasons.append("market data unsupported for this item")
+        else:
+            rejection_reasons.append("safe sell price could not be estimated reliably")
         safe_sell = 0.0
     else:
         safe_sell = market.safe_sell_price

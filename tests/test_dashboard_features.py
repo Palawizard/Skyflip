@@ -340,6 +340,51 @@ def test_craft_section_keeps_wand_and_excludes_event_recipe():
     assert "event-limited craft" in ring_rejection.reason
 
 
+def test_craft_section_can_use_auctioned_previous_wand_tier():
+    class FakeBazaar:
+        warnings = []
+
+        def price_for(self, tag, *, use_buy_order_cost=False):
+            prices = {
+                "REVENANT_FLESH": 4_000,
+                "REVENANT_VISCERA": 8_000,
+                "ENCHANTED_DARK_OAK_LOG": 12_000,
+            }
+            return BazaarPrice(tag, prices.get(tag, 100), "fake")
+
+    class FakeCofl:
+        warnings = []
+
+        def analysis(self, tag, days):
+            price = 389_999 if tag == "WAND_OF_MENDING" else 40_000
+            return MarketAnalysis(total_sales=80, sales_per_day=15, median_sell_time_hours=2, median_price=price)
+
+        def active_bins(self, tag):
+            price = 389_999 if tag == "WAND_OF_MENDING" else 40_000
+            return ActiveAuctions([price, price * 1.01, price * 1.02], 3, price, price * 1.01, None)
+
+        def sold_summary(self, tag):
+            return SoldSummary()
+
+        def bazaar_snapshot_price(self, tag):
+            return None
+
+    args = type("Args", (), {"recipes_file": "data/craft_recipes.json", "use_buy_order_cost": False, "days": 7})()
+    profile = PlayerProfile("PalaMC", "id", 1_000_000, 9_000_000, slayer_levels={"zombie": 3})
+
+    recommended, _rejected = analyze_craft_section(
+        args,
+        FakeBazaar(),
+        FakeCofl(),
+        profile,
+        config(limit=50, min_profit=5_000, min_profit_percent=2, min_sales_per_day=1),
+    )
+
+    mending = next(item for item in recommended if item.recipe.tag == "WAND_OF_MENDING")
+    previous = next(ingredient for ingredient in mending.craft_cost.ingredients if ingredient.tag == "WAND_OF_HEALING")
+    assert previous.source == "ah-buy-subitem"
+
+
 def test_craft_section_skips_non_auctionable_recipe_market_calls(tmp_path):
     recipe_file = tmp_path / "recipes.json"
     recipe_file.write_text(

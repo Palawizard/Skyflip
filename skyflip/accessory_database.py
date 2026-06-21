@@ -82,6 +82,11 @@ def load_accessory_database(path: str | Path = "data/accessories.json") -> Acces
                 source_notes=str(item.get("source_notes", "")),
                 last_verified=str(item.get("last_verified", "")),
                 requires_manual_verification=bool(item.get("requires_manual_verification", False)),
+                recommendation_eligible=bool(item.get("recommendation_eligible", True)),
+                ownership_detection_only=bool(item.get("ownership_detection_only", False)),
+                market_source=str(item.get("market_source", "ah")).lower(),
+                cofl_auction_supported=bool(item.get("cofl_auction_supported", True)),
+                cofl_price_supported=bool(item.get("cofl_price_supported", True)),
             )
         )
     database = AccessoryDatabase(_infer_accessory_families([item for item in accessories if item.is_accessory]))
@@ -141,6 +146,11 @@ def augment_with_hypixel_accessories(database: AccessoryDatabase, http: Any) -> 
                 source_notes="Imported from Hypixel item resources; accessory metadata only.",
                 last_verified="",
                 requires_manual_verification=True,
+                recommendation_eligible=True,
+                ownership_detection_only=True,
+                market_source="ah" if not soulbound else "manual",
+                cofl_auction_supported=not soulbound,
+                cofl_price_supported=not soulbound,
             )
         )
     return AccessoryDatabase(_infer_accessory_families(accessories))

@@ -4,7 +4,7 @@ import argparse
 import sys
 import threading
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime
 from pathlib import Path
 from types import SimpleNamespace
@@ -42,6 +42,7 @@ from .settings_profiles import (
     save_settings_profile,
 )
 from .terminal import print_dashboard_section, print_dashboard_status
+from .terminal_layout import get_terminal_size
 from .user_config import (
     BUDGET_SOURCE_CUSTOM,
     BUDGET_SOURCE_PURSE,
@@ -67,6 +68,7 @@ from .dashboard_menu_ui import (
     _ask_int,
     _ask_optional_float,
     _badge,
+    _capture_redraw_frame,
     _clear_screen,
     _coins,
     _draw_header,
@@ -82,6 +84,7 @@ from .dashboard_menu_ui import (
     _parse_sections,
     _pause,
     _pause_with_redraw,
+    _read_key,
     _read_key_with_redraw,
     _section_count,
     _section_hint,
@@ -90,9 +93,31 @@ from .dashboard_menu_ui import (
     _select_menu,
     _short_path,
     _value,
+    _write_redraw_frame,
 )
 
 
+
+
+TALISMAN_SORTS = ("score", "cost", "coin-per-mp", "rarity", "name", "status")
+TALISMAN_SORT_LABELS = {
+    "score": "score",
+    "cost": "cost",
+    "coin-per-mp": "coin/MP",
+    "rarity": "rarity",
+    "name": "name",
+    "status": "status",
+}
+RARITY_SORT = {
+    "common": 1,
+    "uncommon": 2,
+    "rare": 3,
+    "epic": 4,
+    "legendary": 5,
+    "mythic": 6,
+    "special": 7,
+    "very special": 8,
+}
 
 
 @dataclass
@@ -635,7 +660,7 @@ def _setting_label(field: str) -> str:
         "min_profit_percent": "Min margin",
         "min_sales_per_day": "Min sales per day",
         "max_median_sell_time_hours": "Max sell time",
-        "use_buy_order_cost": "Use buy order cost",
+        "use_buy_order_cost": "Use instant buy cost",
         "accessory_view": "View",
         "accessory_sort": "Sort",
         "max_accessory_price": "Max accessory price",
@@ -677,7 +702,7 @@ def _recommended_module_settings(args: argparse.Namespace, module: DashboardModu
             ("1", "Min profit", _coins(args.min_profit)),
             ("2", "Min margin", f"{args.min_profit_percent:g}%"),
             ("3", "Max craft cost", _optional_coins(args.max_craft_cost)),
-            ("4", "Ingredient pricing", "buy order" if args.use_buy_order_cost else "instant buy"),
+            ("4", "Ingredient pricing", "instant buy" if args.use_buy_order_cost else "sell-order side"),
         ]
     if module.key == "accessories":
         _ensure_talisman_attrs(args)
@@ -1028,7 +1053,7 @@ def _craft_flips_settings_menu(args: argparse.Namespace, state: _MenuState, reso
             "Craft flips settings",
             _refreshable_entries([
                 ("1", f"Max craft cost  {_optional_coins(args.max_craft_cost)}", "reject crafts above this cost"),
-                ("2", f"Use buy order cost  {'yes' if args.use_buy_order_cost else 'no'}", "price ingredients from buy-order side"),
+                ("2", f"Use instant buy cost  {'yes' if args.use_buy_order_cost else 'no'}", "price ingredients from the instant-buy side"),
                 ("3", f"Min profit  {_value(args.min_profit, coins=True)}", "minimum expected profit"),
                 ("4", f"Min profit percent  {args.min_profit_percent:g}%", "minimum margin"),
                 ("5", f"Min sales per day  {args.min_sales_per_day:g}", "market speed floor"),
@@ -1110,7 +1135,7 @@ def _talisman_settings_menu(args: argparse.Namespace, state: _MenuState, resolve
     _ensure_talisman_attrs(args)
     while True:
         choice = _select_menu(
-            "Talisman Helper settings",
+            "Accessories Helper settings",
             _refreshable_entries([
                 ("1", f"Max accessory price  {_optional_coins(args.max_accessory_price)}", "hide pricier recommendations"),
                 ("2", f"Max rows  {args.max_accessory_recommendations}", "rows shown in Recommended"),
@@ -1454,18 +1479,22 @@ def _refresh_module_results(
 
 
 def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, module: DashboardModule | None = None) -> None:
+    rejected_enable_presses = 0
     while True:
         data = state.latest
         if data is None:
             print("No results loaded. Refresh results first.")
             return
-        sort_key = _section_sort_key(state, key)
+        sort_key = _current_talisman_sort(state) if key == "talisman" else _section_sort_key(state, key)
         display_data = _module_scoped_data(data, module, key) if module is not None else data
-        sorted_data = _sorted_section_data(display_data, key, sort_key)
+        sorted_data = _sorted_talisman_data(display_data, sort_key) if key == "talisman" else _sorted_section_data(display_data, key, sort_key)
         def draw_screen() -> None:
             _clear_screen()
             _draw_header(SECTION_LABELS.get(key, _section_name(key)), args, state)
-            _draw_sort_hint(key, sort_key)
+            if key == "talisman":
+                _draw_talisman_sort_hint(sort_key)
+            else:
+                _draw_sort_hint(key, sort_key)
             if module is not None:
                 print(f"Filters: {_module_filter_summary(args, module)}")
             print()
@@ -1475,46 +1504,218 @@ def _show_result_section(args: argparse.Namespace, state: _MenuState, key: str, 
 
         if not _interactive_menu_enabled():
             draw_screen()
-            choice = input("Press R to refresh, D for details, left/right to change sort, or Enter to go back: ").strip().lower()
+            prompt = "Press R to refresh, D for details, left/right to change sort"
+            if key == "rejected" and not args.show_rejected:
+                prompt += ", S three times to show rejected"
+            choice = input(f"{prompt}, or Enter to go back: ").strip().lower()
             if choice == "left":
+                rejected_enable_presses = 0
                 _cycle_section_sort(state, key, -1)
                 continue
             if choice == "right":
+                rejected_enable_presses = 0
                 _cycle_section_sort(state, key, 1)
                 continue
             if choice in {"d", "details"} and module is not None:
+                rejected_enable_presses = 0
                 _module_detail_menu(args, state, module)
                 continue
             if choice in {"r", "refresh"}:
+                rejected_enable_presses = 0
                 if module is not None:
                     _refresh_module_results(args, state, module, resolve_uuid=getattr(state, "resolve_uuid", None), announce=False)
                 else:
                     _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
                 continue
+            if choice == "s" and key == "rejected" and not args.show_rejected:
+                rejected_enable_presses += 1
+                if rejected_enable_presses >= 3:
+                    args.show_rejected = True
+                    state.status_message = "Rejected rows enabled."
+                    rejected_enable_presses = 0
+                else:
+                    remaining = 3 - rejected_enable_presses
+                    state.status_message = f"Press S {remaining} more time{'s' if remaining != 1 else ''} to show rejected rows."
+                continue
             return
 
         def draw_interactive_screen() -> None:
             draw_screen()
-            print(_muted("Left/Right change sort   D details   R refresh   Enter/Esc back"))
+            footer = _result_section_footer(key, args)
+            if key == "talisman":
+                print(_muted(footer))
+            else:
+                print(_muted(footer))
 
-        choice = _read_key_with_redraw(draw_interactive_screen)
+        choice = _read_result_section_key(
+            draw_screen,
+            redraw_screen=draw_interactive_screen,
+            static_render=key == "talisman",
+            footer=_result_section_footer(key, args),
+        )
         if choice == "left":
-            _cycle_section_sort(state, key, -1)
+            rejected_enable_presses = 0
+            if key == "talisman":
+                _cycle_talisman_sort(state, -1)
+            else:
+                _cycle_section_sort(state, key, -1)
             continue
         if choice == "right":
-            _cycle_section_sort(state, key, 1)
+            rejected_enable_presses = 0
+            if key == "talisman":
+                _cycle_talisman_sort(state, 1)
+            else:
+                _cycle_section_sort(state, key, 1)
             continue
         if choice == "d" and module is not None:
+            rejected_enable_presses = 0
             _module_detail_menu(args, state, module)
             continue
         if choice == "r":
+            rejected_enable_presses = 0
             if module is not None:
                 _refresh_module_results(args, state, module, resolve_uuid=getattr(state, "resolve_uuid", None), announce=False)
             else:
                 _handle_global_refresh(choice, args, state, getattr(state, "resolve_uuid", None))
             continue
+        if choice == "s" and key == "rejected" and not args.show_rejected:
+            rejected_enable_presses += 1
+            if rejected_enable_presses >= 3:
+                args.show_rejected = True
+                state.status_message = "Rejected rows enabled."
+                rejected_enable_presses = 0
+            else:
+                remaining = 3 - rejected_enable_presses
+                state.status_message = f"Press S {remaining} more time{'s' if remaining != 1 else ''} to show rejected rows."
+            continue
+        if choice:
+            rejected_enable_presses = 0
         if choice in {"enter", "escape", "q", "b"}:
             return
+
+
+def _result_section_footer(key: str, args: argparse.Namespace) -> str:
+    parts = ["Up/Down scroll"]
+    parts.append("Left/Right change sort")
+    parts.append("D details")
+    parts.append("R refresh")
+    if key == "rejected" and not getattr(args, "show_rejected", False):
+        parts.append("S x3 show rejected")
+    parts.append("Enter/Esc back")
+    return "   ".join(parts)
+
+
+def _read_result_section_key(
+    draw_screen: Callable[[], None],
+    *,
+    static_render: bool = False,
+    footer: str = "",
+    redraw_screen: Callable[[], None] | None = None,
+) -> str:
+    lines = _capture_redraw_frame(draw_screen).splitlines()
+    if not static_render and not _frame_needs_scroll(lines, footer):
+        return _read_key_with_redraw(redraw_screen or draw_screen)
+    offset = 0
+    while True:
+        offset = _draw_static_scroll_frame(lines, offset, footer=footer)
+        key = _read_key(timeout=None)
+        if key == "up":
+            offset = max(0, offset - 1)
+            continue
+        if key == "down":
+            offset = min(_max_scroll_offset(lines, footer), offset + 1)
+            continue
+        if key:
+            return key
+
+
+def _frame_needs_scroll(lines: list[str], footer: str = "") -> bool:
+    footer_lines = 1 if footer else 0
+    return len(lines) + footer_lines > max(1, get_terminal_size().height)
+
+
+def _draw_static_scroll_frame(lines: list[str], offset: int, *, footer: str = "") -> int:
+    height = max(1, get_terminal_size().height)
+    footer_lines = 1 if footer else 0
+    content_height = max(1, height - footer_lines)
+    max_offset = max(0, len(lines) - content_height)
+    offset = max(0, min(offset, max_offset))
+    visible = lines[offset: offset + content_height]
+    frame = "\n".join(visible)
+    if footer:
+        position = f"{offset + 1}-{min(len(lines), offset + content_height)}/{len(lines)}" if lines else "0/0"
+        frame = f"{frame}\n{_muted(f'{footer}   [{position}]')}" if frame else _muted(f"{footer}   [{position}]")
+    _write_redraw_frame(frame)
+    return offset
+
+
+def _max_scroll_offset(lines: list[str], footer: str = "") -> int:
+    footer_lines = 1 if footer else 0
+    content_height = max(1, max(1, get_terminal_size().height) - footer_lines)
+    return max(0, len(lines) - content_height)
+
+
+def _current_talisman_sort(state: _MenuState) -> str:
+    value = state.section_sorts.get("talisman", TALISMAN_SORTS[0])
+    return value if value in TALISMAN_SORTS else TALISMAN_SORTS[0]
+
+
+def _cycle_talisman_sort(state: _MenuState, direction: int) -> None:
+    current = _current_talisman_sort(state)
+    index = TALISMAN_SORTS.index(current)
+    state.section_sorts["talisman"] = TALISMAN_SORTS[(index + direction) % len(TALISMAN_SORTS)]
+    if state.persist_sort_preferences:
+        save_sort_preferences(state.section_sorts)
+
+
+def _draw_talisman_sort_hint(sort_key: str) -> None:
+    options = " / ".join(
+        f"[{TALISMAN_SORT_LABELS[value]}]" if value == sort_key else TALISMAN_SORT_LABELS[value]
+        for value in TALISMAN_SORTS
+    )
+    print(_muted(f"Sort: {options}"))
+
+
+def _sorted_talisman_data(data, sort_key: str):
+    analysis = getattr(data, "talisman_helper", None)
+    if analysis is None:
+        return data
+    sorted_analysis = replace(
+        analysis,
+        recommendations=_sort_talisman_rows(analysis.recommendations, sort_key),
+        craftable=_sort_talisman_rows(analysis.craftable, sort_key),
+        ah_available=_sort_talisman_rows(analysis.ah_available, sort_key),
+        upgrades=_sort_talisman_rows(analysis.upgrades, sort_key),
+        locked=_sort_talisman_rows(analysis.locked, sort_key),
+        all_missing=_sort_talisman_rows(analysis.all_missing, sort_key),
+        owned=_sort_talisman_rows(analysis.owned, sort_key),
+        rows=_sort_talisman_rows(analysis.rows, sort_key),
+    )
+    values = dict(vars(data)) if hasattr(data, "__dict__") else {}
+    values["talisman_helper"] = sorted_analysis
+    return SimpleNamespace(**values)
+
+
+def _sort_talisman_rows(rows: list[object], sort_key: str) -> list[object]:
+    reverse = sort_key in {"score", "rarity"}
+    return sorted(rows, key=lambda row: _talisman_sort_value(row, sort_key), reverse=reverse)
+
+
+def _talisman_sort_value(row: object, sort_key: str):
+    entry = getattr(row, "entry", None)
+    if sort_key == "cost":
+        value = getattr(row, "estimated_cost", None)
+        return (value is None, value or 0, str(getattr(entry, "display_name", "")))
+    if sort_key == "coin-per-mp":
+        value = getattr(row, "coin_per_mp", None)
+        return (value is None, value or 0, str(getattr(entry, "display_name", "")))
+    if sort_key == "rarity":
+        return (RARITY_SORT.get(str(getattr(entry, "rarity", "")).lower(), 0), float(getattr(row, "score", 0) or 0))
+    if sort_key == "name":
+        return str(getattr(entry, "display_name", "")).lower()
+    if sort_key == "status":
+        return (str(getattr(row, "status", "")).lower(), str(getattr(entry, "display_name", "")).lower())
+    return (float(getattr(row, "score", 0) or 0), str(getattr(entry, "display_name", "")).lower())
 
 
 def _module_scoped_data(data, module: DashboardModule | None, key: str):

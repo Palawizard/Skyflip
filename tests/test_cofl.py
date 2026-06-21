@@ -1,4 +1,5 @@
-from skyflip.cofl import normalize_active, normalize_analysis, normalize_sold
+from skyflip.cofl import ActiveAuctions, CoflClient, SoldSummary, normalize_active, normalize_analysis, normalize_sold
+from skyflip.http import ApiError
 
 
 def test_normalize_analysis_current_shape():
@@ -39,9 +40,103 @@ def test_normalize_active_accepts_skycofl_starting_bid_shape():
     assert active.third_lowest_bin == 400_000
 
 
+def test_normalize_active_can_require_explicit_bin_rows():
+    active = normalize_active(
+        [
+            {"startingBid": 661, "bin": False},
+            {"startingBid": 190_000, "bin": True},
+            {"price": 200_000, "auctionType": "BIN"},
+            {"price": 150_000},
+        ],
+        require_bin=True,
+    )
+
+    assert active.lowest_bin == 190_000
+    assert active.second_lowest_bin == 200_000
+    assert active.active_count == 2
+
+
 def test_normalize_sold_uses_highest_bid_amount():
     sold = normalize_sold([{"highestBidAmount": 100}, {"highestBidAmount": 300}, {"highestBidAmount": 200}])
 
     assert sold.sale_count == 3
     assert sold.median_price == 200
     assert sold.mean_price == 200
+
+
+class FailingHttp:
+    def __init__(self, exc):
+        self.exc = exc
+        self.calls = []
+
+    def get_json(self, url):
+        self.calls.append(url)
+        raise self.exc
+
+
+class SequenceHttp:
+    def __init__(self, responses):
+        self.responses = list(responses)
+        self.calls = []
+
+    def get_json(self, url):
+        self.calls.append(url)
+        response = self.responses.pop(0)
+        if isinstance(response, Exception):
+            raise response
+        return type("Result", (), {"payload": response, "source": "fake", "url": url})()
+
+
+def test_cofl_bad_request_skips_remaining_tag_endpoints():
+    http = FailingHttp(ApiError("400 Client Error: Bad Request for url"))
+    cofl = CoflClient(http)
+
+    assert cofl.active_bins("BAD_TAG") == ActiveAuctions(source="unsupported")
+    assert cofl.analysis("BAD_TAG", 7) is None
+    assert cofl.sold_summary("BAD_TAG") == SoldSummary()
+
+    assert len(http.calls) == 1
+    assert len(cofl.warnings) == 1
+
+
+def test_cofl_rate_limit_does_not_skip_other_tags():
+    http = SequenceHttp([
+        ApiError("HTTP 429 for https://sky.coflnet.com/api/test"),
+        {"medianPrice": 123_000, "totalSales": 20, "salesPerDay": 5},
+    ])
+    cofl = CoflClient(http)
+
+    assert cofl.analysis("FIRST", 7) is None
+    second = cofl.analysis("SECOND", 7)
+
+    assert second is not None
+    assert second.median_price == 123_000
+    assert len(http.calls) == 2
+    assert len(cofl.warnings) == 1
+    assert cofl.failure_status("FIRST") == "rate_limited"
+
+
+def test_active_bins_does_not_use_overview_when_bin_endpoint_is_empty():
+    http = SequenceHttp([
+        [],
+        [{"price": 661}],
+    ])
+    cofl = CoflClient(http)
+
+    active = cofl.active_bins("WAND_OF_MENDING")
+
+    assert active == ActiveAuctions(source="fake:active/bin")
+    assert len(http.calls) == 1
+
+
+def test_active_bins_overview_fallback_rejects_unmarked_auctions():
+    http = SequenceHttp([
+        ApiError("HTTP 500 for active/bin"),
+        [{"price": 661}, {"price": 190_000, "bin": True}],
+    ])
+    cofl = CoflClient(http)
+
+    active = cofl.active_bins("WAND_OF_MENDING")
+
+    assert active.lowest_bin == 190_000
+    assert active.active_count == 1

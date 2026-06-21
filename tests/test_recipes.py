@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from skyflip.profile_parser import PlayerProfile
 from skyflip.recipes import Ingredient, Recipe, Requirements, check_eligibility, load_recipes
 
@@ -87,12 +90,20 @@ def test_wand_of_mending_stays_eligible_for_zombie_slayer_three():
 
 def test_craft_recipe_data_marks_unmarketable_and_uses_priceable_tags():
     recipes = {recipe.tag: recipe for recipe in load_recipes("data/craft_recipes.json")}
+    raw = json.loads(Path("data/craft_recipes.json").read_text(encoding="utf-8"))
+    disabled = {
+        row["output"]["tag"]: row
+        for row in raw["recipes"]
+        if row.get("disabled")
+    }
 
-    assert not recipes["RING_POTION_AFFINITY"].auctionable
-    assert not recipes["WOOD_TALISMAN"].auctionable
-    assert not recipes["WOLF_PAW"].auctionable
+    assert "RING_POTION_AFFINITY" not in recipes
+    assert "WOOD_TALISMAN" not in recipes
+    assert "WOLF_PAW" not in recipes
+    assert not disabled["RING_POTION_AFFINITY"]["output"]["auctionable"]
+    assert not disabled["WOOD_TALISMAN"]["output"]["auctionable"]
+    assert not disabled["WOLF_PAW"]["output"]["auctionable"]
     assert any(ingredient.tag == "WATER_LILY" for ingredient in recipes["HEALING_TALISMAN"].ingredients)
-    assert any(ingredient.tag == "WOLF_TOOTH" for ingredient in recipes["WOLF_PAW"].ingredients)
     assert all(
         ingredient.source != "bazaar" or ingredient.tag not in {"LILY_PAD", "OLD_WOLF_TOOTH", "OAK_WOOD", "SPRUCE_WOOD", "BIRCH_WOOD", "DARK_OAK_WOOD"}
         for recipe in recipes.values()

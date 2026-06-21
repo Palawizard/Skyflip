@@ -102,6 +102,11 @@ class AccessoryEntry:
     source_notes: str = ""
     last_verified: str = ""
     requires_manual_verification: bool = False
+    recommendation_eligible: bool = True
+    ownership_detection_only: bool = False
+    market_source: str = "ah"
+    cofl_auction_supported: bool = True
+    cofl_price_supported: bool = True
 
 
 @dataclass(frozen=True)

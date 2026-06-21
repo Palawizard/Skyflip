@@ -13,6 +13,7 @@ from .profile_parser import PlayerProfile
 from .report import hours, print_table
 from .scoring import Opportunity
 from .terminal_layout import compact_line, get_terminal_size, too_small_message, usable_width
+from .accessory_views import accessory_rows_for_view
 
 
 def compact_number(value: float | int | None) -> str:
@@ -86,7 +87,7 @@ def print_dashboard_status(data, *, last_refresh: str | None = None, auto_refres
             f"order {len(data.bazaar_orders)}, "
             f"compression {len(data.conversions)}, "
             f"AH {len(data.ah_underpriced)}, "
-            f"talisman {len(data.talisman_helper.recommendations) if getattr(data, 'talisman_helper', None) else 0}, "
+            f"accessories {len(accessory_rows_for_view(getattr(data, 'talisman_helper', None)))}, "
             f"warnings {len(data.warnings)}"
         )
     )
@@ -108,7 +109,7 @@ def print_dashboard_section(data, section: str, *, show_rejected: bool = False) 
         _print_ah_underpriced(data.ah_underpriced)
     elif section == "talisman":
         if data.talisman_helper is None:
-            print("Talisman Helper was not loaded. Enable the talisman section and refresh.")
+            print("Accessories Helper was not loaded. Enable the accessories section and refresh.")
         else:
             _print_talisman_helper(data.talisman_helper)
     elif section == "rejected":
@@ -179,13 +180,14 @@ def _print_craft(items: list[Opportunity]) -> None:
                 str(rank),
                 _with_qty(item.recipe.name, item.max_batch_size),
                 compact_number(item.estimated_profit),
+                compact_number(item.estimated_profit * item.max_batch_size),
                 f"{item.profit_percent:.1f}%",
                 item.speed_label,
                 f"{item.confidence:.0f}%",
             ]
         )
     _print_or_empty(
-        ["#", "Item xQty", "Profit", "Margin", "Speed", "Conf"],
+        ["#", "Item xQty", "Profit/item", "Batch profit", "Margin", "Speed", "Conf"],
         rows,
         "No craft flips passed the configured filters.",
     )
@@ -297,7 +299,7 @@ def _print_ah_underpriced(items: list[AhUnderpricedOpportunity]) -> None:
 
 
 def _print_talisman_helper(analysis: AccessoryAnalysis, *, view: str | None = None) -> None:
-    _print_section_title("G. Talisman Helper")
+    _print_section_title("G. Accessories Helper")
     view = (view or analysis.view or "recommended").lower().replace("_", "-")
     summary = analysis.summary
     print(
