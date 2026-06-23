@@ -3,6 +3,7 @@ from skyflip.dashboard_menu_ui import (
     _clear_line_endings,
     _enter_terminal_app_mode,
     _exit_terminal_app_mode,
+    _key_name_from_posix_escape_sequence,
     _pause_with_redraw,
     _read_key_with_redraw,
 )
@@ -105,6 +106,33 @@ def test_terminal_app_mode_can_be_disabled(monkeypatch, capsys):
 
 def test_clear_line_endings_prevents_stale_characters():
     assert _clear_line_endings("short\nlast") == "short\033[K\nlast\033[K"
+
+
+def test_posix_escape_parser_handles_standard_arrows():
+    assert _key_name_from_posix_escape_sequence("[A") == "up"
+    assert _key_name_from_posix_escape_sequence("[B") == "down"
+    assert _key_name_from_posix_escape_sequence("[C") == "right"
+    assert _key_name_from_posix_escape_sequence("[D") == "left"
+
+
+def test_posix_escape_parser_handles_application_cursor_arrows():
+    assert _key_name_from_posix_escape_sequence("OA") == "up"
+    assert _key_name_from_posix_escape_sequence("OB") == "down"
+    assert _key_name_from_posix_escape_sequence("OC") == "right"
+    assert _key_name_from_posix_escape_sequence("OD") == "left"
+
+
+def test_posix_escape_parser_handles_modified_arrows():
+    assert _key_name_from_posix_escape_sequence("[1;2A") == "up"
+    assert _key_name_from_posix_escape_sequence("[1;5B") == "down"
+    assert _key_name_from_posix_escape_sequence("[1;3C") == "right"
+    assert _key_name_from_posix_escape_sequence("[1;4D") == "left"
+
+
+def test_posix_escape_parser_keeps_escape_separate_from_unknown_sequences():
+    assert _key_name_from_posix_escape_sequence("") == "escape"
+    assert _key_name_from_posix_escape_sequence("[200~") == ""
+    assert _key_name_from_posix_escape_sequence("x") == ""
 
 
 def test_select_menu_uses_redraw_loop_in_interactive_mode(monkeypatch, capsys):

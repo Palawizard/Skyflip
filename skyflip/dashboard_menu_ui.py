@@ -29,8 +29,21 @@ SECTION_LABELS = {
 
 TERMINAL_REDRAW_FPS = 8.0
 _KEY_POLL_SECONDS = 0.01
+_ESCAPE_SEQUENCE_SECONDS = 0.05
+_MAX_ESCAPE_SEQUENCE_CHARS = 16
 _REDRAW_CAPTURE_DEPTH = 0
 _TERMINAL_APP_MODE_DEPTH = 0
+_ARROW_KEY_NAMES = {"A": "up", "B": "down", "C": "right", "D": "left"}
+_CONTROL_SEQUENCE_KEY_NAMES = {
+    "H": "home",
+    "F": "end",
+    "1~": "home",
+    "4~": "end",
+    "5~": "page_up",
+    "6~": "page_down",
+    "7~": "home",
+    "8~": "end",
+}
 
 
 def _parse_sections(value: str) -> list[str]:
@@ -340,18 +353,52 @@ def _read_key(timeout: float | None = None) -> str:
                 return ""
         char = sys.stdin.read(1)
         if char == "\x1b":
-            ready, _, _ = select.select([sys.stdin], [], [], _KEY_POLL_SECONDS)
-            next_chars = sys.stdin.read(2) if ready else ""
-            if next_chars == "[A":
-                return "up"
-            if next_chars == "[B":
-                return "down"
-            return "escape"
+            return _read_posix_escape_key(select.select)
         if char in ("\r", "\n"):
             return "enter"
         return char.lower()
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
+def _read_posix_escape_key(select_fn: Callable[..., tuple[list[object], list[object], list[object]]]) -> str:
+    sequence = ""
+    deadline = time.monotonic() + _ESCAPE_SEQUENCE_SECONDS
+    while len(sequence) < _MAX_ESCAPE_SEQUENCE_CHARS:
+        remaining = max(0.0, deadline - time.monotonic())
+        ready, _, _ = select_fn([sys.stdin], [], [], remaining)
+        if not ready:
+            break
+        sequence += sys.stdin.read(1)
+        if _posix_escape_sequence_complete(sequence):
+            break
+    return _key_name_from_posix_escape_sequence(sequence)
+
+
+def _posix_escape_sequence_complete(sequence: str) -> bool:
+    if not sequence:
+        return False
+    if sequence[0] == "[":
+        return len(sequence) > 1 and 0x40 <= ord(sequence[-1]) <= 0x7E
+    if sequence[0] == "O":
+        return len(sequence) > 1
+    return True
+
+
+def _key_name_from_posix_escape_sequence(sequence: str) -> str:
+    if not sequence:
+        return "escape"
+    if sequence[0] == "O" and len(sequence) >= 2:
+        final = sequence[-1]
+        return _ARROW_KEY_NAMES.get(final) or _CONTROL_SEQUENCE_KEY_NAMES.get(final, "")
+    if sequence[0] != "[" or len(sequence) < 2:
+        return ""
+
+    final = sequence[-1]
+    if final in _ARROW_KEY_NAMES:
+        return _ARROW_KEY_NAMES[final]
+    payload = sequence[1:]
+    return _CONTROL_SEQUENCE_KEY_NAMES.get(payload, "")
 
 
 def _read_key_with_redraw(
