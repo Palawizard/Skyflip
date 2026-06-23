@@ -267,6 +267,14 @@ def _select_menu(
             selected = (selected - 1) % len(entries)
         elif key == "down":
             selected = (selected + 1) % len(entries)
+        elif key == "home":
+            selected = 0
+        elif key == "end":
+            selected = len(entries) - 1
+        elif key == "page_up":
+            selected = max(0, selected - _selection_page_size(entries))
+        elif key == "page_down":
+            selected = min(len(entries) - 1, selected + _selection_page_size(entries))
         elif key == "enter":
             return entries[selected][0].lower()
         elif key in {"escape", "q"}:
@@ -277,6 +285,10 @@ def _select_menu(
             for entry_key, _, _ in entries:
                 if key == entry_key.lower():
                     return entry_key.lower()
+
+
+def _selection_page_size(entries: list[tuple[str, str, str]]) -> int:
+    return max(1, min(10, len(entries) // 2 or 1))
 
 
 def _draw_selectable_entries(entries: list[tuple[str, str, str]], selected: int) -> None:

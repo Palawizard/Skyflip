@@ -1625,6 +1625,18 @@ def _read_result_section_key(
         if key == "down":
             offset = min(_max_scroll_offset(lines, footer), offset + 1)
             continue
+        if key == "home":
+            offset = 0
+            continue
+        if key == "end":
+            offset = _max_scroll_offset(lines, footer)
+            continue
+        if key == "page_up":
+            offset = max(0, offset - _scroll_page_size(footer))
+            continue
+        if key == "page_down":
+            offset = min(_max_scroll_offset(lines, footer), offset + _scroll_page_size(footer))
+            continue
         if key:
             return key
 
@@ -1653,6 +1665,11 @@ def _max_scroll_offset(lines: list[str], footer: str = "") -> int:
     footer_lines = 1 if footer else 0
     content_height = max(1, max(1, get_terminal_size().height) - footer_lines)
     return max(0, len(lines) - content_height)
+
+
+def _scroll_page_size(footer: str = "") -> int:
+    footer_lines = 1 if footer else 0
+    return max(1, max(1, get_terminal_size().height) - footer_lines)
 
 
 def _current_talisman_sort(state: _MenuState) -> str:
@@ -1967,5 +1984,4 @@ def _infer_player_name(path: Path) -> str | None:
         if first:
             return first
     return None
-
 

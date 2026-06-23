@@ -159,6 +159,48 @@ def test_select_menu_uses_redraw_loop_in_interactive_mode(monkeypatch, capsys):
     assert "First action" in capsys.readouterr().out
 
 
+def test_select_menu_handles_page_navigation_in_interactive_mode(monkeypatch):
+    keys = iter(["page_down", "enter"])
+
+    def fake_redraw_loop(draw_screen):
+        draw_screen()
+        return next(keys)
+
+    monkeypatch.setattr(menu_ui, "_interactive_menu_enabled", lambda: True)
+    monkeypatch.setattr(menu_ui, "_read_key_with_redraw", fake_redraw_loop)
+
+    choice = menu_ui._select_menu(
+        "Test",
+        [(str(index), f"Action {index}", "hint") for index in range(1, 8)],
+        args=None,
+        state=None,
+        prompt="Choose",
+    )
+
+    assert choice == "4"
+
+
+def test_select_menu_handles_home_and_end_in_interactive_mode(monkeypatch):
+    keys = iter(["end", "home", "enter"])
+
+    def fake_redraw_loop(draw_screen):
+        draw_screen()
+        return next(keys)
+
+    monkeypatch.setattr(menu_ui, "_interactive_menu_enabled", lambda: True)
+    monkeypatch.setattr(menu_ui, "_read_key_with_redraw", fake_redraw_loop)
+
+    choice = menu_ui._select_menu(
+        "Test",
+        [("1", "First action", "hint"), ("2", "Second action", "hint")],
+        args=None,
+        state=None,
+        prompt="Choose",
+    )
+
+    assert choice == "1"
+
+
 def test_pause_with_redraw_uses_redraw_loop_in_interactive_mode(monkeypatch):
     redraw_calls = []
 

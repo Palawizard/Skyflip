@@ -337,6 +337,32 @@ def test_static_result_section_scrolls_with_arrow_keys(monkeypatch, capsys):
     assert capsys.readouterr().out == ""
 
 
+def test_static_result_section_scrolls_with_page_keys(monkeypatch):
+    keys = iter(["page_down", "end", "page_up", "home", "enter"])
+    writes = []
+
+    def fake_read_key(*, timeout=None):
+        return next(keys)
+
+    def draw_screen():
+        for index in range(1, 11):
+            print(f"line {index}")
+
+    monkeypatch.setattr(dashboard_menu, "get_terminal_size", lambda: SimpleNamespace(height=4))
+    monkeypatch.setattr(dashboard_menu, "_read_key", fake_read_key)
+    monkeypatch.setattr(dashboard_menu, "_write_redraw_frame", lambda frame: writes.append(frame))
+
+    choice = dashboard_menu._read_result_section_key(draw_screen, static_render=True, footer="Up/Down scroll")
+
+    assert choice == "enter"
+    assert len(writes) == 5
+    assert "line 1" in writes[0]
+    assert "line 4" in writes[1]
+    assert "line 8" in writes[2]
+    assert "line 5" in writes[3]
+    assert "line 1" in writes[4]
+
+
 def test_oversized_result_section_uses_static_scroll(monkeypatch):
     keys = iter(["enter"])
     writes = []
