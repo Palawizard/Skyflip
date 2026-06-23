@@ -1,3 +1,10 @@
+import os
+import sys
+import threading
+import time
+
+import pytest
+
 import skyflip.dashboard_menu_ui as menu_ui
 from skyflip.dashboard_menu_ui import (
     _clear_line_endings,
@@ -5,6 +12,8 @@ from skyflip.dashboard_menu_ui import (
     _exit_terminal_app_mode,
     _key_name_from_posix_escape_sequence,
     _pause_with_redraw,
+    _read_posix_escape_key,
+    _read_key,
     _read_key_with_redraw,
 )
 
@@ -133,6 +142,60 @@ def test_posix_escape_parser_keeps_escape_separate_from_unknown_sequences():
     assert _key_name_from_posix_escape_sequence("") == "escape"
     assert _key_name_from_posix_escape_sequence("[200~") == ""
     assert _key_name_from_posix_escape_sequence("x") == ""
+
+
+def test_posix_escape_reader_reads_from_file_descriptor():
+    chars = iter("[C")
+    selected_fds = []
+
+    def select_fn(readers, writers, errors, timeout):
+        selected_fds.append(readers[0])
+        return ([readers[0]], writers, errors)
+
+    def read_char(fd):
+        assert fd == 123
+        return next(chars)
+
+    assert _read_posix_escape_key(123, select_fn, read_char) == "right"
+    assert selected_fds == [123, 123]
+
+
+def test_posix_escape_reader_returns_escape_when_sequence_does_not_arrive():
+    def select_fn(readers, writers, errors, timeout):
+        return ([], writers, errors)
+
+    assert _read_posix_escape_key(123, select_fn, lambda fd: "") == "escape"
+
+
+@pytest.mark.skipif(os.name == "nt" or not hasattr(os, "openpty"), reason="requires a POSIX pty")
+def test_read_key_handles_posix_arrow_sequences_from_pty():
+    original_stdin = sys.stdin
+    cases = [
+        (b"\x1b[A", "up"),
+        (b"\x1b[B", "down"),
+        (b"\x1b[C", "right"),
+        (b"\x1b[D", "left"),
+        (b"\x1bOA", "up"),
+    ]
+
+    for sequence, expected in cases:
+        master, slave = os.openpty()
+        stdin = os.fdopen(slave, "r", encoding="utf-8", buffering=1)
+        try:
+            sys.stdin = stdin
+
+            def write_sequence():
+                time.sleep(0.01)
+                os.write(master, sequence)
+
+            writer = threading.Thread(target=write_sequence)
+            writer.start()
+            assert _read_key(timeout=0.5) == expected
+            writer.join(timeout=0.5)
+        finally:
+            sys.stdin = original_stdin
+            stdin.close()
+            os.close(master)
 
 
 def test_select_menu_uses_redraw_loop_in_interactive_mode(monkeypatch, capsys):

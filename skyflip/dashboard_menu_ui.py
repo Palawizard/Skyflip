@@ -360,12 +360,12 @@ def _read_key(timeout: float | None = None) -> str:
     try:
         tty.setraw(fd)
         if timeout is not None:
-            ready, _, _ = select.select([sys.stdin], [], [], max(0.0, timeout))
+            ready, _, _ = select.select([fd], [], [], max(0.0, timeout))
             if not ready:
                 return ""
-        char = sys.stdin.read(1)
+        char = _read_posix_char(fd)
         if char == "\x1b":
-            return _read_posix_escape_key(select.select)
+            return _read_posix_escape_key(fd, select.select)
         if char in ("\r", "\n"):
             return "enter"
         return char.lower()
@@ -373,15 +373,27 @@ def _read_key(timeout: float | None = None) -> str:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
 
-def _read_posix_escape_key(select_fn: Callable[..., tuple[list[object], list[object], list[object]]]) -> str:
+def _read_posix_char(fd: int) -> str:
+    data = os.read(fd, 1)
+    return data.decode(errors="ignore") if data else ""
+
+
+def _read_posix_escape_key(
+    fd: int,
+    select_fn: Callable[..., tuple[list[object], list[object], list[object]]],
+    read_char: Callable[[int], str] = _read_posix_char,
+) -> str:
     sequence = ""
     deadline = time.monotonic() + _ESCAPE_SEQUENCE_SECONDS
     while len(sequence) < _MAX_ESCAPE_SEQUENCE_CHARS:
         remaining = max(0.0, deadline - time.monotonic())
-        ready, _, _ = select_fn([sys.stdin], [], [], remaining)
+        ready, _, _ = select_fn([fd], [], [], remaining)
         if not ready:
             break
-        sequence += sys.stdin.read(1)
+        char = read_char(fd)
+        if not char:
+            break
+        sequence += char
         if _posix_escape_sequence_complete(sequence):
             break
     return _key_name_from_posix_escape_sequence(sequence)
