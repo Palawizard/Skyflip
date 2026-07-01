@@ -1,5 +1,9 @@
 # SkyFlip
 
+<p align="center">
+  <img src="assets/icon.svg" alt="SkyFlip icon" width="128">
+</p>
+
 Local terminal dashboard for manual Hypixel SkyBlock flipping analysis.
 
 SkyFlip checks craft flips, Bazaar spread/order flips, Bazaar compression/decompression, manual AH BIN candidates, and accessory recommendations. It does not automate any in-game action.
