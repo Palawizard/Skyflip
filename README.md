@@ -39,7 +39,7 @@ Run tests:
 pytest
 ```
 
-## Local Datasets
+## Local datasets
 
 SkyFlip uses editable local datasets in `data/` for content Hypixel does not expose as one complete stable resource:
 
